@@ -5,7 +5,7 @@ import os
 # The SEC requires a specific User-Agent header
 # Format: "Name (email)"
 HEADERS = {
-    "User-Agent": "DAT-Monitor/1.0 (your-email@example.com)"
+    "User-Agent": "DAT-Monitor/1.0 (anthony.lin@artemisanalytics.xyz)"
 }
 
 def fetch_sec_data():
