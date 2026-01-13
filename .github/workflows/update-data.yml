@@ -1,34 +1,32 @@
 name: Update DAT Data
-
 on:
   schedule:
     # Runs at 10am, 2pm, 6pm ET on weekdays (14:00, 18:00, 22:00 UTC)
     - cron: '0 14,18,22 * * 1-5'
-  workflow_dispatch:  # Allows manual trigger from GitHub UI
-
+  workflow_dispatch:
+    # Allows you to trigger it manually from the Actions tab
 jobs:
   update-data:
     runs-on: ubuntu-latest
-    
+    permissions:
+      contents: write  # Crucial for allowing the bot to save data.json
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
+
       - name: Install dependencies
-        run: |
-          pip install requests beautifulsoup4 lxml
-      
+        run: pip install requests beautifulsoup4 lxml
+
       - name: Run scraper
         env:
           SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
-        run: |
-          python scripts/scraper.py
-      
+        run: python scripts/scraper.py
+
       - name: Commit and push if changed
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
