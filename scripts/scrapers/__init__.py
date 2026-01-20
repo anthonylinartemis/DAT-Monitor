@@ -2,9 +2,9 @@
 Scrapers package for DAT Treasury Monitor.
 """
 
-from .base import BaseScraper, ScraperResult
-from .sec_scraper import SECScraper
-from .web_scraper import WebScraper, DashboardScraper
+from scrapers.base import BaseScraper, ScraperResult
+from scrapers.sec_scraper import SECScraper
+from scrapers.web_scraper import WebScraper, DashboardScraper
 
 __all__ = [
     "BaseScraper",

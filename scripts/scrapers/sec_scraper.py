@@ -10,12 +10,12 @@ from typing import Optional
 
 from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
 
-from .base import (
+from scrapers.base import (
     BaseScraper, ScraperResult, SEC_BASE,
     ACTION_KEYWORDS, ASSET_KEYWORDS, STRATEGY_KEYWORDS,
     FUNDING_KEYWORDS, METRIC_ANCHORS, SEC_ITEM_KEYWORDS
 )
-from ..utils.parsers import extract_numbers_from_text, extract_holdings_with_regex, is_reasonable_change
+from utils.parsers import extract_numbers_from_text, extract_holdings_with_regex, is_reasonable_change
 
 # Suppress XML parsing warnings
 warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)

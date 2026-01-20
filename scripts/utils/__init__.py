@@ -2,7 +2,7 @@
 Utilities package for DAT Treasury Monitor.
 """
 
-from .parsers import (
+from utils.parsers import (
     clean_numeric_string,
     extract_numbers_from_text,
     extract_holdings_with_regex,

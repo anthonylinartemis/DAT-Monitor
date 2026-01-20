@@ -9,8 +9,8 @@ from typing import Optional
 
 from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
 
-from .base import BaseScraper, ScraperResult
-from ..utils.parsers import (
+from scrapers.base import BaseScraper, ScraperResult
+from utils.parsers import (
     clean_numeric_string,
     extract_holdings_with_regex,
     extract_numbers_from_text,

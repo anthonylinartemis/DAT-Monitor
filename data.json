@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-01-20T17:43:36.656620",
-  "lastUpdatedDisplay": "Jan 20, 2026 05:43 PM EST",
+  "lastUpdated": "2026-01-20T18:11:28.545574",
+  "lastUpdatedDisplay": "Jan 20, 2026 06:11 PM EST",
   "recentChanges": [
     {
       "ticker": "MSTR",
@@ -57,7 +57,16 @@
         "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526016002/mstr-20260105.htm",
         "alertDate": "2026-01-20",
         "alertNote": "8-K: 8-K",
-        "lastSecUpdate": "2026-01-20"
+        "lastSecUpdate": "2026-01-20",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "lastErrorTime": "2026-01-20T18:11:07.962465",
+        "lastChecked": "2026-01-20T18:11:24.288556"
       },
       {
         "ticker": "XXI",
@@ -70,7 +79,14 @@
         "irUrl": "https://xxi.money/",
         "alertUrl": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0002070457&type=S-1",
         "alertDate": "2026-01-05",
-        "alertNote": "S-1 filing"
+        "alertNote": "S-1 filing",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:24.479367"
       },
       {
         "ticker": "MTPLF",
@@ -80,7 +96,16 @@
         "lastUpdate": "2025-12-30",
         "change": 4279,
         "cik": "",
-        "irUrl": "https://metaplanet.jp/en/shareholders/disclosures"
+        "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
+        "scrape_config": {
+          "method": "html_static",
+          "source_url": "https://metaplanet.jp/en/shareholders/disclosures",
+          "target_regex": "(\\d[\\d,]+)\\s*BTC"
+        },
+        "status": "ok",
+        "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "lastErrorTime": "2026-01-20T18:11:08.401882",
+        "lastChecked": "2026-01-20T18:11:24.675753"
       },
       {
         "ticker": "ASST",
@@ -90,7 +115,16 @@
         "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
-        "dashboardUrl": "https://treasury.strive.com/"
+        "dashboardUrl": "https://treasury.strive.com/",
+        "scrape_config": {
+          "method": "html_static",
+          "source_url": "https://treasury.strive.com/",
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "lastErrorTime": "2026-01-20T18:11:08.617945",
+        "lastChecked": "2026-01-20T18:11:24.841841"
       },
       {
         "ticker": "NAKA",
@@ -100,7 +134,14 @@
         "lastUpdate": "2025-11-19",
         "change": 0,
         "cik": "0001946573",
-        "irUrl": "https://nakamoto.com/dashboard"
+        "irUrl": "https://nakamoto.com/dashboard",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:24.991398"
       },
       {
         "ticker": "ABTC",
@@ -110,7 +151,14 @@
         "lastUpdate": "2026-01-05",
         "change": 644,
         "cik": "0001755953",
-        "irUrl": "https://www.abtc.com/news"
+        "irUrl": "https://www.abtc.com/news",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:25.179816"
       }
     ],
     "ETH": [
@@ -126,7 +174,16 @@
         "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002762/form8-k.htm",
         "alertDate": "2026-01-20",
         "alertNote": "8-K: 8-K",
-        "lastSecUpdate": "2026-01-20"
+        "lastSecUpdate": "2026-01-20",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "lastErrorTime": "2026-01-20T18:11:09.191496",
+        "lastChecked": "2026-01-20T18:11:25.586838"
       },
       {
         "ticker": "SBET",
@@ -136,7 +193,16 @@
         "lastUpdate": "2026-01-08",
         "change": 0,
         "cik": "0001811115",
-        "irUrl": "https://investors.sharplink.com/"
+        "irUrl": "https://investors.sharplink.com/",
+        "scrape_config": {
+          "method": "playwright_js",
+          "source_url": "https://investors.sharplink.com/",
+          "target_regex": "(\\d[\\d,\\.]+)\\s*(million)?\\s*ETH"
+        },
+        "status": "ok",
+        "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
+        "lastErrorTime": "2026-01-20T18:11:09.405243",
+        "lastChecked": "2026-01-20T18:11:25.773873"
       },
       {
         "ticker": "ETHM",
@@ -145,7 +211,14 @@
         "lastUpdate": "2025-09-02",
         "change": 0,
         "cik": "0002028699",
-        "irUrl": "https://ethermachine.com/investors"
+        "irUrl": "https://ethermachine.com/investors",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:25.937552"
       },
       {
         "ticker": "BTBT",
@@ -154,7 +227,14 @@
         "lastUpdate": "2026-01-07",
         "change": 0,
         "cik": "0001710350",
-        "irUrl": "https://bit-digital.com/investors/"
+        "irUrl": "https://bit-digital.com/investors/",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:26.114240"
       },
       {
         "ticker": "BTCS",
@@ -167,7 +247,14 @@
         "irUrl": "https://www.btcs.com/news-media/",
         "alertUrl": "https://www.globenewswire.com/news-release/2026/01/07/3214520/0/en/BTCS-Record-Revenue.html",
         "alertDate": "2026-01-07",
-        "alertNote": "2025 shareholder letter"
+        "alertNote": "2025 shareholder letter",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:26.265536"
       },
       {
         "ticker": "FGNX",
@@ -176,7 +263,14 @@
         "lastUpdate": "2025-12-17",
         "change": 0,
         "cik": "0001591890",
-        "irUrl": "https://fgnexus.io/news/"
+        "irUrl": "https://fgnexus.io/news/",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:26.452940"
       },
       {
         "ticker": "ETHZ",
@@ -186,7 +280,14 @@
         "lastUpdate": "2025-12-01",
         "change": 0,
         "cik": "0001690080",
-        "irUrl": "https://www.ethzilla.com/investors"
+        "irUrl": "https://www.ethzilla.com/investors",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:26.623253"
       }
     ],
     "SOL": [
@@ -198,7 +299,14 @@
         "lastUpdate": "2025-12-02",
         "change": 0,
         "cik": "0000038264",
-        "irUrl": "https://www.forwardindustries.com/media"
+        "irUrl": "https://www.forwardindustries.com/media",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:26.803623"
       },
       {
         "ticker": "HSDT",
@@ -208,7 +316,14 @@
         "lastUpdate": "2025-10-29",
         "change": 0,
         "cik": "0001610853",
-        "irUrl": "https://www.solanacompany.co/"
+        "irUrl": "https://www.solanacompany.co/",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:26.972784"
       },
       {
         "ticker": "DFDV",
@@ -221,7 +336,14 @@
         "irUrl": "https://defidevcorp.com/investor",
         "alertUrl": "https://www.globenewswire.com/news-release/2026/01/07/3214530/0/en/DeFi-Development-Year-Review.html",
         "alertDate": "2026-01-08",
-        "alertNote": "2025 Year in Review"
+        "alertNote": "2025 Year in Review",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:27.199239"
       },
       {
         "ticker": "UPXI",
@@ -234,7 +356,14 @@
         "irUrl": "https://ir.upexi.com/",
         "alertUrl": "https://www.globenewswire.com/news-release/2026/01/07/3214451/0/en/Upexi-High-Return-Strategy.html",
         "alertDate": "2026-01-07",
-        "alertNote": "High-yield strategy"
+        "alertNote": "High-yield strategy",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:27.373500"
       },
       {
         "ticker": "STSS",
@@ -247,7 +376,14 @@
         "irUrl": "https://www.sharpstechnology.com/investors/news",
         "alertUrl": "https://www.globenewswire.com/news-release/2026/01/12/3216808/0/en/Sharps-Coinbase-Validator.html",
         "alertDate": "2026-01-12",
-        "alertNote": "Coinbase validator launch"
+        "alertNote": "Coinbase validator launch",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:27.554010"
       }
     ],
     "HYPE": [
@@ -259,7 +395,14 @@
         "lastUpdate": "2025-07-14",
         "change": 0,
         "cik": "0001106838",
-        "irUrl": "https://www.sonnetbio.com/investors/news-events"
+        "irUrl": "https://www.sonnetbio.com/investors/news-events",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:27.742311"
       },
       {
         "ticker": "HYPD",
@@ -272,7 +415,14 @@
         "irUrl": "https://ir.hyperiondefi.com/",
         "alertUrl": "https://www.globenewswire.com/news-release/2026/01/12/3216808/0/en/Hyperion-DeFi-Shareholder-Letter.html",
         "alertDate": "2026-01-12",
-        "alertNote": "CEO shareholder letter"
+        "alertNote": "CEO shareholder letter",
+        "scrape_config": {
+          "method": "sec_edgar",
+          "source_url": null,
+          "target_regex": null
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:27.915916"
       }
     ],
     "BNB": [
@@ -285,7 +435,14 @@
         "cik": "0001482541",
         "irUrl": "https://ceaindustries.com/investors.html",
         "dashboardUrl": "https://ceaindustries.com/dashboard.html",
-        "dataUrl": "https://ceaindustries.com/data.js"
+        "dataUrl": "https://ceaindustries.com/data.js",
+        "scrape_config": {
+          "method": "html_static",
+          "source_url": "https://ceaindustries.com/data.js",
+          "target_regex": "totalHoldings:\\s*(\\d+)"
+        },
+        "status": "ok",
+        "lastChecked": "2026-01-20T18:11:28.545548"
       }
     ]
   },
