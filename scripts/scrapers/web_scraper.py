@@ -148,12 +148,24 @@ class WebScraper(BaseScraper):
         text_lower = text.lower()
         keywords = self.get_keywords()
 
+        # Special handling for BTC - check for ₿ symbol (case-sensitive)
+        if self.token == "BTC":
+            btc_symbol_match = re.search(r'₿\s*([\d,]+)', text)
+            if btc_symbol_match:
+                num_str = btc_symbol_match.group(1)
+                try:
+                    num = int(num_str.replace(",", ""))
+                    if self._is_valid_holdings_amount(num):
+                        return num
+                except (ValueError, AttributeError):
+                    pass
+
         # Check if page mentions our token
         token_mentioned = any(kw in text_lower for kw in keywords)
         if not token_mentioned:
             return None
 
-        # Try custom regex first
+        # Try custom regex first (case-insensitive by default)
         custom_regex = self.get_target_regex()
         if custom_regex:
             result = extract_holdings_with_regex(text, custom_regex)
@@ -167,12 +179,17 @@ class WebScraper(BaseScraper):
             rf'treasury\s*:?\s*(\d[\d,\.]+)',
             rf'holdings?\s*:?\s*(\d[\d,\.]+)',
             rf'balance\s*:?\s*(\d[\d,\.]+)',
+            rf'total\s+{self.token}\s+count[:\s]*(\d[\d,\.]+)',
+            rf'total\s+sol\s+count[:\s]*(\d[\d,\.]+)',
+            rf'total\s+eth[:\s]*(\d[\d,\.]+)',
+            rf'total\s+btc[:\s]*(\d[\d,\.]+)',
         ]
 
         for kw in keywords:
             dashboard_patterns.extend([
                 rf'(\d[\d,\.]+)\s*{kw}',
                 rf'{kw}\s*:?\s*(\d[\d,\.]+)',
+                rf'total\s+{kw}[:\s]*(\d[\d,\.]+)',
             ])
 
         for pattern in dashboard_patterns:

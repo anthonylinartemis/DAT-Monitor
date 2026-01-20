@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-01-20T18:11:28.545574",
-  "lastUpdatedDisplay": "Jan 20, 2026 06:11 PM EST",
+  "lastUpdated": "2026-01-20T18:18:43.174171",
+  "lastUpdatedDisplay": "Jan 20, 2026 06:18 PM EST",
   "recentChanges": [
     {
       "ticker": "MSTR",
@@ -54,6 +54,7 @@
         "change": 22305,
         "cik": "0001050446",
         "irUrl": "https://www.strategy.com/investor-relations",
+        "dashboardUrl": "https://www.strategy.com/purchases",
         "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526016002/mstr-20260105.htm",
         "alertDate": "2026-01-20",
         "alertNote": "8-K: 8-K",
@@ -64,9 +65,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
-        "lastErrorTime": "2026-01-20T18:11:07.962465",
-        "lastChecked": "2026-01-20T18:11:24.288556"
+        "lastChecked": "2026-01-20T18:18:10.317184"
       },
       {
         "ticker": "XXI",
@@ -86,7 +85,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:24.479367"
+        "lastChecked": "2026-01-20T18:18:10.569874"
       },
       {
         "ticker": "MTPLF",
@@ -97,15 +96,14 @@
         "change": 4279,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
+        "dashboardUrl": "https://metaplanet.jp/en/analytics",
         "scrape_config": {
           "method": "html_static",
-          "source_url": "https://metaplanet.jp/en/shareholders/disclosures",
-          "target_regex": "(\\d[\\d,]+)\\s*BTC"
+          "source_url": "https://metaplanet.jp/en/analytics",
+          "target_regex": "\u20bf([\\d,]+)"
         },
         "status": "ok",
-        "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
-        "lastErrorTime": "2026-01-20T18:11:08.401882",
-        "lastChecked": "2026-01-20T18:11:24.675753"
+        "lastChecked": "2026-01-20T18:18:15.619657"
       },
       {
         "ticker": "ASST",
@@ -124,7 +122,7 @@
         "status": "ok",
         "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
         "lastErrorTime": "2026-01-20T18:11:08.617945",
-        "lastChecked": "2026-01-20T18:11:24.841841"
+        "lastChecked": "2026-01-20T18:18:15.806298"
       },
       {
         "ticker": "NAKA",
@@ -141,7 +139,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:24.991398"
+        "lastChecked": "2026-01-20T18:18:15.986893"
       },
       {
         "ticker": "ABTC",
@@ -158,7 +156,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:25.179816"
+        "lastChecked": "2026-01-20T18:18:16.187994"
       }
     ],
     "ETH": [
@@ -183,7 +181,7 @@
         "status": "ok",
         "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
         "lastErrorTime": "2026-01-20T18:11:09.191496",
-        "lastChecked": "2026-01-20T18:11:25.586838"
+        "lastChecked": "2026-01-20T18:18:16.575185"
       },
       {
         "ticker": "SBET",
@@ -194,15 +192,14 @@
         "change": 0,
         "cik": "0001811115",
         "irUrl": "https://investors.sharplink.com/",
+        "dashboardUrl": "https://www.sharplink.com/eth-dashboard",
         "scrape_config": {
           "method": "playwright_js",
-          "source_url": "https://investors.sharplink.com/",
-          "target_regex": "(\\d[\\d,\\.]+)\\s*(million)?\\s*ETH"
+          "source_url": "https://www.sharplink.com/eth-dashboard",
+          "target_regex": "([\\d,\\.]+)\\s*(million)?\\s*ETH"
         },
         "status": "ok",
-        "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
-        "lastErrorTime": "2026-01-20T18:11:09.405243",
-        "lastChecked": "2026-01-20T18:11:25.773873"
+        "lastChecked": "2026-01-20T18:18:16.726750"
       },
       {
         "ticker": "ETHM",
@@ -218,23 +215,25 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:25.937552"
+        "lastChecked": "2026-01-20T18:18:16.880710"
       },
       {
         "ticker": "BTBT",
         "name": "Bit Digital",
+        "notes": "Also holds WYFI stock",
         "tokens": 155227,
         "lastUpdate": "2026-01-07",
         "change": 0,
         "cik": "0001710350",
         "irUrl": "https://bit-digital.com/investors/",
+        "dashboardUrl": "https://bit-digital.com/",
         "scrape_config": {
           "method": "sec_edgar",
-          "source_url": null,
+          "source_url": "https://bit-digital.com/",
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:26.114240"
+        "lastChecked": "2026-01-20T18:18:43.174144"
       },
       {
         "ticker": "BTCS",
@@ -254,7 +253,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:26.265536"
+        "lastChecked": "2026-01-20T18:18:17.245046"
       },
       {
         "ticker": "FGNX",
@@ -270,7 +269,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:26.452940"
+        "lastChecked": "2026-01-20T18:18:17.503416"
       },
       {
         "ticker": "ETHZ",
@@ -287,7 +286,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:26.623253"
+        "lastChecked": "2026-01-20T18:18:17.679903"
       }
     ],
     "SOL": [
@@ -306,7 +305,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:26.803623"
+        "lastChecked": "2026-01-20T18:18:17.902549"
       },
       {
         "ticker": "HSDT",
@@ -323,7 +322,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:26.972784"
+        "lastChecked": "2026-01-20T18:18:18.070206"
       },
       {
         "ticker": "DFDV",
@@ -334,16 +333,17 @@
         "change": 25403,
         "cik": "0001805526",
         "irUrl": "https://defidevcorp.com/investor",
+        "dashboardUrl": "https://defidevcorp.com/?tab=history-purchases",
         "alertUrl": "https://www.globenewswire.com/news-release/2026/01/07/3214530/0/en/DeFi-Development-Year-Review.html",
         "alertDate": "2026-01-08",
         "alertNote": "2025 Year in Review",
         "scrape_config": {
-          "method": "sec_edgar",
-          "source_url": null,
-          "target_regex": null
+          "method": "playwright_js",
+          "source_url": "https://defidevcorp.com/?tab=history-purchases",
+          "target_regex": "([\\d,]+)\\s*SOL"
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:27.199239"
+        "lastChecked": "2026-01-20T18:18:18.194349"
       },
       {
         "ticker": "UPXI",
@@ -354,16 +354,17 @@
         "change": 67594,
         "cik": "0001839175",
         "irUrl": "https://ir.upexi.com/",
+        "dashboardUrl": "https://www.upexi.com/",
         "alertUrl": "https://www.globenewswire.com/news-release/2026/01/07/3214451/0/en/Upexi-High-Return-Strategy.html",
         "alertDate": "2026-01-07",
         "alertNote": "High-yield strategy",
         "scrape_config": {
-          "method": "sec_edgar",
-          "source_url": null,
-          "target_regex": null
+          "method": "html_static",
+          "source_url": "https://www.upexi.com/",
+          "target_regex": "Total SOL Count[^\\d]*([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:27.373500"
+        "lastChecked": "2026-01-20T18:18:19.188052"
       },
       {
         "ticker": "STSS",
@@ -383,7 +384,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:27.554010"
+        "lastChecked": "2026-01-20T18:18:19.371383"
       }
     ],
     "HYPE": [
@@ -402,7 +403,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:27.742311"
+        "lastChecked": "2026-01-20T18:18:19.575169"
       },
       {
         "ticker": "HYPD",
@@ -422,7 +423,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:27.915916"
+        "lastChecked": "2026-01-20T18:18:19.760349"
       }
     ],
     "BNB": [
@@ -442,7 +443,7 @@
           "target_regex": "totalHoldings:\\s*(\\d+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T18:11:28.545548"
+        "lastChecked": "2026-01-20T18:18:20.362673"
       }
     ]
   },
