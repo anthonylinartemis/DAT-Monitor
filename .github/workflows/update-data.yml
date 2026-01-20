@@ -1,0 +1,92 @@
+name: Update DAT Data
+
+on:
+  schedule:
+    # Runs at 10am, 2pm, 6pm ET on weekdays
+    # UTC times: 15:00, 19:00, 23:00 (EST) or 14:00, 18:00, 22:00 (EDT)
+    - cron: '0 15,19,23 * * 1-5'
+  workflow_dispatch:  # Allows manual trigger from GitHub UI
+    inputs:
+      force_update:
+        description: 'Force update even if no changes'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests beautifulsoup4 lxml
+
+      - name: Verify SEC_USER_AGENT secret
+        run: |
+          if [ -z "${{ secrets.SEC_USER_AGENT }}" ]; then
+            echo "::error::SEC_USER_AGENT secret is not set!"
+            echo "Please add it in Settings > Secrets > Actions"
+            exit 1
+          fi
+          echo "SEC_USER_AGENT is configured"
+
+      - name: Run scraper
+        id: scraper
+        env:
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+        run: |
+          echo "Starting DAT Treasury Monitor scraper..."
+          echo "Current time: $(date)"
+          echo ""
+          python scripts/scraper.py 2>&1 | tee scraper_output.txt
+
+          # Check if changes were detected
+          if grep -q "CHANGES DETECTED" scraper_output.txt; then
+            echo "changes_detected=true" >> $GITHUB_OUTPUT
+          else
+            echo "changes_detected=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Show scraper output
+        run: |
+          echo "=== Scraper Output ==="
+          cat scraper_output.txt
+
+      - name: Commit and push if changed
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: |
+            Auto-update DAT holdings data
+
+            Updated: ${{ steps.scraper.outputs.changes_detected == 'true' && 'Changes detected' || 'Timestamp only' }}
+          file_pattern: "data.json"
+          commit_author: "DAT Monitor Bot <bot@dat-monitor.com>"
+
+      - name: Summary
+        run: |
+          echo "## DAT Treasury Monitor Update" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Run time:** $(date)" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ steps.scraper.outputs.changes_detected }}" == "true" ]; then
+            echo "**Status:** Changes detected and committed" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "**Status:** No changes detected" >> $GITHUB_STEP_SUMMARY
+          fi
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Scraper Output" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -20 scraper_output.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
