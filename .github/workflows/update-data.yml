@@ -31,7 +31,11 @@ jobs:
       - name: Install dependencies
         run: |
           pip install --upgrade pip
-          pip install requests beautifulsoup4 lxml
+          pip install -r requirements.txt
+
+      - name: Install Playwright browsers
+        run: |
+          npx playwright install --with-deps chromium
 
       - name: Verify SEC_USER_AGENT secret
         run: |
