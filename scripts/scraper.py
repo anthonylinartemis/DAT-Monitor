@@ -276,8 +276,37 @@ def check_8k_for_holdings(filing, token, current_holdings=0):
         holdings = find_holdings_in_text(text, token, current_holdings)
 
         if holdings:
-            # Validate: new holdings should be different from current
+            # If ex99 (press release) finds holdings, trust it completely
+            # Even if same as current - this prevents falling through to wrong docs
+            if doc["type"] == "ex99":
+                if holdings != current_holdings:
+                    # Sanity check for suspicious drops
+                    if current_holdings > 0:
+                        change_ratio = holdings / current_holdings
+                        if change_ratio < 0.5:
+                            print(f"    Skipping {doc['filename']}: {holdings:,} {token} (suspicious -{(1-change_ratio)*100:.0f}% drop)")
+                            return None  # Don't check other docs
+
+                    print(f"    Found in {doc['filename']}: {holdings:,} {token}")
+                    return {
+                        "tokens": holdings,
+                        "date": filing["date"],
+                        "url": doc["url"],
+                        "source": doc["filename"]
+                    }
+                else:
+                    # ex99 confirms current holdings - no change needed
+                    return None
+
+            # For non-ex99 docs, only use if different from current
             if holdings != current_holdings:
+                # Sanity check: reject if holdings dropped by more than 50%
+                if current_holdings > 0:
+                    change_ratio = holdings / current_holdings
+                    if change_ratio < 0.5:
+                        print(f"    Skipping {doc['filename']}: {holdings:,} {token} (suspicious -{(1-change_ratio)*100:.0f}% drop)")
+                        continue
+
                 print(f"    Found in {doc['filename']}: {holdings:,} {token}")
                 result = {
                     "tokens": holdings,
@@ -286,10 +315,7 @@ def check_8k_for_holdings(filing, token, current_holdings=0):
                     "source": doc["filename"]
                 }
 
-                # Prefer ex99 (press releases) - return immediately
-                if doc["type"] == "ex99":
-                    return result
-                elif best_result is None:
+                if best_result is None:
                     best_result = result
 
     return best_result
@@ -339,6 +365,39 @@ def get_sec_8k_filings(cik, days_back=30):
         return []
 
 
+def check_company_dashboard(company, token):
+    """Check company's treasury dashboard for holdings data."""
+    ticker = company.get("ticker", "")
+    data_url = company.get("dataUrl", "")
+    dashboard_url = company.get("dashboardUrl", "")
+
+    # Known dashboard data sources
+    if ticker == "BNC" and data_url:
+        # CEA Industries - has a data.js file with holdings
+        html = fetch_url(data_url)
+        if html:
+            # Look for totalHoldings in the JavaScript
+            match = re.search(r'totalHoldings:\s*(\d+)', html)
+            if match:
+                holdings = int(match.group(1))
+                print(f"    Found in dashboard: {holdings:,} {token}")
+                return {
+                    "tokens": holdings,
+                    "date": datetime.now().strftime("%Y-%m-%d"),
+                    "url": dashboard_url or data_url,
+                    "source": "company_dashboard"
+                }
+
+    # Add more dashboard parsers here for other companies
+    # Example pattern for future companies:
+    # if ticker == "NEWCO" and dashboard_url:
+    #     html = fetch_url(dashboard_url)
+    #     # Parse holdings from HTML/JS
+    #     pass
+
+    return None
+
+
 def update_company(company, token, days_back=14):
     """Update a single company's data."""
     ticker = company.get("ticker", "")
@@ -349,13 +408,24 @@ def update_company(company, token, days_back=14):
 
     updates = {}
 
-    # Check SEC 8-K filings
+    # First, check company dashboard if available
+    dashboard_result = check_company_dashboard(company, token)
+    if dashboard_result and dashboard_result["tokens"] != current_holdings:
+        print(f"    ✓ Dashboard update: {current_holdings:,} → {dashboard_result['tokens']:,} {token}")
+        updates["tokens"] = dashboard_result["tokens"]
+        updates["lastUpdate"] = dashboard_result["date"]
+        updates["alertUrl"] = dashboard_result["url"]
+        updates["alertDate"] = dashboard_result["date"]
+        updates["alertNote"] = "Dashboard update"
+        return updates
+
+    # Then check SEC 8-K filings
     if cik:
         filings = get_sec_8k_filings(cik, days_back=days_back)
         for filing in filings[:3]:  # Check last 3 filings
             result = check_8k_for_holdings(filing, token, current_holdings)
             if result:
-                print(f"    ✓ Update: {current_holdings:,} → {result['tokens']:,} {token}")
+                print(f"    ✓ SEC update: {current_holdings:,} → {result['tokens']:,} {token}")
                 updates["tokens"] = result["tokens"]
                 updates["lastUpdate"] = result["date"]
                 updates["lastSecUpdate"] = result["date"]
