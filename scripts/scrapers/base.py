@@ -26,7 +26,38 @@ def create_soup(html: str, parser: str = "lxml") -> BeautifulSoup:
 
 # Configuration
 SEC_BASE = "https://www.sec.gov"
-USER_AGENT = os.environ.get("SEC_USER_AGENT", "DAT-Monitor/1.0 (contact@example.com)")
+USER_AGENT = os.environ.get("SEC_USER_AGENT", "")
+
+# Track if user agent has been validated (only warn once)
+_USER_AGENT_VALIDATED = False
+
+
+def validate_user_agent():
+    """Validate SEC_USER_AGENT is properly configured."""
+    global _USER_AGENT_VALIDATED
+    if _USER_AGENT_VALIDATED:
+        return
+
+    if not USER_AGENT:
+        raise ValueError(
+            "SEC_USER_AGENT environment variable is not set. "
+            "SEC requires a valid User-Agent with contact email. "
+            "Example: DAT-Monitor/1.0 (your.email@example.com)"
+        )
+    if "@" not in USER_AGENT:
+        print("WARNING: SEC_USER_AGENT should contain a contact email address.")
+
+    _USER_AGENT_VALIDATED = True
+
+
+def get_headers():
+    """Get request headers, validating user agent first."""
+    validate_user_agent()
+    return {
+        "User-Agent": USER_AGENT,
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    }
+
 
 HEADERS = {
     "User-Agent": USER_AGENT,
@@ -136,6 +167,9 @@ class BaseScraper(ABC):
             token: Token type (BTC, ETH, SOL, HYPE, BNB)
             token_config: Optional token configuration from data.json tokenConfig
         """
+        # Validate SEC User-Agent is configured
+        validate_user_agent()
+
         self.company = company
         self.token = token
         self.token_config = token_config or {}

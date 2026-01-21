@@ -88,6 +88,12 @@ jobs:
           # Extract change details from scraper output
           CHANGES=$(grep -A 20 "CHANGES DETECTED" scraper_output.txt | grep "  " | head -10 || echo "See GitHub Actions for details")
 
+          # Escape special characters for JSON using Python
+          CHANGES_ESCAPED=$(echo "$CHANGES" | python3 -c 'import json,sys; print(json.dumps(sys.stdin.read()))')
+
+          # Remove outer quotes added by json.dumps
+          CHANGES_ESCAPED=${CHANGES_ESCAPED:1:-1}
+
           curl -X POST -H 'Content-type: application/json' \
             --data "{
               \"blocks\": [
@@ -103,7 +109,7 @@ jobs:
                   \"type\": \"section\",
                   \"text\": {
                     \"type\": \"mrkdwn\",
-                    \"text\": \"*Changes detected in treasury holdings:*\n\`\`\`$CHANGES\`\`\`\"
+                    \"text\": \"*Changes detected in treasury holdings:*\n\`\`\`${CHANGES_ESCAPED}\`\`\`\"
                   }
                 },
                 {

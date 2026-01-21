@@ -81,7 +81,7 @@ def save_data(data: dict):
     """Save updated data.json."""
     now = datetime.now()
     data["lastUpdated"] = now.isoformat()
-    data["lastUpdatedDisplay"] = now.strftime("%b %d, %Y %I:%M %p EST")
+    data["lastUpdatedDisplay"] = now.strftime("%b %d, %Y %I:%M %p ET")
 
     with open(DATA_FILE, "w") as f:
         json.dump(data, f, indent=2)

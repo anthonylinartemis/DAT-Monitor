@@ -322,6 +322,14 @@
         const TOKEN_LABELS = { BTC: 'Bitcoin', ETH: 'Ethereum', SOL: 'Solana', HYPE: 'Hyperliquid', BNB: 'BNB' };
         let currentFilter = 'ALL';
 
+        // Escape HTML to prevent XSS attacks
+        const escapeHtml = (text) => {
+            if (!text) return '';
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        };
+
         const formatNum = n => n ? n.toLocaleString() : '—';
         const formatCompact = n => {
             if (!n) return '—';
@@ -367,38 +375,38 @@
         function renderTable() {
             const companies = getCompanies();
             document.getElementById('companyCount').textContent = `${companies.length} companies`;
-            
+
             document.getElementById('tableBody').innerHTML = companies.map(c => `
                 <tr>
                     <td>
                         <div class="company-cell">
-                            <span class="ticker-badge mono ${c.token.toLowerCase()}">${c.ticker}</span>
+                            <span class="ticker-badge mono ${escapeHtml(c.token.toLowerCase())}">${escapeHtml(c.ticker)}</span>
                             <div class="company-info">
-                                <div class="company-name">${c.name}</div>
-                                ${c.notes ? `<div class="company-note" title="${c.notes}">${c.notes}</div>` : ''}
+                                <div class="company-name">${escapeHtml(c.name)}</div>
+                                ${c.notes ? `<div class="company-note" title="${escapeHtml(c.notes)}">${escapeHtml(c.notes)}</div>` : ''}
                             </div>
                         </div>
                     </td>
                     <td class="right">
                         <span class="holdings mono">${formatNum(c.tokens)}</span>
-                        <span class="token-label">${c.token}</span>
+                        <span class="token-label">${escapeHtml(c.token)}</span>
                     </td>
                     <td class="right">
                         ${c.change > 0 ? `<span class="change-positive mono">+${formatNum(c.change)}</span>` :
                           c.change < 0 ? `<span class="change-negative mono">${formatNum(c.change)}</span>` :
                           '<span class="no-change">—</span>'}
                     </td>
-                    <td class="center date-cell mono ${isRecent(c.lastUpdate, 7) ? 'fresh' : ''}">${c.lastUpdate || '—'}</td>
+                    <td class="center date-cell mono ${isRecent(c.lastUpdate, 7) ? 'fresh' : ''}">${escapeHtml(c.lastUpdate) || '—'}</td>
                     <td class="center">
-                        ${c.alertUrl && isRecent(c.alertDate) ? 
-                            `<a href="${c.alertUrl}" target="_blank" class="alert-badge" title="${c.alertNote || ''}">🔔 NEW</a>` : 
+                        ${c.alertUrl && isRecent(c.alertDate) ?
+                            `<a href="${escapeHtml(c.alertUrl)}" target="_blank" class="alert-badge" title="${escapeHtml(c.alertNote || '')}">🔔 NEW</a>` :
                             '<span class="no-change">—</span>'}
                     </td>
                     <td class="center link-cell">
-                        ${c.cik ? `<a href="${getSecUrl(c.cik)}" target="_blank">8-K →</a>` : '<span class="na">N/A</span>'}
+                        ${c.cik ? `<a href="${getSecUrl(escapeHtml(c.cik))}" target="_blank">8-K →</a>` : '<span class="na">N/A</span>'}
                     </td>
                     <td class="center link-cell">
-                        <a href="${c.irUrl}" target="_blank">IR →</a>
+                        <a href="${escapeHtml(c.irUrl)}" target="_blank">IR →</a>
                     </td>
                 </tr>
             `).join('');

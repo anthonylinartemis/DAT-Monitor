@@ -12,8 +12,16 @@ class DATDatabase:
         url: str = os.environ.get("SUPABASE_URL")
         key: str = os.environ.get("SUPABASE_KEY")
 
-        if not url or not key:
-            raise ValueError("Missing SUPABASE_URL or SUPABASE_KEY in .env file")
+        if not url:
+            raise ValueError(
+                "SUPABASE_URL environment variable is not set. "
+                "Add it to your .env file or set it in GitHub Actions secrets."
+            )
+        if not key:
+            raise ValueError(
+                "SUPABASE_KEY environment variable is not set. "
+                "Add it to your .env file or set it in GitHub Actions secrets."
+            )
 
         self.supabase: Client = create_client(url, key)
 
