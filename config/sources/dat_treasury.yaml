@@ -1,0 +1,78 @@
+# DAT (Digital Asset Treasury) Companies - SEC EDGAR Source
+# Tracks cryptocurrency holdings of publicly traded companies via 8-K filings
+#
+# This source uses the SEC EDGAR API to discover 8-K filings.
+# Companies are configured via CIK numbers in the selectors section.
+
+source:
+  name: dat_treasury
+  connector: sec_edgar
+  base_url: https://www.sec.gov  # Not used directly, API-based discovery
+  is_active: true
+
+  discovery:
+    # SEC EDGAR connector configuration
+    # Format: cik_XXXXXXX: TICKER|CompanyName|TOKEN
+    selectors:
+      user_agent: "FinstatDAT/1.0 (dat-monitor@example.com)"
+
+      # ===== Bitcoin (BTC) Treasury Companies =====
+      cik_0001050446: "MSTR|Strategy|BTC"
+      cik_0002070457: "XXI|Twenty One Capital|BTC"
+      cik_0001855631: "ASST|Strive|BTC"
+      cik_0001946573: "NAKA|Nakamoto Holdings|BTC"
+      cik_0001755953: "ABTC|American Bitcoin|BTC"
+
+      # ===== Ethereum (ETH) Treasury Companies =====
+      cik_0001829311: "BMNR|BitMine Immersion|ETH"
+      cik_0001811115: "SBET|SharpLink Gaming|ETH"
+      cik_0002028699: "ETHM|Ether Machine|ETH"
+      cik_0001710350: "BTBT|Bit Digital|ETH"
+      cik_0001521184: "BTCS|BTCS|ETH"
+      cik_0001591890: "FGNX|FG Nexus|ETH"
+      cik_0001690080: "ETHZ|Ethzilla|ETH"
+
+      # ===== Solana (SOL) Treasury Companies =====
+      cik_0000038264: "FWDI|Forward Industries|SOL"
+      cik_0001610853: "HSDT|Solana Company|SOL"
+      cik_0001805526: "DFDV|DeFi Development|SOL"
+      cik_0001839175: "UPXI|Upexi|SOL"
+      cik_0001737995: "STSS|Sharps Technology|SOL"
+
+      # ===== Hyperliquid (HYPE) Treasury Companies =====
+      cik_0001106838: "PURR|Hyperliquid Strategies|HYPE"
+      cik_0001682639: "HYPD|Hyperion DeFi|HYPE"
+
+      # ===== BNB Treasury Companies =====
+      cik_0001482541: "BNC|CEA Industries|BNB"
+
+    # Not used for SEC EDGAR but required by config schema
+    date_format: "%Y-%m-%d"
+    type_patterns:
+      - pattern: "8-K"
+        doc_type: SEC_8K
+      - pattern: "8-K/A"
+        doc_type: SEC_8K
+
+    pagination:
+      type: none
+      max_pages: 1
+
+  # SEC rate limiting (10 req/sec per SEC guidelines)
+  rate_limit:
+    requests_per_second: 6.0  # Conservative for API calls
+    delay_between_documents: 0.2
+    max_retries: 3
+    retry_delay_seconds: 2.0
+
+  # Only process 8-K filings from the last 30 days
+  filters:
+    include_doc_types:
+      - SEC_8K
+    exclude_doc_types: []
+    lookback_days: 30
+
+  # Use DAT-specific extraction schema
+  extraction:
+    - schema: dat_8k
+      enabled: true

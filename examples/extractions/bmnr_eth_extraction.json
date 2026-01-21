@@ -1,0 +1,37 @@
+{
+  "extraction_info": {
+    "timestamp": "2026-01-21T14:49:48.869378",
+    "scraper": "FinstatSecScraper",
+    "method": "finstat_sec"
+  },
+  "source": {
+    "type": "SEC EDGAR 8-K",
+    "filing_date": "2026-01-20",
+    "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002762/form8-k.htm",
+    "accession_number": "0001493152-26-002762",
+    "form_type": "8-K"
+  },
+  "company": {
+    "ticker": "BMNR",
+    "name": "BitMine Immersion",
+    "legal_name": "BitMine Immersion Technologies",
+    "cik": "0001829311"
+  },
+  "holdings": {
+    "asset": "ETH",
+    "asset_name": "Ethereum",
+    "amount": 4203036,
+    "formatted": "4,203,036"
+  },
+  "change_analysis": {
+    "previous_amount": 4203036,
+    "current_amount": 4203036,
+    "difference": 0,
+    "change_detected": false
+  },
+  "document_metadata": {
+    "size_bytes": 290954,
+    "sha256": "161fa0c552f18ddd6ac641f3fadeefe39db8d8d67b304c062d99ef19b397eba6",
+    "text_characters": 94305
+  }
+}

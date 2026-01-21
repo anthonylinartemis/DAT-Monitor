@@ -6,6 +6,23 @@ from scrapers.base import BaseScraper, ScraperResult
 from scrapers.sec_scraper import SECScraper
 from scrapers.web_scraper import WebScraper, DashboardScraper
 
+# Lazy import for FinstatSecScraper to avoid import errors if finstat not installed
+_FinstatSecScraper = None
+
+
+def _get_finstat_scraper():
+    """Lazy load FinstatSecScraper to avoid import errors."""
+    global _FinstatSecScraper
+    if _FinstatSecScraper is None:
+        try:
+            from scrapers.finstat_sec_scraper import FinstatSecScraper
+            _FinstatSecScraper = FinstatSecScraper
+        except ImportError as e:
+            print(f"Warning: Could not import FinstatSecScraper: {e}")
+            _FinstatSecScraper = False  # Mark as unavailable
+    return _FinstatSecScraper
+
+
 __all__ = [
     "BaseScraper",
     "ScraperResult",
@@ -38,6 +55,13 @@ def get_scraper(
     2. DashboardScraper if dataUrl is configured (for data.js endpoints)
     3. SECScraper if company has a CIK
     4. WebScraper as fallback
+
+    Available methods:
+    - sec_edgar: Original SEC scraper
+    - finstat_sec: Finstat SecEdgarConnector (better rate limiting, cleaner API)
+    - html_static: Static HTML web scraper
+    - playwright_js: JavaScript-rendered web scraper
+    - dashboard: Dashboard data.js scraper
     """
     config = company.get("scrape_config", {})
     method = config.get("method")
@@ -45,6 +69,15 @@ def get_scraper(
     # Explicit method takes priority
     if method == "sec_edgar":
         return SECScraper(company, token, days_back=days_back, token_config=token_config)
+    elif method == "finstat_sec":
+        # Use finstat SecEdgarConnector adapter
+        FinstatSecScraper = _get_finstat_scraper()
+        if FinstatSecScraper and FinstatSecScraper is not False:
+            return FinstatSecScraper(company, token, days_back=days_back, token_config=token_config)
+        else:
+            # Fallback to original SECScraper if finstat not available
+            print(f"Warning: finstat_sec requested but unavailable, using sec_edgar")
+            return SECScraper(company, token, days_back=days_back, token_config=token_config)
     elif method == "html_static":
         return WebScraper(company, token, token_config=token_config)
     elif method == "playwright_js":

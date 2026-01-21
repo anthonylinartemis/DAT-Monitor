@@ -1,0 +1,133 @@
+# DAT 8-K Extraction Schema
+# Extracts cryptocurrency treasury holdings from SEC 8-K filings
+# Optimized for Digital Asset Treasury (DAT) company disclosures
+
+schema:
+  name: dat_8k
+  version: "1.0.0"
+  description: "Extract cryptocurrency treasury holdings from SEC 8-K filings"
+
+  system_prompt: |
+    You are a financial analyst specializing in cryptocurrency treasury holdings of publicly traded companies.
+    Extract structured data about digital asset purchases and holdings from SEC 8-K filings.
+
+    FOCUS ON THESE KEY SIGNALS:
+    1. Purchase announcements: "purchased", "acquired", "bought", "accumulated"
+    2. Holdings totals: "aggregate holdings", "total holdings", "now holds"
+    3. Price data: "average purchase price", "aggregate purchase price", "cost basis"
+    4. Treasury strategy: "Digital Asset Treasury", "DAT", "treasury reserve", "bitcoin strategy"
+
+    EXTRACTION RULES:
+    1. Extract ONLY information explicitly stated in the document
+    2. Use null for fields where information is not found or unclear
+    3. For dates, use ISO 8601 format (YYYY-MM-DD)
+    4. For token amounts, extract as whole numbers (no decimals for BTC/ETH counts)
+    5. For monetary values, extract as numbers in USD (no currency symbols)
+    6. If multiple holdings updates exist, extract the MOST RECENT / FINAL totals
+    7. Distinguish between:
+       - tokens_purchased: Amount acquired in THIS filing/announcement
+       - tokens_held_total: Total holdings AFTER this purchase
+    8. Include direct quotes as evidence for numerical claims
+
+    COMMON 8-K ITEMS FOR DAT DISCLOSURES:
+    - Item 7.01: Regulation FD Disclosure (common for holdings updates)
+    - Item 8.01: Other Events (common for purchase announcements)
+
+    Be precise and conservative - it's better to return null than to guess.
+
+  fields:
+    - name: company_name
+      type: string
+      required: true
+      description: "Legal name of the filing company"
+
+    - name: ticker
+      type: string
+      required: true
+      description: "Stock ticker symbol (e.g., MSTR, BMNR, FWDI)"
+
+    - name: filing_date
+      type: date
+      required: true
+      description: "Date the 8-K was filed (YYYY-MM-DD)"
+
+    - name: event_date
+      type: date
+      required: false
+      description: "Date of the purchase/acquisition event if different from filing date"
+
+    - name: treasury_asset
+      type: string
+      required: true
+      description: "The cryptocurrency held (BTC, ETH, SOL, HYPE, BNB)"
+
+    - name: tokens_purchased
+      type: number
+      required: false
+      description: "Number of tokens purchased in this specific transaction/announcement"
+
+    - name: tokens_held_total
+      type: number
+      required: false
+      description: "Total token holdings after this transaction (aggregate holdings)"
+
+    - name: average_purchase_price
+      type: number
+      required: false
+      description: "Average price per token for this purchase in USD"
+
+    - name: total_purchase_cost
+      type: number
+      required: false
+      description: "Total USD cost of the purchase"
+
+    - name: acquisition_method
+      type: string
+      required: false
+      description: "How the purchase was funded (ATM offering, private placement, cash, etc.)"
+
+    - name: items_reported
+      type: array
+      required: false
+      description: "8-K item numbers reported (e.g., Item 7.01, Item 8.01)"
+      items:
+        type: string
+
+    - name: event_summary
+      type: string
+      required: true
+      description: "1-2 sentence summary of the treasury holdings event"
+
+    - name: is_holdings_related
+      type: boolean
+      required: true
+      description: "True if this 8-K contains treasury holdings information, False otherwise"
+
+    - name: holdings_details
+      type: object
+      required: false
+      description: "Detailed breakdown if multiple assets or purchases are mentioned"
+      properties:
+        purchase_start_date:
+          type: date
+          description: "Start of purchase period if a range is given"
+        purchase_end_date:
+          type: date
+          description: "End of purchase period if a range is given"
+        yield_or_staking:
+          type: string
+          description: "Any staking yield or DeFi strategy mentioned"
+        additional_notes:
+          type: string
+          description: "Other relevant treasury strategy details"
+
+  # Fields that require supporting evidence (quotes from document)
+  evidence_fields:
+    - tokens_purchased
+    - tokens_held_total
+    - average_purchase_price
+    - total_purchase_cost
+    - event_summary
+
+  # 8-K filings are typically short, but full submissions with exhibits can be large
+  max_input_chars: 200000

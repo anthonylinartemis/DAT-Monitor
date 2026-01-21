@@ -1,0 +1,37 @@
+{
+  "extraction_info": {
+    "timestamp": "2026-01-21T14:48:20.981585",
+    "scraper": "FinstatSecScraper",
+    "method": "finstat_sec"
+  },
+  "source": {
+    "type": "SEC EDGAR 8-K",
+    "filing_date": "2026-01-20",
+    "url": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526016002/mstr-20260105.htm",
+    "accession_number": "0001193125-26-016002",
+    "form_type": "8-K"
+  },
+  "company": {
+    "ticker": "MSTR",
+    "name": "Strategy",
+    "legal_name": "Strategy Inc",
+    "cik": "0001050446"
+  },
+  "holdings": {
+    "asset": "BTC",
+    "asset_name": "Bitcoin",
+    "amount": 709715,
+    "formatted": "709,715"
+  },
+  "change_analysis": {
+    "previous_amount": 709715,
+    "current_amount": 709715,
+    "difference": 0,
+    "change_detected": false
+  },
+  "document_metadata": {
+    "size_bytes": 374910,
+    "sha256": "20ad995140facf6fdd09c8bd9bbf1e8a4c21d20b3bf43fbca1b7bda5079f9d01",
+    "text_characters": 94903
+  }
+}
