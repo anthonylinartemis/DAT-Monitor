@@ -21,6 +21,7 @@ sys.path.insert(0, str(Path(__file__).parent))
 
 from scrapers import get_scraper
 from utils import calculate_change
+from utils.database import get_db
 
 # Configuration
 DATA_FILE = Path(__file__).parent.parent / "data.json"
@@ -240,13 +241,29 @@ def run_scraper(
                     if new_tokens != old_tokens:
                         updates["change"] = calculate_change(old_tokens, new_tokens)
                         changes_made = True
+                        change_amount = new_tokens - old_tokens
                         changes_list.append({
                             "ticker": company["ticker"],
                             "token": token,
                             "old": old_tokens,
                             "new": new_tokens,
-                            "change": new_tokens - old_tokens
+                            "change": change_amount
                         })
+
+                        # Save to Supabase database
+                        if not dry_run:
+                            try:
+                                db = get_db()
+                                if db:
+                                    db.save_holding(
+                                        ticker=company["ticker"],
+                                        tokens=new_tokens,
+                                        change=change_amount,
+                                        filing_date=updates.get("lastUpdate", datetime.now().strftime("%Y-%m-%d")),
+                                        source_url=updates.get("alertUrl", "")
+                                    )
+                            except Exception as e:
+                                print(f"    ⚠️ DB Error: {e} (data.json backup saved)")
 
                 # Apply updates
                 if not dry_run:
