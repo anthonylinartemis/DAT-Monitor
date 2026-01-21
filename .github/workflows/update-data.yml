@@ -80,6 +80,47 @@ jobs:
           file_pattern: "data.json"
           commit_author: "DAT Monitor Bot <bot@dat-monitor.com>"
 
+      - name: Send Slack notification
+        if: steps.scraper.outputs.changes_detected == 'true' && secrets.SLACK_WEBHOOK_URL != ''
+        run: |
+          # Extract change details from scraper output
+          CHANGES=$(grep -A 20 "CHANGES DETECTED" scraper_output.txt | grep "  " | head -10 || echo "See GitHub Actions for details")
+
+          curl -X POST -H 'Content-type: application/json' \
+            --data "{
+              \"blocks\": [
+                {
+                  \"type\": \"header\",
+                  \"text\": {
+                    \"type\": \"plain_text\",
+                    \"text\": \"📊 DAT Holdings Update Detected\",
+                    \"emoji\": true
+                  }
+                },
+                {
+                  \"type\": \"section\",
+                  \"text\": {
+                    \"type\": \"mrkdwn\",
+                    \"text\": \"*Changes detected in treasury holdings:*\n\`\`\`$CHANGES\`\`\`\"
+                  }
+                },
+                {
+                  \"type\": \"section\",
+                  \"fields\": [
+                    {
+                      \"type\": \"mrkdwn\",
+                      \"text\": \"*Time:*\n$(date '+%Y-%m-%d %H:%M UTC')\"
+                    },
+                    {
+                      \"type\": \"mrkdwn\",
+                      \"text\": \"*View:*\n<https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}|GitHub Actions>\"
+                    }
+                  ]
+                }
+              ]
+            }" \
+            ${{ secrets.SLACK_WEBHOOK_URL }}
+
       - name: Summary
         run: |
           echo "## DAT Treasury Monitor Update" >> $GITHUB_STEP_SUMMARY
