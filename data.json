@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-01-20T22:25:33.967568",
-  "lastUpdatedDisplay": "Jan 20, 2026 10:25 PM EST",
+  "lastUpdated": "2026-01-21T14:33:45.382311-05:00",
+  "lastUpdatedDisplay": "Jan 21, 2026 02:33 PM ET",
   "recentChanges": [
     {
       "ticker": "MSTR",
@@ -114,7 +114,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:24:46.353107"
+        "lastChecked": "2026-01-21T19:32:57.717992"
       },
       {
         "ticker": "XXI",
@@ -134,7 +134,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:24:46.572390"
+        "lastChecked": "2026-01-21T19:32:57.922303"
       },
       {
         "ticker": "MTPLF",
@@ -152,7 +152,7 @@
           "target_regex": "\u20bf([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:24:55.161760"
+        "lastChecked": "2026-01-21T19:33:04.573472"
       },
       {
         "ticker": "ASST",
@@ -171,7 +171,7 @@
         "status": "ok",
         "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
         "lastErrorTime": "2026-01-20T18:11:08.617945",
-        "lastChecked": "2026-01-20T22:24:55.366950"
+        "lastChecked": "2026-01-21T19:33:04.819818"
       },
       {
         "ticker": "NAKA",
@@ -188,7 +188,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:24:55.512478"
+        "lastChecked": "2026-01-21T19:33:05.919135"
       },
       {
         "ticker": "ABTC",
@@ -205,7 +205,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:24:55.711540"
+        "lastChecked": "2026-01-21T19:33:06.124168"
       }
     ],
     "ETH": [
@@ -230,7 +230,7 @@
         "status": "ok",
         "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
         "lastErrorTime": "2026-01-20T18:11:09.191496",
-        "lastChecked": "2026-01-20T22:24:56.147034"
+        "lastChecked": "2026-01-21T19:33:06.645923"
       },
       {
         "ticker": "SBET",
@@ -248,7 +248,7 @@
           "target_regex": "TOTAL ETH HOLDINGS\\s*([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:24:59.954894"
+        "lastChecked": "2026-01-21T19:33:11.302388"
       },
       {
         "ticker": "ETHM",
@@ -264,7 +264,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:25:00.182205"
+        "lastChecked": "2026-01-21T19:33:11.460610"
       },
       {
         "ticker": "BTBT",
@@ -282,7 +282,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:25:00.415161"
+        "lastChecked": "2026-01-21T19:33:11.630817"
       },
       {
         "ticker": "BTCS",
@@ -302,7 +302,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:25:00.612243"
+        "lastChecked": "2026-01-21T19:33:11.816594"
       },
       {
         "ticker": "FGNX",
@@ -318,7 +318,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:25:00.789069"
+        "lastChecked": "2026-01-21T19:33:12.022710"
       },
       {
         "ticker": "ETHZ",
@@ -335,7 +335,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:25:00.982999"
+        "lastChecked": "2026-01-21T19:33:12.208888"
       }
     ],
     "SOL": [
@@ -354,7 +354,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:25:01.203434"
+        "lastChecked": "2026-01-21T19:33:12.459727"
       },
       {
         "ticker": "HSDT",
@@ -371,7 +371,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:25:01.527936"
+        "lastChecked": "2026-01-21T19:33:12.640785"
       },
       {
         "ticker": "DFDV",
@@ -392,7 +392,7 @@
           "target_regex": "([\\d,]+)\\s*SOL"
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:25:31.786338"
+        "lastChecked": "2026-01-21T19:33:43.046284"
       },
       {
         "ticker": "UPXI",
@@ -413,7 +413,7 @@
           "target_regex": "Total SOL Count[^\\d]*([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:25:32.755496"
+        "lastChecked": "2026-01-21T19:33:44.227648"
       },
       {
         "ticker": "STSS",
@@ -433,7 +433,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:25:33.027308"
+        "lastChecked": "2026-01-21T19:33:44.458286"
       }
     ],
     "HYPE": [
@@ -452,7 +452,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:25:33.314289"
+        "lastChecked": "2026-01-21T19:33:44.636392"
       },
       {
         "ticker": "HYPD",
@@ -472,7 +472,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:25:33.579629"
+        "lastChecked": "2026-01-21T19:33:44.799281"
       }
     ],
     "BNB": [
@@ -492,7 +492,7 @@
           "target_regex": "totalHoldings:\\s*(\\d+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-20T22:25:33.967542"
+        "lastChecked": "2026-01-21T19:33:45.371843"
       }
     ]
   },
