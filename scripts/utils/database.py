@@ -1,8 +1,12 @@
 import os
-from dotenv import load_dotenv
-from supabase import create_client, Client
-from typing import Optional
+from decimal import Decimal
 from pathlib import Path
+from typing import Optional, Union
+
+from dotenv import load_dotenv
+from supabase import Client, create_client
+
+from utils.validation import validate_ticker, ValidationError
 
 # Load .env from project root
 load_dotenv(Path(__file__).parent.parent.parent / ".env")
@@ -112,20 +116,42 @@ class DATDatabase:
             print(f"    ⚠️ DB: Error updating prices: {e}")
             return False
 
-    def save_holding(self, ticker: str, tokens: float, filing_date: str, source_url: str) -> bool:
+    def save_holding(
+        self,
+        ticker: str,
+        tokens: Union[int, float, Decimal],
+        filing_date: str,
+        source_url: str
+    ) -> bool:
         """
         Adds a new historical row to the holdings table in Supabase.
         Automatically calculates change_amount from previous filing.
         Returns True if saved successfully, False otherwise.
         Skips duplicate entries (same company_id + filing_date).
+
+        Args:
+            ticker: Company ticker symbol (validated against whitelist)
+            tokens: Token count (converted to Decimal for precision)
+            filing_date: Date of the filing (YYYY-MM-DD)
+            source_url: URL to the source document
         """
+        # Validate ticker against whitelist
+        try:
+            ticker = validate_ticker(ticker, strict=True)
+        except ValidationError as e:
+            print(f"    ⚠️ DB: Validation error: {e}")
+            return False
+
+        # Convert tokens to Decimal for precision
+        tokens_decimal = Decimal(str(tokens))
+
         company_id = self.get_company_id(ticker)
 
         if not company_id:
             print(f"    ⚠️ DB: {ticker} not found in companies table")
             return False
 
-        # Check for duplicate entry
+        # Check for duplicate entry (dedup by company_id + filing_date)
         if self.holding_exists(company_id, filing_date):
             print(f"    ℹ️ DB: {ticker} record for {filing_date} already exists, skipping")
             return True  # Not an error, just already exists
@@ -133,16 +159,16 @@ class DATDatabase:
         # Calculate change from previous holding
         previous = self.get_latest_holding(company_id)
         if previous:
-            change_amount = tokens - previous["token_count"]
-            prev_tokens = previous["token_count"]
+            prev_tokens = Decimal(str(previous["token_count"]))
+            change_amount = tokens_decimal - prev_tokens
         else:
-            change_amount = tokens  # First entry, change equals total
-            prev_tokens = 0
+            change_amount = tokens_decimal  # First entry, change equals total
+            prev_tokens = Decimal("0")
 
         data = {
             "company_id": company_id,
-            "token_count": tokens,
-            "token_change": change_amount,  # tokens added/bought since last filing
+            "token_count": float(tokens_decimal),  # Supabase expects float/int
+            "token_change": float(change_amount),  # tokens added/bought since last filing
             "filing_date": filing_date,
             "source_url": source_url
         }
@@ -157,7 +183,7 @@ class DATDatabase:
         else:
             sign = ""
 
-        print(f"    ✅ DB: {ticker} {prev_tokens:,.0f} → {tokens:,.0f} ({sign}{change_amount:,.0f}) saved to Supabase")
+        print(f"    ✅ DB: {ticker} {prev_tokens:,.0f} → {tokens_decimal:,.0f} ({sign}{change_amount:,.0f}) saved to Supabase")
         return True
 
 

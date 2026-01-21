@@ -10,7 +10,6 @@ Usage:
 
 import argparse
 import json
-import os
 import sys
 from datetime import datetime
 from pathlib import Path
@@ -18,7 +17,6 @@ from typing import Optional
 
 from openpyxl import Workbook
 from openpyxl.styles import Font, PatternFill, Alignment, Border, Side
-from openpyxl.utils import get_column_letter
 
 # Add project root to path for imports
 PROJECT_ROOT = Path(__file__).parent.parent
@@ -214,7 +212,7 @@ def auto_size_columns(ws):
                 cell_value = str(cell.value) if cell.value else ""
                 if len(cell_value) > max_length:
                     max_length = len(cell_value)
-            except:
+            except (TypeError, ValueError):
                 pass
         adjusted_width = min(max_length + 2, 50)
         ws.column_dimensions[column].width = max(adjusted_width, 10)

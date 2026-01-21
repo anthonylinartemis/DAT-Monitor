@@ -19,15 +19,19 @@ import argparse
 import json
 import os
 import sys
-from datetime import datetime, timedelta
+from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
-import requests
+import pytz
+
+# Add scripts directory to path for imports
+sys.path.insert(0, str(Path(__file__).parent))
+
+from utils.slack import send_slack_message
 
 # Add project root to path for imports
 PROJECT_ROOT = Path(__file__).parent.parent
-sys.path.insert(0, str(PROJECT_ROOT))
 
 # Configuration
 DATA_FILE = PROJECT_ROOT / "data.json"
@@ -179,33 +183,16 @@ def analyze_data_quality(data: dict, stale_threshold: int = DEFAULT_STALE_DAYS) 
 
 
 def send_slack_notification(blocks: list, dry_run: bool = False) -> bool:
-    """Send a Slack notification using Block Kit."""
-    if dry_run:
-        print("\n[DRY RUN] Would send Slack notification:")
-        print(json.dumps(blocks, indent=2))
-        return True
-
-    if not SLACK_WEBHOOK_URL:
-        print("Warning: SLACK_WEBHOOK_URL not set, skipping notification")
-        return False
-
-    try:
-        response = requests.post(
-            SLACK_WEBHOOK_URL,
-            json={"blocks": blocks},
-            headers={"Content-Type": "application/json"},
-            timeout=10,
-        )
-        response.raise_for_status()
-        print("Slack notification sent successfully")
-        return True
-    except requests.RequestException as e:
-        print(f"Failed to send Slack notification: {e}")
-        return False
+    """Send a Slack notification using Block Kit (uses centralized slack module)."""
+    return send_slack_message(blocks, dry_run=dry_run)
 
 
 def build_daily_digest_blocks(report: dict) -> list:
     """Build Slack blocks for daily digest notification."""
+    # Use proper Eastern timezone
+    eastern = pytz.timezone("US/Eastern")
+    now = datetime.now(eastern)
+
     blocks = [
         {
             "type": "header",
@@ -220,7 +207,7 @@ def build_daily_digest_blocks(report: dict) -> list:
             "elements": [
                 {
                     "type": "mrkdwn",
-                    "text": f"Generated: {datetime.now().strftime('%Y-%m-%d %H:%M UTC')}"
+                    "text": f"Generated: {now.strftime('%Y-%m-%d %H:%M ET')}"
                 }
             ]
         },
@@ -325,7 +312,6 @@ def build_new_filing_alert_blocks(filings: list) -> list:
         holdings = filing["holdings"]
 
         emoji = {"BTC": "", "ETH": "", "SOL": "", "HYPE": "", "BNB": ""}.get(token, "")
-        color = TOKEN_COLORS.get(token, "#333333")
 
         filing_text = f"*{emoji} {ticker}* ({token})\n"
         filing_text += f"Holdings: *{holdings:,.0f}* {token}\n"
@@ -336,12 +322,16 @@ def build_new_filing_alert_blocks(filings: list) -> list:
             "text": {"type": "mrkdwn", "text": filing_text}
         })
 
+    # Use proper Eastern timezone
+    eastern = pytz.timezone("US/Eastern")
+    now = datetime.now(eastern)
+
     blocks.append({
         "type": "context",
         "elements": [
             {
                 "type": "mrkdwn",
-                "text": f"Detected at {datetime.now().strftime('%Y-%m-%d %H:%M UTC')}"
+                "text": f"Detected at {now.strftime('%Y-%m-%d %H:%M ET')}"
             }
         ]
     })

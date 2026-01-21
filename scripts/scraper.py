@@ -14,6 +14,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Optional
 
+import pytz
 import requests
 
 # Add scripts directory to path for imports
@@ -22,6 +23,8 @@ sys.path.insert(0, str(Path(__file__).parent))
 from scrapers import get_scraper
 from utils import calculate_change
 from utils.database import get_db
+from utils.slack import send_scraper_failure_alert, send_holdings_change_alert
+from utils.validation import is_valid_ticker
 
 # Configuration
 DATA_FILE = Path(__file__).parent.parent / "data.json"
@@ -78,9 +81,13 @@ def load_data() -> Optional[dict]:
 
 
 def save_data(data: dict):
-    """Save updated data.json."""
-    now = datetime.now()
+    """Save updated data.json with proper Eastern timezone handling."""
+    # Use proper US/Eastern timezone (handles EST/EDT automatically)
+    eastern = pytz.timezone("US/Eastern")
+    now = datetime.now(eastern)
+
     data["lastUpdated"] = now.isoformat()
+    # Display format: "Jan 20, 2026 10:25 PM ET"
     data["lastUpdatedDisplay"] = now.strftime("%b %d, %Y %I:%M %p ET")
 
     with open(DATA_FILE, "w") as f:
@@ -124,6 +131,11 @@ def update_company(
     ticker = company.get("ticker", "")
     current_holdings = company.get("tokens", 0)
 
+    # Validate ticker format (2-5 uppercase letters)
+    if not is_valid_ticker(ticker, strict=False):
+        print(f"  Skipping invalid ticker: {ticker}")
+        return {"status": "error", "lastError": f"Invalid ticker format: {ticker}"}
+
     print(f"  Checking {ticker} ({token})...")
 
     updates = {}
@@ -161,12 +173,35 @@ def update_company(
         print(f"    Error checking {ticker}: {e}")
         updates["status"] = "error"
         updates["lastError"] = str(e)
-        updates["lastErrorTime"] = datetime.now().isoformat()
+        updates["lastErrorTime"] = datetime.now(pytz.timezone("US/Eastern")).isoformat()
+
+        # Send Slack alert for scraper failure
+        try:
+            send_scraper_failure_alert(
+                ticker=ticker,
+                token=token,
+                error=str(e),
+                dry_run=dry_run
+            )
+        except Exception:
+            pass  # Don't fail scraper if Slack alert fails
+
     except Exception as e:
         print(f"    Unexpected error checking {ticker}: {e}")
         updates["status"] = "error"
         updates["lastError"] = str(e)
-        updates["lastErrorTime"] = datetime.now().isoformat()
+        updates["lastErrorTime"] = datetime.now(pytz.timezone("US/Eastern")).isoformat()
+
+        # Send Slack alert for scraper failure
+        try:
+            send_scraper_failure_alert(
+                ticker=ticker,
+                token=token,
+                error=str(e),
+                dry_run=dry_run
+            )
+        except Exception:
+            pass  # Don't fail scraper if Slack alert fails
 
     return updates
 
@@ -250,6 +285,19 @@ def run_scraper(
                             "change": change_amount
                         })
 
+                        # Send Slack alert for holdings change
+                        try:
+                            send_holdings_change_alert(
+                                ticker=company["ticker"],
+                                token=token,
+                                old_holdings=old_tokens,
+                                new_holdings=new_tokens,
+                                source_url=updates.get("alertUrl", ""),
+                                dry_run=dry_run
+                            )
+                        except Exception:
+                            pass  # Don't fail scraper if Slack alert fails
+
                         # Save to Supabase database (change is auto-calculated from previous filing)
                         if not dry_run:
                             try:
@@ -329,7 +377,7 @@ def main():
 
     # Holdings changes
     if changes_made:
-        print(f"\nCHANGES DETECTED:")
+        print("\nCHANGES DETECTED:")
         for c in changes_list:
             sign = "+" if c["change"] > 0 else ""
             print(f"  {c['ticker']}: {c['old']:,} -> {c['new']:,} ({sign}{c['change']:,} {c['token']})")

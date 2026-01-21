@@ -54,7 +54,7 @@ def update_prices(dry_run: bool = False):
 
     # Fetch all token prices in one batch call
     token_prices = get_multiple_token_prices(tokens)
-    print(f"\nToken prices fetched:")
+    print("\nToken prices fetched:")
     for token, price in token_prices.items():
         print(f"  {token}: ${price:,.2f}")
 
@@ -122,11 +122,11 @@ def update_prices(dry_run: bool = False):
             if share_price:
                 print(f"    Share Price: ${share_price:,.2f}")
             else:
-                print(f"    Share Price: N/A")
+                print("    Share Price: N/A")
             if shares_outstanding:
                 print(f"    Shares Outstanding: {shares_outstanding:,.0f} (from Excel)")
             else:
-                print(f"    Shares Outstanding: N/A (not in Excel data)")
+                print("    Shares Outstanding: N/A (not in Excel data)")
             if market_cap:
                 print(f"    Market Cap: ${market_cap:,.2f} (calculated)")
 
@@ -136,7 +136,7 @@ def update_prices(dry_run: bool = False):
                 updated += 1
             else:
                 if not company_id:
-                    print(f"    Company not found in DB")
+                    print("    Company not found in DB")
                     errors += 1
                     continue
 
@@ -150,10 +150,10 @@ def update_prices(dry_run: bool = False):
                     nav=nav,
                 )
                 if success:
-                    print(f"    Updated in DB")
+                    print("    Updated in DB")
                     updated += 1
                 else:
-                    print(f"    DB update failed")
+                    print("    DB update failed")
                     errors += 1
 
     # Summary

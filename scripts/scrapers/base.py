@@ -9,6 +9,12 @@ from typing import Optional
 
 import requests
 from bs4 import BeautifulSoup
+from tenacity import (
+    retry,
+    stop_after_attempt,
+    wait_exponential,
+    retry_if_exception_type,
+)
 
 
 def create_soup(html: str, parser: str = "lxml") -> BeautifulSoup:
@@ -226,13 +232,25 @@ class BaseScraper(ABC):
             time.sleep(SEC_RATE_LIMIT - elapsed)
         LAST_REQUEST_TIME = time.time()
 
+    @retry(
+        stop=stop_after_attempt(3),
+        wait=wait_exponential(multiplier=1, min=2, max=10),
+        retry=retry_if_exception_type((requests.RequestException, requests.Timeout)),
+        reraise=True,
+    )
+    def _fetch_with_retry(self, url: str) -> str:
+        """Internal method to fetch URL with retry logic."""
+        resp = requests.get(url, headers=get_headers(), timeout=30)
+        resp.raise_for_status()
+        return resp.text
+
     def fetch_url(self, url: str, apply_rate_limit: bool = True) -> Optional[str]:
         """
-        Fetch a URL with proper rate limiting and error handling.
+        Fetch a URL with proper rate limiting, retry logic, and error handling.
 
         Args:
             url: URL to fetch
-            apply_rate_limit: Whether to apply rate limiting (for SEC)
+            apply_rate_limit: Whether to apply rate limiting (for SEC: max 10 req/sec)
 
         Returns:
             Response text or None on error
@@ -241,9 +259,7 @@ class BaseScraper(ABC):
             self.rate_limit()
 
         try:
-            resp = requests.get(url, headers=HEADERS, timeout=30)
-            resp.raise_for_status()
-            return resp.text
+            return self._fetch_with_retry(url)
         except requests.RequestException as e:
             print(f"    Error fetching {url}: {e}")
             return None

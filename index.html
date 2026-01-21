@@ -419,6 +419,7 @@
         }
 
         function render() {
+            // Use textContent for safe assignment (XSS protection)
             document.getElementById('lastUpdated').textContent = `Updated: ${DATA.lastUpdatedDisplay || 'Unknown'}`;
             renderStats();
             renderTabs();

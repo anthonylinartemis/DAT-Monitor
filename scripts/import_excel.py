@@ -181,11 +181,11 @@ def import_sheet(
     # Find header row
     header_row, col_map = find_header_row(ws)
     if header_row < 0 or "date" not in col_map:
-        stats["errors"].append(f"Could not find header row with 'date' column")
+        stats["errors"].append("Could not find header row with 'date' column")
         return stats
 
     if "token_count" not in col_map:
-        stats["errors"].append(f"Could not find 'num_of_tokens' column")
+        stats["errors"].append("Could not find 'num_of_tokens' column")
         return stats
 
     # Get company_id
@@ -325,7 +325,7 @@ def import_sheet(
                             on_conflict="company_id,date"
                         ).execute()
                         stats["rows_imported"] += 1
-                    except Exception as e2:
+                    except Exception:
                         stats["rows_skipped"] += 1
                         stats["skip_reasons"]["duplicate"] += 1
     elif dry_run:

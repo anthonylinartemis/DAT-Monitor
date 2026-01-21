@@ -176,13 +176,13 @@ class WebScraper(BaseScraper):
         dashboard_patterns = [
             rf'(\d[\d,\.]+)\s*{self.token}',
             rf'{self.token}\s*:?\s*(\d[\d,\.]+)',
-            rf'treasury\s*:?\s*(\d[\d,\.]+)',
-            rf'holdings?\s*:?\s*(\d[\d,\.]+)',
-            rf'balance\s*:?\s*(\d[\d,\.]+)',
+            r'treasury\s*:?\s*(\d[\d,\.]+)',
+            r'holdings?\s*:?\s*(\d[\d,\.]+)',
+            r'balance\s*:?\s*(\d[\d,\.]+)',
             rf'total\s+{self.token}\s+count[:\s]*(\d[\d,\.]+)',
-            rf'total\s+sol\s+count[:\s]*(\d[\d,\.]+)',
-            rf'total\s+eth[:\s]*(\d[\d,\.]+)',
-            rf'total\s+btc[:\s]*(\d[\d,\.]+)',
+            r'total\s+sol\s+count[:\s]*(\d[\d,\.]+)',
+            r'total\s+eth[:\s]*(\d[\d,\.]+)',
+            r'total\s+btc[:\s]*(\d[\d,\.]+)',
         ]
 
         for kw in keywords:
