@@ -81,7 +81,9 @@ jobs:
           commit_author: "DAT Monitor Bot <bot@dat-monitor.com>"
 
       - name: Send Slack notification
-        if: steps.scraper.outputs.changes_detected == 'true' && secrets.SLACK_WEBHOOK_URL != ''
+        if: steps.scraper.outputs.changes_detected == 'true'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         run: |
           # Extract change details from scraper output
           CHANGES=$(grep -A 20 "CHANGES DETECTED" scraper_output.txt | grep "  " | head -10 || echo "See GitHub Actions for details")
@@ -119,7 +121,7 @@ jobs:
                 }
               ]
             }" \
-            ${{ secrets.SLACK_WEBHOOK_URL }}
+            "$SLACK_WEBHOOK_URL"
 
       - name: Summary
         run: |
