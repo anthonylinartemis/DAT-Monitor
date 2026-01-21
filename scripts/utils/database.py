@@ -48,6 +48,44 @@ class DATDatabase:
         )
         return result.data[0] if result.data else None
 
+    def update_holding_prices(
+        self,
+        company_id: int,
+        filing_date: str,
+        token_price: float = None,
+        share_price: float = None,
+        shares_outstanding: int = None,
+        market_cap: float = None,
+        nav: float = None,
+    ) -> bool:
+        """
+        Update price fields for an existing holding record.
+        Only updates fields that are provided (not None).
+        """
+        updates = {}
+        if token_price is not None:
+            updates["token_price"] = token_price
+        if share_price is not None:
+            updates["share_price"] = share_price
+        if shares_outstanding is not None:
+            updates["shares_outstanding"] = shares_outstanding
+        if market_cap is not None:
+            updates["market_cap"] = market_cap
+        if nav is not None:
+            updates["nav"] = nav
+
+        if not updates:
+            return False
+
+        try:
+            self.supabase.table("holdings").update(updates).eq(
+                "company_id", company_id
+            ).eq("filing_date", filing_date).execute()
+            return True
+        except Exception as e:
+            print(f"    ⚠️ DB: Error updating prices: {e}")
+            return False
+
     def save_holding(self, ticker: str, tokens: float, filing_date: str, source_url: str) -> bool:
         """
         Adds a new historical row to the holdings table in Supabase.
