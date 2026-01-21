@@ -8,6 +8,21 @@ from abc import ABC, abstractmethod
 from typing import Optional
 
 import requests
+from bs4 import BeautifulSoup
+
+
+def create_soup(html: str, parser: str = "lxml") -> BeautifulSoup:
+    """
+    Create BeautifulSoup with fallback parser.
+
+    Tries lxml first (faster), falls back to html.parser if lxml fails.
+    This handles environments where lxml wheel fails to build.
+    """
+    try:
+        return BeautifulSoup(html, parser)
+    except Exception:
+        # Fallback to built-in parser if lxml fails
+        return BeautifulSoup(html, "html.parser")
 
 # Configuration
 SEC_BASE = "https://www.sec.gov"
@@ -103,16 +118,27 @@ class ScraperResult:
 class BaseScraper(ABC):
     """Abstract base class for all scrapers."""
 
-    def __init__(self, company: dict, token: str):
+    # Default validation ranges (used if tokenConfig not provided)
+    DEFAULT_RANGES = {
+        "BTC": (100, 2_000_000),
+        "ETH": (100, 50_000_000),
+        "SOL": (100, 100_000_000),
+        "HYPE": (100, 100_000_000),
+        "BNB": (100, 10_000_000),
+    }
+
+    def __init__(self, company: dict, token: str, token_config: dict = None):
         """
         Initialize scraper with company data and token type.
 
         Args:
             company: Company dict from data.json
             token: Token type (BTC, ETH, SOL, HYPE, BNB)
+            token_config: Optional token configuration from data.json tokenConfig
         """
         self.company = company
         self.token = token
+        self.token_config = token_config or {}
         self.config = company.get("scrape_config", {})
         self.ticker = company.get("ticker", "")
         self.current_holdings = company.get("tokens", 0)
@@ -137,8 +163,26 @@ class BaseScraper(ABC):
         return self.config.get("source_url")
 
     def get_keywords(self) -> list[str]:
-        """Get keywords for this token type."""
+        """Get keywords for this token type (from config or defaults)."""
+        # Try token_config first
+        if self.token_config.get("keywords"):
+            return self.token_config["keywords"]
         return TOKEN_KEYWORDS.get(self.token, [self.token.lower()])
+
+    def get_validation_range(self) -> tuple[int, int]:
+        """Get min/max holdings validation range for this token."""
+        # Try token_config first
+        if self.token_config:
+            min_val = self.token_config.get("minHoldings", 100)
+            max_val = self.token_config.get("maxHoldings", 100_000_000)
+            return (min_val, max_val)
+        # Fall back to defaults
+        return self.DEFAULT_RANGES.get(self.token, (100, 100_000_000))
+
+    def is_valid_holdings_amount(self, num: int) -> bool:
+        """Check if number is in valid range for this token type."""
+        min_val, max_val = self.get_validation_range()
+        return min_val <= num <= max_val
 
     def rate_limit(self):
         """Apply rate limiting between requests."""

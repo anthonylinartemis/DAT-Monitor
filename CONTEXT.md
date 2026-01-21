@@ -184,6 +184,52 @@ python scripts/scraper.py
 
 ---
 
+## Engineering Notes (Jan 2026 Review)
+
+### Issue 1: lxml Parser Fallback
+
+**Problem:** GitHub Actions runner sometimes fails to build lxml wheel, causing `FeatureNotFound` errors.
+
+**Solution:** Added `create_soup()` helper in `scrapers/base.py` that tries lxml first, falls back to html.parser:
+```python
+def create_soup(html: str, parser: str = "lxml") -> BeautifulSoup:
+    try:
+        return BeautifulSoup(html, parser)
+    except Exception:
+        return BeautifulSoup(html, "html.parser")
+```
+
+### Issue 2: Legacy DashboardScraper Redundancy
+
+**Problem:** `update_company()` was running DashboardScraper separately before the factory-selected scraper, causing:
+- Inefficiency (two scrapers per company)
+- Potential race conditions in updates dict
+
+**Solution:** Integrated dashboard detection into the factory pattern. `get_scraper()` now:
+1. Checks explicit `scrape_config.method` first
+2. Auto-selects DashboardScraper if `dataUrl` is configured
+3. Falls back to SECScraper (if CIK exists) or WebScraper
+
+### Issue 3: Hardcoded Validation Ranges
+
+**Problem:** `_is_valid_holdings_amount()` had hardcoded floor of 1,000 tokens for all assets, which could block smaller companies.
+
+**Solution:** Moved validation ranges to `data.json` under `tokenConfig`:
+```json
+"tokenConfig": {
+  "BTC": {
+    "minHoldings": 100,
+    "maxHoldings": 2000000,
+    "keywords": ["bitcoin", "btc"]
+  },
+  ...
+}
+```
+
+Scrapers now read ranges from config via `BaseScraper.get_validation_range()`, with sensible defaults if config is missing.
+
+---
+
 ## Future Improvements
 
 Potential enhancements:

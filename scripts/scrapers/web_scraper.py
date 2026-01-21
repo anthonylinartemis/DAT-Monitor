@@ -7,9 +7,9 @@ import warnings
 from datetime import datetime
 from typing import Optional
 
-from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
+from bs4 import XMLParsedAsHTMLWarning
 
-from scrapers.base import BaseScraper, ScraperResult
+from scrapers.base import BaseScraper, ScraperResult, create_soup
 from utils.parsers import (
     clean_numeric_string,
     extract_holdings_with_regex,
@@ -24,8 +24,8 @@ warnings.filterwarnings("ignore", category=XMLParsedAsHTMLWarning)
 class WebScraper(BaseScraper):
     """Scraper for static HTML and JS-rendered web pages."""
 
-    def __init__(self, company: dict, token: str):
-        super().__init__(company, token)
+    def __init__(self, company: dict, token: str, token_config: dict = None):
+        super().__init__(company, token, token_config=token_config)
         self.method = self.config.get("method", "html_static")
 
     def scrape(self) -> Optional[ScraperResult]:
@@ -57,7 +57,7 @@ class WebScraper(BaseScraper):
 
         if holdings is None:
             # Parse as HTML
-            soup = BeautifulSoup(html, "lxml")
+            soup = create_soup(html)
             text = soup.get_text()
             holdings = self._find_holdings_in_text(text)
 
@@ -99,7 +99,7 @@ class WebScraper(BaseScraper):
                 content = page.content()
                 browser.close()
 
-            soup = BeautifulSoup(content, "lxml")
+            soup = create_soup(content)
             text = soup.get_text()
 
             holdings = self._find_holdings_in_text(text)
@@ -155,7 +155,7 @@ class WebScraper(BaseScraper):
                 num_str = btc_symbol_match.group(1)
                 try:
                     num = int(num_str.replace(",", ""))
-                    if self._is_valid_holdings_amount(num):
+                    if self.is_valid_holdings_amount(num):
                         return num
                 except (ValueError, AttributeError):
                     pass
@@ -198,7 +198,7 @@ class WebScraper(BaseScraper):
                 num_str = match.group(1)
                 try:
                     num = clean_numeric_string(num_str)
-                    if self._is_valid_holdings_amount(num):
+                    if self.is_valid_holdings_amount(num):
                         return num
                 except (ValueError, AttributeError):
                     continue
@@ -206,7 +206,7 @@ class WebScraper(BaseScraper):
         # Extract all numbers and find reasonable ones
         all_numbers = extract_numbers_from_text(text)
         for num in sorted(all_numbers, reverse=True):
-            if self._is_valid_holdings_amount(num):
+            if self.is_valid_holdings_amount(num):
                 # If we have current holdings, prefer numbers close to it
                 if self.current_holdings > 0:
                     ratio = num / self.current_holdings
@@ -216,19 +216,6 @@ class WebScraper(BaseScraper):
                     return num
 
         return None
-
-    def _is_valid_holdings_amount(self, num: int) -> bool:
-        """Check if number is in valid range for this token type."""
-        ranges = {
-            "BTC": (1000, 2_000_000),
-            "ETH": (1000, 50_000_000),
-            "SOL": (1000, 100_000_000),
-            "HYPE": (1000, 100_000_000),
-            "BNB": (1000, 10_000_000),
-        }
-
-        min_val, max_val = ranges.get(self.token, (1000, 100_000_000))
-        return min_val <= num <= max_val
 
 
 class DashboardScraper(BaseScraper):

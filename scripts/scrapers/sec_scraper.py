@@ -8,10 +8,10 @@ import warnings
 from datetime import datetime, timedelta
 from typing import Optional
 
-from bs4 import BeautifulSoup, XMLParsedAsHTMLWarning
+from bs4 import XMLParsedAsHTMLWarning
 
 from scrapers.base import (
-    BaseScraper, ScraperResult, SEC_BASE,
+    BaseScraper, ScraperResult, SEC_BASE, create_soup,
     ACTION_KEYWORDS, ASSET_KEYWORDS, STRATEGY_KEYWORDS,
     FUNDING_KEYWORDS, METRIC_ANCHORS, SEC_ITEM_KEYWORDS
 )
@@ -74,8 +74,8 @@ def calculate_document_relevance(text: str, token: str) -> int:
 class SECScraper(BaseScraper):
     """Scraper for SEC EDGAR 8-K filings."""
 
-    def __init__(self, company: dict, token: str, days_back: int = 14):
-        super().__init__(company, token)
+    def __init__(self, company: dict, token: str, days_back: int = 14, token_config: dict = None):
+        super().__init__(company, token, token_config=token_config)
         self.days_back = days_back
         self.cik = company.get("cik", "")
 
@@ -146,7 +146,7 @@ class SECScraper(BaseScraper):
         if not html:
             return []
 
-        soup = BeautifulSoup(html, "lxml")
+        soup = create_soup(html)
         documents = []
 
         for link in soup.find_all("a"):
@@ -210,7 +210,7 @@ class SECScraper(BaseScraper):
             if not doc_html:
                 continue
 
-            soup = BeautifulSoup(doc_html, "lxml")
+            soup = create_soup(doc_html)
             text = soup.get_text()
 
             holdings = self._find_holdings_in_text(text)
@@ -305,7 +305,7 @@ class SECScraper(BaseScraper):
                             context = text_lower[match.end():match.end() + 20]
                             if "million" in context or (num_str.count('.') > 0 and num < 100):
                                 num = int(num * 1_000_000)
-                            if self._is_valid_holdings_amount(num):
+                            if self.is_valid_holdings_amount(num):
                                 return num
                         except ValueError:
                             continue
@@ -362,7 +362,7 @@ class SECScraper(BaseScraper):
                             context = text_lower[match.end():match.end() + 20]
                             if "million" in context or (num_str.count('.') > 0 and num < 100):
                                 num = int(num * 1_000_000)
-                            if self._is_valid_holdings_amount(num):
+                            if self.is_valid_holdings_amount(num):
                                 return num
                         except ValueError:
                             continue
@@ -377,7 +377,7 @@ class SECScraper(BaseScraper):
                 context_numbers = extract_numbers_from_text(context)
 
                 for num in sorted(context_numbers, reverse=True):
-                    if self._is_valid_holdings_amount(num):
+                    if self.is_valid_holdings_amount(num):
                         return num
 
         # Strategy 5: If we have current holdings, look for similar number
@@ -388,16 +388,3 @@ class SECScraper(BaseScraper):
                     return num
 
         return None
-
-    def _is_valid_holdings_amount(self, num: int) -> bool:
-        """Check if number is in valid range for this token type."""
-        ranges = {
-            "BTC": (1000, 2_000_000),
-            "ETH": (1000, 50_000_000),
-            "SOL": (1000, 100_000_000),
-            "HYPE": (1000, 100_000_000),
-            "BNB": (1000, 10_000_000),
-        }
-
-        min_val, max_val = ranges.get(self.token, (1000, 100_000_000))
-        return min_val <= num <= max_val

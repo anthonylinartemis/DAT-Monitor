@@ -19,7 +19,7 @@ import requests
 # Add scripts directory to path for imports
 sys.path.insert(0, str(Path(__file__).parent))
 
-from scrapers import get_scraper, DashboardScraper
+from scrapers import get_scraper
 from utils import calculate_change
 
 # Configuration
@@ -98,7 +98,13 @@ def calculate_days_back(last_updated_str: str) -> int:
         return 14
 
 
-def update_company(company: dict, token: str, days_back: int = 14, dry_run: bool = False) -> dict:
+def update_company(
+    company: dict,
+    token: str,
+    days_back: int = 14,
+    dry_run: bool = False,
+    token_config: dict = None
+) -> dict:
     """
     Update a single company's data using the appropriate scraper.
 
@@ -107,6 +113,7 @@ def update_company(company: dict, token: str, days_back: int = 14, dry_run: bool
         token: Token type (BTC, ETH, SOL, HYPE, BNB)
         days_back: Days to look back for SEC filings
         dry_run: If True, don't return updates
+        token_config: Token configuration (validation ranges, keywords) from data.json
 
     Returns:
         Dict with updates including a 'status' field:
@@ -121,28 +128,8 @@ def update_company(company: dict, token: str, days_back: int = 14, dry_run: bool
     updates = {}
 
     try:
-        # First, check company dashboard if available (for legacy compatibility)
-        if company.get("dataUrl") or company.get("dashboardUrl"):
-            dashboard_scraper = DashboardScraper(company, token)
-            result = dashboard_scraper.scrape()
-
-            if result and result.tokens != current_holdings:
-                print(f"    Dashboard update: {current_holdings:,} -> {result.tokens:,} {token}")
-
-                if dry_run:
-                    return {"status": "ok"}
-
-                updates["tokens"] = result.tokens
-                updates["lastUpdate"] = result.date
-                updates["alertUrl"] = result.url
-                updates["alertDate"] = result.date
-                updates["alertNote"] = "Dashboard update"
-                updates["status"] = "ok"
-                updates["lastChecked"] = datetime.now().isoformat()
-                return updates
-
-        # Get the appropriate scraper based on config
-        scraper = get_scraper(company, token, days_back=days_back)
+        # Get the appropriate scraper based on config (factory handles all types)
+        scraper = get_scraper(company, token, days_back=days_back, token_config=token_config)
         result = scraper.scrape()
 
         if result and result.tokens != current_holdings:
@@ -202,6 +189,9 @@ def run_scraper(
     last_updated = data.get("lastUpdated", "")
     days_back = calculate_days_back(last_updated)
 
+    # Get token configuration for validation ranges
+    token_configs = data.get("tokenConfig", {})
+
     last_date = last_updated[:10] if last_updated else "unknown"
     today = datetime.now().strftime("%Y-%m-%d")
     print(f"\nChecking for changes from {last_date} to {today} ({days_back} days)")
@@ -223,7 +213,14 @@ def run_scraper(
             if ticker_filter and company.get("ticker") != ticker_filter:
                 continue
 
-            updates = update_company(company, token, days_back=days_back, dry_run=dry_run)
+            # Get token-specific config for validation ranges
+            token_config = token_configs.get(token, {})
+            updates = update_company(
+                company, token,
+                days_back=days_back,
+                dry_run=dry_run,
+                token_config=token_config
+            )
 
             if updates:
                 # Track success/error status
