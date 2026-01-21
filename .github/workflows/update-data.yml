@@ -123,6 +123,14 @@ jobs:
             }" \
             "$SLACK_WEBHOOK_URL"
 
+      - name: Run data quality check
+        id: quality
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          echo "Running data quality check..."
+          python scripts/data_quality.py --alert-new 2>&1 | tee quality_output.txt || true
+
       - name: Summary
         run: |
           echo "## DAT Treasury Monitor Update" >> $GITHUB_STEP_SUMMARY
@@ -139,3 +147,50 @@ jobs:
           echo '```' >> $GITHUB_STEP_SUMMARY
           tail -20 scraper_output.txt >> $GITHUB_STEP_SUMMARY
           echo '```' >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Data Quality Report" >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+          tail -30 quality_output.txt >> $GITHUB_STEP_SUMMARY
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+  # Weekly data quality digest - runs Monday 9am ET
+  weekly-digest:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'schedule'
+
+    steps:
+      - name: Check if Monday 9am run
+        id: check_day
+        run: |
+          # Only run weekly digest on Monday at ~15:00 UTC (10am ET)
+          DAY=$(date -u +%u)
+          HOUR=$(date -u +%H)
+          if [ "$DAY" == "1" ] && [ "$HOUR" == "15" ]; then
+            echo "is_monday_morning=true" >> $GITHUB_OUTPUT
+          else
+            echo "is_monday_morning=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout repository
+        if: steps.check_day.outputs.is_monday_morning == 'true'
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        if: steps.check_day.outputs.is_monday_morning == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Install dependencies
+        if: steps.check_day.outputs.is_monday_morning == 'true'
+        run: |
+          pip install --upgrade pip
+          pip install requests
+
+      - name: Send weekly digest
+        if: steps.check_day.outputs.is_monday_morning == 'true'
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: |
+          python scripts/data_quality.py --daily-digest
