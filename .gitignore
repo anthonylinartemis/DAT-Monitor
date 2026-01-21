@@ -33,3 +33,10 @@ scraper_output.txt
 test/
 tests/
 *.test.py
+
+# Data imports (Excel files, CSVs)
+data/*
+!data/README.md
+*.xlsx
+*.xls
+*.csv
