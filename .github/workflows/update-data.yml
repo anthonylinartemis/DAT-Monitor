@@ -50,6 +50,8 @@ jobs:
         id: scraper
         env:
           SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
         run: |
           echo "Starting DAT Treasury Monitor scraper..."
           echo "Current time: $(date)"
