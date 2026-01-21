@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-01-21T14:33:45.382311-05:00",
-  "lastUpdatedDisplay": "Jan 21, 2026 02:33 PM ET",
+  "lastUpdated": "2026-01-21T18:32:33.730603-05:00",
+  "lastUpdatedDisplay": "Jan 21, 2026 06:32 PM ET",
   "recentChanges": [
     {
       "ticker": "MSTR",
@@ -98,15 +98,15 @@
         "ticker": "MSTR",
         "name": "Strategy",
         "notes": "Rebranded from MicroStrategy Feb 2025",
-        "tokens": 709715,
-        "lastUpdate": "2026-01-20",
-        "change": 22305,
+        "tokens": 687410,
+        "lastUpdate": "2026-01-12",
+        "change": -22305,
         "cik": "0001050446",
         "irUrl": "https://www.strategy.com/investor-relations",
         "dashboardUrl": "https://www.strategy.com/purchases",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526016002/mstr-20260105.htm",
-        "alertDate": "2026-01-20",
-        "alertNote": "8-K: 8-K",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526009811/mstr-20260105.htm",
+        "alertDate": "2026-01-12",
+        "alertNote": "Web: mstr-20260105.htm",
         "lastSecUpdate": "2026-01-20",
         "scrape_config": {
           "method": "sec_edgar",
@@ -114,7 +114,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:32:57.717992"
+        "lastChecked": "2026-01-21T23:32:07.108532"
       },
       {
         "ticker": "XXI",
@@ -134,7 +134,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:32:57.922303"
+        "lastChecked": "2026-01-21T23:32:07.314615"
       },
       {
         "ticker": "MTPLF",
@@ -152,7 +152,7 @@
           "target_regex": "\u20bf([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:04.573472"
+        "lastChecked": "2026-01-21T23:32:15.907691"
       },
       {
         "ticker": "ASST",
@@ -171,7 +171,7 @@
         "status": "ok",
         "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
         "lastErrorTime": "2026-01-20T18:11:08.617945",
-        "lastChecked": "2026-01-21T19:33:04.819818"
+        "lastChecked": "2026-01-21T23:32:16.129586"
       },
       {
         "ticker": "NAKA",
@@ -188,7 +188,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:05.919135"
+        "lastChecked": "2026-01-21T23:32:17.149010"
       },
       {
         "ticker": "ABTC",
@@ -205,7 +205,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:06.124168"
+        "lastChecked": "2026-01-21T23:32:17.371809"
       }
     ],
     "ETH": [
@@ -230,7 +230,7 @@
         "status": "ok",
         "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
         "lastErrorTime": "2026-01-20T18:11:09.191496",
-        "lastChecked": "2026-01-21T19:33:06.645923"
+        "lastChecked": "2026-01-21T23:32:18.859121"
       },
       {
         "ticker": "SBET",
@@ -248,7 +248,7 @@
           "target_regex": "TOTAL ETH HOLDINGS\\s*([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:11.302388"
+        "lastChecked": "2026-01-21T23:32:24.638150"
       },
       {
         "ticker": "ETHM",
@@ -264,7 +264,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:11.460610"
+        "lastChecked": "2026-01-21T23:32:24.875414"
       },
       {
         "ticker": "BTBT",
@@ -282,7 +282,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:11.630817"
+        "lastChecked": "2026-01-21T23:32:25.027594"
       },
       {
         "ticker": "BTCS",
@@ -302,14 +302,14 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:11.816594"
+        "lastChecked": "2026-01-21T23:32:25.198135"
       },
       {
         "ticker": "FGNX",
         "name": "FG Nexus",
-        "tokens": 40088,
-        "lastUpdate": "2025-12-17",
-        "change": 0,
+        "tokens": 9900000,
+        "lastUpdate": "2026-01-21",
+        "change": 9859912,
         "cik": "0001591890",
         "irUrl": "https://fgnexus.io/news/",
         "scrape_config": {
@@ -318,7 +318,11 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:12.022710"
+        "lastChecked": "2026-01-21T23:32:25.581293",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226003101/ex99-1.htm",
+        "alertDate": "2026-01-21",
+        "alertNote": "8-K: ex99-1.htm",
+        "lastSecUpdate": "2026-01-21"
       },
       {
         "ticker": "ETHZ",
@@ -335,7 +339,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:12.208888"
+        "lastChecked": "2026-01-21T23:32:25.819009"
       }
     ],
     "SOL": [
@@ -354,7 +358,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:12.459727"
+        "lastChecked": "2026-01-21T23:32:26.005009"
       },
       {
         "ticker": "HSDT",
@@ -371,7 +375,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:12.640785"
+        "lastChecked": "2026-01-21T23:32:26.144515"
       },
       {
         "ticker": "DFDV",
@@ -392,7 +396,7 @@
           "target_regex": "([\\d,]+)\\s*SOL"
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:43.046284"
+        "lastChecked": "2026-01-21T23:32:30.927496"
       },
       {
         "ticker": "UPXI",
@@ -413,27 +417,28 @@
           "target_regex": "Total SOL Count[^\\d]*([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:44.227648"
+        "lastChecked": "2026-01-21T23:32:32.104957"
       },
       {
         "ticker": "STSS",
         "name": "Sharps Technology",
         "notes": "Coinbase validator partner",
-        "tokens": 2000000,
-        "lastUpdate": "2026-01-12",
-        "change": 0,
+        "tokens": 6321367,
+        "lastUpdate": "2026-01-16",
+        "change": 4321367,
         "cik": "0001737995",
         "irUrl": "https://www.sharpstechnology.com/investors/news",
-        "alertUrl": "https://www.globenewswire.com/news-release/2026/01/12/3216808/0/en/Sharps-Coinbase-Validator.html",
-        "alertDate": "2026-01-12",
-        "alertNote": "Coinbase validator launch",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1737995/000149315226002584/ex10-1.htm",
+        "alertDate": "2026-01-16",
+        "alertNote": "8-K: ex10-1.htm",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:44.458286"
+        "lastChecked": "2026-01-21T23:32:32.713640",
+        "lastSecUpdate": "2026-01-16"
       }
     ],
     "HYPE": [
@@ -452,7 +457,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:44.636392"
+        "lastChecked": "2026-01-21T23:32:32.945297"
       },
       {
         "ticker": "HYPD",
@@ -472,7 +477,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:44.799281"
+        "lastChecked": "2026-01-21T23:32:33.139082"
       }
     ],
     "BNB": [
@@ -492,14 +497,14 @@
           "target_regex": "totalHoldings:\\s*(\\d+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-21T19:33:45.371843"
+        "lastChecked": "2026-01-21T23:32:33.720052"
       }
     ]
   },
   "totals": {
-    "BTC": 807150,
-    "ETH": 5838488,
-    "SOL": 15617254,
+    "BTC": 784845,
+    "ETH": 15698400,
+    "SOL": 19938621,
     "HYPE": 14027178,
     "BNB": 515054
   }
