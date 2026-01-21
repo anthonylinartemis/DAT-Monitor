@@ -33,9 +33,25 @@ class DATDatabase:
         )
         return len(result.data) > 0
 
-    def save_holding(self, ticker: str, tokens: float, change: float, filing_date: str, source_url: str) -> bool:
+    def get_latest_holding(self, company_id: int) -> Optional[dict]:
+        """
+        Get the most recent holding record for a company.
+        Returns dict with token_count and filing_date, or None if no records.
+        """
+        result = (
+            self.supabase.table("holdings")
+            .select("token_count, filing_date")
+            .eq("company_id", company_id)
+            .order("filing_date", desc=True)
+            .limit(1)
+            .execute()
+        )
+        return result.data[0] if result.data else None
+
+    def save_holding(self, ticker: str, tokens: float, filing_date: str, source_url: str) -> bool:
         """
         Adds a new historical row to the holdings table in Supabase.
+        Automatically calculates change_amount from previous filing.
         Returns True if saved successfully, False otherwise.
         Skips duplicate entries (same company_id + filing_date).
         """
@@ -50,16 +66,34 @@ class DATDatabase:
             print(f"    ℹ️ DB: {ticker} record for {filing_date} already exists, skipping")
             return True  # Not an error, just already exists
 
+        # Calculate change from previous holding
+        previous = self.get_latest_holding(company_id)
+        if previous:
+            change_amount = tokens - previous["token_count"]
+            prev_tokens = previous["token_count"]
+        else:
+            change_amount = tokens  # First entry, change equals total
+            prev_tokens = 0
+
         data = {
             "company_id": company_id,
             "token_count": tokens,
-            "change_amount": change,
+            "token_change": change_amount,  # tokens added/bought since last filing
             "filing_date": filing_date,
             "source_url": source_url
         }
 
         self.supabase.table("holdings").insert(data).execute()
-        print(f"    ✅ DB: Saved {ticker} ({tokens:,.0f} tokens) to Supabase")
+
+        # Show change info
+        if change_amount > 0:
+            sign = "+"
+        elif change_amount < 0:
+            sign = ""
+        else:
+            sign = ""
+
+        print(f"    ✅ DB: {ticker} {prev_tokens:,.0f} → {tokens:,.0f} ({sign}{change_amount:,.0f}) saved to Supabase")
         return True
 
 

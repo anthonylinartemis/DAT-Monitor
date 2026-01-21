@@ -250,7 +250,7 @@ def run_scraper(
                             "change": change_amount
                         })
 
-                        # Save to Supabase database
+                        # Save to Supabase database (change is auto-calculated from previous filing)
                         if not dry_run:
                             try:
                                 db = get_db()
@@ -258,7 +258,6 @@ def run_scraper(
                                     db.save_holding(
                                         ticker=company["ticker"],
                                         tokens=new_tokens,
-                                        change=change_amount,
                                         filing_date=updates.get("lastUpdate", datetime.now().strftime("%Y-%m-%d")),
                                         source_url=updates.get("alertUrl", "")
                                     )
