@@ -40,6 +40,15 @@ def get_stock_data(ticker: str) -> Optional[dict]:
 
 
 def get_stock_price(ticker: str) -> Optional[float]:
-    """Simple helper to just get the stock price."""
-    data = get_stock_data(ticker)
-    return data.get("price") if data else None
+    """
+    Fetch only the current stock price from Yahoo Finance.
+    Does not print debug info (for cleaner output when only price is needed).
+    """
+    try:
+        stock = yf.Ticker(ticker)
+        info = stock.info
+        price = info.get("currentPrice") or info.get("regularMarketPrice")
+        return price
+    except Exception as e:
+        print(f"    Yahoo Finance error for {ticker}: {e}")
+        return None

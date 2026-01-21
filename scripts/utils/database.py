@@ -56,6 +56,24 @@ class DATDatabase:
         )
         return result.data[0] if result.data else None
 
+    def get_shares_outstanding(self, company_id: int) -> Optional[int]:
+        """
+        Get the most recent shares_outstanding for a company from holdings_history.
+        This data comes from Excel imports.
+        """
+        result = (
+            self.supabase.table("holdings_history")
+            .select("shares_outstanding")
+            .eq("company_id", company_id)
+            .not_.is_("shares_outstanding", "null")
+            .order("date", desc=True)
+            .limit(1)
+            .execute()
+        )
+        if result.data and result.data[0].get("shares_outstanding"):
+            return int(result.data[0]["shares_outstanding"])
+        return None
+
     def update_holding_prices(
         self,
         company_id: int,

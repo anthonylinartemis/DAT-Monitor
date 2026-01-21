@@ -4,8 +4,14 @@ Update token prices, stock prices, and NAV for all companies.
 
 Fetches:
 - Token prices from CoinGecko (BTC, ETH, SOL, HYPE, BNB)
-- Stock prices from Yahoo Finance
-- Calculates NAV = token_count * token_price
+- Share prices from Yahoo Finance
+
+Uses from database (Excel imports):
+- Shares outstanding
+
+Calculates:
+- NAV = token_count * token_price
+- Market Cap = shares_outstanding * share_price
 
 Updates the holdings table in Supabase with current prices.
 """
@@ -16,7 +22,7 @@ from pathlib import Path
 from datetime import datetime
 
 from utils.prices import get_multiple_token_prices
-from utils.stocks import get_stock_data
+from utils.stocks import get_stock_price
 from utils.database import get_db
 
 
@@ -93,31 +99,42 @@ def update_prices(dry_run: bool = False):
             # Calculate NAV
             nav = token_count * token_price
 
-            # Fetch stock data
-            stock_data = get_stock_data(ticker)
-            share_price = stock_data.get("price") if stock_data else None
-            shares_outstanding = stock_data.get("shares_outstanding") if stock_data else None
-            market_cap = stock_data.get("market_cap") if stock_data else None
+            # Fetch share price from Yahoo Finance
+            share_price = get_stock_price(ticker)
+
+            # Get company_id for database lookups
+            company_id = db.get_company_id(ticker) if db else None
+
+            # Get shares_outstanding from database (from Excel imports)
+            shares_outstanding = None
+            if company_id and db:
+                shares_outstanding = db.get_shares_outstanding(company_id)
+
+            # Calculate market cap from shares_outstanding * share_price
+            market_cap = None
+            if shares_outstanding and share_price:
+                market_cap = shares_outstanding * share_price
 
             # Print summary
             print(f"  {ticker}:")
             print(f"    Tokens: {token_count:,.0f} {token}")
             print(f"    NAV: ${nav:,.2f}")
             if share_price:
-                print(f"    Stock: ${share_price:,.2f}")
-                if shares_outstanding:
-                    print(f"    Shares: {shares_outstanding:,.0f}")
-                if market_cap:
-                    print(f"    Market Cap: ${market_cap:,.0f}")
+                print(f"    Share Price: ${share_price:,.2f}")
             else:
-                print(f"    Stock: N/A")
+                print(f"    Share Price: N/A")
+            if shares_outstanding:
+                print(f"    Shares Outstanding: {shares_outstanding:,.0f} (from Excel)")
+            else:
+                print(f"    Shares Outstanding: N/A (not in Excel data)")
+            if market_cap:
+                print(f"    Market Cap: ${market_cap:,.2f} (calculated)")
 
             # Update database
             if dry_run:
                 print(f"    [DRY RUN] Would update {ticker} for {last_update}")
                 updated += 1
             else:
-                company_id = db.get_company_id(ticker)
                 if not company_id:
                     print(f"    Company not found in DB")
                     errors += 1
@@ -128,7 +145,7 @@ def update_prices(dry_run: bool = False):
                     filing_date=last_update,
                     token_price=token_price,
                     share_price=share_price,
-                    shares_outstanding=shares_outstanding,
+                    shares_outstanding=None,  # Don't overwrite Excel data
                     market_cap=market_cap,
                     nav=nav,
                 )
