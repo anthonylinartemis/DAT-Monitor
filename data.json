@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-01-23T10:33:48.581684-05:00",
-  "lastUpdatedDisplay": "Jan 23, 2026 10:33 AM ET",
+  "lastUpdated": "2026-01-23T14:29:28.618019-05:00",
+  "lastUpdatedDisplay": "Jan 23, 2026 02:29 PM ET",
   "recentChanges": [
     {
       "ticker": "MSTR",
@@ -98,14 +98,14 @@
         "ticker": "MSTR",
         "name": "Strategy",
         "notes": "Rebranded from MicroStrategy Feb 2025",
-        "tokens": 687410,
-        "lastUpdate": "2026-01-12",
-        "change": -22305,
+        "tokens": 709715,
+        "lastUpdate": "2026-01-20",
+        "change": 22305,
         "cik": "0001050446",
         "irUrl": "https://www.strategy.com/investor-relations",
         "dashboardUrl": "https://www.strategy.com/purchases",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526009811/mstr-20260105.htm",
-        "alertDate": "2026-01-12",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526016002/mstr-20260105.htm",
+        "alertDate": "2026-01-20",
         "alertNote": "Web: mstr-20260105.htm",
         "lastSecUpdate": "2026-01-20",
         "scrape_config": {
@@ -114,7 +114,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:32.719706"
+        "lastChecked": "2026-01-23T19:29:09.015923"
       },
       {
         "ticker": "XXI",
@@ -134,7 +134,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:32.883917"
+        "lastChecked": "2026-01-23T19:29:09.229733"
       },
       {
         "ticker": "MTPLF",
@@ -152,7 +152,7 @@
           "target_regex": "\u20bf([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:39.588092"
+        "lastChecked": "2026-01-23T19:29:18.215254"
       },
       {
         "ticker": "ASST",
@@ -171,7 +171,7 @@
         "status": "ok",
         "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
         "lastErrorTime": "2026-01-20T18:11:08.617945",
-        "lastChecked": "2026-01-23T15:33:39.812652"
+        "lastChecked": "2026-01-23T19:29:18.519154"
       },
       {
         "ticker": "NAKA",
@@ -188,7 +188,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:40.792917"
+        "lastChecked": "2026-01-23T19:29:19.668012"
       },
       {
         "ticker": "ABTC",
@@ -205,7 +205,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:40.988092"
+        "lastChecked": "2026-01-23T19:29:19.845064"
       }
     ],
     "ETH": [
@@ -230,7 +230,7 @@
         "status": "ok",
         "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
         "lastErrorTime": "2026-01-20T18:11:09.191496",
-        "lastChecked": "2026-01-23T15:33:42.577999"
+        "lastChecked": "2026-01-23T19:29:21.638522"
       },
       {
         "ticker": "SBET",
@@ -248,7 +248,7 @@
           "target_regex": "TOTAL ETH HOLDINGS\\s*([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:42.903734"
+        "lastChecked": "2026-01-23T19:29:21.951630"
       },
       {
         "ticker": "ETHM",
@@ -264,7 +264,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:43.027639"
+        "lastChecked": "2026-01-23T19:29:22.234942"
       },
       {
         "ticker": "BTBT",
@@ -282,7 +282,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:43.171505"
+        "lastChecked": "2026-01-23T19:29:22.425654"
       },
       {
         "ticker": "BTCS",
@@ -302,7 +302,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:43.355066"
+        "lastChecked": "2026-01-23T19:29:22.618549"
       },
       {
         "ticker": "FGNX",
@@ -318,7 +318,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:43.725165",
+        "lastChecked": "2026-01-23T19:29:23.187016",
         "alertUrl": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226003101/ex99-1.htm",
         "alertDate": "2026-01-21",
         "alertNote": "8-K: ex99-1.htm",
@@ -339,7 +339,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:44.391830"
+        "lastChecked": "2026-01-23T19:29:23.919545"
       }
     ],
     "SOL": [
@@ -358,7 +358,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:44.542037"
+        "lastChecked": "2026-01-23T19:29:24.191901"
       },
       {
         "ticker": "HSDT",
@@ -375,7 +375,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:44.699689"
+        "lastChecked": "2026-01-23T19:29:24.431268"
       },
       {
         "ticker": "DFDV",
@@ -396,7 +396,7 @@
           "target_regex": "([\\d,]+)\\s*SOL"
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:44.989586"
+        "lastChecked": "2026-01-23T19:29:24.719055"
       },
       {
         "ticker": "UPXI",
@@ -417,7 +417,7 @@
           "target_regex": "Total SOL Count[^\\d]*([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:45.920870"
+        "lastChecked": "2026-01-23T19:29:25.858743"
       },
       {
         "ticker": "STSS",
@@ -437,7 +437,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:47.843907",
+        "lastChecked": "2026-01-23T19:29:27.692978",
         "lastSecUpdate": "2026-01-16"
       }
     ],
@@ -457,7 +457,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:48.008166"
+        "lastChecked": "2026-01-23T19:29:27.882270"
       },
       {
         "ticker": "HYPD",
@@ -477,7 +477,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:48.138163"
+        "lastChecked": "2026-01-23T19:29:28.052477"
       }
     ],
     "BNB": [
@@ -497,12 +497,12 @@
           "target_regex": "totalHoldings:\\s*(\\d+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T15:33:48.571383"
+        "lastChecked": "2026-01-23T19:29:28.607577"
       }
     ]
   },
   "totals": {
-    "BTC": 784845,
+    "BTC": 807150,
     "ETH": 15698400,
     "SOL": 19938621,
     "HYPE": 14027178,
