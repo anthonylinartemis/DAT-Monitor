@@ -28,6 +28,7 @@ from utils.validation import is_valid_ticker
 
 # Configuration
 DATA_FILE = Path(__file__).parent.parent / "data.json"
+INDEX_FILE = Path(__file__).parent.parent / "index.html"
 USER_AGENT = os.environ.get("SEC_USER_AGENT", "")
 
 
@@ -94,6 +95,82 @@ def save_data(data: dict):
         json.dump(data, f, indent=2)
 
     print(f"\nSaved updated data to {DATA_FILE}")
+
+    # Sync fallback data in index.html to prevent stale data issues
+    sync_fallback_data(data)
+
+
+def sync_fallback_data(data: dict):
+    """
+    Sync the FALLBACK_DATA in index.html with current data.json values.
+
+    This prevents the frontend from showing stale values when data.json
+    fails to load (network issues, caching, etc.).
+    """
+    import re
+
+    if not INDEX_FILE.exists():
+        print("  Warning: index.html not found, skipping fallback sync")
+        return
+
+    try:
+        index_content = INDEX_FILE.read_text()
+
+        # Build the new fallback data object
+        fallback = {
+            "lastUpdatedDisplay": data.get("lastUpdatedDisplay", ""),
+            "companies": {}
+        }
+
+        # Copy company data with only the fields needed for fallback display
+        fallback_fields = [
+            "ticker", "name", "notes", "tokens", "lastUpdate", "change",
+            "cik", "irUrl", "alertUrl", "alertDate", "alertNote"
+        ]
+
+        for token, companies in data.get("companies", {}).items():
+            fallback["companies"][token] = []
+            for company in companies:
+                fallback_company = {
+                    k: v for k, v in company.items()
+                    if k in fallback_fields and v is not None and v != ""
+                }
+                fallback["companies"][token].append(fallback_company)
+
+        # Convert to compact JSON (one company per line for readability)
+        def format_fallback_js(obj: dict) -> str:
+            lines = ['const FALLBACK_DATA = {']
+            lines.append(f'            "lastUpdatedDisplay": "{obj["lastUpdatedDisplay"]}",')
+            lines.append('            "companies": {')
+
+            tokens = list(obj["companies"].keys())
+            for i, token in enumerate(tokens):
+                companies = obj["companies"][token]
+                lines.append(f'                "{token}": [')
+                for j, company in enumerate(companies):
+                    company_json = json.dumps(company, separators=(',', ': '))
+                    comma = "," if j < len(companies) - 1 else ""
+                    lines.append(f'                    {company_json}{comma}')
+                comma = "," if i < len(tokens) - 1 else ""
+                lines.append(f'                ]{comma}')
+
+            lines.append('            }')
+            lines.append('        };')
+            return '\n'.join(lines)
+
+        new_fallback = format_fallback_js(fallback)
+
+        # Replace the FALLBACK_DATA block in index.html
+        pattern = r'const FALLBACK_DATA = \{[\s\S]*?\n        \};'
+        if re.search(pattern, index_content):
+            updated_content = re.sub(pattern, new_fallback, index_content)
+            INDEX_FILE.write_text(updated_content)
+            print(f"  Synced fallback data in {INDEX_FILE.name}")
+        else:
+            print("  Warning: Could not find FALLBACK_DATA block in index.html")
+
+    except Exception as e:
+        print(f"  Warning: Failed to sync fallback data: {e}")
 
 
 def calculate_days_back(last_updated_str: str) -> int:
