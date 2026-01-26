@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-01-23T18:28:24.819403-05:00",
-  "lastUpdatedDisplay": "Jan 23, 2026 06:28 PM ET",
+  "lastUpdated": "2026-01-26T10:36:34.793782-05:00",
+  "lastUpdatedDisplay": "Jan 26, 2026 10:36 AM ET",
   "recentChanges": [
     {
       "ticker": "MSTR",
@@ -98,14 +98,14 @@
         "ticker": "MSTR",
         "name": "Strategy",
         "notes": "Rebranded from MicroStrategy Feb 2025",
-        "tokens": 687410,
-        "lastUpdate": "2026-01-12",
-        "change": -22305,
+        "tokens": 712647,
+        "lastUpdate": "2026-01-26",
+        "change": 25237,
         "cik": "0001050446",
         "irUrl": "https://www.strategy.com/investor-relations",
         "dashboardUrl": "https://www.strategy.com/purchases",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526009811/mstr-20260105.htm",
-        "alertDate": "2026-01-12",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526021726/mstr-20260105.htm",
+        "alertDate": "2026-01-26",
         "alertNote": "Web: mstr-20260105.htm",
         "lastSecUpdate": "2026-01-20",
         "scrape_config": {
@@ -114,7 +114,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:08.465353"
+        "lastChecked": "2026-01-26T15:36:17.095001"
       },
       {
         "ticker": "XXI",
@@ -134,7 +134,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:08.639452"
+        "lastChecked": "2026-01-26T15:36:17.341315"
       },
       {
         "ticker": "MTPLF",
@@ -152,7 +152,7 @@
           "target_regex": "\u20bf([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:16.120256"
+        "lastChecked": "2026-01-26T15:36:26.503641"
       },
       {
         "ticker": "ASST",
@@ -171,7 +171,7 @@
         "status": "ok",
         "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
         "lastErrorTime": "2026-01-20T18:11:08.617945",
-        "lastChecked": "2026-01-23T23:28:16.307440"
+        "lastChecked": "2026-01-26T15:36:26.687834"
       },
       {
         "ticker": "NAKA",
@@ -188,7 +188,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:17.271784"
+        "lastChecked": "2026-01-26T15:36:27.808718"
       },
       {
         "ticker": "ABTC",
@@ -205,7 +205,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:17.474357"
+        "lastChecked": "2026-01-26T15:36:28.022271"
       }
     ],
     "ETH": [
@@ -213,15 +213,15 @@
         "ticker": "BMNR",
         "name": "BitMine Immersion",
         "notes": "Largest ETH treasury. 3.48% of supply",
-        "tokens": 4203036,
-        "lastUpdate": "2026-01-20",
-        "change": 35268,
+        "tokens": 4243338,
+        "lastUpdate": "2026-01-26",
+        "change": 40302,
         "cik": "0001829311",
         "irUrl": "https://www.bitminetech.io/investor-relations",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226002762/form8-k.htm",
-        "alertDate": "2026-01-20",
-        "alertNote": "8-K: 8-K",
-        "lastSecUpdate": "2026-01-20",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226003536/ex99-1.htm",
+        "alertDate": "2026-01-26",
+        "alertNote": "8-K: ex99-1.htm",
+        "lastSecUpdate": "2026-01-26",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -230,7 +230,7 @@
         "status": "ok",
         "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
         "lastErrorTime": "2026-01-20T18:11:09.191496",
-        "lastChecked": "2026-01-23T23:28:18.910766"
+        "lastChecked": "2026-01-26T15:36:28.410403"
       },
       {
         "ticker": "SBET",
@@ -248,7 +248,7 @@
           "target_regex": "TOTAL ETH HOLDINGS\\s*([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:19.226816"
+        "lastChecked": "2026-01-26T15:36:28.753837"
       },
       {
         "ticker": "ETHM",
@@ -264,7 +264,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:19.359510"
+        "lastChecked": "2026-01-26T15:36:28.904037"
       },
       {
         "ticker": "BTBT",
@@ -282,7 +282,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:19.512104"
+        "lastChecked": "2026-01-26T15:36:29.098284"
       },
       {
         "ticker": "BTCS",
@@ -302,7 +302,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:19.669731"
+        "lastChecked": "2026-01-26T15:36:29.281110"
       },
       {
         "ticker": "FGNX",
@@ -318,7 +318,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:20.021975",
+        "lastChecked": "2026-01-26T15:36:29.742176",
         "alertUrl": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226003101/ex99-1.htm",
         "alertDate": "2026-01-21",
         "alertNote": "8-K: ex99-1.htm",
@@ -339,7 +339,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:20.684382"
+        "lastChecked": "2026-01-26T15:36:30.441943"
       }
     ],
     "SOL": [
@@ -358,7 +358,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:20.825164"
+        "lastChecked": "2026-01-26T15:36:30.662669"
       },
       {
         "ticker": "HSDT",
@@ -375,7 +375,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:20.974887"
+        "lastChecked": "2026-01-26T15:36:30.824488"
       },
       {
         "ticker": "DFDV",
@@ -396,7 +396,7 @@
           "target_regex": "([\\d,]+)\\s*SOL"
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:21.259775"
+        "lastChecked": "2026-01-26T15:36:31.124352"
       },
       {
         "ticker": "UPXI",
@@ -417,7 +417,7 @@
           "target_regex": "Total SOL Count[^\\d]*([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:22.237944"
+        "lastChecked": "2026-01-26T15:36:32.037378"
       },
       {
         "ticker": "STSS",
@@ -437,7 +437,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:24.031982",
+        "lastChecked": "2026-01-26T15:36:34.102734",
         "lastSecUpdate": "2026-01-16"
       }
     ],
@@ -457,7 +457,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:24.221298"
+        "lastChecked": "2026-01-26T15:36:34.243802"
       },
       {
         "ticker": "HYPD",
@@ -477,7 +477,7 @@
           "target_regex": null
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:24.367444"
+        "lastChecked": "2026-01-26T15:36:34.405193"
       }
     ],
     "BNB": [
@@ -497,13 +497,13 @@
           "target_regex": "totalHoldings:\\s*(\\d+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-23T23:28:24.809116"
+        "lastChecked": "2026-01-26T15:36:34.783270"
       }
     ]
   },
   "totals": {
-    "BTC": 784845,
-    "ETH": 15698400,
+    "BTC": 810082,
+    "ETH": 15738702,
     "SOL": 19938621,
     "HYPE": 14027178,
     "BNB": 515054
