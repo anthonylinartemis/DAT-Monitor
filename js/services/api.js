@@ -173,48 +173,97 @@ export async function fetchHistoricalPrice(token, dateStr) {
 }
 
 /**
- * Fetch DAT-specific metrics from Artemis: mNAV, FDM_mNAV, share price.
- * Endpoint: https://api.artemis.xyz/dat/{ticker}
+ * StrategyTracker CDN — powers treasury.strive.com and tracks all major DATs.
+ * Fetches from data.strategytracker.com for mNAV, share price, BTC yield, etc.
  */
-const datMetricsCache = new Map();
-const DAT_CACHE_TTL = 300_000; // 5 minutes
+const ST_LATEST_URL = 'https://data.strategytracker.com/latest.json';
+const ST_CDN_BASE = 'https://data.strategytracker.com';
 
-export async function fetchDATMetrics(ticker) {
-    const cached = datMetricsCache.get(ticker);
-    if (cached && (Date.now() - cached.ts) < DAT_CACHE_TTL) {
-        return cached.data;
+// Our ticker -> StrategyTracker ticker mapping
+const ST_TICKER_MAP = {
+    MSTR: 'MSTR',
+    ASST: 'ASST',
+    MTPLF: '3350.T',
+    XXI: 'XXI',
+    NAKA: 'NAKA',
+    ABTC: 'ABTC',
+};
+
+let stDataCache = null;
+let stCacheTs = 0;
+const ST_CACHE_TTL = 300_000; // 5 minutes
+
+async function fetchStrategyTrackerData() {
+    if (stDataCache && (Date.now() - stCacheTs) < ST_CACHE_TTL) {
+        return stDataCache;
     }
-
-    if (!ARTEMIS_API_KEY) return null;
 
     try {
-        const response = await fetch(`https://api.artemis.xyz/dat/${ticker.toLowerCase()}`, {
-            headers: { 'x-artemis-api-key': ARTEMIS_API_KEY }
-        });
-        if (!response.ok) throw new Error(`Artemis DAT ${response.status}`);
-        const result = await response.json();
-        // Normalize response — look for mNAV, fdm_mNAV, share_price in various structures
-        const metrics = {};
-        const d = result.data || result;
-        if (typeof d.mNAV === 'number' || typeof d.mnav === 'number') {
-            metrics.mNAV = d.mNAV ?? d.mnav;
-        }
-        if (typeof d.FDM_mNAV === 'number' || typeof d.fdm_mnav === 'number' || typeof d.fdm_mNAV === 'number') {
-            metrics.fdmMNAV = d.FDM_mNAV ?? d.fdm_mnav ?? d.fdm_mNAV;
-        }
-        if (typeof d.share_price === 'number' || typeof d.sharePrice === 'number' || typeof d.price === 'number') {
-            metrics.sharePrice = d.share_price ?? d.sharePrice ?? d.price;
-        }
-        if (typeof d.market_cap === 'number' || typeof d.marketCap === 'number') {
-            metrics.marketCap = d.market_cap ?? d.marketCap;
-        }
+        const latestResp = await fetch(ST_LATEST_URL);
+        if (!latestResp.ok) throw new Error(`ST latest ${latestResp.status}`);
+        const latest = await latestResp.json();
 
-        datMetricsCache.set(ticker, { data: metrics, ts: Date.now() });
-        return metrics;
+        const lightFile = latest.files?.light || `all-light.v${latest.version}.json`;
+        const lightResp = await fetch(`${ST_CDN_BASE}/${lightFile}`);
+        if (!lightResp.ok) throw new Error(`ST light ${lightResp.status}`);
+        const lightData = await lightResp.json();
+
+        stDataCache = lightData;
+        stCacheTs = Date.now();
+        return lightData;
     } catch (err) {
-        console.warn(`Artemis DAT metrics failed for ${ticker}:`, err.message);
+        console.warn('StrategyTracker CDN fetch failed:', err.message);
         return null;
     }
+}
+
+export async function fetchDATMetrics(ticker) {
+    const stTicker = ST_TICKER_MAP[ticker];
+    if (!stTicker) return null;
+
+    const data = await fetchStrategyTrackerData();
+    if (!data || !data.companies) return null;
+
+    const comp = data.companies[stTicker];
+    if (!comp) return null;
+
+    // StrategyTracker light data has fields directly on the company object
+    const pm = comp.processedMetrics || comp;
+    const metrics = {};
+
+    // mNAV (NAV premium)
+    const navPremium = pm.navPremium ?? comp.navPremium;
+    if (typeof navPremium === 'number') metrics.mNAV = navPremium;
+
+    // FDM mNAV (fully diluted)
+    const fdm = pm.navPremiumDiluted ?? comp.navPremiumDiluted;
+    if (typeof fdm === 'number') metrics.fdmMNAV = fdm;
+
+    // Share price
+    const price = pm.stockPrice ?? comp.stockPrice;
+    if (typeof price === 'number') metrics.sharePrice = price;
+
+    // Market cap
+    const mcap = pm.currentMarketCap ?? pm.marketCap ?? comp.marketCap;
+    if (typeof mcap === 'number') metrics.marketCap = mcap;
+
+    // BTC yield YTD
+    const btcYield = pm.btcYieldYtd ?? comp.btcYieldYtd;
+    if (typeof btcYield === 'number') metrics.btcYieldYtd = btcYield;
+
+    // BTC holdings
+    const btcHoldings = pm.latestBtcBalance ?? comp.holdings;
+    if (typeof btcHoldings === 'number') metrics.btcHoldings = btcHoldings;
+
+    // Avg cost per BTC
+    const avgCost = pm.avgCostPerBtc;
+    if (typeof avgCost === 'number') metrics.avgCostPerBtc = avgCost;
+
+    // Shares outstanding
+    const shares = pm.sharesOutstanding;
+    if (typeof shares === 'number') metrics.sharesOutstanding = shares;
+
+    return metrics;
 }
 
 export async function fetchAllPrices() {

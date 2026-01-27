@@ -8,6 +8,7 @@ for the pipeline and enrichment dicts for data.json.
 from __future__ import annotations
 
 import gzip
+import json
 import logging
 import re
 import urllib.error
@@ -22,7 +23,8 @@ logger = logging.getLogger(__name__)
 
 METAPLANET_ANALYTICS_URL = "https://metaplanet.jp/en/analytics"
 STRIVE_TREASURY_URL = "https://treasury.strive.com/?tab=home"
-STRIVE_SHARES_URL = "https://treasury.strive.com/?tab=shares"
+STRATEGYTRACKER_LATEST_URL = "https://data.strategytracker.com/latest.json"
+STRATEGYTRACKER_CDN_BASE = "https://data.strategytracker.com"
 
 USER_AGENT = "DAT-Monitor-Bot/1.0 (dat-monitor-github-action)"
 
@@ -286,118 +288,171 @@ def fetch_metaplanet_updates(
     return updates, analytics_dict
 
 
+def _http_get_json(url: str) -> dict:
+    """Fetch a URL and parse as JSON."""
+    text = _http_get(url)
+    return json.loads(text)
+
+
+# --- StrategyTracker CDN (powers treasury.strive.com) ---
+
+# Ticker mapping: our tickers -> StrategyTracker tickers
+STRATEGYTRACKER_TICKERS = {
+    "ASST": "ASST",
+    "MSTR": "MSTR",
+    "MTPLF": "3350.T",  # Metaplanet on Tokyo Stock Exchange
+}
+
+
 @dataclass(frozen=True)
-class StriveTreasuryData:
-    """Extracted data from Strive treasury dashboard."""
-    total_btc: Optional[int]
+class StrategyTrackerCompany:
+    """Data extracted from StrategyTracker CDN for one company."""
+    ticker: str
+    btc_holdings: Optional[float]
     shares_outstanding: Optional[int]
-    btc_nav_usd: Optional[float]
+    diluted_shares: Optional[int]
+    stock_price: Optional[float]
+    nav_premium: Optional[float]
+    nav_premium_diluted: Optional[float]
+    btc_yield_ytd: Optional[float]
+    market_cap: Optional[float]
+    cash_balance: Optional[float]
+    total_debt: Optional[float]
+    avg_cost_per_btc: Optional[float]
+    holdings_value: Optional[float]
 
     def to_json_dict(self) -> dict:
         result: dict = {}
-        if self.total_btc is not None:
-            result["totalBtc"] = self.total_btc
+        if self.btc_holdings is not None:
+            result["totalBtc"] = self.btc_holdings
         if self.shares_outstanding is not None:
             result["sharesOutstanding"] = self.shares_outstanding
-        if self.btc_nav_usd is not None:
-            result["bitcoinNavUsd"] = self.btc_nav_usd
+        if self.diluted_shares is not None:
+            result["dilutedShares"] = self.diluted_shares
+        if self.stock_price is not None:
+            result["sharePrice"] = self.stock_price
+        if self.nav_premium is not None:
+            result["mNAV"] = self.nav_premium
+        if self.nav_premium_diluted is not None:
+            result["fdmMNAV"] = self.nav_premium_diluted
+        if self.btc_yield_ytd is not None:
+            result["btcYieldYtd"] = self.btc_yield_ytd
+        if self.market_cap is not None:
+            result["marketCap"] = self.market_cap
+        if self.cash_balance is not None:
+            result["cashBalance"] = self.cash_balance
+        if self.total_debt is not None:
+            result["totalDebt"] = self.total_debt
+        if self.avg_cost_per_btc is not None:
+            result["avgCostPerBtc"] = self.avg_cost_per_btc
+        if self.holdings_value is not None:
+            result["holdingsValue"] = self.holdings_value
         return result
 
 
-def parse_strive_treasury(text: str) -> StriveTreasuryData:
-    """Parse the stripped text from Strive's treasury pages.
-
-    StrategyTracker-powered dashboard. Looks for BTC holdings,
-    shares outstanding, and NAV in the rendered text.
-    """
-    total_btc = None
-    shares = None
-    nav = None
-
-    # BTC holdings patterns
-    for pattern in [
-        r"(?:Total|Bitcoin)\s+(?:BTC\s+)?Holdings?\s*[:\s]*([\d,]+)",
-        r"([\d,]+)\s+BTC",
-        r"₿\s*([\d,]{3,})",
-    ]:
-        m = re.search(pattern, text, re.IGNORECASE)
-        if m:
-            val = int(m.group(1).replace(",", ""))
-            if val > 100:  # Sanity check
-                total_btc = val
-                break
-
-    # Shares outstanding patterns
-    for pattern in [
-        r"Shares\s+Outstanding\s*[:\s]*([\d,]+)",
-        r"Outstanding\s+Shares\s*[:\s]*([\d,]+)",
-        r"Total\s+Shares\s*[:\s]*([\d,]+)",
-    ]:
-        m = re.search(pattern, text, re.IGNORECASE)
-        if m:
-            shares = int(m.group(1).replace(",", ""))
-            break
-
-    # NAV
-    m = re.search(r"(?:Bitcoin\s+)?NAV.*?\$([\d,.]+)\s*([BMK])?", text, re.IGNORECASE)
-    if m:
-        nav = _parse_usd_amount(f"${m.group(1)}{m.group(2) or ''}")
-
-    return StriveTreasuryData(
-        total_btc=total_btc,
-        shares_outstanding=shares,
-        btc_nav_usd=nav,
+def _parse_st_company(ticker: str, comp: dict) -> StrategyTrackerCompany:
+    """Parse a company object from StrategyTracker light JSON."""
+    pm = comp.get("processedMetrics") or comp
+    return StrategyTrackerCompany(
+        ticker=ticker,
+        btc_holdings=pm.get("latestBtcBalance") or pm.get("holdings"),
+        shares_outstanding=_safe_int(pm.get("sharesOutstanding")),
+        diluted_shares=_safe_int(pm.get("latestDilutedShares")),
+        stock_price=pm.get("stockPrice"),
+        nav_premium=pm.get("navPremium"),
+        nav_premium_diluted=pm.get("navPremiumDiluted"),
+        btc_yield_ytd=pm.get("btcYieldYtd"),
+        market_cap=pm.get("marketCap") or pm.get("currentMarketCap"),
+        cash_balance=pm.get("latestCashBalance"),
+        total_debt=pm.get("latestDebt"),
+        avg_cost_per_btc=pm.get("avgCostPerBtc"),
+        holdings_value=pm.get("holdingsValue"),
     )
+
+
+def _safe_int(val) -> Optional[int]:
+    """Convert to int if numeric, else None."""
+    if val is None:
+        return None
+    try:
+        return int(float(val))
+    except (ValueError, TypeError):
+        return None
+
+
+def fetch_strategytracker_data() -> dict[str, StrategyTrackerCompany]:
+    """Fetch all company data from StrategyTracker CDN.
+
+    Returns {our_ticker: StrategyTrackerCompany} for companies we track.
+    """
+    results: dict[str, StrategyTrackerCompany] = {}
+
+    try:
+        latest = _http_get_json(STRATEGYTRACKER_LATEST_URL)
+        version = latest.get("version", "")
+        light_file = latest.get("files", {}).get("light", f"all-light.v{version}.json")
+        light_url = f"{STRATEGYTRACKER_CDN_BASE}/{light_file}"
+
+        logger.info("StrategyTracker version: %s, fetching %s", version, light_url)
+        light_data = _http_get_json(light_url)
+
+        companies = light_data.get("companies", {})
+        for our_ticker, st_ticker in STRATEGYTRACKER_TICKERS.items():
+            comp = companies.get(st_ticker)
+            if comp:
+                results[our_ticker] = _parse_st_company(our_ticker, comp)
+                logger.info(
+                    "StrategyTracker %s (%s): btc=%.1f, shares=%s, mNAV=%s",
+                    our_ticker, st_ticker,
+                    results[our_ticker].btc_holdings or 0,
+                    results[our_ticker].shares_outstanding,
+                    results[our_ticker].nav_premium,
+                )
+    except (ValueError, urllib.error.URLError, json.JSONDecodeError, KeyError) as e:
+        logger.warning("StrategyTracker CDN fetch failed: %s", e)
+
+    return results
 
 
 def fetch_strive_updates(
     data: dict,
-) -> tuple[list[ScrapedUpdate], dict | None]:
-    """Fetch Strive treasury data and return pipeline updates + enrichment.
+) -> tuple[list[ScrapedUpdate], dict[str, dict]]:
+    """Fetch data from StrategyTracker CDN for all tracked companies.
 
-    treasury.strive.com is a StrategyTracker SPA. Static HTTP may not
-    capture all data (JS-rendered). Falls back gracefully.
+    Returns pipeline updates + enrichment dicts for multiple companies.
     """
-    logger.info("Fetching Strive treasury from %s", STRIVE_TREASURY_URL)
+    logger.info("Fetching StrategyTracker CDN data for Strive and others")
 
-    combined_text = ""
-    for url in [STRIVE_TREASURY_URL, STRIVE_SHARES_URL]:
-        try:
-            html = _http_get(url)
-            combined_text += " " + _strip_html(html)
-        except (ValueError, urllib.error.URLError) as e:
-            logger.warning("Failed to fetch Strive page %s: %s", url, e)
+    st_data = fetch_strategytracker_data()
+    updates: list[ScrapedUpdate] = []
+    enrichments: dict[str, dict] = {}
 
-    if not combined_text.strip():
-        logger.warning("Strive: no content fetched from either page")
-        return [], None
+    for our_ticker, company in st_data.items():
+        # Produce enrichment for all companies
+        enrichments[our_ticker] = company.to_json_dict()
 
-    treasury = parse_strive_treasury(combined_text)
+        # Only produce pipeline updates for BTC companies with holdings
+        if company.btc_holdings and company.btc_holdings > 0:
+            btc_int = int(company.btc_holdings)
+            context = (
+                f"{our_ticker} holds {btc_int:,} Bitcoin in treasury. "
+                f"Share price: ${company.stock_price or 0:.2f}, "
+                f"mNAV: {company.nav_premium or 0:.2f}x. "
+                f"Source: {STRIVE_TREASURY_URL}"
+            )
+            updates.append(ScrapedUpdate(
+                ticker=our_ticker,
+                token="BTC",
+                new_value=btc_int,
+                context_text=context,
+                source_url=STRIVE_TREASURY_URL,
+            ))
 
     logger.info(
-        "Strive parsed: total_btc=%s, shares=%s, nav=%s",
-        treasury.total_btc,
-        treasury.shares_outstanding,
-        treasury.btc_nav_usd,
+        "StrategyTracker: %d updates, %d enrichments",
+        len(updates), len(enrichments),
     )
-
-    updates: list[ScrapedUpdate] = []
-
-    if treasury.total_btc is not None:
-        context = (
-            f"Strive holds {treasury.total_btc:,} Bitcoin in treasury. "
-            f"Source: {STRIVE_TREASURY_URL}"
-        )
-        updates.append(ScrapedUpdate(
-            ticker="ASST",
-            token="BTC",
-            new_value=treasury.total_btc,
-            context_text=context,
-            source_url=STRIVE_TREASURY_URL,
-        ))
-
-    treasury_dict = treasury.to_json_dict() if treasury.total_btc else None
-    return updates, treasury_dict
+    return updates, enrichments
 
 
 def build_website_updates(
@@ -417,11 +472,10 @@ def build_website_updates(
     if mtplf_analytics:
         enrichments["MTPLF"] = mtplf_analytics
 
-    # Strive
-    asst_updates, asst_treasury = fetch_strive_updates(data)
-    all_updates.extend(asst_updates)
-    if asst_treasury:
-        enrichments["ASST"] = asst_treasury
+    # StrategyTracker CDN (Strive, and enrichments for MSTR/MTPLF)
+    st_updates, st_enrichments = fetch_strive_updates(data)
+    all_updates.extend(st_updates)
+    enrichments.update(st_enrichments)
 
     logger.info(
         "Website scrapers: %d update(s), %d enrichment(s)",

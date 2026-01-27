@@ -113,6 +113,10 @@ export function renderCompanyPage(ticker) {
                         <div class="hero-stat-value mono">$${formatNum(latestTreasury.latest_cash)}</div>
                     </div>
                     ` : ''}
+                    <div class="hero-stat" id="share-price-stat" style="display:none">
+                        <div class="hero-stat-label">Share Price</div>
+                        <div class="hero-stat-value mono" id="share-price-value">\u2014</div>
+                    </div>
                     <div class="hero-stat" id="mnav-stat" style="display:none">
                         <div class="hero-stat-label">mNAV</div>
                         <div class="hero-stat-value mono" id="mnav-value">\u2014</div>
@@ -120,6 +124,14 @@ export function renderCompanyPage(ticker) {
                     <div class="hero-stat" id="fdm-mnav-stat" style="display:none">
                         <div class="hero-stat-label">FDM mNAV</div>
                         <div class="hero-stat-value mono" id="fdm-mnav-value">\u2014</div>
+                    </div>
+                    <div class="hero-stat" id="btc-yield-stat" style="display:none">
+                        <div class="hero-stat-label">BTC Yield YTD</div>
+                        <div class="hero-stat-value mono" id="btc-yield-value">\u2014</div>
+                    </div>
+                    <div class="hero-stat" id="market-cap-stat" style="display:none">
+                        <div class="hero-stat-label">Market Cap</div>
+                        <div class="hero-stat-value mono" id="market-cap-value">\u2014</div>
                     </div>
                 </div>
             </div>
@@ -272,24 +284,36 @@ export function initCompanyPage(ticker) {
         }
     });
 
-    // Fetch DAT-specific metrics (mNAV, FDM_mNAV, share price)
+    // Fetch DAT-specific metrics (mNAV, FDM_mNAV, share price, yield, market cap)
     fetchDATMetrics(ticker).then(metrics => {
         if (!metrics) return;
-        if (typeof metrics.mNAV === 'number') {
-            const el = document.getElementById('mnav-stat');
-            const val = document.getElementById('mnav-value');
+
+        const show = (statId, valueId, text) => {
+            const el = document.getElementById(statId);
+            const val = document.getElementById(valueId);
             if (el && val) {
-                val.textContent = metrics.mNAV.toFixed(2) + 'x';
+                val.textContent = text;
                 el.style.display = '';
             }
+        };
+
+        if (typeof metrics.mNAV === 'number') {
+            show('mnav-stat', 'mnav-value', metrics.mNAV.toFixed(2) + 'x');
         }
         if (typeof metrics.fdmMNAV === 'number') {
-            const el = document.getElementById('fdm-mnav-stat');
-            const val = document.getElementById('fdm-mnav-value');
-            if (el && val) {
-                val.textContent = metrics.fdmMNAV.toFixed(2) + 'x';
-                el.style.display = '';
-            }
+            show('fdm-mnav-stat', 'fdm-mnav-value', metrics.fdmMNAV.toFixed(2) + 'x');
+        }
+        if (typeof metrics.sharePrice === 'number') {
+            show('share-price-stat', 'share-price-value', '$' + metrics.sharePrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
+        }
+        if (typeof metrics.btcYieldYtd === 'number') {
+            show('btc-yield-stat', 'btc-yield-value', metrics.btcYieldYtd.toFixed(2) + '%');
+        }
+        if (typeof metrics.marketCap === 'number') {
+            const mcap = metrics.marketCap >= 1e9
+                ? '$' + (metrics.marketCap / 1e9).toFixed(2) + 'B'
+                : '$' + (metrics.marketCap / 1e6).toFixed(1) + 'M';
+            show('market-cap-stat', 'market-cap-value', mcap);
         }
     });
 
