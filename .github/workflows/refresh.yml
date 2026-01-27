@@ -1,0 +1,35 @@
+name: Refresh Data
+
+on:
+  schedule:
+    - cron: '0 */4 * * *'  # Every 4 hours
+  workflow_dispatch:        # Manual trigger
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run tests
+        run: python -m pytest tests/ -v
+
+      - name: Fetch and update data
+        run: python -m scraper.run
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "DAT Monitor Bot"
+          git config user.email "bot@dat-monitor.io"
+          git add data.json scraper/holdings_history.json
+          git diff --staged --quiet || git commit -m "Auto-refresh token holdings data"
+          git push
