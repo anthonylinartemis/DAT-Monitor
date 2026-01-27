@@ -64,6 +64,7 @@ OPTIONAL_COMPANY_FIELDS: dict[str, type] = {
     "alertDate": str,
     "alertNote": str,
     "manual_override": bool,
+    "transactions": list,
 }
 
 # --- File paths (relative to project root) ---

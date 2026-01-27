@@ -23,9 +23,55 @@ _COMPANY_CAMEL_TO_SNAKE: dict[str, str] = {
     "alertDate": "alert_date",
     "alertNote": "alert_note",
     "manual_override": "manual_override",
+    "transactions": "transactions",
 }
 
 _COMPANY_SNAKE_TO_CAMEL: dict[str, str] = {v: k for k, v in _COMPANY_CAMEL_TO_SNAKE.items()}
+
+
+@dataclass(frozen=True)
+class Transaction:
+    """One purchase/acquisition transaction for a company."""
+
+    date: str
+    asset: str
+    quantity: int
+    price_usd: int
+    total_cost: int
+    cumulative_tokens: int
+    avg_cost_basis: int
+    source: str = ""
+    fingerprint: str = ""
+
+    def to_json_dict(self) -> dict:
+        result = {
+            "date": self.date,
+            "asset": self.asset,
+            "quantity": self.quantity,
+            "priceUsd": self.price_usd,
+            "totalCost": self.total_cost,
+            "cumulativeTokens": self.cumulative_tokens,
+            "avgCostBasis": self.avg_cost_basis,
+        }
+        if self.source:
+            result["source"] = self.source
+        fp = self.fingerprint or f"{self.date}:{self.asset}:{self.total_cost}"
+        result["fingerprint"] = fp
+        return result
+
+    @classmethod
+    def from_json_dict(cls, data: dict) -> Transaction:
+        return cls(
+            date=data["date"],
+            asset=data["asset"],
+            quantity=data["quantity"],
+            price_usd=data["priceUsd"],
+            total_cost=data["totalCost"],
+            cumulative_tokens=data["cumulativeTokens"],
+            avg_cost_basis=data["avgCostBasis"],
+            source=data.get("source", ""),
+            fingerprint=data.get("fingerprint", ""),
+        )
 
 
 @dataclass(frozen=True)
@@ -44,6 +90,7 @@ class Company:
     alert_date: str = ""
     alert_note: str = ""
     manual_override: bool = False
+    transactions: tuple[Transaction, ...] = ()
 
     def to_json_dict(self) -> dict:
         """Convert to camelCase dict matching data.json format.
@@ -53,6 +100,8 @@ class Company:
         """
         result: dict = {}
         for snake, camel in _COMPANY_SNAKE_TO_CAMEL.items():
+            if snake == "transactions":
+                continue  # handled separately below
             value = getattr(self, snake)
             # Always include required fields; skip empty optional fields
             if snake in ("ticker", "name", "tokens", "last_update", "change"):
@@ -62,6 +111,8 @@ class Company:
                     result[camel] = value
             elif value:
                 result[camel] = value
+        if self.transactions:
+            result["transactions"] = [t.to_json_dict() for t in self.transactions]
         return result
 
     @classmethod
@@ -69,8 +120,14 @@ class Company:
         """Create from a camelCase dict (one company entry in data.json)."""
         kwargs: dict = {}
         for camel, snake in _COMPANY_CAMEL_TO_SNAKE.items():
+            if camel == "transactions":
+                continue  # handled separately below
             if camel in data:
                 kwargs[snake] = data[camel]
+        raw_txns = data.get("transactions", [])
+        kwargs["transactions"] = tuple(
+            Transaction.from_json_dict(t) for t in raw_txns
+        )
         return cls(**kwargs)
 
 

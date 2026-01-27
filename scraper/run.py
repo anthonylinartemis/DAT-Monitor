@@ -11,9 +11,9 @@ import logging
 import sys
 from pathlib import Path
 
-from scraper import fetcher, parser
+from scraper import fetcher, parser, website_scrapers
 from scraper.config import DATA_JSON_PATH, HOLDINGS_HISTORY_PATH
-from scraper.updater import load_data, run_batch
+from scraper.updater import apply_enrichments, load_data, run_batch, save_data
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -40,18 +40,34 @@ def main(argv: list[str] | None = None) -> int:
     logger.info("Loaded %d companies across %d token groups",
                 company_count, len(data.get("companies", {})))
 
-    # 2. Fetch updates from SEC EDGAR
+    # 2. Fetch updates from all sources
+    updates = []
+    enrichments: dict[str, dict] = {}
+
+    # 2a. SEC EDGAR
     logger.info("Fetching recent filings from SEC EDGAR...")
     try:
-        updates = fetcher.build_updates(data)
+        edgar_updates = fetcher.build_updates(data)
+        updates.extend(edgar_updates)
+        logger.info("EDGAR: %d potential update(s)", len(edgar_updates))
     except Exception:
         logger.exception("Failed during EDGAR fetch")
-        return 1
 
-    logger.info("Found %d potential update(s)", len(updates))
+    # 2b. Website scrapers (Metaplanet, etc.)
+    logger.info("Running website scrapers...")
+    try:
+        web_updates, web_enrichments = website_scrapers.build_website_updates(data)
+        updates.extend(web_updates)
+        enrichments.update(web_enrichments)
+        logger.info("Websites: %d update(s), %d enrichment(s)",
+                     len(web_updates), len(web_enrichments))
+    except Exception:
+        logger.exception("Failed during website scraping")
 
-    if not updates:
-        logger.info("No updates found. Done.")
+    logger.info("Total: %d potential update(s)", len(updates))
+
+    if not updates and not enrichments:
+        logger.info("No updates or enrichments found. Done.")
         return 0
 
     # 3. Classify and log each update (useful for dry-run)
@@ -63,13 +79,29 @@ def main(argv: list[str] | None = None) -> int:
             result.classification.value, result.confidence_keywords,
         )
 
+    if enrichments:
+        logger.info("Enrichments queued for: %s", ", ".join(enrichments.keys()))
+
     if args.dry_run:
         logger.info("Dry run — no changes written.")
         return 0
 
-    # 4. Run through the pipeline
-    logger.info("Processing updates through pipeline...")
-    summary = run_batch(updates, data_path, history_path)
+    # 4. Run pipeline for token updates
+    summary = {"applied": 0, "skipped_override": 0, "skipped_buyback": 0,
+               "skipped_oscillation": 0, "skipped_unknown": 0,
+               "skipped_not_found": 0, "errors": 0}
+
+    if updates:
+        logger.info("Processing updates through pipeline...")
+        summary = run_batch(updates, data_path, history_path)
+
+    # 5. Apply enrichments (analytics data from website scrapers)
+    if enrichments:
+        logger.info("Applying enrichments to data.json...")
+        data = load_data(data_path)
+        data = apply_enrichments(data, enrichments)
+        save_data(data, data_path)
+        logger.info("Enrichments applied for: %s", ", ".join(enrichments.keys()))
 
     logger.info("=== Summary ===")
     logger.info("  Applied:             %d", summary["applied"])
@@ -78,6 +110,7 @@ def main(argv: list[str] | None = None) -> int:
     logger.info("  Skipped (oscillation):%d", summary["skipped_oscillation"])
     logger.info("  Skipped (unknown):   %d", summary["skipped_unknown"])
     logger.info("  Skipped (not found): %d", summary["skipped_not_found"])
+    logger.info("  Enrichments:         %d", len(enrichments))
     logger.info("  Errors:              %d", summary["errors"])
 
     if summary["errors"] > 0:

@@ -257,3 +257,31 @@ def _classify_skip(
 
     # Must be oscillation
     summary["skipped_oscillation"] += 1
+
+
+def apply_enrichments(data: dict, enrichments: dict[str, dict]) -> dict:
+    """Merge analytics enrichment data into company entries.
+
+    enrichments: {ticker: analytics_dict} from website scrapers.
+    Adds/updates the 'analytics' field on matching company entries.
+    Dashboard ignores unknown keys, so this is backward compatible.
+    """
+    companies = data.get("companies", {})
+
+    for ticker, analytics_dict in enrichments.items():
+        found = False
+        for token_group, company_list in companies.items():
+            for company in company_list:
+                if company.get("ticker") == ticker:
+                    company["analytics"] = analytics_dict
+                    found = True
+                    break
+            if found:
+                break
+
+        if not found:
+            logger.warning(
+                "Enrichment target %s not found in data.json", ticker
+            )
+
+    return data

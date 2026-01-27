@@ -10,7 +10,16 @@
   ],
   "companies": {
     "BTC": [
-      {"ticker": "MSTR", "name": "Strategy", "notes": "Rebranded from MicroStrategy Feb 2025", "tokens": 687410, "lastUpdate": "2026-01-12", "change": 13627, "cik": "0001050446", "irUrl": "https://www.strategy.com/investor-relations", "alertUrl": "https://www.strategy.com/news", "alertDate": "2026-01-12", "alertNote": "Weekly BTC purchase"},
+      {"ticker": "MSTR", "name": "Strategy", "notes": "Rebranded from MicroStrategy Feb 2025", "tokens": 687410, "lastUpdate": "2026-01-12", "change": 13627, "cik": "0001050446", "irUrl": "https://www.strategy.com/investor-relations", "alertUrl": "https://www.strategy.com/news", "alertDate": "2026-01-12", "alertNote": "Weekly BTC purchase", "transactions": [
+        {"date": "2026-01-12", "asset": "BTC", "quantity": 13627, "priceUsd": 91519, "totalCost": 1247142213, "cumulativeTokens": 687410, "avgCostBasis": 65033, "source": "https://www.strategy.com/news", "fingerprint": "2026-01-12:BTC:1247142213"},
+        {"date": "2026-01-06", "asset": "BTC", "quantity": 1070, "priceUsd": 94004, "totalCost": 100584280, "cumulativeTokens": 673783, "avgCostBasis": 64553, "source": "https://www.strategy.com/news", "fingerprint": "2026-01-06:BTC:100584280"},
+        {"date": "2025-12-30", "asset": "BTC", "quantity": 2138, "priceUsd": 97837, "totalCost": 209179506, "cumulativeTokens": 672713, "avgCostBasis": 64452, "source": "https://www.strategy.com/news", "fingerprint": "2025-12-30:BTC:209179506"},
+        {"date": "2025-12-23", "asset": "BTC", "quantity": 5262, "priceUsd": 106662, "totalCost": 561237444, "cumulativeTokens": 670575, "avgCostBasis": 64209, "source": "https://www.strategy.com/news", "fingerprint": "2025-12-23:BTC:561237444"},
+        {"date": "2025-12-16", "asset": "BTC", "quantity": 15350, "priceUsd": 100386, "totalCost": 1540924100, "cumulativeTokens": 665313, "avgCostBasis": 63470, "source": "https://www.strategy.com/news", "fingerprint": "2025-12-16:BTC:1540924100"},
+        {"date": "2025-12-09", "asset": "BTC", "quantity": 21550, "priceUsd": 98783, "totalCost": 2128773650, "cumulativeTokens": 649963, "avgCostBasis": 61267, "source": "https://www.strategy.com/news", "fingerprint": "2025-12-09:BTC:2128773650"},
+        {"date": "2025-12-02", "asset": "BTC", "quantity": 15400, "priceUsd": 95976, "totalCost": 1478030400, "cumulativeTokens": 628413, "avgCostBasis": 58863, "source": "https://www.strategy.com/news", "fingerprint": "2025-12-02:BTC:1478030400"},
+        {"date": "2025-11-25", "asset": "BTC", "quantity": 55500, "priceUsd": 97862, "totalCost": 5431341000, "cumulativeTokens": 613013, "avgCostBasis": 56518, "source": "https://www.strategy.com/news", "fingerprint": "2025-11-25:BTC:5431341000"}
+      ]},
       {"ticker": "XXI", "name": "Twenty One Capital", "notes": "Backed by Tether, SoftBank, Cantor", "tokens": 43514, "lastUpdate": "2025-12-09", "change": 0, "cik": "0002070457", "irUrl": "https://xxi.money/", "alertUrl": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0002070457&type=S-1", "alertDate": "2026-01-05", "alertNote": "S-1 filing"},
       {"ticker": "MTPLF", "name": "Metaplanet", "notes": "Japan TSE - No SEC", "tokens": 35102, "lastUpdate": "2025-12-30", "change": 4279, "cik": "", "irUrl": "https://metaplanet.jp/en/shareholders/disclosures"},
       {"ticker": "ASST", "name": "Strive", "tokens": 7627, "lastUpdate": "2026-01-05", "change": 0, "cik": "0001855631", "irUrl": "https://investors.strive.com/overview/default.aspx"},

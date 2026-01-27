@@ -117,3 +117,72 @@ class TestDataConstraints:
             assert entry["token"] in VALID_TOKENS, (
                 f"recentChanges references unknown token '{entry['token']}'"
             )
+
+
+_TRANSACTION_REQUIRED_FIELDS: dict[str, type] = {
+    "date": str,
+    "asset": str,
+    "quantity": int,
+    "priceUsd": int,
+    "totalCost": int,
+    "cumulativeTokens": int,
+    "avgCostBasis": int,
+    "fingerprint": str,
+}
+
+
+class TestTransactions:
+    """Validate transaction schema when present on companies."""
+
+    def _companies_with_transactions(self, data: dict) -> list[tuple[str, dict]]:
+        result = []
+        for token_group, company_list in data["companies"].items():
+            for company in company_list:
+                if "transactions" in company and company["transactions"]:
+                    result.append((token_group, company))
+        return result
+
+    def test_transactions_is_list_when_present(self, data: dict) -> None:
+        for token_group, company in self._companies_with_transactions(data):
+            assert isinstance(company["transactions"], list), (
+                f"{company['ticker']}.transactions should be a list"
+            )
+
+    def test_transaction_required_fields(self, data: dict) -> None:
+        date_pattern = re.compile(r"^\d{4}-\d{2}-\d{2}$")
+        for token_group, company in self._companies_with_transactions(data):
+            for i, txn in enumerate(company["transactions"]):
+                for field_name, field_type in _TRANSACTION_REQUIRED_FIELDS.items():
+                    assert field_name in txn, (
+                        f"{company['ticker']} txn[{i}] missing '{field_name}'"
+                    )
+                    assert isinstance(txn[field_name], field_type), (
+                        f"{company['ticker']} txn[{i}].{field_name}: "
+                        f"expected {field_type.__name__}, got {type(txn[field_name]).__name__}"
+                    )
+                assert date_pattern.match(txn["date"]), (
+                    f"{company['ticker']} txn[{i}].date '{txn['date']}' "
+                    f"doesn't match YYYY-MM-DD"
+                )
+
+    def test_transaction_fingerprints_unique(self, data: dict) -> None:
+        for token_group, company in self._companies_with_transactions(data):
+            fingerprints = [t["fingerprint"] for t in company["transactions"]]
+            assert len(fingerprints) == len(set(fingerprints)), (
+                f"{company['ticker']} has duplicate transaction fingerprints"
+            )
+
+    def test_transaction_quantities_positive(self, data: dict) -> None:
+        for token_group, company in self._companies_with_transactions(data):
+            for i, txn in enumerate(company["transactions"]):
+                assert txn["quantity"] >= 0, (
+                    f"{company['ticker']} txn[{i}] has negative quantity"
+                )
+
+    def test_transaction_asset_matches_token_group(self, data: dict) -> None:
+        for token_group, company in self._companies_with_transactions(data):
+            for i, txn in enumerate(company["transactions"]):
+                assert txn["asset"] == token_group, (
+                    f"{company['ticker']} txn[{i}].asset='{txn['asset']}' "
+                    f"doesn't match token group '{token_group}'"
+                )
