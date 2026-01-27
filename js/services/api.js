@@ -101,6 +101,77 @@ export async function fetchPrice(token) {
     return null;
 }
 
+// Historical price cache keyed by "token:YYYY-MM-DD"
+const historicalCache = new Map();
+
+async function fetchArtemisHistoricalPrice(token, dateStr) {
+    if (!ARTEMIS_API_KEY) return null;
+    const id = ASSET_IDS[token];
+    if (!id) return null;
+
+    const response = await fetch(`https://api.artemis.xyz/asset/${id}/metric/price?startDate=${dateStr}&endDate=${dateStr}`, {
+        headers: { 'x-artemis-api-key': ARTEMIS_API_KEY }
+    });
+    if (!response.ok) throw new Error(`Artemis historical ${response.status}`);
+    const data = await response.json();
+    if (data && data.data && Array.isArray(data.data) && data.data.length > 0) {
+        return data.data[0].value || data.data[0].price || null;
+    }
+    if (data && data.data && typeof data.data.value === 'number') {
+        return data.data.value;
+    }
+    throw new Error('Unexpected Artemis historical response format');
+}
+
+async function fetchCoinGeckoHistoricalPrice(token, dateStr) {
+    const id = ASSET_IDS[token];
+    if (!id) return null;
+
+    // CoinGecko expects DD-MM-YYYY
+    const [y, m, d] = dateStr.split('-');
+    const cgDate = `${d}-${m}-${y}`;
+
+    const response = await fetch(`https://api.coingecko.com/api/v3/coins/${id}/history?date=${cgDate}`);
+    if (!response.ok) throw new Error(`CoinGecko historical ${response.status}`);
+
+    const data = await response.json();
+    if (data && data.market_data && data.market_data.current_price && typeof data.market_data.current_price.usd === 'number') {
+        return data.market_data.current_price.usd;
+    }
+    throw new Error('Unexpected CoinGecko historical response format');
+}
+
+export async function fetchHistoricalPrice(token, dateStr) {
+    const cacheKey = `${token}:${dateStr}`;
+    if (historicalCache.has(cacheKey)) {
+        return historicalCache.get(cacheKey);
+    }
+
+    // Try Artemis first
+    try {
+        const price = await fetchArtemisHistoricalPrice(token, dateStr);
+        if (price !== null) {
+            historicalCache.set(cacheKey, price);
+            return price;
+        }
+    } catch (err) {
+        console.warn(`Artemis historical failed for ${token} on ${dateStr}:`, err.message);
+    }
+
+    // Fallback to CoinGecko
+    try {
+        const price = await fetchCoinGeckoHistoricalPrice(token, dateStr);
+        if (price !== null) {
+            historicalCache.set(cacheKey, price);
+            return price;
+        }
+    } catch (err) {
+        console.warn(`CoinGecko historical failed for ${token} on ${dateStr}:`, err.message);
+    }
+
+    return null;
+}
+
 export async function fetchAllPrices() {
     const tokens = Object.keys(ASSET_IDS);
     const results = {};

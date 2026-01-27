@@ -1,10 +1,12 @@
 /**
  * Export / Import view for CSV and data.json management.
+ * Supports drag-and-drop, CSV and XLSX import with preview.
  */
 
-import { getData, TOKEN_INFO, mergeTransactionsForCompany, getAllCompanyCount } from '../services/data-store.js';
-import { parseCSV, generateCSV, downloadCSV } from '../services/csv.js';
+import { getData, TOKEN_INFO, mergeTransactionsForCompany, getAllCompanyCount, setTreasuryHistory } from '../services/data-store.js';
+import { parseCSV, generateCSV, downloadCSV, isCustomFormat, parseCustomCSV } from '../services/csv.js';
 import { transactionFingerprint } from '../utils/dedup.js';
+import { fetchHistoricalPrice } from '../services/api.js';
 
 export function renderDataSync() {
     const data = getData();
@@ -37,8 +39,8 @@ export function renderDataSync() {
             <div class="sync-grid">
                 <!-- Import Section -->
                 <div class="sync-card">
-                    <h3>Import Transactions CSV</h3>
-                    <p class="text-muted" style="margin: 8px 0 16px;">Upload a CSV file to add transactions to a company. Duplicates are automatically skipped via fingerprint dedup.</p>
+                    <h3>Import Transactions</h3>
+                    <p class="text-muted" style="margin: 8px 0 16px;">Upload a CSV or XLSX file to add transactions. Duplicates are automatically skipped via fingerprint dedup.</p>
 
                     <div class="form-group">
                         <label for="import-ticker">Company</label>
@@ -48,12 +50,35 @@ export function renderDataSync() {
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label for="import-file">CSV File</label>
-                        <input type="file" id="import-file" accept=".csv" class="form-input" />
+                    <!-- Drop Zone -->
+                    <div id="drop-zone" class="drop-zone">
+                        <div class="drop-zone-content">
+                            <span class="drop-zone-icon">&#x1F4C4;</span>
+                            <span>Drop CSV or XLSX here, or</span>
+                            <label for="import-file" class="drop-zone-browse">browse files</label>
+                        </div>
+                        <input type="file" id="import-file" accept=".csv,.xlsx,.xls" class="drop-zone-input" />
                     </div>
 
-                    <button class="btn btn-primary" id="import-btn">Import CSV</button>
+                    <!-- Preview Table -->
+                    <div id="import-preview" style="display:none; margin-top: 12px;">
+                        <h4 style="font-size: 13px; font-weight: 600; margin-bottom: 8px;">Preview (first 5 rows)</h4>
+                        <div class="table-scroll" style="max-height: 200px; overflow: auto;">
+                            <table id="preview-table" style="font-size: 12px;"></table>
+                        </div>
+                        <div style="margin-top: 12px; display: flex; gap: 8px;">
+                            <button class="btn btn-primary" id="confirm-import-btn">Confirm Import</button>
+                            <button class="btn btn-secondary" id="cancel-import-btn">Cancel</button>
+                        </div>
+                    </div>
+
+                    <!-- Progress -->
+                    <div id="import-progress" style="display:none; margin-top: 12px;">
+                        <div style="background: var(--bg-tertiary); border-radius: 4px; height: 6px; overflow: hidden;">
+                            <div id="import-progress-bar" style="background: var(--purple); height: 100%; width: 0%; transition: width 0.3s;"></div>
+                        </div>
+                        <p class="text-muted" style="margin-top: 6px; font-size: 12px;" id="import-progress-text">Processing...</p>
+                    </div>
 
                     <div id="import-result" style="margin-top: 12px;"></div>
                 </div>
@@ -105,10 +130,47 @@ export function renderDataSync() {
     `;
 }
 
+// Staged file data for preview → confirm flow
+let stagedFileText = null;
+let stagedIsCustom = false;
+
 export function initDataSync() {
-    const importBtn = document.getElementById('import-btn');
-    if (importBtn) {
-        importBtn.addEventListener('click', handleImport);
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('import-file');
+
+    if (dropZone) {
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            dropZone.classList.add('drop-zone-active');
+        });
+        dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('drop-zone-active');
+        });
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drop-zone-active');
+            const file = e.dataTransfer.files[0];
+            if (file) handleFileStage(file);
+        });
+    }
+
+    if (fileInput) {
+        fileInput.addEventListener('change', () => {
+            if (fileInput.files[0]) handleFileStage(fileInput.files[0]);
+        });
+    }
+
+    const confirmBtn = document.getElementById('confirm-import-btn');
+    if (confirmBtn) {
+        confirmBtn.addEventListener('click', handleConfirmImport);
+    }
+
+    const cancelBtn = document.getElementById('cancel-import-btn');
+    if (cancelBtn) {
+        cancelBtn.addEventListener('click', () => {
+            stagedFileText = null;
+            document.getElementById('import-preview').style.display = 'none';
+        });
     }
 
     const exportJsonBtn = document.getElementById('export-json-btn');
@@ -122,42 +184,142 @@ export function initDataSync() {
     }
 }
 
-function handleImport() {
+function handleFileStage(file) {
     const resultEl = document.getElementById('import-result');
+    resultEl.innerHTML = '';
+
+    const isXlsx = file.name.endsWith('.xlsx') || file.name.endsWith('.xls');
+
+    if (isXlsx) {
+        if (typeof XLSX === 'undefined') {
+            resultEl.innerHTML = '<span class="error">XLSX support requires SheetJS library. Please use CSV format.</span>';
+            return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const workbook = XLSX.read(e.target.result, { type: 'array' });
+                // Filter out unwanted sheets
+                const validSheets = workbook.SheetNames.filter(name => {
+                    const lower = name.toLowerCase();
+                    return !lower.includes('preferred') && lower.trim() !== '';
+                });
+                if (validSheets.length === 0) {
+                    resultEl.innerHTML = '<span class="error">No valid sheets found in workbook.</span>';
+                    return;
+                }
+                // Use first valid sheet
+                const sheet = workbook.Sheets[validSheets[0]];
+                const csvText = XLSX.utils.sheet_to_csv(sheet);
+                stageCSVText(csvText);
+            } catch (err) {
+                resultEl.innerHTML = `<span class="error">XLSX parse error: ${err.message}</span>`;
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    } else {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            stageCSVText(e.target.result);
+        };
+        reader.readAsText(file);
+    }
+}
+
+function stageCSVText(csvText) {
+    const resultEl = document.getElementById('import-result');
+    const previewEl = document.getElementById('import-preview');
+    const previewTable = document.getElementById('preview-table');
+
+    try {
+        const lines = csvText.trim().replace(/\r\n/g, '\n').split('\n');
+        if (lines.length < 2) throw new Error('File must have a header row and at least one data row.');
+
+        stagedIsCustom = isCustomFormat(lines[0]);
+        stagedFileText = csvText;
+
+        // Build preview table from first 5 rows
+        const headerCells = lines[0].split(',').map(h => `<th style="padding: 4px 8px; font-size: 11px;">${h.trim()}</th>`).join('');
+        const bodyRows = lines.slice(1, 6).map(line =>
+            `<tr>${line.split(',').map(cell => `<td style="padding: 4px 8px; font-size: 11px;">${cell.trim()}</td>`).join('')}</tr>`
+        ).join('');
+
+        previewTable.innerHTML = `<thead><tr>${headerCells}</tr></thead><tbody>${bodyRows}</tbody>`;
+        previewEl.style.display = 'block';
+
+        const formatLabel = stagedIsCustom ? 'Custom (num_of_tokens delta)' : 'Standard (DAT Monitor)';
+        resultEl.innerHTML = `<span class="text-muted">Detected format: <strong>${formatLabel}</strong> &middot; ${lines.length - 1} rows</span>`;
+    } catch (err) {
+        resultEl.innerHTML = `<span class="error">Preview failed: ${err.message}</span>`;
+    }
+}
+
+async function handleConfirmImport() {
+    const resultEl = document.getElementById('import-result');
+    const progressEl = document.getElementById('import-progress');
+    const progressBar = document.getElementById('import-progress-bar');
+    const progressText = document.getElementById('import-progress-text');
+    const previewEl = document.getElementById('import-preview');
     const tickerSelect = document.getElementById('import-ticker');
-    const fileInput = document.getElementById('import-file');
 
     if (!tickerSelect.value) {
         resultEl.innerHTML = '<span class="error">Please select a company.</span>';
         return;
     }
-    if (!fileInput.files || !fileInput.files[0]) {
-        resultEl.innerHTML = '<span class="error">Please select a CSV file.</span>';
+    if (!stagedFileText) {
+        resultEl.innerHTML = '<span class="error">No file staged for import.</span>';
         return;
     }
 
     const ticker = tickerSelect.value;
     const token = tickerSelect.selectedOptions[0].dataset.token;
-    const file = fileInput.files[0];
 
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        try {
-            const transactions = parseCSV(e.target.result);
-            // Add fingerprints
+    previewEl.style.display = 'none';
+    progressEl.style.display = 'block';
+    progressBar.style.width = '10%';
+    progressText.textContent = 'Parsing file...';
+
+    try {
+        let transactions;
+
+        if (stagedIsCustom) {
+            progressText.textContent = 'Parsing custom format & fetching prices...';
+            progressBar.style.width = '30%';
+
+            const result = await parseCustomCSV(stagedFileText, ticker, token, fetchHistoricalPrice);
+            transactions = result.transactions;
+
+            // Store treasury history on the company
+            if (result.treasuryHistory && result.treasuryHistory.length > 0) {
+                setTreasuryHistory(ticker, token, result.treasuryHistory);
+            }
+        } else {
+            progressBar.style.width = '30%';
+            transactions = parseCSV(stagedFileText);
             for (const txn of transactions) {
                 if (!txn.fingerprint) {
                     txn.fingerprint = transactionFingerprint(txn);
                 }
             }
-            const result = mergeTransactionsForCompany(ticker, token, transactions);
-            resultEl.innerHTML = `<span style="color: var(--green);">Import complete: ${result.added} added, ${result.skipped} skipped (duplicates).</span>`;
-        } catch (err) {
-            console.error('CSV import error:', err);
-            resultEl.innerHTML = `<span class="error">Import failed: ${err.message}</span>`;
         }
-    };
-    reader.readAsText(file);
+
+        progressBar.style.width = '70%';
+        progressText.textContent = 'Merging transactions...';
+
+        const mergeResult = mergeTransactionsForCompany(ticker, token, transactions);
+
+        progressBar.style.width = '100%';
+        progressText.textContent = 'Done!';
+
+        resultEl.innerHTML = `<span style="color: var(--green);">Import complete: ${mergeResult.added} added, ${mergeResult.skipped} skipped (duplicates).</span>`;
+        stagedFileText = null;
+
+        setTimeout(() => { progressEl.style.display = 'none'; }, 1500);
+    } catch (err) {
+        console.error('Import error:', err);
+        progressEl.style.display = 'none';
+        resultEl.innerHTML = `<span class="error">Import failed: ${err.message}</span>`;
+    }
 }
 
 function handleExportJson() {

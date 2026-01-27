@@ -98,13 +98,20 @@ function notify() {
     }
 }
 
+function _isRecentDate(dateStr, days) {
+    if (!dateStr) return false;
+    return (Date.now() - new Date(dateStr).getTime()) < days * 86400000;
+}
+
 export function getCompanies() {
     if (!data || !data.companies) return [];
     if (currentFilter === 'ALL') {
         const all = [];
         for (const [token, list] of Object.entries(data.companies)) {
             for (const c of list) {
-                all.push({ ...c, token });
+                if (_isRecentDate(c.alertDate, 3)) {
+                    all.push({ ...c, token });
+                }
             }
         }
         return all.sort((a, b) => (b.tokens || 0) - (a.tokens || 0));
@@ -164,6 +171,76 @@ export function mergeTransactionsForCompany(ticker, token, newTransactions) {
     list[idx] = { ...company, transactions: merged };
     notify();
     return { added, skipped };
+}
+
+export function setTreasuryHistory(ticker, token, history) {
+    if (!data || !data.companies || !data.companies[token]) return;
+    const list = data.companies[token];
+    const idx = list.findIndex(c => c.ticker === ticker);
+    if (idx === -1) return;
+
+    list[idx] = { ...list[idx], treasury_history: history };
+    notify();
+}
+
+export function addTreasuryEntry(ticker, token, newTokenCount, dateStr) {
+    if (!data || !data.companies || !data.companies[token]) return null;
+    const list = data.companies[token];
+    const idx = list.findIndex(c => c.ticker === ticker);
+    if (idx === -1) return null;
+
+    const company = list[idx];
+    const history = company.treasury_history || [];
+    const sorted = [...history].sort((a, b) => b.date.localeCompare(a.date));
+    const latest = sorted[0] || {};
+
+    // Forward-fill all fields from latest, override date and num_of_tokens
+    const entry = {
+        date: dateStr || new Date().toISOString().slice(0, 10),
+        num_of_tokens: newTokenCount,
+        convertible_debt: latest.convertible_debt || 0,
+        convertible_debt_shares: latest.convertible_debt_shares || 0,
+        non_convertible_debt: latest.non_convertible_debt || 0,
+        warrants: latest.warrants || 0,
+        warrant_shares: latest.warrant_shares || 0,
+        num_of_shares: latest.num_of_shares || 0,
+        latest_cash: latest.latest_cash || 0,
+    };
+
+    const updatedHistory = [entry, ...sorted];
+    list[idx] = { ...company, treasury_history: updatedHistory };
+    notify();
+    return entry;
+}
+
+export function updateTreasuryEntry(ticker, token, entryDate, updates) {
+    if (!data || !data.companies || !data.companies[token]) return false;
+    const list = data.companies[token];
+    const idx = list.findIndex(c => c.ticker === ticker);
+    if (idx === -1) return false;
+
+    const company = list[idx];
+    const history = company.treasury_history || [];
+    const entryIdx = history.findIndex(e => e.date === entryDate);
+    if (entryIdx === -1) return false;
+
+    history[entryIdx] = { ...history[entryIdx], ...updates };
+    list[idx] = { ...company, treasury_history: [...history] };
+    notify();
+    return true;
+}
+
+export function deleteTreasuryEntry(ticker, token, entryDate) {
+    if (!data || !data.companies || !data.companies[token]) return false;
+    const list = data.companies[token];
+    const idx = list.findIndex(c => c.ticker === ticker);
+    if (idx === -1) return false;
+
+    const company = list[idx];
+    const history = (company.treasury_history || []).filter(e => e.date !== entryDate);
+    list[idx] = { ...company, treasury_history: history };
+    notify();
+    return true;
 }
 
 export async function loadData() {

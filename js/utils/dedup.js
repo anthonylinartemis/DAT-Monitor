@@ -1,10 +1,18 @@
 /**
  * Fingerprint-based transaction deduplication.
  * Deterministic: same input always produces the same fingerprint.
+ *
+ * Two fingerprint strategies:
+ * - Standard: date:asset:totalCost (for imports with known cost)
+ * - Custom: date:asset:cumulativeTokens (for imports where totalCost is computed)
  */
 
 export function transactionFingerprint(txn) {
     return `${txn.date}:${txn.asset}:${txn.totalCost}`;
+}
+
+export function customFormatFingerprint(txn) {
+    return `${txn.date}:${txn.asset}:${txn.cumulativeTokens}`;
 }
 
 export function mergeTransactions(existing, incoming) {

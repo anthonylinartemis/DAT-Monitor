@@ -146,6 +146,25 @@ def process_update(
     company["change"] = delta
     company["lastUpdate"] = today
 
+    # Update alert fields for the dashboard
+    source_url = getattr(scraped, "source_url", "") or ""
+    if source_url:
+        company["alertUrl"] = source_url
+        company["alertDate"] = today
+        company["alertNote"] = scraped.context_text[:100] if scraped.context_text else ""
+        company["lastSecUpdate"] = today
+
+    # Append to filings[] for grouped filing history
+    if scraped.context_text:
+        filing_entry = {
+            "url": source_url,
+            "date": today,
+            "note": scraped.context_text[:100],
+        }
+        filings = company.get("filings", [])
+        filings.insert(0, filing_entry)
+        company["filings"] = filings[:20]  # Cap at 20 entries
+
     # Recalculate totals
     data["totals"] = _recalculate_totals(companies)
 

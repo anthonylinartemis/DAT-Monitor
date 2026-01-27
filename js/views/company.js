@@ -2,12 +2,25 @@
  * Company drill-down page view.
  */
 
-import { findCompany, TOKEN_INFO } from '../services/data-store.js';
+import { findCompany, TOKEN_INFO, getData, mergeTransactionsForCompany, addTreasuryEntry, updateTreasuryEntry, deleteTreasuryEntry } from '../services/data-store.js';
 import { formatNum } from '../utils/format.js';
 import { tokenIconHtml } from '../utils/icons.js';
+import { companyLogoHtml } from '../utils/company-logos.js';
 import { renderAreaChart } from '../components/area-chart.js';
 import { fetchPrice } from '../services/api.js';
 import { generateCSV, downloadCSV, formatForIDE } from '../services/csv.js';
+import { generateHistory } from '../utils/history-generator.js';
+
+const TREASURY_FIELDS = [
+    { key: 'num_of_tokens', label: 'Tokens', format: formatNum },
+    { key: 'convertible_debt', label: 'Conv. Debt', format: v => '$' + formatNum(v) },
+    { key: 'convertible_debt_shares', label: 'Conv. Shares', format: formatNum },
+    { key: 'non_convertible_debt', label: 'Non-Conv. Debt', format: v => '$' + formatNum(v) },
+    { key: 'warrants', label: 'Warrants', format: formatNum },
+    { key: 'warrant_shares', label: 'Warrant Shares', format: formatNum },
+    { key: 'num_of_shares', label: 'Shares Out.', format: formatNum },
+    { key: 'latest_cash', label: 'Cash', format: v => '$' + formatNum(v) },
+];
 
 export function renderCompanyPage(ticker) {
     const company = findCompany(ticker);
@@ -30,6 +43,11 @@ export function renderCompanyPage(ticker) {
     const avgCostBasis = hasTransactions
         ? transactions[0].avgCostBasis
         : null;
+    const treasuryHistory = company.treasury_history || [];
+    const hasTreasury = treasuryHistory.length > 0;
+    const latestTreasury = hasTreasury
+        ? [...treasuryHistory].sort((a, b) => b.date.localeCompare(a.date))[0]
+        : null;
 
     return `
         <main class="container" style="padding: 24px 20px 60px">
@@ -39,6 +57,7 @@ export function renderCompanyPage(ticker) {
             <div class="company-hero">
                 <div class="company-hero-left">
                     <div class="company-hero-title">
+                        ${companyLogoHtml(company.ticker, 36)}
                         <span class="ticker mono ${tokenClass}" style="font-size: 14px; padding: 6px 12px;">${tokenIconHtml(company.token)}${company.ticker}</span>
                         <h2>${company.name}</h2>
                     </div>
@@ -67,6 +86,16 @@ export function renderCompanyPage(ticker) {
                             <span class="skeleton-pulse">Loading...</span>
                         </div>
                     </div>
+                    ${latestTreasury ? `
+                    <div class="hero-stat">
+                        <div class="hero-stat-label">Shares Outstanding</div>
+                        <div class="hero-stat-value mono">${formatNum(latestTreasury.num_of_shares)}</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-label">Cash Position</div>
+                        <div class="hero-stat-value mono">$${formatNum(latestTreasury.latest_cash)}</div>
+                    </div>
+                    ` : ''}
                 </div>
             </div>
 
@@ -74,6 +103,44 @@ export function renderCompanyPage(ticker) {
             <div class="chart-card">
                 <h3>Cumulative Holdings</h3>
                 <div id="company-area-chart"></div>
+            </div>
+
+            <!-- Treasury Metrics History -->
+            <div class="table-wrap" style="margin-top: 24px">
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px;">
+                    <h3>Treasury Metrics</h3>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-primary" id="add-treasury-btn">+ New Entry</button>
+                    </div>
+                </div>
+                ${hasTreasury ? `
+                <div class="table-scroll">
+                    <table id="treasury-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                ${TREASURY_FIELDS.map(f => `<th class="right">${f.label}</th>`).join('')}
+                                <th class="center" style="width: 40px;"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${[...treasuryHistory].sort((a, b) => b.date.localeCompare(a.date)).map(entry => `
+                                <tr data-date="${entry.date}">
+                                    <td class="mono date">${entry.date}</td>
+                                    ${TREASURY_FIELDS.map(f => `
+                                        <td class="right mono editable-cell" data-field="${f.key}" data-date="${entry.date}" data-value="${entry[f.key] || 0}">${f.format(entry[f.key] || 0)}</td>
+                                    `).join('')}
+                                    <td class="center"><button class="btn-icon delete-treasury" data-date="${entry.date}" title="Delete row">\u00D7</button></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+                ` : `
+                <div style="text-align: center; padding: 24px;">
+                    <p class="text-muted">No treasury metrics yet. Import a CSV or click "+ New Entry" to start tracking.</p>
+                </div>
+                `}
             </div>
 
             <!-- Purchase History -->
@@ -121,7 +188,9 @@ export function renderCompanyPage(ticker) {
             </div>
             ` : `
             <div class="chart-card" style="margin-top: 24px; text-align: center; padding: 40px;">
-                <p class="text-muted">No transaction history available for this company.</p>
+                <p class="text-muted" style="margin-bottom: 12px;">No transaction history available for this company.</p>
+                <button class="btn btn-secondary" id="generate-history-btn">Generate Estimated History</button>
+                <div id="generate-history-status" style="margin-top: 8px;"></div>
             </div>
             `}
         </main>
@@ -157,7 +226,6 @@ export function initCompanyPage(ticker) {
         const totalValue = company.tokens * price;
         el.innerHTML = `$${Number(totalValue.toFixed(0)).toLocaleString()}`;
 
-        // Show gain/loss if avg cost basis available
         if (company.transactions && company.transactions.length > 0) {
             const avgCost = company.transactions[0].avgCostBasis;
             if (avgCost && avgCost > 0) {
@@ -168,7 +236,35 @@ export function initCompanyPage(ticker) {
         }
     });
 
-    // Wire export buttons
+    // --- Treasury Metrics: Inline Editing ---
+    _initTreasuryEditing(ticker, company.token);
+
+    // --- Add Treasury Entry ---
+    const addBtn = document.getElementById('add-treasury-btn');
+    if (addBtn) {
+        addBtn.addEventListener('click', () => {
+            const dateStr = prompt('Date for new entry (YYYY-MM-DD):', new Date().toISOString().slice(0, 10));
+            if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return;
+            const tokensStr = prompt('Number of tokens:', String(company.tokens || 0));
+            if (tokensStr === null) return;
+            const tokens = parseFloat(tokensStr.replace(/,/g, '')) || 0;
+            addTreasuryEntry(ticker, company.token, tokens, dateStr);
+            window.location.hash = `#/company/${ticker}`;
+        });
+    }
+
+    // --- Delete Treasury Entry ---
+    document.querySelectorAll('.delete-treasury').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const date = btn.dataset.date;
+            if (confirm(`Delete treasury entry for ${date}?`)) {
+                deleteTreasuryEntry(ticker, company.token, date);
+                window.location.hash = `#/company/${ticker}`;
+            }
+        });
+    });
+
+    // --- Export / Copy Buttons ---
     const exportBtn = document.getElementById('export-csv-btn');
     if (exportBtn) {
         exportBtn.addEventListener('click', () => {
@@ -189,4 +285,75 @@ export function initCompanyPage(ticker) {
             });
         });
     }
+
+    // --- Generate History ---
+    const genBtn = document.getElementById('generate-history-btn');
+    if (genBtn) {
+        genBtn.addEventListener('click', async () => {
+            const statusEl = document.getElementById('generate-history-status');
+            genBtn.disabled = true;
+            genBtn.textContent = 'Generating...';
+            statusEl.innerHTML = '<span class="text-muted">Fetching historical prices...</span>';
+
+            try {
+                const data = getData();
+                const recentChanges = data.recentChanges || [];
+                const txns = await generateHistory(company, recentChanges);
+                if (txns.length > 0) {
+                    const result = mergeTransactionsForCompany(ticker, company.token, txns);
+                    statusEl.innerHTML = `<span style="color: var(--green);">Generated ${result.added} estimated transactions. Reloading...</span>`;
+                    setTimeout(() => { window.location.hash = `#/company/${ticker}`; }, 800);
+                } else {
+                    statusEl.innerHTML = '<span class="text-muted">Could not generate history — no data available.</span>';
+                    genBtn.disabled = false;
+                    genBtn.textContent = 'Generate Estimated History';
+                }
+            } catch (err) {
+                console.error('History generation error:', err);
+                statusEl.innerHTML = `<span class="error">Error: ${err.message}</span>`;
+                genBtn.disabled = false;
+                genBtn.textContent = 'Generate Estimated History';
+            }
+        });
+    }
+}
+
+function _initTreasuryEditing(ticker, token) {
+    const cells = document.querySelectorAll('.editable-cell');
+    cells.forEach(cell => {
+        cell.addEventListener('click', () => {
+            if (cell.querySelector('input')) return; // Already editing
+
+            const field = cell.dataset.field;
+            const date = cell.dataset.date;
+            const currentValue = cell.dataset.value;
+
+            const input = document.createElement('input');
+            input.type = 'text';
+            input.className = 'inline-edit';
+            input.value = currentValue;
+
+            const commit = () => {
+                const newValue = parseFloat(input.value.replace(/,/g, '')) || 0;
+                const fieldDef = TREASURY_FIELDS.find(f => f.key === field);
+                updateTreasuryEntry(ticker, token, date, { [field]: newValue });
+                cell.dataset.value = newValue;
+                cell.textContent = fieldDef ? fieldDef.format(newValue) : formatNum(newValue);
+            };
+
+            input.addEventListener('blur', commit);
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') { e.preventDefault(); input.blur(); }
+                if (e.key === 'Escape') {
+                    const fieldDef = TREASURY_FIELDS.find(f => f.key === field);
+                    cell.textContent = fieldDef ? fieldDef.format(parseFloat(currentValue) || 0) : currentValue;
+                }
+            });
+
+            cell.textContent = '';
+            cell.appendChild(input);
+            input.focus();
+            input.select();
+        });
+    });
 }

@@ -56,6 +56,124 @@ export function parseCSV(csvText) {
     return transactions;
 }
 
+const CUSTOM_HEADERS = ['date', 'num_of_tokens', 'convertible_debt', 'convertible_debt_shares',
+    'non_convertible_debt', 'warrants', 'warrant_shares', 'num_of_shares', 'latest_cash'];
+
+export function isCustomFormat(headerLine) {
+    const headers = headerLine.toLowerCase().split(',').map(h => h.trim());
+    return headers.includes('num_of_tokens');
+}
+
+export async function parseCustomCSV(csvText, ticker, token, fetchPriceFn) {
+    const lines = csvText.trim().replace(/\r\n/g, '\n').split('\n');
+    if (lines.length < 2) throw new Error('CSV must have a header row and at least one data row.');
+
+    const header = parseCSVLine(lines[0]);
+    const headerMap = {};
+    for (let i = 0; i < header.length; i++) {
+        headerMap[header[i].trim().toLowerCase()] = i;
+    }
+
+    // Validate required column
+    if (!('num_of_tokens' in headerMap) || !('date' in headerMap)) {
+        throw new Error('Custom format requires "date" and "num_of_tokens" columns.');
+    }
+
+    const parseNum = (str) => parseFloat((str || '').replace(/,/g, '')) || 0;
+
+    const rows = [];
+    for (let i = 1; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+
+        const fields = parseCSVLine(line);
+        const get = (col) => {
+            const idx = headerMap[col];
+            return idx !== undefined ? (fields[idx] || '').trim() : '';
+        };
+
+        const dateStr = get('date');
+        const numTokens = parseNum(get('num_of_tokens'));
+        if (!dateStr || numTokens === 0) continue;
+
+        rows.push({
+            date: dateStr,
+            num_of_tokens: numTokens,
+            convertible_debt: parseNum(get('convertible_debt')),
+            convertible_debt_shares: parseNum(get('convertible_debt_shares')),
+            non_convertible_debt: parseNum(get('non_convertible_debt')),
+            warrants: parseNum(get('warrants') || get('warrents')),
+            warrant_shares: parseNum(get('warrant_shares') || get('warrent_shares')),
+            num_of_shares: parseNum(get('num_of_shares')),
+            latest_cash: parseNum(get('latest_cash')),
+        });
+    }
+
+    // Sort ascending by date to compute deltas
+    rows.sort((a, b) => a.date.localeCompare(b.date));
+
+    // Build treasury_history (full snapshot per date)
+    const treasuryHistory = rows.map(row => ({
+        date: row.date,
+        num_of_tokens: row.num_of_tokens,
+        convertible_debt: row.convertible_debt,
+        convertible_debt_shares: row.convertible_debt_shares,
+        non_convertible_debt: row.non_convertible_debt,
+        warrants: row.warrants,
+        warrant_shares: row.warrant_shares,
+        num_of_shares: row.num_of_shares,
+        latest_cash: row.latest_cash,
+    }));
+
+    // Build transactions from token deltas
+    const transactions = [];
+    let cumulativeCost = 0;
+
+    for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        const prev = i > 0 ? rows[i - 1] : null;
+        const quantity = prev ? row.num_of_tokens - prev.num_of_tokens : row.num_of_tokens;
+
+        if (quantity === 0 && i > 0) continue;
+
+        let priceUsd = 0;
+        let priceSource = 'unknown';
+        if (fetchPriceFn) {
+            try {
+                const fetched = await fetchPriceFn(token, row.date);
+                if (fetched !== null) {
+                    priceUsd = Math.round(fetched);
+                    priceSource = 'estimated';
+                }
+            } catch {
+                // Price unavailable
+            }
+        }
+
+        const totalCost = Math.abs(quantity) * priceUsd;
+        cumulativeCost += totalCost;
+        const avgCostBasis = row.num_of_tokens > 0 ? Math.round(cumulativeCost / row.num_of_tokens) : 0;
+
+        transactions.push({
+            date: row.date,
+            asset: token,
+            quantity: Math.round(quantity),
+            priceUsd,
+            totalCost,
+            cumulativeTokens: Math.round(row.num_of_tokens),
+            avgCostBasis,
+            source: '',
+            priceSource,
+            fingerprint: `${row.date}:${token}:${Math.round(row.num_of_tokens)}`,
+        });
+    }
+
+    transactions.sort((a, b) => b.date.localeCompare(a.date));
+    treasuryHistory.sort((a, b) => b.date.localeCompare(a.date));
+
+    return { transactions, treasuryHistory };
+}
+
 function parseCSVLine(line) {
     const fields = [];
     let current = '';
