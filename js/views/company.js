@@ -4,6 +4,7 @@
 
 import { findCompany, TOKEN_INFO } from '../services/data-store.js';
 import { formatNum } from '../utils/format.js';
+import { tokenIconHtml } from '../utils/icons.js';
 import { renderAreaChart } from '../components/area-chart.js';
 import { fetchPrice } from '../services/api.js';
 import { generateCSV, downloadCSV, formatForIDE } from '../services/csv.js';
@@ -38,7 +39,7 @@ export function renderCompanyPage(ticker) {
             <div class="company-hero">
                 <div class="company-hero-left">
                     <div class="company-hero-title">
-                        <span class="ticker mono ${tokenClass}" style="font-size: 14px; padding: 6px 12px;">${company.ticker}</span>
+                        <span class="ticker mono ${tokenClass}" style="font-size: 14px; padding: 6px 12px;">${tokenIconHtml(company.token)}${company.ticker}</span>
                         <h2>${company.name}</h2>
                     </div>
                     ${company.notes ? `<p class="company-hero-notes">${company.notes}</p>` : ''}
@@ -103,7 +104,7 @@ export function renderCompanyPage(ticker) {
                             ${[...transactions].sort((a, b) => b.date.localeCompare(a.date)).map(t => `
                                 <tr>
                                     <td class="mono date">${t.date}</td>
-                                    <td><span class="ticker ${tokenClass}">${t.asset}</span></td>
+                                    <td><span class="ticker ${tokenClass}">${tokenIconHtml(t.asset)}${t.asset}</span></td>
                                     <td class="right mono">${formatNum(t.quantity)}</td>
                                     <td class="right mono">$${formatNum(t.priceUsd)}</td>
                                     <td class="right mono">$${formatNum(t.totalCost)}</td>

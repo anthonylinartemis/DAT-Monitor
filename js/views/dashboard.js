@@ -4,12 +4,13 @@
 
 import { getData, TOKEN_INFO } from '../services/data-store.js';
 import { formatNum, formatCompact } from '../utils/format.js';
+import { tokenIconHtml } from '../utils/icons.js';
 
 export function renderDashboard() {
     const data = getData();
 
     return `
-        <main class="container" style="padding: 24px 20px 60px">
+        <main class="container" style="padding: 24px 24px 60px">
             <!-- Summary Panel -->
             <div class="summary">
                 <div class="summary-title">
@@ -17,7 +18,7 @@ export function renderDashboard() {
                 </div>
                 ${data.recentChanges.slice(0, 5).map(u => `
                     <div class="summary-item">
-                        <span class="summary-badge ticker ${u.token.toLowerCase()}">${u.ticker}</span>
+                        <span class="summary-badge ticker ${u.token.toLowerCase()}">${tokenIconHtml(u.token)}${u.ticker}</span>
                         <div class="summary-text">
                             <div class="summary-headline">
                                 <span class="mono">${formatNum(u.tokens)}</span> ${u.token}
@@ -37,7 +38,7 @@ export function renderDashboard() {
                     return `
                         <div class="stat ${info.class}">
                             <div class="stat-header">
-                                <span>${info.label}</span>
+                                <span>${tokenIconHtml(token, 16)} ${info.label}</span>
                                 <span>${list.length} DATs</span>
                             </div>
                             <div class="stat-value mono">${formatCompact(total)}</div>

@@ -4,6 +4,7 @@
 
 import { getCompanies, getCurrentFilter, setCurrentFilter } from '../services/data-store.js';
 import { formatNum, isRecent, getSecUrl } from '../utils/format.js';
+import { tokenIconHtml } from '../utils/icons.js';
 import { renderSparkline } from '../components/sparkline.js';
 
 export function renderHoldings() {
@@ -42,7 +43,7 @@ export function renderHoldings() {
                                 <tr>
                                     <td>
                                         <div class="ticker-cell">
-                                            <a href="#/company/${c.ticker}" class="ticker mono ${c.token.toLowerCase()}">${c.ticker}</a>
+                                            <a href="#/company/${c.ticker}" class="ticker ${c.token.toLowerCase()}">${tokenIconHtml(c.token)}${c.ticker}</a>
                                             <div>
                                                 <div class="company-name">${c.name}</div>
                                                 ${c.notes ? `<div class="company-notes">${c.notes}</div>` : ''}
