@@ -147,7 +147,7 @@ export function renderCompanyPage(ticker) {
                         </div>
                         <div class="form-group">
                             <label for="entry-tokens">Tokens</label>
-                            <input type="text" id="entry-tokens" class="form-input" value="${latestTreasury ? formatNum(latestTreasury.num_of_tokens) : company.tokens || 0}" />
+                            <input type="text" id="entry-tokens" class="form-input" value="${latestTreasury ? latestTreasury.num_of_tokens : company.tokens || 0}" />
                         </div>
                         <div class="form-group">
                             <label for="entry-conv-debt">Convertible Debt</label>

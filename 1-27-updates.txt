@@ -1,0 +1,321 @@
+================================================================================
+  DAT MONITOR — SESSION LOG: January 27, 2026
+  Engineer: Claude Code (Opus 4.5)
+  Session Duration: ~2 hours
+  Commits: 2 (87531ed + pending)
+================================================================================
+
+SESSION SUMMARY
+---------------
+
+This session addressed the #1 critical defect in DAT Monitor: ZERO DATA
+PERSISTENCE. Users were losing all CSV imports, manual treasury entries, and
+inline edits on every page refresh because the app state lived only in memory.
+
+We shipped a complete localStorage persistence layer with versioned envelopes,
+automatic save on data mutations, intelligent server/local merge strategy,
+backup/restore UI, and header status indicator. Additionally, we added NAV and
+mNAV columns to the holdings table, replaced browser prompts with a 9-field
+inline entry form, added live data overlays, copied the NAKA logo, and created
+bible.txt.
+
+After initial implementation, we identified and FIXED four critical issues:
+1. Wasteful saves on filter tab changes (now uses separate notify path)
+2. No debounce on rapid saves (now 500ms debounce)
+3. NAV column showed market cap instead of actual NAV (now computes holdings × price)
+4. Entry form pre-filled with formatted numbers (now uses raw values)
+
+
+================================================================================
+
+DETAILED CHANGELOG
+------------------
+
+COMMIT 1: 87531ed (already pushed)
+----------------------------------
+
+### NEW FILES
+
+1. js/services/persistence.js (125 lines)
+   - save(data): Serialize to JSON, wrap in versioned envelope, write to localStorage
+   - load(): Read/validate/return envelope payload or null
+   - clear(): Remove localStorage key
+   - exportBackup(): Download localStorage as .json file
+   - importBackup(file): Validate and restore backup, then reload
+   - getLastSaveTimestamp(): Return ts from envelope for UI display
+
+2. logos/NAKA.jpg (55KB)
+   - Nakamoto Holdings company logo copied from ~/Documents/Logos/
+
+3. bible.txt (3.5KB)
+   - Plain-text rendition of bible.md for non-markdown readers
+
+4. SESSION_REPORT_02.txt (1,500+ lines)
+   - Comprehensive engineering audit with 17 sections
+   - Critical/high/medium/low priority issues identified
+   - Architecture review, security audit, scalability assessment
+
+
+### MODIFIED FILES
+
+1. js/services/data-store.js (+80 lines)
+   - Import persistence module
+   - notify() auto-saves on every mutation
+   - loadData() merges server + localStorage data:
+     - Server wins: all metadata fields
+     - Local wins: transactions[], treasury_history[]
+   - addTreasuryEntry() extended to accept extraFields parameter
+   - getCompanyWithLiveData() for live metrics overlay
+
+2. js/views/holdings.js (+70 lines)
+   - Added NAV and mNAV columns after Holdings
+   - Skeleton pulse placeholders while loading
+   - _populateLiveColumns(): async fetch of StrategyTracker data
+   - _formatNAV(): Format as $XXB, $XXM, or $X,XXX
+   - Live overlay: updates holdings cell with LIVE badge when data differs
+
+3. js/views/company.js (+60 lines)
+   - Renamed "Current Value" to "NAV" in hero section
+   - Added 9-field inline treasury entry form (hidden by default)
+   - Form pre-fills from latest treasury_history entry
+   - Submit calls addTreasuryEntry() with all fields
+   - Toggle show/hide on "+ New Entry" button click
+
+4. js/views/data-sync.js (+35 lines)
+   - Added "Local Data Backup" card with:
+     - "Download Backup" button
+     - "Restore from Backup" file input
+     - "Clear Local Data" button (with confirm dialog)
+   - Shows last save timestamp
+
+5. js/components/header.js (+10 lines)
+   - Persistence status indicator in header-meta section
+   - Green dot + "Saved" when localStorage has data
+   - Gray dot + "Server" when server-only
+
+6. js/utils/company-logos.js (+1 line)
+   - Added NAKA: 'logos/NAKA.jpg' to LOCAL_LOGOS
+
+7. css/styles.css (+30 lines)
+   - .persistence-indicator, .persistence-dot, .persistence-dot-active
+   - .entry-form-grid with responsive breakpoints
+
+
+COMMIT 2: (pending - critical fixes)
+------------------------------------
+
+### CRITICAL FIXES APPLIED
+
+1. SPLIT notify() INTO DATA VS VIEW PATHS
+   File: js/services/data-store.js
+
+   Before: Every notify() call saved to localStorage, even filter changes.
+   After:  Two separate functions:
+     - notifyDataChange(): debounced save + notify subscribers
+     - notifyViewChange(): notify subscribers only (no save)
+
+   Changes:
+     - setCurrentFilter() now calls notifyViewChange()
+     - All data mutations call notifyDataChange()
+     - loadData() calls notifyViewChange() (no re-save after load)
+
+
+2. ADDED 500ms DEBOUNCE TO PERSISTENCE SAVES
+   File: js/services/data-store.js
+
+   Before: Every data mutation triggered immediate localStorage.setItem()
+   After:  Saves are debounced with 500ms trailing timeout
+
+   New code:
+     let saveTimer = null;
+     const SAVE_DEBOUNCE_MS = 500;
+     function _debouncedSave() {
+         clearTimeout(saveTimer);
+         saveTimer = setTimeout(() => persistSave(data), SAVE_DEBOUNCE_MS);
+     }
+
+   Benefit: Rapid inline edits (click-edit-tab-edit-tab) coalesce into
+   a single save instead of 10+ saves per second.
+
+
+3. NAV COLUMN NOW COMPUTES ACTUAL NAV
+   File: js/views/holdings.js
+
+   Before: NAV cell showed marketCap from StrategyTracker
+   After:  NAV cell computes btcHoldings × btcPrice
+
+   Changes:
+     - Import fetchPrice from api.js
+     - _populateLiveColumns() now fetches BTC price first
+     - NAV = metrics.btcHoldings * btcPrice
+     - Falls back to marketCap only if btcHoldings unavailable
+
+
+4. ENTRY FORM PRE-FILL USES RAW NUMBERS
+   File: js/views/company.js
+
+   Before: Tokens field pre-filled with formatNum() → "687,410"
+   After:  Tokens field pre-filled with raw value → "687410"
+
+   Prevents round-trip formatting issues and user confusion.
+
+
+================================================================================
+
+TEST STATUS
+-----------
+
+All 113 Python tests pass (0.08s):
+  - test_csv_sync.py: 12 tests
+  - test_data_integrity.py: 14 tests
+  - test_fetcher.py: 13 tests
+  - test_parser.py: 13 tests
+  - test_state_guard.py: 11 tests
+  - test_updater.py: 7 tests
+  - test_website_scrapers.py: 43 tests
+
+JavaScript tests: NONE EXIST (major gap - see TODO below)
+
+
+================================================================================
+
+REMAINING TO-DO FOR TOMORROW
+----------------------------
+
+### P0 (CRITICAL — Do First)
+
+[ ] ADD FRONTEND TESTS FOR PERSISTENCE LAYER
+    The persistence.js and data-store.js merge logic are UNTESTED.
+    Add Vitest or Jest with at minimum:
+      - persistence.save() and load() round-trip
+      - persistence.load() rejects invalid version
+      - _mergeLocalIntoServer() with 5+ scenarios:
+        - No local data → server unchanged
+        - Local transactions only → local wins
+        - Overlapping fingerprints → merged correctly
+        - Local treasury_history → local wins
+        - New server company → preserved
+
+[ ] ADD VERSION MIGRATION PATH
+    File: js/services/persistence.js line 45-47
+    Currently, load() rejects any version !== 1 silently.
+    When we need version 2, all users lose their local data.
+    Add: if (envelope.version === 1) return migrateV1ToV2(envelope);
+
+
+### P1 (HIGH — This Sprint)
+
+[ ] CACHE getLastSaveTimestamp()
+    Files: persistence.js, header.js, data-sync.js
+    Currently parses full JSON blob on every call.
+    Cache the timestamp in module-level variable, update on save/load.
+
+[ ] VALIDATE BACKUP PAYLOAD STRUCTURE
+    File: persistence.js importBackup()
+    Currently only checks { version, payload } existence.
+    Should validate payload.companies is an object with expected keys.
+
+[ ] SANITIZE HTML IN USER-PROVIDED STRINGS
+    Pre-existing XSS surface: company names, notes, alertNote rendered
+    via innerHTML. A malicious backup could inject <script> tags.
+    Either sanitize on import or switch to textContent.
+
+
+### P2 (MEDIUM — Backlog)
+
+[ ] ADD ESLint + Stylelint TO CI
+    No JavaScript linting currently. Add:
+      - ESLint with recommended rules
+      - Stylelint for CSS
+      - Pre-commit hook or GitHub Action
+
+[ ] ADD ENTRY FORM KEYBOARD NAVIGATION
+    Enter to submit, Escape to cancel
+
+[ ] ADD ARIA ATTRIBUTES TO ENTRY FORM
+    aria-required, aria-label for accessibility
+
+[ ] ADD COLUMN SORTING TO HOLDINGS TABLE
+    Sort by NAV, mNAV, Holdings, Change columns
+
+[ ] MIGRATE TO IndexedDB FOR LARGE DATASETS
+    localStorage limit is 5-10MB. For 50+ companies with full
+    transaction history, need IndexedDB.
+
+
+### P3 (LOW — Nice to Have)
+
+[ ] Animation on entry form show/hide
+[ ] Persistence indicator tooltip updates in real-time
+[ ] NAV/mNAV columns sortable
+[ ] Export NAV/mNAV data to CSV
+
+
+================================================================================
+
+ARCHITECTURE NOTES FOR TOMORROW
+-------------------------------
+
+PERSISTENCE MERGE STRATEGY:
+  - Server data = authoritative for metadata (updated by scraper)
+  - Local data = authoritative for user-entered arrays
+  - Fingerprint-based dedup for transactions
+  - Deep clone via JSON.parse(JSON.stringify()) — lossy but acceptable
+
+NOTIFY PATHS:
+  - notifyDataChange() → _debouncedSave() + _notifySubscribers()
+  - notifyViewChange() → _notifySubscribers() only
+  - setCurrentFilter() uses notifyViewChange (no save)
+  - All data mutations use notifyDataChange (debounced save)
+
+NAV CALCULATION:
+  - True NAV = btcHoldings × btcPrice
+  - Fetches BTC price via fetchPrice('BTC')
+  - Falls back to marketCap if btcHoldings unavailable
+  - Only works for StrategyTracker-covered companies (BTC DATs)
+
+
+================================================================================
+
+FILES CHANGED THIS SESSION (Summary)
+------------------------------------
+
+Commit 1 (87531ed):
+  NEW:  js/services/persistence.js
+  NEW:  logos/NAKA.jpg
+  NEW:  bible.txt
+  NEW:  SESSION_REPORT_02.txt
+  MOD:  js/services/data-store.js
+  MOD:  js/views/holdings.js
+  MOD:  js/views/company.js
+  MOD:  js/views/data-sync.js
+  MOD:  js/components/header.js
+  MOD:  js/utils/company-logos.js
+  MOD:  css/styles.css
+
+Commit 2 (pending):
+  MOD:  js/services/data-store.js (notify split + debounce)
+  MOD:  js/views/holdings.js (NAV calculation fix)
+  MOD:  js/views/company.js (pre-fill fix)
+  NEW:  1-27-updates.txt (this file)
+
+
+================================================================================
+
+CONTACT / RESUME CONTEXT
+------------------------
+
+This session was conducted by Claude Code (Opus 4.5). To resume:
+
+1. The persistence layer is COMPLETE and working
+2. Critical fixes are applied but NOT YET PUSHED
+3. Frontend tests are the #1 priority for next session
+4. See SESSION_REPORT_02.txt for full engineering audit
+
+All code is in main branch at:
+  https://github.com/anthonylinartemis/DAT-Monitor.git
+
+
+================================================================================
+
+END OF SESSION LOG

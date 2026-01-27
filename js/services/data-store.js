@@ -78,7 +78,7 @@ export function getData() {
 
 export function setData(newData) {
     data = newData;
-    notify();
+    notifyDataChange();
 }
 
 export function getCurrentFilter() {
@@ -87,18 +87,38 @@ export function getCurrentFilter() {
 
 export function setCurrentFilter(filter) {
     currentFilter = filter;
-    notify();
+    notifyViewChange(); // No save needed - filter is view-only state
 }
 
 export function subscribe(fn) {
     subscribers.push(fn);
 }
 
-function notify() {
-    persistSave(data);
+// Debounced save: coalesce rapid mutations into a single localStorage write
+let saveTimer = null;
+const SAVE_DEBOUNCE_MS = 500;
+
+function _debouncedSave() {
+    clearTimeout(saveTimer);
+    saveTimer = setTimeout(() => persistSave(data), SAVE_DEBOUNCE_MS);
+}
+
+// Internal: notify subscribers only (no save)
+function _notifySubscribers() {
     for (const fn of subscribers) {
         fn();
     }
+}
+
+// Use for data mutations: debounced save + immediate UI update
+function notifyDataChange() {
+    _debouncedSave();
+    _notifySubscribers();
+}
+
+// Use for view-only changes (filter): no save, just re-render
+function notifyViewChange() {
+    _notifySubscribers();
 }
 
 function _isRecentDate(dateStr, days) {
@@ -172,7 +192,7 @@ export function mergeTransactionsForCompany(ticker, token, newTransactions) {
 
     merged.sort((a, b) => b.date.localeCompare(a.date));
     list[idx] = { ...company, transactions: merged };
-    notify();
+    notifyDataChange();
     return { added, skipped };
 }
 
@@ -183,7 +203,7 @@ export function setTreasuryHistory(ticker, token, history) {
     if (idx === -1) return;
 
     list[idx] = { ...list[idx], treasury_history: history };
-    notify();
+    notifyDataChange();
 }
 
 export function addTreasuryEntry(ticker, token, newTokenCount, dateStr, extraFields = {}) {
@@ -212,7 +232,7 @@ export function addTreasuryEntry(ticker, token, newTokenCount, dateStr, extraFie
 
     const updatedHistory = [entry, ...sorted];
     list[idx] = { ...company, treasury_history: updatedHistory };
-    notify();
+    notifyDataChange();
     return entry;
 }
 
@@ -229,7 +249,7 @@ export function updateTreasuryEntry(ticker, token, entryDate, updates) {
 
     history[entryIdx] = { ...history[entryIdx], ...updates };
     list[idx] = { ...company, treasury_history: [...history] };
-    notify();
+    notifyDataChange();
     return true;
 }
 
@@ -242,7 +262,7 @@ export function deleteTreasuryEntry(ticker, token, entryDate) {
     const company = list[idx];
     const history = (company.treasury_history || []).filter(e => e.date !== entryDate);
     list[idx] = { ...company, treasury_history: history };
-    notify();
+    notifyDataChange();
     return true;
 }
 
@@ -325,5 +345,5 @@ export async function loadData() {
         data = serverData;
     }
 
-    notify();
+    notifyViewChange(); // Initial load - just render, don't re-save
 }

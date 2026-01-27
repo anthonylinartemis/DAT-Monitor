@@ -7,7 +7,7 @@ import { formatNum, isRecent, getSecUrl } from '../utils/format.js';
 import { tokenIconHtml } from '../utils/icons.js';
 import { companyLogoHtml } from '../utils/company-logos.js';
 import { renderSparkline } from '../components/sparkline.js';
-import { fetchDATMetrics } from '../services/api.js';
+import { fetchDATMetrics, fetchPrice } from '../services/api.js';
 
 const LIVE_TICKERS = new Set(['SBET', 'MTPLF', 'ASST']);
 
@@ -230,6 +230,9 @@ function _formatNAV(value) {
 }
 
 async function _populateLiveColumns(companies) {
+    // Fetch BTC price for NAV calculation (most DATs are BTC-backed)
+    const btcPrice = await fetchPrice('BTC');
+
     const tickers = companies.map(c => c.ticker);
     const results = await Promise.allSettled(
         tickers.map(ticker => fetchDATMetrics(ticker).then(m => ({ ticker, metrics: m })))
@@ -250,10 +253,14 @@ async function _populateLiveColumns(companies) {
 
         const { ticker, metrics } = result.value;
 
-        // Populate NAV cell (holdingsValue = btcHoldings * price, or marketCap as proxy)
+        // Populate NAV cell (btcHoldings * btcPrice = true NAV)
         const navEl = document.getElementById(`nav-${ticker}`);
         if (navEl) {
-            if (typeof metrics.marketCap === 'number') {
+            if (typeof metrics.btcHoldings === 'number' && btcPrice) {
+                const nav = metrics.btcHoldings * btcPrice;
+                navEl.textContent = _formatNAV(nav);
+            } else if (typeof metrics.marketCap === 'number') {
+                // Fallback to market cap if no holdings data
                 navEl.textContent = _formatNAV(metrics.marketCap);
             } else {
                 navEl.innerHTML = '<span class="no-alert">\u2014</span>';
