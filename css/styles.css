@@ -85,27 +85,12 @@ body {
     color: inherit;
     flex-shrink: 0;
 }
-.logo-icon {
-    width: 28px;
-    height: 28px;
-    flex-shrink: 0;
-}
-.logo-icon svg {
-    width: 28px;
-    height: 28px;
-    display: block;
-}
 .artemis-logo {
-    height: 28px;
+    height: 32px;
     width: auto;
     border-radius: 6px;
     object-fit: contain;
-}
-.logo-text {
-    font-size: 15px;
-    font-weight: 600;
-    color: var(--text-primary);
-    letter-spacing: -0.3px;
+    display: block;
 }
 
 /* Header nav */
@@ -397,9 +382,34 @@ a.ticker:hover { opacity: 0.8; }
     animation: blink 1.5s infinite;
     letter-spacing: 0.3px;
 }
-.alert-new { max-width: 180px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.alert-new { max-width: 280px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .alert-new:hover { background: rgba(249,115,22,0.12); }
 .no-alert { color: var(--text-muted); font-size: 11px; }
+
+/* Live badge */
+.live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 10px;
+    background: var(--green-bg);
+    color: var(--green);
+    border: 1px solid rgba(0,200,5,0.15);
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+.live-badge:hover { background: rgba(0,200,5,0.15); }
+.live-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--green);
+    animation: pulse 2s infinite;
+}
 
 /* Filing group dropdown */
 .filing-group { position: relative; display: inline-block; }

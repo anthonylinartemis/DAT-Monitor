@@ -16,6 +16,8 @@ const LOCAL_LOGOS = {
     PURR: 'logos/PURR.png',
     BNC: 'logos/BNC.png',
     STSS: 'logos/STSS.png',
+    BMNR: 'logos/BMNR.jpg',
+    FWDI: 'logos/FWDI.png',
 };
 
 const COMPANY_DOMAINS = {

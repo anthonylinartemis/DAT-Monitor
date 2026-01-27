@@ -8,10 +8,17 @@ import { tokenIconHtml } from '../utils/icons.js';
 import { companyLogoHtml } from '../utils/company-logos.js';
 import { renderSparkline } from '../components/sparkline.js';
 
+const LIVE_TICKERS = new Set(['SBET', 'MTPLF', 'ASST']);
+
 function _filingSummary(c) {
     if (c.alertNote) {
+        // Show up to 8 words, truncate with ellipsis
         const words = c.alertNote.split(/\s+/);
-        return words.length > 5 ? words.slice(0, 5).join(' ') + '\u2026' : c.alertNote;
+        return words.length > 8 ? words.slice(0, 8).join(' ') + '\u2026' : c.alertNote;
+    }
+    // Auto-generate from change data
+    if (c.change && c.change > 0) {
+        return `+${formatNum(c.change)} ${c.token || ''} acquired`;
     }
     return 'NEW';
 }
@@ -79,7 +86,7 @@ function _filingCell(c) {
         </details>`;
     }
     if (c.alertUrl && isRecent(c.alertDate)) {
-        return `<a href="${c.alertUrl}" target="_blank" rel="noopener" class="alert-new" title="${c.alertNote || 'New update'}">${_filingSummary(c)}</a>`;
+        return `<a href="${c.alertUrl}" target="_blank" rel="noopener" class="alert-new" title="${(c.alertNote || 'New update').replace(/"/g, '&quot;')}">${_filingSummary(c)}</a>`;
     }
     return '<span class="no-alert">\u2014</span>';
 }
@@ -128,6 +135,7 @@ export function renderHoldings() {
                                         <div class="ticker-cell">
                                             ${companyLogoHtml(c.ticker, 28)}
                                             <a href="#/company/${c.ticker}" class="ticker ${c.token.toLowerCase()}">${tokenIconHtml(c.token)}${c.ticker}</a>
+                                            ${LIVE_TICKERS.has(c.ticker) ? '<span class="live-badge" style="font-size:8px;padding:2px 6px;"><span class="live-dot" style="width:4px;height:4px;"></span>LIVE</span>' : ''}
                                             <div>
                                                 <div class="company-name">${c.name}</div>
                                                 ${c.notes ? `<div class="company-notes">${c.notes}</div>` : ''}

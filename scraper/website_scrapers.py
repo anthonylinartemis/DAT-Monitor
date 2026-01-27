@@ -21,6 +21,8 @@ from scraper.models import ScrapedUpdate
 logger = logging.getLogger(__name__)
 
 METAPLANET_ANALYTICS_URL = "https://metaplanet.jp/en/analytics"
+STRIVE_TREASURY_URL = "https://treasury.strive.com/?tab=home"
+STRIVE_SHARES_URL = "https://treasury.strive.com/?tab=shares"
 
 USER_AGENT = "DAT-Monitor-Bot/1.0 (dat-monitor-github-action)"
 
@@ -284,6 +286,120 @@ def fetch_metaplanet_updates(
     return updates, analytics_dict
 
 
+@dataclass(frozen=True)
+class StriveTreasuryData:
+    """Extracted data from Strive treasury dashboard."""
+    total_btc: Optional[int]
+    shares_outstanding: Optional[int]
+    btc_nav_usd: Optional[float]
+
+    def to_json_dict(self) -> dict:
+        result: dict = {}
+        if self.total_btc is not None:
+            result["totalBtc"] = self.total_btc
+        if self.shares_outstanding is not None:
+            result["sharesOutstanding"] = self.shares_outstanding
+        if self.btc_nav_usd is not None:
+            result["bitcoinNavUsd"] = self.btc_nav_usd
+        return result
+
+
+def parse_strive_treasury(text: str) -> StriveTreasuryData:
+    """Parse the stripped text from Strive's treasury pages.
+
+    StrategyTracker-powered dashboard. Looks for BTC holdings,
+    shares outstanding, and NAV in the rendered text.
+    """
+    total_btc = None
+    shares = None
+    nav = None
+
+    # BTC holdings patterns
+    for pattern in [
+        r"(?:Total|Bitcoin)\s+(?:BTC\s+)?Holdings?\s*[:\s]*([\d,]+)",
+        r"([\d,]+)\s+BTC",
+        r"₿\s*([\d,]{3,})",
+    ]:
+        m = re.search(pattern, text, re.IGNORECASE)
+        if m:
+            val = int(m.group(1).replace(",", ""))
+            if val > 100:  # Sanity check
+                total_btc = val
+                break
+
+    # Shares outstanding patterns
+    for pattern in [
+        r"Shares\s+Outstanding\s*[:\s]*([\d,]+)",
+        r"Outstanding\s+Shares\s*[:\s]*([\d,]+)",
+        r"Total\s+Shares\s*[:\s]*([\d,]+)",
+    ]:
+        m = re.search(pattern, text, re.IGNORECASE)
+        if m:
+            shares = int(m.group(1).replace(",", ""))
+            break
+
+    # NAV
+    m = re.search(r"(?:Bitcoin\s+)?NAV.*?\$([\d,.]+)\s*([BMK])?", text, re.IGNORECASE)
+    if m:
+        nav = _parse_usd_amount(f"${m.group(1)}{m.group(2) or ''}")
+
+    return StriveTreasuryData(
+        total_btc=total_btc,
+        shares_outstanding=shares,
+        btc_nav_usd=nav,
+    )
+
+
+def fetch_strive_updates(
+    data: dict,
+) -> tuple[list[ScrapedUpdate], dict | None]:
+    """Fetch Strive treasury data and return pipeline updates + enrichment.
+
+    treasury.strive.com is a StrategyTracker SPA. Static HTTP may not
+    capture all data (JS-rendered). Falls back gracefully.
+    """
+    logger.info("Fetching Strive treasury from %s", STRIVE_TREASURY_URL)
+
+    combined_text = ""
+    for url in [STRIVE_TREASURY_URL, STRIVE_SHARES_URL]:
+        try:
+            html = _http_get(url)
+            combined_text += " " + _strip_html(html)
+        except (ValueError, urllib.error.URLError) as e:
+            logger.warning("Failed to fetch Strive page %s: %s", url, e)
+
+    if not combined_text.strip():
+        logger.warning("Strive: no content fetched from either page")
+        return [], None
+
+    treasury = parse_strive_treasury(combined_text)
+
+    logger.info(
+        "Strive parsed: total_btc=%s, shares=%s, nav=%s",
+        treasury.total_btc,
+        treasury.shares_outstanding,
+        treasury.btc_nav_usd,
+    )
+
+    updates: list[ScrapedUpdate] = []
+
+    if treasury.total_btc is not None:
+        context = (
+            f"Strive holds {treasury.total_btc:,} Bitcoin in treasury. "
+            f"Source: {STRIVE_TREASURY_URL}"
+        )
+        updates.append(ScrapedUpdate(
+            ticker="ASST",
+            token="BTC",
+            new_value=treasury.total_btc,
+            context_text=context,
+            source_url=STRIVE_TREASURY_URL,
+        ))
+
+    treasury_dict = treasury.to_json_dict() if treasury.total_btc else None
+    return updates, treasury_dict
+
+
 def build_website_updates(
     data: dict,
 ) -> tuple[list[ScrapedUpdate], dict[str, dict]]:
@@ -300,6 +416,12 @@ def build_website_updates(
     all_updates.extend(mtplf_updates)
     if mtplf_analytics:
         enrichments["MTPLF"] = mtplf_analytics
+
+    # Strive
+    asst_updates, asst_treasury = fetch_strive_updates(data)
+    all_updates.extend(asst_updates)
+    if asst_treasury:
+        enrichments["ASST"] = asst_treasury
 
     logger.info(
         "Website scrapers: %d update(s), %d enrichment(s)",

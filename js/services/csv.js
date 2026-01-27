@@ -250,3 +250,25 @@ export function formatForIDE(transactions, ticker) {
         }))
     }, null, 2);
 }
+
+const TREASURY_CSV_HEADERS = ['Date', 'Tokens', 'ConvertibleDebt', 'ConvertibleDebtShares',
+    'NonConvertibleDebt', 'Warrants', 'WarrantShares', 'SharesOutstanding', 'Cash'];
+
+export function generateTreasuryCSV(treasuryHistory) {
+    const lines = [TREASURY_CSV_HEADERS.join(',')];
+    const sorted = [...treasuryHistory].sort((a, b) => b.date.localeCompare(a.date));
+    for (const e of sorted) {
+        lines.push([
+            e.date || '',
+            e.num_of_tokens || 0,
+            e.convertible_debt || 0,
+            e.convertible_debt_shares || 0,
+            e.non_convertible_debt || 0,
+            e.warrants || 0,
+            e.warrant_shares || 0,
+            e.num_of_shares || 0,
+            e.latest_cash || 0,
+        ].join(','));
+    }
+    return lines.join('\n');
+}

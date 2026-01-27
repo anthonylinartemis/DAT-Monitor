@@ -4,8 +4,6 @@
 
 import { getData } from '../services/data-store.js';
 
-const ARTEMIS_LOGO_HTML = `<img src="logos/artemis-logo.jpg" alt="Artemis" class="artemis-logo" height="28">`;
-
 export function renderHeader(currentView) {
     const data = getData();
     const tabs = [
@@ -19,8 +17,7 @@ export function renderHeader(currentView) {
             <div class="container">
                 <div class="header-inner">
                     <a href="#/dashboard" class="logo">
-                        <div class="logo-icon">${ARTEMIS_LOGO_HTML}</div>
-                        <span class="logo-text">DAT Monitor</span>
+                        <img src="logos/artemis-logo.jpg" alt="Artemis" class="artemis-logo">
                     </a>
                     <nav class="header-nav" aria-label="Main navigation">
                         ${tabs.map(t => `

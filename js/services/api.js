@@ -172,6 +172,51 @@ export async function fetchHistoricalPrice(token, dateStr) {
     return null;
 }
 
+/**
+ * Fetch DAT-specific metrics from Artemis: mNAV, FDM_mNAV, share price.
+ * Endpoint: https://api.artemis.xyz/dat/{ticker}
+ */
+const datMetricsCache = new Map();
+const DAT_CACHE_TTL = 300_000; // 5 minutes
+
+export async function fetchDATMetrics(ticker) {
+    const cached = datMetricsCache.get(ticker);
+    if (cached && (Date.now() - cached.ts) < DAT_CACHE_TTL) {
+        return cached.data;
+    }
+
+    if (!ARTEMIS_API_KEY) return null;
+
+    try {
+        const response = await fetch(`https://api.artemis.xyz/dat/${ticker.toLowerCase()}`, {
+            headers: { 'x-artemis-api-key': ARTEMIS_API_KEY }
+        });
+        if (!response.ok) throw new Error(`Artemis DAT ${response.status}`);
+        const result = await response.json();
+        // Normalize response — look for mNAV, fdm_mNAV, share_price in various structures
+        const metrics = {};
+        const d = result.data || result;
+        if (typeof d.mNAV === 'number' || typeof d.mnav === 'number') {
+            metrics.mNAV = d.mNAV ?? d.mnav;
+        }
+        if (typeof d.FDM_mNAV === 'number' || typeof d.fdm_mnav === 'number' || typeof d.fdm_mNAV === 'number') {
+            metrics.fdmMNAV = d.FDM_mNAV ?? d.fdm_mnav ?? d.fdm_mNAV;
+        }
+        if (typeof d.share_price === 'number' || typeof d.sharePrice === 'number' || typeof d.price === 'number') {
+            metrics.sharePrice = d.share_price ?? d.sharePrice ?? d.price;
+        }
+        if (typeof d.market_cap === 'number' || typeof d.marketCap === 'number') {
+            metrics.marketCap = d.market_cap ?? d.marketCap;
+        }
+
+        datMetricsCache.set(ticker, { data: metrics, ts: Date.now() });
+        return metrics;
+    } catch (err) {
+        console.warn(`Artemis DAT metrics failed for ${ticker}:`, err.message);
+        return null;
+    }
+}
+
 export async function fetchAllPrices() {
     const tokens = Object.keys(ASSET_IDS);
     const results = {};

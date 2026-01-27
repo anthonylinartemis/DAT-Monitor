@@ -1,10 +1,15 @@
 /**
- * Token icon URLs from the cryptocurrency-icons CDN.
+ * Token icon URLs — local files preferred, CoinGecko CDN fallback.
  */
 
 const ICON_BASE = 'https://assets.coingecko.com/coins/images';
 
-const TOKEN_ICONS = {
+const LOCAL_TOKEN_ICONS = {
+    HYPE: 'logos/HYPE-token.jpg',
+    BNB: 'logos/BNB-token.png',
+};
+
+const CDN_TOKEN_ICONS = {
     BTC: `${ICON_BASE}/1/small/bitcoin.png`,
     ETH: `${ICON_BASE}/279/small/ethereum.png`,
     SOL: `${ICON_BASE}/4128/small/solana.png`,
@@ -13,11 +18,15 @@ const TOKEN_ICONS = {
 };
 
 export function tokenIconHtml(token, size = 14) {
-    const url = TOKEN_ICONS[token];
-    if (!url) return '';
-    return `<img src="${url}" alt="${token}" class="token-icon" width="${size}" height="${size}" loading="lazy">`;
+    const local = LOCAL_TOKEN_ICONS[token];
+    const cdn = CDN_TOKEN_ICONS[token];
+    if (!local && !cdn) return '';
+    const primary = local || cdn;
+    const fallback = local ? cdn : null;
+    const onerror = fallback ? `onerror="this.src='${fallback}'"` : '';
+    return `<img src="${primary}" alt="${token}" class="token-icon" width="${size}" height="${size}" loading="lazy" ${onerror}>`;
 }
 
 export function tokenIconUrl(token) {
-    return TOKEN_ICONS[token] || '';
+    return LOCAL_TOKEN_ICONS[token] || CDN_TOKEN_ICONS[token] || '';
 }

@@ -7,9 +7,16 @@ import { formatNum } from '../utils/format.js';
 import { tokenIconHtml } from '../utils/icons.js';
 import { companyLogoHtml } from '../utils/company-logos.js';
 import { renderAreaChart } from '../components/area-chart.js';
-import { fetchPrice } from '../services/api.js';
-import { generateCSV, downloadCSV, formatForIDE } from '../services/csv.js';
+import { fetchPrice, fetchDATMetrics } from '../services/api.js';
+import { generateCSV, downloadCSV, formatForIDE, generateTreasuryCSV } from '../services/csv.js';
 import { generateHistory } from '../utils/history-generator.js';
+
+// Companies with live dashboard connections
+const LIVE_DASHBOARDS = {
+    SBET: 'https://investors.sharplink.com/',
+    MTPLF: 'https://metaplanet.jp/en/shareholders/disclosures',
+    ASST: 'https://treasury.strive.com/?tab=home',
+};
 
 const TREASURY_FIELDS = [
     { key: 'num_of_tokens', label: 'Tokens', format: formatNum },
@@ -49,6 +56,9 @@ export function renderCompanyPage(ticker) {
         ? [...treasuryHistory].sort((a, b) => b.date.localeCompare(a.date))[0]
         : null;
 
+    const isLive = !!LIVE_DASHBOARDS[company.ticker];
+    const liveUrl = LIVE_DASHBOARDS[company.ticker] || '';
+
     return `
         <main class="container" style="padding: 24px 20px 60px">
             <a href="#/holdings" class="back-link">\u2190 Back to Holdings</a>
@@ -60,6 +70,7 @@ export function renderCompanyPage(ticker) {
                         ${companyLogoHtml(company.ticker, 36)}
                         <span class="ticker mono ${tokenClass}" style="font-size: 14px; padding: 6px 12px;">${tokenIconHtml(company.token)}${company.ticker}</span>
                         <h2>${company.name}</h2>
+                        ${isLive ? `<a href="${liveUrl}" target="_blank" rel="noopener" class="live-badge" title="Live dashboard connection"><span class="live-dot"></span>LIVE</a>` : ''}
                     </div>
                     ${company.notes ? `<p class="company-hero-notes">${company.notes}</p>` : ''}
                 </div>
@@ -67,6 +78,18 @@ export function renderCompanyPage(ticker) {
                     <div class="hero-stat">
                         <div class="hero-stat-label">Total Holdings</div>
                         <div class="hero-stat-value mono">${formatNum(company.tokens)} ${company.token}</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-label">Live ${company.token} Price</div>
+                        <div class="hero-stat-value mono" id="live-token-price">
+                            <span class="skeleton-pulse">Loading...</span>
+                        </div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-label">Current Value</div>
+                        <div class="hero-stat-value mono" id="current-value">
+                            <span class="skeleton-pulse">Loading...</span>
+                        </div>
                     </div>
                     <div class="hero-stat">
                         <div class="hero-stat-label">Last Change</div>
@@ -80,12 +103,6 @@ export function renderCompanyPage(ticker) {
                         <div class="hero-stat-value mono">$${formatNum(avgCostBasis)}</div>
                     </div>
                     ` : ''}
-                    <div class="hero-stat">
-                        <div class="hero-stat-label">Current Value</div>
-                        <div class="hero-stat-value mono" id="current-value">
-                            <span class="skeleton-pulse">Loading...</span>
-                        </div>
-                    </div>
                     ${latestTreasury ? `
                     <div class="hero-stat">
                         <div class="hero-stat-label">Shares Outstanding</div>
@@ -96,6 +113,14 @@ export function renderCompanyPage(ticker) {
                         <div class="hero-stat-value mono">$${formatNum(latestTreasury.latest_cash)}</div>
                     </div>
                     ` : ''}
+                    <div class="hero-stat" id="mnav-stat" style="display:none">
+                        <div class="hero-stat-label">mNAV</div>
+                        <div class="hero-stat-value mono" id="mnav-value">\u2014</div>
+                    </div>
+                    <div class="hero-stat" id="fdm-mnav-stat" style="display:none">
+                        <div class="hero-stat-label">FDM mNAV</div>
+                        <div class="hero-stat-value mono" id="fdm-mnav-value">\u2014</div>
+                    </div>
                 </div>
             </div>
 
@@ -110,6 +135,7 @@ export function renderCompanyPage(ticker) {
                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px;">
                     <h3>Treasury Metrics</h3>
                     <div style="display: flex; gap: 8px;">
+                        ${hasTreasury ? `<button class="btn btn-secondary" id="export-treasury-btn">Export Treasury CSV</button>` : ''}
                         <button class="btn btn-primary" id="add-treasury-btn">+ New Entry</button>
                     </div>
                 </div>
@@ -215,23 +241,54 @@ export function initCompanyPage(ticker) {
         }
     }
 
-    // Fetch live price
+    // Fetch live token price and current value
     fetchPrice(company.token).then(price => {
-        const el = document.getElementById('current-value');
-        if (!el) return;
+        const priceEl = document.getElementById('live-token-price');
+        const valueEl = document.getElementById('current-value');
         if (price === null) {
-            el.textContent = 'Unavailable';
+            if (priceEl) priceEl.textContent = 'Unavailable';
+            if (valueEl) valueEl.textContent = 'Unavailable';
             return;
         }
-        const totalValue = company.tokens * price;
-        el.innerHTML = `$${Number(totalValue.toFixed(0)).toLocaleString()}`;
 
-        if (company.transactions && company.transactions.length > 0) {
-            const avgCost = company.transactions[0].avgCostBasis;
-            if (avgCost && avgCost > 0) {
-                const gainPct = ((price - avgCost) / avgCost * 100).toFixed(1);
-                const isPositive = parseFloat(gainPct) >= 0;
-                el.innerHTML += ` <span class="${isPositive ? 'text-green' : 'text-red'}">(${isPositive ? '+' : ''}${gainPct}%)</span>`;
+        // Show live token price
+        if (priceEl) {
+            priceEl.innerHTML = `$${Number(price.toFixed(2)).toLocaleString()}`;
+        }
+
+        // Show current portfolio value
+        if (valueEl) {
+            const totalValue = company.tokens * price;
+            valueEl.innerHTML = `$${Number(totalValue.toFixed(0)).toLocaleString()}`;
+
+            if (company.transactions && company.transactions.length > 0) {
+                const avgCost = company.transactions[0].avgCostBasis;
+                if (avgCost && avgCost > 0) {
+                    const gainPct = ((price - avgCost) / avgCost * 100).toFixed(1);
+                    const isPositive = parseFloat(gainPct) >= 0;
+                    valueEl.innerHTML += ` <span class="${isPositive ? 'text-green' : 'text-red'}">(${isPositive ? '+' : ''}${gainPct}%)</span>`;
+                }
+            }
+        }
+    });
+
+    // Fetch DAT-specific metrics (mNAV, FDM_mNAV, share price)
+    fetchDATMetrics(ticker).then(metrics => {
+        if (!metrics) return;
+        if (typeof metrics.mNAV === 'number') {
+            const el = document.getElementById('mnav-stat');
+            const val = document.getElementById('mnav-value');
+            if (el && val) {
+                val.textContent = metrics.mNAV.toFixed(2) + 'x';
+                el.style.display = '';
+            }
+        }
+        if (typeof metrics.fdmMNAV === 'number') {
+            const el = document.getElementById('fdm-mnav-stat');
+            const val = document.getElementById('fdm-mnav-value');
+            if (el && val) {
+                val.textContent = metrics.fdmMNAV.toFixed(2) + 'x';
+                el.style.display = '';
             }
         }
     });
@@ -263,6 +320,17 @@ export function initCompanyPage(ticker) {
             }
         });
     });
+
+    // --- Export Treasury CSV ---
+    const exportTreasuryBtn = document.getElementById('export-treasury-btn');
+    if (exportTreasuryBtn) {
+        exportTreasuryBtn.addEventListener('click', () => {
+            const history = company.treasury_history || [];
+            if (history.length === 0) return;
+            const csv = generateTreasuryCSV(history);
+            downloadCSV(csv, `${ticker}_treasury.csv`);
+        });
+    }
 
     // --- Export / Copy Buttons ---
     const exportBtn = document.getElementById('export-csv-btn');

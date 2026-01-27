@@ -86,11 +86,11 @@ export function renderDataSync() {
                 <!-- Export Section -->
                 <div class="sync-card">
                     <h3>Export Data</h3>
-                    <p class="text-muted" style="margin: 8px 0 16px;">Download the complete data.json or export all transactions as CSV.</p>
+                    <p class="text-muted" style="margin: 8px 0 16px;">Download data.json or export 2026+ transactions as CSV.</p>
 
                     <div style="display: flex; flex-direction: column; gap: 12px;">
                         <button class="btn btn-primary" id="export-json-btn">Export data.json</button>
-                        <button class="btn btn-secondary" id="export-csv-btn">Export All Transactions CSV</button>
+                        <button class="btn btn-secondary" id="export-csv-btn">Export 2026 Transactions CSV</button>
                     </div>
                 </div>
 
@@ -340,17 +340,20 @@ function handleExportAllCsv() {
         for (const c of list) {
             if (c.transactions) {
                 for (const t of c.transactions) {
-                    allTransactions.push({ ...t, ticker: c.ticker, token });
+                    // Only include transactions from January 2026 onwards
+                    if (t.date && t.date >= '2026-01-01') {
+                        allTransactions.push({ ...t, ticker: c.ticker, token });
+                    }
                 }
             }
         }
     }
 
     if (allTransactions.length === 0) {
-        alert('No transaction data available to export.');
+        alert('No transaction data from 2026 onwards available to export.');
         return;
     }
 
     const csv = generateCSV(allTransactions);
-    downloadCSV(csv, 'all_transactions.csv');
+    downloadCSV(csv, 'all_transactions_2026.csv');
 }
