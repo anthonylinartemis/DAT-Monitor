@@ -3,6 +3,8 @@
  * Holds data, current filter, and provides accessors.
  */
 
+import { save as persistSave, load as persistLoad } from './persistence.js';
+
 export const TOKEN_INFO = {
     BTC: { label: 'Bitcoin', class: 'btc' },
     ETH: { label: 'Ethereum', class: 'eth' },
@@ -93,6 +95,7 @@ export function subscribe(fn) {
 }
 
 function notify() {
+    persistSave(data);
     for (const fn of subscribers) {
         fn();
     }
@@ -183,7 +186,7 @@ export function setTreasuryHistory(ticker, token, history) {
     notify();
 }
 
-export function addTreasuryEntry(ticker, token, newTokenCount, dateStr) {
+export function addTreasuryEntry(ticker, token, newTokenCount, dateStr, extraFields = {}) {
     if (!data || !data.companies || !data.companies[token]) return null;
     const list = data.companies[token];
     const idx = list.findIndex(c => c.ticker === ticker);
@@ -194,17 +197,17 @@ export function addTreasuryEntry(ticker, token, newTokenCount, dateStr) {
     const sorted = [...history].sort((a, b) => b.date.localeCompare(a.date));
     const latest = sorted[0] || {};
 
-    // Forward-fill all fields from latest, override date and num_of_tokens
+    // Forward-fill all fields from latest, override with explicit values
     const entry = {
         date: dateStr || new Date().toISOString().slice(0, 10),
         num_of_tokens: newTokenCount,
-        convertible_debt: latest.convertible_debt || 0,
-        convertible_debt_shares: latest.convertible_debt_shares || 0,
-        non_convertible_debt: latest.non_convertible_debt || 0,
-        warrants: latest.warrants || 0,
-        warrant_shares: latest.warrant_shares || 0,
-        num_of_shares: latest.num_of_shares || 0,
-        latest_cash: latest.latest_cash || 0,
+        convertible_debt: extraFields.convertible_debt ?? latest.convertible_debt ?? 0,
+        convertible_debt_shares: extraFields.convertible_debt_shares ?? latest.convertible_debt_shares ?? 0,
+        non_convertible_debt: extraFields.non_convertible_debt ?? latest.non_convertible_debt ?? 0,
+        warrants: extraFields.warrants ?? latest.warrants ?? 0,
+        warrant_shares: extraFields.warrant_shares ?? latest.warrant_shares ?? 0,
+        num_of_shares: extraFields.num_of_shares ?? latest.num_of_shares ?? 0,
+        latest_cash: extraFields.latest_cash ?? latest.latest_cash ?? 0,
     };
 
     const updatedHistory = [entry, ...sorted];
@@ -243,15 +246,84 @@ export function deleteTreasuryEntry(ticker, token, entryDate) {
     return true;
 }
 
+/**
+ * Return a company object with live StrategyTracker metrics overlaid.
+ * Call with cached metrics from fetchDATMetrics() to overlay btcHoldings.
+ */
+export function getCompanyWithLiveData(ticker, liveMetrics) {
+    const company = findCompany(ticker);
+    if (!company || !liveMetrics) return company;
+
+    const overlay = { ...company };
+    if (typeof liveMetrics.btcHoldings === 'number' && liveMetrics.btcHoldings > 0) {
+        overlay.liveTokens = liveMetrics.btcHoldings;
+    }
+    if (typeof liveMetrics.mNAV === 'number') {
+        overlay.liveMNAV = liveMetrics.mNAV;
+    }
+    return overlay;
+}
+
+/**
+ * Merge local arrays (purchases, treasury_history) onto server company objects.
+ * Server is authoritative for metadata; local is authoritative for user-entered arrays.
+ */
+function _mergeLocalIntoServer(serverData, localData) {
+    if (!serverData?.companies || !localData?.companies) return serverData;
+
+    const merged = JSON.parse(JSON.stringify(serverData));
+
+    for (const [token, serverList] of Object.entries(merged.companies)) {
+        const localList = localData.companies[token];
+        if (!localList) continue;
+
+        for (let i = 0; i < serverList.length; i++) {
+            const serverCo = serverList[i];
+            const localCo = localList.find(c => c.ticker === serverCo.ticker);
+            if (!localCo) continue;
+
+            // Local purchases[] win (user imports)
+            if (localCo.transactions && localCo.transactions.length > 0) {
+                // Merge: keep all local txns, add any new server txns by fingerprint
+                const localFps = new Set(localCo.transactions.map(t => t.fingerprint));
+                const merged_txns = [...localCo.transactions];
+                for (const t of (serverCo.transactions || [])) {
+                    if (t.fingerprint && !localFps.has(t.fingerprint)) {
+                        merged_txns.push(t);
+                    }
+                }
+                merged_txns.sort((a, b) => b.date.localeCompare(a.date));
+                serverList[i].transactions = merged_txns;
+            }
+
+            // Local treasury_history[] wins (user edits/entries)
+            if (localCo.treasury_history && localCo.treasury_history.length > 0) {
+                serverList[i].treasury_history = localCo.treasury_history;
+            }
+        }
+    }
+
+    return merged;
+}
+
 export async function loadData() {
+    let serverData = EMBEDDED_DATA;
     try {
         const response = await fetch('./data.json');
         if (response.ok) {
-            const d = await response.json();
-            data = d;
+            serverData = await response.json();
         }
     } catch {
-        // Fall back to embedded data -- already set
+        // Fall back to embedded data
     }
+
+    // Check localStorage for persisted local data
+    const local = persistLoad();
+    if (local && local.payload) {
+        data = _mergeLocalIntoServer(serverData, local.payload);
+    } else {
+        data = serverData;
+    }
+
     notify();
 }

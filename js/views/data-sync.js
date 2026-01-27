@@ -7,6 +7,7 @@ import { getData, TOKEN_INFO, mergeTransactionsForCompany, getAllCompanyCount, s
 import { parseCSV, generateCSV, downloadCSV, isCustomFormat, parseCustomCSV } from '../services/csv.js';
 import { transactionFingerprint } from '../utils/dedup.js';
 import { fetchHistoricalPrice } from '../services/api.js';
+import { exportBackup, importBackup, clear as clearPersistence, getLastSaveTimestamp } from '../services/persistence.js';
 
 export function renderDataSync() {
     const data = getData();
@@ -126,6 +127,21 @@ export function renderDataSync() {
                     </div>
                 </div>
             </div>
+
+            <!-- Backup / Restore Section -->
+            <div class="sync-card" style="margin-top: 16px;">
+                <h3>Local Data Backup</h3>
+                <p class="text-muted" style="margin: 8px 0 16px;">
+                    Your edits, imports, and entries are saved in your browser's localStorage.
+                    ${getLastSaveTimestamp() ? `Last saved: ${new Date(getLastSaveTimestamp()).toLocaleString()}` : 'No local data yet.'}
+                </p>
+                <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+                    <button class="btn btn-primary" id="backup-download-btn">Download Backup</button>
+                    <label class="btn btn-secondary" for="backup-restore-input" style="cursor: pointer;">Restore from Backup</label>
+                    <input type="file" id="backup-restore-input" accept=".json" style="display: none;" />
+                    <button class="btn btn-secondary" id="backup-clear-btn" style="color: var(--red);">Clear Local Data</button>
+                </div>
+            </div>
         </main>
     `;
 }
@@ -181,6 +197,31 @@ export function initDataSync() {
     const exportCsvBtn = document.getElementById('export-csv-btn');
     if (exportCsvBtn) {
         exportCsvBtn.addEventListener('click', handleExportAllCsv);
+    }
+
+    // Backup / Restore
+    const backupDownloadBtn = document.getElementById('backup-download-btn');
+    if (backupDownloadBtn) {
+        backupDownloadBtn.addEventListener('click', () => exportBackup());
+    }
+
+    const backupRestoreInput = document.getElementById('backup-restore-input');
+    if (backupRestoreInput) {
+        backupRestoreInput.addEventListener('change', () => {
+            if (backupRestoreInput.files[0]) {
+                importBackup(backupRestoreInput.files[0]);
+            }
+        });
+    }
+
+    const backupClearBtn = document.getElementById('backup-clear-btn');
+    if (backupClearBtn) {
+        backupClearBtn.addEventListener('click', () => {
+            if (confirm('Clear all local data? This will revert to server data on next refresh.')) {
+                clearPersistence();
+                window.location.reload();
+            }
+        });
     }
 }
 

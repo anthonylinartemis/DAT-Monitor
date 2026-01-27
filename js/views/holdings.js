@@ -7,6 +7,7 @@ import { formatNum, isRecent, getSecUrl } from '../utils/format.js';
 import { tokenIconHtml } from '../utils/icons.js';
 import { companyLogoHtml } from '../utils/company-logos.js';
 import { renderSparkline } from '../components/sparkline.js';
+import { fetchDATMetrics } from '../services/api.js';
 
 const LIVE_TICKERS = new Set(['SBET', 'MTPLF', 'ASST']);
 
@@ -120,6 +121,8 @@ export function renderHoldings() {
                             <tr>
                                 <th>Company</th>
                                 <th class="right">Holdings</th>
+                                <th class="right">NAV</th>
+                                <th class="right">mNAV</th>
                                 <th class="right">Change</th>
                                 <th class="center">Updated</th>
                                 <th class="center">Trend</th>
@@ -143,7 +146,13 @@ export function renderHoldings() {
                                         </div>
                                     </td>
                                     <td class="right">
-                                        <span class="holdings mono">${formatNum(c.tokens)} ${c.token}</span>
+                                        <span class="holdings mono" id="holdings-${c.ticker}">${formatNum(c.tokens)} ${c.token}</span>
+                                    </td>
+                                    <td class="right mono" id="nav-${c.ticker}">
+                                        <span class="skeleton-pulse" style="min-width:50px;">&nbsp;</span>
+                                    </td>
+                                    <td class="right mono" id="mnav-${c.ticker}">
+                                        <span class="skeleton-pulse" style="min-width:40px;">&nbsp;</span>
                                     </td>
                                     <td class="right">
                                         ${c.change > 0 ? `<span class="change-pos mono">+${formatNum(c.change)}</span>` :
@@ -207,6 +216,69 @@ export function initHoldingsListeners() {
             const color = getComputedStyle(document.documentElement)
                 .getPropertyValue(`--${c.token.toLowerCase()}`).trim();
             renderSparkline(`spark-${c.ticker}`, c.transactions, color);
+        }
+    }
+
+    // Async: fetch StrategyTracker data for NAV, mNAV, and live holdings overlay
+    _populateLiveColumns(companies);
+}
+
+function _formatNAV(value) {
+    if (value >= 1e9) return '$' + (value / 1e9).toFixed(2) + 'B';
+    if (value >= 1e6) return '$' + (value / 1e6).toFixed(1) + 'M';
+    return '$' + Number(value.toFixed(0)).toLocaleString();
+}
+
+async function _populateLiveColumns(companies) {
+    const tickers = companies.map(c => c.ticker);
+    const results = await Promise.allSettled(
+        tickers.map(ticker => fetchDATMetrics(ticker).then(m => ({ ticker, metrics: m })))
+    );
+
+    for (const result of results) {
+        if (result.status !== 'fulfilled' || !result.value.metrics) {
+            // No StrategyTracker coverage — show dash
+            const ticker = result.status === 'fulfilled' ? result.value.ticker : null;
+            if (ticker) {
+                const navEl = document.getElementById(`nav-${ticker}`);
+                const mnavEl = document.getElementById(`mnav-${ticker}`);
+                if (navEl) navEl.innerHTML = '<span class="no-alert">\u2014</span>';
+                if (mnavEl) mnavEl.innerHTML = '<span class="no-alert">\u2014</span>';
+            }
+            continue;
+        }
+
+        const { ticker, metrics } = result.value;
+
+        // Populate NAV cell (holdingsValue = btcHoldings * price, or marketCap as proxy)
+        const navEl = document.getElementById(`nav-${ticker}`);
+        if (navEl) {
+            if (typeof metrics.marketCap === 'number') {
+                navEl.textContent = _formatNAV(metrics.marketCap);
+            } else {
+                navEl.innerHTML = '<span class="no-alert">\u2014</span>';
+            }
+        }
+
+        // Populate mNAV cell
+        const mnavEl = document.getElementById(`mnav-${ticker}`);
+        if (mnavEl) {
+            if (typeof metrics.mNAV === 'number') {
+                mnavEl.textContent = metrics.mNAV.toFixed(2) + 'x';
+            } else {
+                mnavEl.innerHTML = '<span class="no-alert">\u2014</span>';
+            }
+        }
+
+        // Live data overlay: update holdings cell if btcHoldings differs
+        if (typeof metrics.btcHoldings === 'number' && metrics.btcHoldings > 0) {
+            const company = companies.find(c => c.ticker === ticker);
+            if (company && metrics.btcHoldings !== company.tokens) {
+                const holdingsEl = document.getElementById(`holdings-${ticker}`);
+                if (holdingsEl) {
+                    holdingsEl.innerHTML = `${formatNum(metrics.btcHoldings)} ${company.token} <span class="live-badge" style="font-size:8px;padding:1px 5px;margin-left:4px;"><span class="live-dot" style="width:4px;height:4px;"></span>LIVE</span>`;
+                }
+            }
         }
     }
 }

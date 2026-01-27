@@ -18,6 +18,7 @@ const LOCAL_LOGOS = {
     STSS: 'logos/STSS.png',
     BMNR: 'logos/BMNR.jpg',
     FWDI: 'logos/FWDI.png',
+    NAKA: 'logos/NAKA.jpg',
 };
 
 const COMPANY_DOMAINS = {

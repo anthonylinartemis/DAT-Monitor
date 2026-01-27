@@ -95,7 +95,7 @@ export function renderCompanyPage(ticker) {
                         </div>
                     </div>
                     <div class="hero-stat">
-                        <div class="hero-stat-label">Current Value</div>
+                        <div class="hero-stat-label">NAV</div>
                         <div class="hero-stat-value mono" id="current-value">
                             <span class="skeleton-pulse">Loading...</span>
                         </div>
@@ -134,6 +134,55 @@ export function renderCompanyPage(ticker) {
             <div class="chart-card">
                 <h3>Cumulative Holdings</h3>
                 <div id="company-area-chart"></div>
+            </div>
+
+            <!-- Treasury Entry Form (hidden by default) -->
+            <div id="treasury-entry-form" class="treasury-entry-form" style="display:none;">
+                <div class="table-wrap" style="margin-top: 24px; padding: 24px;">
+                    <h3 style="margin-bottom: 16px;">New Treasury Entry</h3>
+                    <div class="entry-form-grid">
+                        <div class="form-group">
+                            <label for="entry-date">Date</label>
+                            <input type="date" id="entry-date" class="form-input" value="${new Date().toISOString().slice(0, 10)}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="entry-tokens">Tokens</label>
+                            <input type="text" id="entry-tokens" class="form-input" value="${latestTreasury ? formatNum(latestTreasury.num_of_tokens) : company.tokens || 0}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="entry-conv-debt">Convertible Debt</label>
+                            <input type="text" id="entry-conv-debt" class="form-input" value="${latestTreasury?.convertible_debt || 0}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="entry-conv-shares">Conv. Debt Shares</label>
+                            <input type="text" id="entry-conv-shares" class="form-input" value="${latestTreasury?.convertible_debt_shares || 0}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="entry-non-conv-debt">Non-Conv. Debt</label>
+                            <input type="text" id="entry-non-conv-debt" class="form-input" value="${latestTreasury?.non_convertible_debt || 0}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="entry-warrants">Warrants</label>
+                            <input type="text" id="entry-warrants" class="form-input" value="${latestTreasury?.warrants || 0}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="entry-warrant-shares">Warrant Shares</label>
+                            <input type="text" id="entry-warrant-shares" class="form-input" value="${latestTreasury?.warrant_shares || 0}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="entry-shares-out">Shares Outstanding</label>
+                            <input type="text" id="entry-shares-out" class="form-input" value="${latestTreasury?.num_of_shares || 0}" />
+                        </div>
+                        <div class="form-group">
+                            <label for="entry-cash">Cash</label>
+                            <input type="text" id="entry-cash" class="form-input" value="${latestTreasury?.latest_cash || 0}" />
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 8px; margin-top: 16px;">
+                        <button class="btn btn-primary" id="entry-submit-btn">Add Entry</button>
+                        <button class="btn btn-secondary" id="entry-cancel-btn">Cancel</button>
+                    </div>
+                </div>
             </div>
 
             <!-- Treasury Metrics History -->
@@ -296,18 +345,47 @@ export function initCompanyPage(ticker) {
     // --- Treasury Metrics: Inline Editing ---
     _initTreasuryEditing(ticker, company.token);
 
-    // --- Add Treasury Entry ---
+    // --- Add Treasury Entry (inline form) ---
     const addBtn = document.getElementById('add-treasury-btn');
-    if (addBtn) {
+    const entryForm = document.getElementById('treasury-entry-form');
+    if (addBtn && entryForm) {
         addBtn.addEventListener('click', () => {
-            const dateStr = prompt('Date for new entry (YYYY-MM-DD):', new Date().toISOString().slice(0, 10));
-            if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) return;
-            const tokensStr = prompt('Number of tokens:', String(company.tokens || 0));
-            if (tokensStr === null) return;
-            const tokens = parseFloat(tokensStr.replace(/,/g, '')) || 0;
-            addTreasuryEntry(ticker, company.token, tokens, dateStr);
-            window.location.hash = `#/company/${ticker}`;
+            entryForm.style.display = entryForm.style.display === 'none' ? 'block' : 'none';
+            if (entryForm.style.display === 'block') {
+                entryForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
         });
+
+        const cancelBtn = document.getElementById('entry-cancel-btn');
+        if (cancelBtn) {
+            cancelBtn.addEventListener('click', () => {
+                entryForm.style.display = 'none';
+            });
+        }
+
+        const submitBtn = document.getElementById('entry-submit-btn');
+        if (submitBtn) {
+            submitBtn.addEventListener('click', () => {
+                const _parseNum = (id) => parseFloat(document.getElementById(id)?.value?.replace(/,/g, '') || '0') || 0;
+                const dateStr = document.getElementById('entry-date')?.value;
+                if (!dateStr || !/^\d{4}-\d{2}-\d{2}$/.test(dateStr)) {
+                    alert('Please enter a valid date (YYYY-MM-DD).');
+                    return;
+                }
+                const tokens = _parseNum('entry-tokens');
+                const extraFields = {
+                    convertible_debt: _parseNum('entry-conv-debt'),
+                    convertible_debt_shares: _parseNum('entry-conv-shares'),
+                    non_convertible_debt: _parseNum('entry-non-conv-debt'),
+                    warrants: _parseNum('entry-warrants'),
+                    warrant_shares: _parseNum('entry-warrant-shares'),
+                    num_of_shares: _parseNum('entry-shares-out'),
+                    latest_cash: _parseNum('entry-cash'),
+                };
+                addTreasuryEntry(ticker, company.token, tokens, dateStr, extraFields);
+                window.location.hash = `#/company/${ticker}`;
+            });
+        }
     }
 
     // --- Delete Treasury Entry ---

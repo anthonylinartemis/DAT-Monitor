@@ -3,6 +3,7 @@
  */
 
 import { getData } from '../services/data-store.js';
+import { getLastSaveTimestamp } from '../services/persistence.js';
 
 export function renderHeader(currentView) {
     const data = getData();
@@ -11,6 +12,12 @@ export function renderHeader(currentView) {
         { id: 'holdings', label: 'Holdings', hash: '#/holdings' },
         { id: 'export', label: 'Export / Import', hash: '#/export' }
     ];
+
+    const lastSave = getLastSaveTimestamp();
+    const hasLocal = lastSave !== null;
+    const saveLabel = hasLocal
+        ? `Local data saved ${new Date(lastSave).toLocaleString()}`
+        : 'Server data only (no local edits)';
 
     return `
         <header class="header">
@@ -28,6 +35,10 @@ export function renderHeader(currentView) {
                         <div class="header-status">
                             <div class="status-dot"></div>
                             <span>Live</span>
+                        </div>
+                        <div class="persistence-indicator" title="${saveLabel}">
+                            <div class="persistence-dot ${hasLocal ? 'persistence-dot-active' : ''}"></div>
+                            <span>${hasLocal ? 'Saved' : 'Server'}</span>
                         </div>
                         <div class="header-updated">
                             ${data.lastUpdatedDisplay}

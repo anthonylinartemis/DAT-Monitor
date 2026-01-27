@@ -775,3 +775,41 @@ a.ticker:hover { opacity: 0.8; }
     .hero-stat { min-width: 80px; }
     .company-hero-stats { gap: 20px; }
 }
+
+/* ============================================
+   PERSISTENCE STATUS INDICATOR
+   ============================================ */
+.persistence-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--text-muted);
+    cursor: default;
+}
+.persistence-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-muted);
+    opacity: 0.5;
+}
+.persistence-dot-active {
+    background: var(--green);
+    opacity: 1;
+}
+
+/* ============================================
+   TREASURY ENTRY FORM
+   ============================================ */
+.entry-form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+@media (max-width: 768px) {
+    .entry-form-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+    .entry-form-grid { grid-template-columns: 1fr; }
+}
