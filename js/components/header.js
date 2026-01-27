@@ -23,9 +23,9 @@ export function renderHeader(currentView) {
                             <p>SEC 8-K &amp; IR Aggregator</p>
                         </div>
                     </div>
-                    <nav class="header-nav">
+                    <nav class="header-nav" aria-label="Main navigation">
                         ${tabs.map(t => `
-                            <a href="${t.hash}" class="nav-tab ${currentView === t.id ? 'active' : ''}">${t.label}</a>
+                            <a href="${t.hash}" class="nav-tab ${currentView === t.id ? 'active' : ''}" aria-label="${t.label}" ${currentView === t.id ? 'aria-current="page"' : ''}>${t.label}</a>
                         `).join('')}
                     </nav>
                     <div class="header-info">

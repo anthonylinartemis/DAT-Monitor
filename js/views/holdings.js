@@ -14,9 +14,9 @@ export function renderHoldings() {
         <main class="container" style="padding: 24px 20px 60px">
             <!-- Filter Tabs -->
             <div class="controls">
-                <div class="tabs">
+                <div class="tabs" role="tablist" aria-label="Filter by token">
                     ${['ALL', 'BTC', 'ETH', 'SOL', 'HYPE', 'BNB'].map(t => `
-                        <button class="tab ${currentFilter === t ? 'active' : ''}" data-filter="${t}">${t}</button>
+                        <button class="tab ${currentFilter === t ? 'active' : ''}" data-filter="${t}" role="tab" aria-selected="${currentFilter === t}" tabindex="${currentFilter === t ? '0' : '-1'}">${t}</button>
                     `).join('')}
                 </div>
             </div>
@@ -83,11 +83,29 @@ export function renderHoldings() {
 }
 
 export function initHoldingsListeners() {
-    document.querySelectorAll('.tab[data-filter]').forEach(btn => {
+    const tabs = document.querySelectorAll('.tab[data-filter]');
+    tabs.forEach(btn => {
         btn.addEventListener('click', () => {
             setCurrentFilter(btn.dataset.filter);
         });
     });
+
+    // Keyboard arrow navigation for filter tabs
+    const tabList = document.querySelector('.tabs[role="tablist"]');
+    if (tabList) {
+        tabList.addEventListener('keydown', (e) => {
+            const tabArray = Array.from(tabs);
+            const current = tabArray.indexOf(document.activeElement);
+            if (current === -1) return;
+            let next = current;
+            if (e.key === 'ArrowRight') next = (current + 1) % tabArray.length;
+            else if (e.key === 'ArrowLeft') next = (current - 1 + tabArray.length) % tabArray.length;
+            else return;
+            e.preventDefault();
+            tabArray[next].focus();
+            tabArray[next].click();
+        });
+    }
 
     // Render sparklines for companies with transactions
     const companies = getCompanies();
