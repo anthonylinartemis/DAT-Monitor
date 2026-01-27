@@ -14,7 +14,6 @@ import re
 import urllib.error
 import urllib.request
 from dataclasses import dataclass
-from datetime import date
 from typing import Optional
 
 from scraper.models import ScrapedUpdate
@@ -77,6 +76,15 @@ class MetaplanetPurchase:
         }
 
 
+_METAPLANET_FIELDS = [
+    ("total_btc", "totalBtc"),
+    ("btc_per_1000_shares", "btcPer1000Shares"),
+    ("ownership_pct", "ownershipPct"),
+    ("avg_daily_btc", "avgDailyBtc"),
+    ("bitcoin_nav_usd", "bitcoinNavUsd"),
+]
+
+
 @dataclass(frozen=True)
 class MetaplanetAnalytics:
     """All data extracted from the Metaplanet analytics page."""
@@ -88,17 +96,11 @@ class MetaplanetAnalytics:
     purchase_history: tuple[MetaplanetPurchase, ...]
 
     def to_json_dict(self) -> dict:
-        result: dict = {}
-        if self.total_btc is not None:
-            result["totalBtc"] = self.total_btc
-        if self.btc_per_1000_shares is not None:
-            result["btcPer1000Shares"] = self.btc_per_1000_shares
-        if self.ownership_pct is not None:
-            result["ownershipPct"] = self.ownership_pct
-        if self.avg_daily_btc is not None:
-            result["avgDailyBtc"] = self.avg_daily_btc
-        if self.bitcoin_nav_usd is not None:
-            result["bitcoinNavUsd"] = self.bitcoin_nav_usd
+        result: dict = {
+            json_key: getattr(self, attr)
+            for attr, json_key in _METAPLANET_FIELDS
+            if getattr(self, attr) is not None
+        }
         if self.purchase_history:
             result["purchaseHistory"] = [
                 p.to_json_dict() for p in self.purchase_history
@@ -146,7 +148,7 @@ def parse_metaplanet_analytics(text: str) -> MetaplanetAnalytics:
     purchases = _extract_purchase_history(text)
 
     return MetaplanetAnalytics(
-        total_btc=int(total_btc) if total_btc and total_btc == int(total_btc) else (int(total_btc) if total_btc else None),
+        total_btc=int(total_btc) if total_btc is not None else None,
         btc_per_1000_shares=btc_per_1000,
         ownership_pct=ownership,
         avg_daily_btc=avg_daily,
@@ -304,6 +306,22 @@ STRATEGYTRACKER_TICKERS = {
 }
 
 
+_ST_FIELDS = [
+    ("btc_holdings", "totalBtc"),
+    ("shares_outstanding", "sharesOutstanding"),
+    ("diluted_shares", "dilutedShares"),
+    ("stock_price", "sharePrice"),
+    ("nav_premium", "mNAV"),
+    ("nav_premium_diluted", "fdmMNAV"),
+    ("btc_yield_ytd", "btcYieldYtd"),
+    ("market_cap", "marketCap"),
+    ("cash_balance", "cashBalance"),
+    ("total_debt", "totalDebt"),
+    ("avg_cost_per_btc", "avgCostPerBtc"),
+    ("holdings_value", "holdingsValue"),
+]
+
+
 @dataclass(frozen=True)
 class StrategyTrackerCompany:
     """Data extracted from StrategyTracker CDN for one company."""
@@ -322,32 +340,11 @@ class StrategyTrackerCompany:
     holdings_value: Optional[float]
 
     def to_json_dict(self) -> dict:
-        result: dict = {}
-        if self.btc_holdings is not None:
-            result["totalBtc"] = self.btc_holdings
-        if self.shares_outstanding is not None:
-            result["sharesOutstanding"] = self.shares_outstanding
-        if self.diluted_shares is not None:
-            result["dilutedShares"] = self.diluted_shares
-        if self.stock_price is not None:
-            result["sharePrice"] = self.stock_price
-        if self.nav_premium is not None:
-            result["mNAV"] = self.nav_premium
-        if self.nav_premium_diluted is not None:
-            result["fdmMNAV"] = self.nav_premium_diluted
-        if self.btc_yield_ytd is not None:
-            result["btcYieldYtd"] = self.btc_yield_ytd
-        if self.market_cap is not None:
-            result["marketCap"] = self.market_cap
-        if self.cash_balance is not None:
-            result["cashBalance"] = self.cash_balance
-        if self.total_debt is not None:
-            result["totalDebt"] = self.total_debt
-        if self.avg_cost_per_btc is not None:
-            result["avgCostPerBtc"] = self.avg_cost_per_btc
-        if self.holdings_value is not None:
-            result["holdingsValue"] = self.holdings_value
-        return result
+        return {
+            json_key: getattr(self, attr)
+            for attr, json_key in _ST_FIELDS
+            if getattr(self, attr) is not None
+        }
 
 
 def _parse_st_company(ticker: str, comp: dict) -> StrategyTrackerCompany:

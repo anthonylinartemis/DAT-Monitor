@@ -72,33 +72,33 @@ async function fetchCoinGeckoPrice(token) {
     throw new Error('Unexpected CoinGecko response format');
 }
 
+/**
+ * Try multiple async fetchers in order, returning the first non-null result.
+ * Caches successful results using the provided setter.
+ */
+async function _fetchWithFallback(fetchers, onSuccess) {
+    for (const { fn, label } of fetchers) {
+        try {
+            const result = await fn();
+            if (result !== null) {
+                if (onSuccess) onSuccess(result);
+                return result;
+            }
+        } catch (err) {
+            console.warn(`${label}:`, err.message);
+        }
+    }
+    return null;
+}
+
 export async function fetchPrice(token) {
     const cached = getCached(token);
     if (cached !== null) return cached;
 
-    // Try Artemis first
-    try {
-        const price = await fetchArtemisPrice(token);
-        if (price !== null) {
-            setCache(token, price);
-            return price;
-        }
-    } catch (err) {
-        console.warn(`Artemis API failed for ${token}:`, err.message);
-    }
-
-    // Fallback to CoinGecko
-    try {
-        const price = await fetchCoinGeckoPrice(token);
-        if (price !== null) {
-            setCache(token, price);
-            return price;
-        }
-    } catch (err) {
-        console.warn(`CoinGecko API failed for ${token}:`, err.message);
-    }
-
-    return null;
+    return _fetchWithFallback([
+        { fn: () => fetchArtemisPrice(token), label: `Artemis API failed for ${token}` },
+        { fn: () => fetchCoinGeckoPrice(token), label: `CoinGecko API failed for ${token}` },
+    ], price => setCache(token, price));
 }
 
 // Historical price cache keyed by "token:YYYY-MM-DD"
@@ -147,29 +147,10 @@ export async function fetchHistoricalPrice(token, dateStr) {
         return historicalCache.get(cacheKey);
     }
 
-    // Try Artemis first
-    try {
-        const price = await fetchArtemisHistoricalPrice(token, dateStr);
-        if (price !== null) {
-            historicalCache.set(cacheKey, price);
-            return price;
-        }
-    } catch (err) {
-        console.warn(`Artemis historical failed for ${token} on ${dateStr}:`, err.message);
-    }
-
-    // Fallback to CoinGecko
-    try {
-        const price = await fetchCoinGeckoHistoricalPrice(token, dateStr);
-        if (price !== null) {
-            historicalCache.set(cacheKey, price);
-            return price;
-        }
-    } catch (err) {
-        console.warn(`CoinGecko historical failed for ${token} on ${dateStr}:`, err.message);
-    }
-
-    return null;
+    return _fetchWithFallback([
+        { fn: () => fetchArtemisHistoricalPrice(token, dateStr), label: `Artemis historical failed for ${token} on ${dateStr}` },
+        { fn: () => fetchCoinGeckoHistoricalPrice(token, dateStr), label: `CoinGecko historical failed for ${token} on ${dateStr}` },
+    ], price => historicalCache.set(cacheKey, price));
 }
 
 /**
@@ -217,53 +198,45 @@ async function fetchStrategyTrackerData() {
     }
 }
 
+// Maps our metric key -> [processedMetrics keys to try, then comp fallback keys]
+const ST_METRIC_FIELDS = [
+    ['mNAV', ['navPremium'], ['navPremium']],
+    ['fdmMNAV', ['navPremiumDiluted'], ['navPremiumDiluted']],
+    ['sharePrice', ['stockPrice'], ['stockPrice']],
+    ['marketCap', ['currentMarketCap', 'marketCap'], ['marketCap']],
+    ['btcYieldYtd', ['btcYieldYtd'], ['btcYieldYtd']],
+    ['btcHoldings', ['latestBtcBalance', 'holdings'], []],
+    ['avgCostPerBtc', ['avgCostPerBtc'], []],
+    ['sharesOutstanding', ['sharesOutstanding'], []],
+];
+
+function _resolveNumeric(sources, ...objects) {
+    for (const obj of objects) {
+        for (const key of sources) {
+            const val = obj[key];
+            if (typeof val === 'number') return val;
+        }
+    }
+    return undefined;
+}
+
 export async function fetchDATMetrics(ticker) {
     const stTicker = ST_TICKER_MAP[ticker];
     if (!stTicker) return null;
 
     const data = await fetchStrategyTrackerData();
-    if (!data || !data.companies) return null;
+    if (!data?.companies?.[stTicker]) return null;
 
     const comp = data.companies[stTicker];
-    if (!comp) return null;
-
-    // StrategyTracker light data has fields directly on the company object
     const pm = comp.processedMetrics || comp;
     const metrics = {};
 
-    // mNAV (NAV premium)
-    const navPremium = pm.navPremium ?? comp.navPremium;
-    if (typeof navPremium === 'number') metrics.mNAV = navPremium;
+    for (const [key, pmKeys, compKeys] of ST_METRIC_FIELDS) {
+        const val = _resolveNumeric(pmKeys, pm) ?? _resolveNumeric(compKeys, comp);
+        if (val !== undefined) metrics[key] = val;
+    }
 
-    // FDM mNAV (fully diluted)
-    const fdm = pm.navPremiumDiluted ?? comp.navPremiumDiluted;
-    if (typeof fdm === 'number') metrics.fdmMNAV = fdm;
-
-    // Share price
-    const price = pm.stockPrice ?? comp.stockPrice;
-    if (typeof price === 'number') metrics.sharePrice = price;
-
-    // Market cap
-    const mcap = pm.currentMarketCap ?? pm.marketCap ?? comp.marketCap;
-    if (typeof mcap === 'number') metrics.marketCap = mcap;
-
-    // BTC yield YTD
-    const btcYield = pm.btcYieldYtd ?? comp.btcYieldYtd;
-    if (typeof btcYield === 'number') metrics.btcYieldYtd = btcYield;
-
-    // BTC holdings
-    const btcHoldings = pm.latestBtcBalance ?? comp.holdings;
-    if (typeof btcHoldings === 'number') metrics.btcHoldings = btcHoldings;
-
-    // Avg cost per BTC
-    const avgCost = pm.avgCostPerBtc;
-    if (typeof avgCost === 'number') metrics.avgCostPerBtc = avgCost;
-
-    // Shares outstanding
-    const shares = pm.sharesOutstanding;
-    if (typeof shares === 'number') metrics.sharesOutstanding = shares;
-
-    return metrics;
+    return Object.keys(metrics).length > 0 ? metrics : null;
 }
 
 export async function fetchAllPrices() {

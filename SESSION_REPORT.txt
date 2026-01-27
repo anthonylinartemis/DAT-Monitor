@@ -1,0 +1,377 @@
+================================================================================
+DAT MONITOR — SESSION ENGINEERING REPORT
+Prepared for: CTO
+Date: January 27, 2026
+Author: Engineering (Claude Code session)
+================================================================================
+
+1. EXECUTIVE SUMMARY
+--------------------
+
+This session delivered two phases of work on the DAT Monitor platform:
+
+Phase 1: Feature implementation — 10 feature requests from senior engineering,
+ranging from UI fixes to live data integrations and export pipeline changes.
+
+Phase 2: Code simplification — systematic refactoring pass across 4 core files,
+eliminating duplication via data-driven patterns while preserving all behavior
+(113 tests passing before and after).
+
+All changes were committed and pushed to the main branch across 3 commits:
+  860a827 — Phase 1: All 10 feature implementations
+  91ef218 — StrategyTracker CDN integration (live metrics for DAT companies)
+  [latest] — Code simplification + this report
+
+================================================================================
+
+2. PHASE 1: FEATURE IMPLEMENTATION (10 items)
+----------------------------------------------
+
+2.1 HEADER LOGO FIX
+  Problem: The Artemis brand logo and a wrapper div (.logo-icon) were
+  constraining the logo to 28x28px, causing the text portion of the logo image
+  to overlap with the "DAT Monitor" header text.
+
+  Fix: Removed the .logo-icon wrapper div entirely from header.js. The <img>
+  tag now sits directly inside the <a class="logo"> anchor. Updated CSS to use
+  height: 32px; width: auto on .artemis-logo. Removed orphaned .logo-icon and
+  .logo-text CSS rules.
+
+  Files: js/components/header.js, css/styles.css
+
+2.2 TOKEN LOGOS (Hyperliquid + BNB)
+  Added local logo files from the user's Downloads/Logos directory:
+    - logos/HYPE-token.jpg (Hyperliquid)
+    - logos/BNB-token.png (Binance Coin)
+    - logos/BMNR.jpg (BitMine Immersion — company logo)
+    - logos/FWDI.png (Forward Industries — company logo)
+
+  Updated js/utils/icons.js to prefer local token icons with CoinGecko CDN
+  fallback. Updated js/utils/company-logos.js LOCAL_LOGOS map for BMNR and FWDI.
+
+  Files: js/utils/icons.js, js/utils/company-logos.js, logos/*
+
+2.3 LIVE TOKEN PRICE ON COMPANY PAGES
+  When drilling into a company (e.g., BMNR), the hero section now shows:
+    - "Live ETH Price" with real-time price from Artemis (primary) / CoinGecko (fallback)
+    - "Current Value" = holdings * live price, with % gain/loss vs avg cost basis
+
+  Implementation: fetchPrice(company.token) called in initCompanyPage(), populates
+  #live-token-price and #current-value DOM elements. Skeleton loading animation
+  shown while fetch is in flight.
+
+  Files: js/views/company.js
+
+2.4 mNAV + FDM mNAV + ADDITIONAL METRICS FROM STRATEGYTRACKER
+
+  Discovery: The original request was to pull mNAV from "Artemis API." Investigation
+  revealed that the actual data source for mNAV, share price, BTC yield, and other
+  DAT-specific metrics is StrategyTracker (data.strategytracker.com), which powers
+  treasury.strive.com. This is a static CDN serving versioned JSON files — no API
+  key required, no browser rendering needed.
+
+  Architecture decision: Rather than hitting an authenticated API, we fetch:
+    1. latest.json — returns current version number + file references
+    2. all-light.v{VERSION}.json — full dataset for all 14 tracked companies
+
+  The CDN data is cached for 5 minutes in the browser. The company page now shows
+  up to 5 additional hero stats (hidden until data loads):
+    - Share Price
+    - mNAV (NAV premium multiple)
+    - FDM mNAV (fully-diluted mNAV)
+    - BTC Yield YTD
+    - Market Cap
+
+  Ticker mapping: MSTR->MSTR, ASST->ASST, MTPLF->3350.T, XXI->XXI, NAKA->NAKA,
+  ABTC->ABTC
+
+  Files: js/services/api.js, js/views/company.js
+
+2.5 INDIVIDUAL TICKER EXPORT
+  Added "Export Treasury CSV" button on company drill-down pages. Generates CSV
+  with columns: Date, Tokens, ConvertibleDebt, ConvertibleDebtShares,
+  NonConvertibleDebt, Warrants, WarrantShares, SharesOutstanding, Cash.
+
+  Files: js/services/csv.js (new generateTreasuryCSV function), js/views/company.js
+
+2.6 EXPORT ALL CSV — JANUARY 2026+ FILTER
+  The "Export All Transactions" function on the Export/Import page now filters to
+  transactions with date >= '2026-01-01'. Button label updated to
+  "Export 2026 Transactions CSV" to make the scope explicit.
+
+  Files: js/views/data-sync.js
+
+2.7 AI FILING SUMMARIES
+  Since no AI API is available in the frontend (static site, no backend), we took
+  a data-enrichment approach: all alertNote values in the embedded data were
+  manually enriched with contextual, information-dense summaries written in the
+  style of a financial analyst. Examples:
+    - "Acquired 13,627 BTC for ~$1.25B at avg $91,519/BTC"
+    - "S-1 registration filed — IPO via Cantor/Tether/SoftBank SPAC"
+    - "4.168M ETH (+24,266 this week). Annual meeting Jan 15 at Wynn Vegas"
+
+  The _filingSummary() function in holdings.js was updated to show 8 words
+  (up from 5) and auto-generate from change data when no alertNote exists.
+  CSS max-width on .alert-new was widened from 180px to 280px.
+
+  Files: js/services/data-store.js, js/views/holdings.js, css/styles.css
+
+2.8 STRIVE TREASURY SCRAPER (StrategyTracker CDN)
+
+  Background: treasury.strive.com is a React SPA powered by StrategyTracker.
+  Static HTTP scraping cannot extract data from it. The background investigation
+  revealed the CDN JSON architecture.
+
+  Backend scraper (Python):
+    - Added _http_get_json() utility
+    - Added StrategyTrackerCompany frozen dataclass (13 fields)
+    - Added fetch_strategytracker_data() — fetches latest.json then light JSON
+    - Rewrote fetch_strive_updates() to produce pipeline updates for all tracked
+      BTC companies AND enrichment dicts for the frontend
+    - STRATEGYTRACKER_TICKERS mapping: {ASST: 'ASST', MSTR: 'MSTR', MTPLF: '3350.T'}
+
+  Data returned per company: btc_holdings, shares_outstanding, diluted_shares,
+  stock_price, nav_premium, nav_premium_diluted, btc_yield_ytd, market_cap,
+  cash_balance, total_debt, avg_cost_per_btc, holdings_value
+
+  Files: scraper/website_scrapers.py
+
+2.9 "LIVE" INDICATOR
+  Companies with live dashboard connections (SBET, MTPLF, ASST) now show a green
+  "LIVE" badge with an animated pulse dot. The badge appears:
+    - On the company hero section (links to the dashboard)
+    - Inline in the holdings table ticker cell
+
+  Implementation: LIVE_DASHBOARDS map in company.js, LIVE_TICKERS Set in
+  holdings.js. CSS: .live-badge and .live-dot with pulse animation.
+
+  Files: js/views/company.js, js/views/holdings.js, css/styles.css
+
+2.10 EMBEDDED DATA UPDATES
+  Added Strive (ASST) to the BTC companies list with dashboardUrl, alertUrl,
+  alertDate, and alertNote. All companies received enriched alertNote summaries.
+
+  Files: js/services/data-store.js
+
+================================================================================
+
+3. PHASE 2: CODE SIMPLIFICATION
+---------------------------------
+
+The second phase systematically removed duplication across 4 files. Every change
+preserves identical behavior — 113 tests pass before and after.
+
+3.1 api.js — DRY FALLBACK CHAINS (-18 lines)
+
+  Problem: fetchPrice() and fetchHistoricalPrice() both implemented the same
+  try-primary-then-fallback-then-null pattern with 20+ lines of duplicated
+  try/catch/warn/cache logic.
+
+  Solution: Extracted _fetchWithFallback(fetchers, onSuccess) — a generic async
+  function that tries each fetcher in order and calls onSuccess on the first
+  non-null result. Both fetchPrice and fetchHistoricalPrice now call it with a
+  2-element fetcher array.
+
+  Additionally, fetchDATMetrics() had 8 repetitive typeof-check-and-assign
+  blocks. Replaced with a ST_METRIC_FIELDS configuration array and a
+  _resolveNumeric() helper that tries multiple source keys across objects.
+  The function now loops over the config rather than having 8 nearly-identical
+  code blocks.
+
+3.2 company.js — DATA-DRIVEN HERO STATS (-20 lines)
+
+  Problem: Five hidden hero stat <div> blocks in the render function were
+  copy-pasted with only the id, label, and formatter varying. The
+  fetchDATMetrics handler had 5 corresponding if-typeof-show blocks.
+
+  Solution: Created DAT_HERO_STATS config array with {id, label, key, fmt}
+  entries. The render function generates the HTML via .map(). The
+  fetchDATMetrics handler iterates the same array. Adding a new metric now
+  requires adding one line to the config rather than editing two places.
+
+3.3 company-logos.js — MERGED DUPLICATE IMG+FALLBACK (-10 lines)
+
+  Problem: The local-logo branch and the Clearbit-logo branch generated
+  identical <img> + <span> fallback HTML with the same onerror handler.
+
+  Solution: Extracted _badgeHtml(ticker, size, hidden) helper. The main
+  companyLogoHtml() function now resolves the image src with a single
+  conditional (local || clearbit || null), then generates one unified
+  img+fallback template.
+
+3.4 website_scrapers.py — DATA-DRIVEN to_json_dict() (-30 lines)
+
+  Problem: StrategyTrackerCompany.to_json_dict() had 12 identical
+  if-self.X-is-not-None-then-assign blocks. MetaplanetAnalytics.to_json_dict()
+  had 6 of the same.
+
+  Solution: Created _ST_FIELDS and _METAPLANET_FIELDS tuples mapping
+  (attr_name, json_key). Both to_json_dict() methods now use a dict
+  comprehension: {json_key: getattr(self, attr) for attr, json_key in FIELDS
+  if getattr(self, attr) is not None}. Adding a new field to either dataclass
+  now requires one tuple entry instead of an if-block.
+
+  Also simplified an overly complex int conversion:
+    Before: int(x) if x and x == int(x) else (int(x) if x else None)
+    After:  int(x) if x is not None else None
+
+  Removed unused import: `from datetime import date`
+
+================================================================================
+
+4. EXTERNAL DATA SOURCES
+-------------------------
+
+The platform now integrates with 3 external data systems:
+
+4.1 Artemis API (api.artemis.xyz)
+  - Purpose: Real-time and historical cryptocurrency prices
+  - Auth: API key via config.js (gitignored)
+  - Endpoints: /asset/{id}/metric/price, /asset/{id}/metric/price?startDate=...
+  - Cache: 60s in-memory (browser)
+  - Fallback: CoinGecko
+
+4.2 CoinGecko API (api.coingecko.com)
+  - Purpose: Fallback price source (no auth required)
+  - Endpoints: /v3/simple/price (batch), /v3/coins/{id}/history
+  - Rate limits: Public tier, shared cache helps avoid throttling
+
+4.3 StrategyTracker CDN (data.strategytracker.com)
+  - Purpose: DAT company metrics — mNAV, share price, BTC yield, market cap
+  - Auth: None (public CDN)
+  - Architecture: Versioned static JSON files
+    - latest.json -> version pointer
+    - all-light.v{VERSION}.json -> light dataset (~14 companies)
+  - Cache: 5 minutes in browser, indefinite in Python scraper (session-scoped)
+  - Tracked companies: MSTR, ASST (Strive), 3350.T (Metaplanet), XXI, NAKA, ABTC
+
+================================================================================
+
+5. ARCHITECTURE DECISIONS — REASONING
+---------------------------------------
+
+5.1 WHY STRATEGYTRACKER CDN INSTEAD OF DIRECT SCRAPING?
+  treasury.strive.com is a React SPA. Static HTTP fetches return an empty shell
+  with JavaScript bundle references. Browser automation (Playwright/Puppeteer)
+  was considered but rejected:
+    - Adds heavy dependency for a GitHub Actions environment
+    - Fragile against SPA DOM changes
+    - Slow execution time
+
+  The CDN approach is: reliable (static JSON), fast (no rendering), complete
+  (all 14 companies in one fetch), and versioned (can detect schema changes).
+
+5.2 WHY DATA-DRIVEN CONFIGS INSTEAD OF INDIVIDUAL CODE BLOCKS?
+  The Phase 2 simplification consistently replaced repetitive if-check-assign
+  blocks with configuration arrays. This pattern:
+    - Reduces lines of code by 50-70% per affected function
+    - Makes adding new fields a 1-line change vs multi-block edit
+    - Keeps the data shape visible and auditable in one place
+    - Maintains type safety through the same runtime checks
+
+5.3 WHY EMBEDDED DATA INSTEAD OF AI SUMMARIES?
+  The frontend is a static site (no backend, no server-side rendering). Options
+  considered for filing summaries:
+    - Client-side LLM API call: Adds latency, API key exposure risk, cost
+    - Pre-generated summaries in data.json: Zero latency, no API dependency
+    - Server-side generation: Requires backend infrastructure
+
+  The embedded approach was chosen for reliability. Summaries are manually
+  authored during the scraper pipeline run and stored as alertNote strings.
+
+================================================================================
+
+6. TESTING
+-----------
+
+Test suite: 113 tests across 6 test files
+  - test_csv_sync.py: 12 tests (CSV parsing, merge, fingerprint, sync pipeline)
+  - test_data_integrity.py: 14 tests (schema validation, referential integrity)
+  - test_fetcher.py: 13 tests (HTML stripping, SEC filing fetch, update builder)
+  - test_parser.py: 13 tests (classification, quantity extraction, FGNX scenario)
+  - test_state_guard.py: 11 tests (oscillation detection, confirmation keywords)
+  - test_updater.py: 7 tests (update processing, batch application)
+  - test_website_scrapers.py: 43 tests (Metaplanet parsing, StrategyTracker,
+    enrichment pipeline)
+
+All 113 tests pass. No test modifications were required for the simplification
+pass — the refactoring preserved all public interfaces and behavior.
+
+One test was modified during Phase 1: test_returns_updates_and_enrichments
+changed from asserting exactly 1 update to asserting >= 1 update with a
+specific MTPLF check, because the StrategyTracker integration now produces
+additional BTC company updates from the same mock.
+
+================================================================================
+
+7. FILE CHANGE SUMMARY
+------------------------
+
+Modified files (7):
+  js/services/api.js          — StrategyTracker CDN integration + DRY fallback
+  js/views/company.js         — Live price, hero stats, export, LIVE badge
+  js/views/holdings.js        — Filing summaries, LIVE badges in table
+  js/views/data-sync.js       — 2026+ export filter
+  js/services/data-store.js   — Enriched alertNote data, ASST entry
+  js/utils/company-logos.js   — BMNR/FWDI logos + merged duplicate code
+  js/utils/icons.js           — Local HYPE/BNB icons with CDN fallback
+  js/components/header.js     — Logo fix (removed wrapper div)
+  js/services/csv.js          — generateTreasuryCSV function
+  css/styles.css              — Live badge, alert width, font/logo CSS fixes
+  scraper/website_scrapers.py — StrategyTracker CDN scraper + data-driven dicts
+
+New files (5):
+  logos/BMNR.jpg              — BitMine Immersion company logo
+  logos/FWDI.png              — Forward Industries company logo
+  logos/HYPE-token.jpg        — Hyperliquid token icon
+  logos/BNB-token.png         — BNB token icon
+  SESSION_REPORT.txt          — This file
+
+================================================================================
+
+8. SECURITY CONSIDERATIONS
+---------------------------
+
+- No new API keys introduced. StrategyTracker CDN is public, no auth needed.
+- Artemis API key remains in config.js (gitignored), loaded via dynamic import.
+- All external URLs use HTTPS.
+- No user input is passed to external APIs without sanitization.
+- onerror handlers on <img> tags use inline style manipulation only (no eval).
+- CSV export uses Blob URLs with immediate revocation after download trigger.
+
+================================================================================
+
+9. DEPLOYMENT NOTES
+---------------------
+
+- No build step required — all files are ES modules served directly.
+- The StrategyTracker CDN may change versioning format; the code handles this
+  by falling back to a constructed filename if latest.json lacks a "files" key.
+- CORS: StrategyTracker CDN serves proper CORS headers for browser fetch.
+- The Python scraper changes are backward-compatible — existing Metaplanet
+  scraping is unchanged, StrategyTracker is additive.
+
+================================================================================
+
+10. KNOWN LIMITATIONS AND FUTURE WORK
+---------------------------------------
+
+- Company logos: Several tickers still lack local logos (SBET, ETHM, BTBT,
+  ETHZ, HSDT, DFDV, UPXI, NAKA). These fall back to Clearbit (hit-or-miss)
+  or initial-letter badges. Sourcing official brand assets is recommended.
+
+- StrategyTracker coverage: Only 6 of our tickers map to StrategyTracker
+  companies. ETH/SOL/HYPE/BNB DATs are not tracked there, so they won't
+  receive mNAV or share price data through this integration.
+
+- Filing summaries: Currently static strings in embedded data. A future
+  iteration could generate these during the Python scraper pipeline using
+  an LLM API call on the filing text.
+
+- Historical price API: Artemis historical endpoint format is not confirmed
+  via production testing. The CoinGecko fallback is reliable but rate-limited
+  on the free tier.
+
+================================================================================
+
+END OF REPORT

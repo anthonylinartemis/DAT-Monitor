@@ -18,6 +18,15 @@ const LIVE_DASHBOARDS = {
     ASST: 'https://treasury.strive.com/?tab=home',
 };
 
+// Async hero stats populated from StrategyTracker CDN
+const DAT_HERO_STATS = [
+    { id: 'share-price', label: 'Share Price', key: 'sharePrice', fmt: v => '$' + v.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) },
+    { id: 'mnav', label: 'mNAV', key: 'mNAV', fmt: v => v.toFixed(2) + 'x' },
+    { id: 'fdm-mnav', label: 'FDM mNAV', key: 'fdmMNAV', fmt: v => v.toFixed(2) + 'x' },
+    { id: 'btc-yield', label: 'BTC Yield YTD', key: 'btcYieldYtd', fmt: v => v.toFixed(2) + '%' },
+    { id: 'market-cap', label: 'Market Cap', key: 'marketCap', fmt: v => v >= 1e9 ? '$' + (v / 1e9).toFixed(2) + 'B' : '$' + (v / 1e6).toFixed(1) + 'M' },
+];
+
 const TREASURY_FIELDS = [
     { key: 'num_of_tokens', label: 'Tokens', format: formatNum },
     { key: 'convertible_debt', label: 'Conv. Debt', format: v => '$' + formatNum(v) },
@@ -113,26 +122,11 @@ export function renderCompanyPage(ticker) {
                         <div class="hero-stat-value mono">$${formatNum(latestTreasury.latest_cash)}</div>
                     </div>
                     ` : ''}
-                    <div class="hero-stat" id="share-price-stat" style="display:none">
-                        <div class="hero-stat-label">Share Price</div>
-                        <div class="hero-stat-value mono" id="share-price-value">\u2014</div>
-                    </div>
-                    <div class="hero-stat" id="mnav-stat" style="display:none">
-                        <div class="hero-stat-label">mNAV</div>
-                        <div class="hero-stat-value mono" id="mnav-value">\u2014</div>
-                    </div>
-                    <div class="hero-stat" id="fdm-mnav-stat" style="display:none">
-                        <div class="hero-stat-label">FDM mNAV</div>
-                        <div class="hero-stat-value mono" id="fdm-mnav-value">\u2014</div>
-                    </div>
-                    <div class="hero-stat" id="btc-yield-stat" style="display:none">
-                        <div class="hero-stat-label">BTC Yield YTD</div>
-                        <div class="hero-stat-value mono" id="btc-yield-value">\u2014</div>
-                    </div>
-                    <div class="hero-stat" id="market-cap-stat" style="display:none">
-                        <div class="hero-stat-label">Market Cap</div>
-                        <div class="hero-stat-value mono" id="market-cap-value">\u2014</div>
-                    </div>
+                    ${DAT_HERO_STATS.map(s => `
+                    <div class="hero-stat" id="${s.id}-stat" style="display:none">
+                        <div class="hero-stat-label">${s.label}</div>
+                        <div class="hero-stat-value mono" id="${s.id}-value">\u2014</div>
+                    </div>`).join('')}
                 </div>
             </div>
 
@@ -287,33 +281,15 @@ export function initCompanyPage(ticker) {
     // Fetch DAT-specific metrics (mNAV, FDM_mNAV, share price, yield, market cap)
     fetchDATMetrics(ticker).then(metrics => {
         if (!metrics) return;
-
-        const show = (statId, valueId, text) => {
-            const el = document.getElementById(statId);
-            const val = document.getElementById(valueId);
-            if (el && val) {
-                val.textContent = text;
+        for (const { id, key, fmt } of DAT_HERO_STATS) {
+            const val = metrics[key];
+            if (typeof val !== 'number') continue;
+            const el = document.getElementById(`${id}-stat`);
+            const valEl = document.getElementById(`${id}-value`);
+            if (el && valEl) {
+                valEl.textContent = fmt(val);
                 el.style.display = '';
             }
-        };
-
-        if (typeof metrics.mNAV === 'number') {
-            show('mnav-stat', 'mnav-value', metrics.mNAV.toFixed(2) + 'x');
-        }
-        if (typeof metrics.fdmMNAV === 'number') {
-            show('fdm-mnav-stat', 'fdm-mnav-value', metrics.fdmMNAV.toFixed(2) + 'x');
-        }
-        if (typeof metrics.sharePrice === 'number') {
-            show('share-price-stat', 'share-price-value', '$' + metrics.sharePrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }));
-        }
-        if (typeof metrics.btcYieldYtd === 'number') {
-            show('btc-yield-stat', 'btc-yield-value', metrics.btcYieldYtd.toFixed(2) + '%');
-        }
-        if (typeof metrics.marketCap === 'number') {
-            const mcap = metrics.marketCap >= 1e9
-                ? '$' + (metrics.marketCap / 1e9).toFixed(2) + 'B'
-                : '$' + (metrics.marketCap / 1e6).toFixed(1) + 'M';
-            show('market-cap-stat', 'market-cap-value', mcap);
         }
     });
 

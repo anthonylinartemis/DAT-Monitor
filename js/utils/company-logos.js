@@ -48,25 +48,19 @@ function clearbitUrl(domain, size = 64) {
     return `https://logo.clearbit.com/${domain}?size=${size}`;
 }
 
-export function companyLogoHtml(ticker, size = 24) {
-    // Prefer local logo
-    const local = LOCAL_LOGOS[ticker];
-    if (local) {
-        const fallback = `this.style.display='none';this.nextElementSibling.style.display='inline-flex'`;
-        return `<img src="${local}" alt="${ticker}" class="company-logo" width="${size}" height="${size}" loading="lazy" onerror="${fallback}"><span class="company-logo-fallback" style="display:none;width:${size}px;height:${size}px">${ticker[0]}</span>`;
-    }
-
-    // Fallback to Clearbit
-    const domain = COMPANY_DOMAINS[ticker];
-    if (domain) {
-        const url = clearbitUrl(domain, size);
-        const fallback = `this.style.display='none';this.nextElementSibling.style.display='inline-flex'`;
-        return `<img src="${url}" alt="${ticker}" class="company-logo" width="${size}" height="${size}" loading="lazy" onerror="${fallback}"><span class="company-logo-fallback" style="display:none;width:${size}px;height:${size}px">${ticker[0]}</span>`;
-    }
-
-    return initialBadgeHtml(ticker, size);
+function _badgeHtml(ticker, size, hidden = false) {
+    const style = hidden ? `display:none;width:${size}px;height:${size}px` : `width:${size}px;height:${size}px`;
+    return `<span class="company-logo-fallback" style="${style}">${ticker[0]}</span>`;
 }
 
-function initialBadgeHtml(ticker, size) {
-    return `<span class="company-logo-fallback" style="width:${size}px;height:${size}px">${ticker[0]}</span>`;
+export function companyLogoHtml(ticker, size = 24) {
+    const src = LOCAL_LOGOS[ticker]
+        || (COMPANY_DOMAINS[ticker] ? clearbitUrl(COMPANY_DOMAINS[ticker], size) : null);
+
+    if (src) {
+        const onerror = `this.style.display='none';this.nextElementSibling.style.display='inline-flex'`;
+        return `<img src="${src}" alt="${ticker}" class="company-logo" width="${size}" height="${size}" loading="lazy" onerror="${onerror}">${_badgeHtml(ticker, size, true)}`;
+    }
+
+    return _badgeHtml(ticker, size);
 }
