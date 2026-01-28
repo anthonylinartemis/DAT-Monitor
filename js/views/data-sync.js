@@ -442,11 +442,17 @@ function handleFileStage(file) {
                 resultEl.innerHTML = `<span class="error">XLSX parse error: ${err.message}</span>`;
             }
         };
+        reader.onerror = () => {
+            resultEl.innerHTML = '<span class="error">Failed to read file. Please try again.</span>';
+        };
         reader.readAsArrayBuffer(file);
     } else {
         const reader = new FileReader();
         reader.onload = (e) => {
             stageCSVText(e.target.result);
+        };
+        reader.onerror = () => {
+            resultEl.innerHTML = '<span class="error">Failed to read file. Please try again.</span>';
         };
         reader.readAsText(file);
     }

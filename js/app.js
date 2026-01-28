@@ -139,6 +139,18 @@ async function init() {
             btn.disabled = false;
             btn.textContent = 'Refresh';
         }
+
+        // Live dashboard dropdown toggle
+        const liveDropdown = document.getElementById('live-dropdown');
+        const liveTrigger = document.getElementById('live-status-trigger');
+        if (e.target.closest('#live-status-trigger')) {
+            liveDropdown?.classList.toggle('show');
+            liveTrigger?.classList.toggle('open');
+        } else if (!e.target.closest('.live-dropdown')) {
+            // Close dropdown when clicking outside
+            liveDropdown?.classList.remove('show');
+            liveTrigger?.classList.remove('open');
+        }
     });
 }
 

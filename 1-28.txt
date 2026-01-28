@@ -1232,5 +1232,210 @@ Before deploying, verify:
 [ ] mNAV calculations are reasonable (0 < mNAV < 100)
 
 ================================================================================
+9. SESSION CONTINUATION - GITHUB BACKUP & LIVE DASHBOARD LINKS
+================================================================================
+
+This section documents additional features implemented in the continuation
+of the January 28, 2026 session.
+
+------------------------------------------------------------------------------
+9.1 GITHUB BACKUP SYNC FEATURE
+------------------------------------------------------------------------------
+
+PURPOSE:
+Export browser localStorage data to GitHub repository for safekeeping. Creates
+timestamped JSON backup files in the /backups/ folder with daily reminder.
+
+FILES CREATED:
+
+FILE: /js/services/backup.js (NEW - 355 lines)
+
+Core functions implemented:
+
+1. exportLocalStorageData()
+   - Collects all DAT Monitor related localStorage keys
+   - Extracts treasury histories and transactions from main data store
+   - Returns structured backup object with version and timestamp
+
+2. commitToGitHub(data, token, repo)
+   - Creates backup file: backups/backup-YYYY-MM-DD-HH-MM-SS.json
+   - Uses GitHub API PUT to /repos/{repo}/contents/{filename}
+   - Handles file creation (no SHA) and update (with SHA)
+   - Returns {success, message, url}
+
+3. shouldShowBackupReminder()
+   - Returns true if no backup exists, or >24 hours since last backup
+   - Respects daily dismissal (won't show again if dismissed today)
+
+4. getBackupStats()
+   - Returns summary: companies with treasury, total entries, etc.
+
+5. restoreFromBackup(backupData)
+   - Restores mainDataStore and individual localStorage items
+   - Returns {success, message, restored}
+
+6. downloadBackupFile(data)
+   - Fallback: downloads backup as local .json file
+
+FILE: /backups/.gitkeep (NEW)
+   - Ensures backup directory exists in repository
+
+------------------------------------------------------------------------------
+9.2 GITHUB BACKUP UI
+------------------------------------------------------------------------------
+
+FILE: /js/views/data-sync.js
+
+CHANGES:
+- Added imports from backup.js service
+- Added _renderBackupStatus() helper - shows last backup time with color coding
+- Added _renderBackupStats() helper - shows data summary to be backed up
+- Added "GitHub Backup Sync" section to Export/Import page:
+  * GitHub token input with show/hide toggle
+  * Repository configuration (owner/repo format)
+  * "Backup to GitHub" button with loading state
+  * "Download Backup File" fallback button
+  * Result message display
+  * Backup statistics panel
+- Added event handlers:
+  * Token/repo inputs save on blur
+  * GitHub backup button validates inputs, commits to GitHub
+  * Download button exports to local file
+
+------------------------------------------------------------------------------
+9.3 BACKUP REMINDER BADGE
+------------------------------------------------------------------------------
+
+FILE: /js/components/header.js
+
+CHANGES:
+- Import shouldShowBackupReminder from backup.js
+- Added badge support to tabs configuration
+- Export/Import tab shows orange "Backup" badge when reminder active
+- Badge blinks using CSS animation to draw attention
+
+FILE: /css/styles.css
+
+ADDED:
+```css
+.nav-tab-badge {
+    margin-left: 6px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 600;
+    background: var(--orange);
+    color: white;
+    text-transform: uppercase;
+    animation: blink 2s infinite;
+}
+```
+
+------------------------------------------------------------------------------
+9.4 LIVE DASHBOARD DROPDOWN
+------------------------------------------------------------------------------
+
+PURPOSE:
+Make the "Live" status indicator in the header clickable, revealing a dropdown
+menu with links to official DAT company dashboards and data sources.
+
+FILE: /js/components/header.js
+
+CHANGES:
+- Added LIVE_DASHBOARDS constant array with 8 official dashboard URLs:
+  * StrategyTracker (all BTC DATs)
+  * Strategy/MSTR (BTC purchases)
+  * Metaplanet (BTC analytics)
+  * Strive/ASST (BTC treasury)
+  * CEA Industries/BNC (BNB dashboard)
+  * DeFi Dev/DFDV (SOL purchases)
+  * SharpLink/SMLR (ETH dashboard)
+  * SaylorTracker (MSTR tracker)
+
+- Modified header-status div:
+  * Added live-dropdown-trigger class and ID
+  * Added dropdown arrow SVG icon
+  * Added live-dropdown div with header and items
+  * Each item links to external dashboard with target="_blank"
+
+FILE: /css/styles.css
+
+ADDED (~60 lines):
+```css
+.live-dropdown-trigger {
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: background 0.15s;
+    position: relative;
+}
+.live-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    min-width: 220px;
+    background: var(--bg-primary);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    z-index: 1000;
+}
+.live-dropdown.show {
+    display: block;
+}
+.live-dropdown-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 12px;
+    text-decoration: none;
+    color: var(--text-primary);
+}
+.live-dropdown-item:hover {
+    background: var(--purple-bg);
+}
+```
+
+FILE: /js/app.js
+
+ADDED:
+- Event listener for live dropdown toggle
+- Clicking trigger toggles dropdown visibility
+- Clicking outside closes dropdown
+- Uses event delegation pattern for efficiency
+
+------------------------------------------------------------------------------
+9.5 SESSION FILES SUMMARY
+------------------------------------------------------------------------------
+
+| File | Type | Lines Changed | Description |
+|------|------|---------------|-------------|
+| js/services/backup.js | JS | +355 | NEW: GitHub backup service |
+| js/views/data-sync.js | JS | +110 | GitHub backup UI section |
+| js/components/header.js | JS | +35 | Backup badge, live dropdown |
+| js/app.js | JS | +12 | Dropdown toggle handler |
+| css/styles.css | CSS | +75 | Badge + dropdown styling |
+| backups/.gitkeep | - | +2 | Backup directory placeholder |
+
+TOTAL SESSION ADDITIONS: ~589 lines
+
+------------------------------------------------------------------------------
+9.6 VERIFICATION CHECKLIST (Session Continuation)
+------------------------------------------------------------------------------
+
+[ ] GitHub backup UI renders correctly on Export/Import page
+[ ] Token input shows/hides password on toggle click
+[ ] "Backup to GitHub" validates token and repo before submitting
+[ ] Backup file appears in /backups/ folder on GitHub
+[ ] Last backup time updates after successful backup
+[ ] Backup reminder badge appears after 24+ hours
+[ ] Badge disappears after successful backup
+[ ] "Live" indicator is clickable with visible dropdown arrow
+[ ] Dropdown shows all 8 dashboard links
+[ ] Dropdown closes when clicking outside
+[ ] All links open in new tabs
+[ ] Download backup file works as fallback
+
+================================================================================
                               END OF DOCUMENTATION
 ================================================================================

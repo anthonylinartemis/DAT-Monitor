@@ -223,26 +223,29 @@ export async function commitToGitHub(data, token, repo) {
 }
 
 /**
+ * Check if reminder was dismissed today.
+ * @returns {boolean}
+ */
+function _wasDismissedToday() {
+    const lastDismissed = localStorage.getItem(BACKUP_REMINDER_KEY);
+    if (!lastDismissed) return false;
+    const dismissedDate = new Date(lastDismissed).toDateString();
+    const today = new Date().toDateString();
+    return dismissedDate === today;
+}
+
+/**
  * Check if daily backup reminder should show.
  * Shows reminder if no backup in last 24 hours.
  * @returns {boolean}
  */
 export function shouldShowBackupReminder() {
     const lastBackup = getLastBackupTime();
-    const lastDismissed = localStorage.getItem(BACKUP_REMINDER_KEY);
 
-    // If never backed up and has data, show reminder
+    // If never backed up and has data, show reminder (unless dismissed today)
     const mainData = localStorage.getItem('dat-monitor-data');
     if (!lastBackup && mainData) {
-        // Check if dismissed today
-        if (lastDismissed) {
-            const dismissedDate = new Date(lastDismissed).toDateString();
-            const today = new Date().toDateString();
-            if (dismissedDate === today) {
-                return false;
-            }
-        }
-        return true;
+        return !_wasDismissedToday();
     }
 
     if (!lastBackup) return false;
@@ -250,17 +253,9 @@ export function shouldShowBackupReminder() {
     const lastBackupDate = new Date(lastBackup);
     const hoursSinceBackup = (Date.now() - lastBackupDate.getTime()) / (1000 * 60 * 60);
 
-    // Show reminder if more than 24 hours since last backup
+    // Show reminder if more than 24 hours since last backup (unless dismissed today)
     if (hoursSinceBackup > 24) {
-        // Check if dismissed today
-        if (lastDismissed) {
-            const dismissedDate = new Date(lastDismissed).toDateString();
-            const today = new Date().toDateString();
-            if (dismissedDate === today) {
-                return false;
-            }
-        }
-        return true;
+        return !_wasDismissedToday();
     }
 
     return false;
