@@ -416,6 +416,64 @@ async function fetchArtemisStockPrice(ticker) {
 }
 
 /**
+ * Fetch stock price via Yahoo Finance API (free, no auth required).
+ * Uses the query1 endpoint which returns quote data.
+ * @param {string} ticker - Stock ticker (e.g., 'MSTR', 'ASST')
+ * @returns {number|null} - Price in USD, or null if unavailable
+ */
+async function fetchYahooFinanceStockPrice(ticker) {
+    // Map our tickers to Yahoo Finance symbols
+    // Most US stocks use same symbol, but Japanese stocks need .T suffix
+    const yahooTicker = ticker === 'MTPLF' ? '3350.T' : ticker;
+
+    try {
+        // Use Yahoo Finance v8 quote endpoint (free, CORS-friendly)
+        const response = await fetch(
+            `https://query1.finance.yahoo.com/v8/finance/chart/${yahooTicker}?interval=1d&range=1d`
+        );
+
+        if (!response.ok) {
+            console.warn(`Yahoo Finance returned ${response.status} for ${ticker}`);
+            return null;
+        }
+
+        const data = await response.json();
+
+        // Extract current price from chart data
+        if (data?.chart?.result?.[0]?.meta?.regularMarketPrice) {
+            let price = data.chart.result[0].meta.regularMarketPrice;
+
+            // Convert JPY to USD for Japanese stocks
+            if (yahooTicker.endsWith('.T') && price > MTPLF_USD_PRICE_THRESHOLD) {
+                const jpyRate = await fetchJpyToUsdRate();
+                if (jpyRate) {
+                    price = price * jpyRate;
+                }
+            }
+
+            return price;
+        }
+
+        // Fallback to previous close if regular market price unavailable
+        if (data?.chart?.result?.[0]?.meta?.previousClose) {
+            let price = data.chart.result[0].meta.previousClose;
+
+            if (yahooTicker.endsWith('.T') && price > MTPLF_USD_PRICE_THRESHOLD) {
+                const jpyRate = await fetchJpyToUsdRate();
+                if (jpyRate) {
+                    price = price * jpyRate;
+                }
+            }
+
+            return price;
+        }
+    } catch (err) {
+        console.warn(`Yahoo Finance stock price failed for ${ticker}:`, err.message);
+    }
+    return null;
+}
+
+/**
  * Fetch stock price from StrategyTracker CDN as fallback.
  * @param {string} ticker - Stock ticker
  * @returns {number|null} - Price in USD, or null if unavailable
@@ -444,8 +502,10 @@ export async function fetchStockPrice(ticker) {
         return cached.price;
     }
 
-    // Fallback chain: Artemis -> StrategyTracker
+    // Fallback chain: Yahoo Finance -> Artemis -> StrategyTracker
+    // Yahoo Finance is free and doesn't require API key, so we try it first
     return _fetchWithFallback([
+        { fn: () => fetchYahooFinanceStockPrice(ticker), label: `Yahoo Finance price failed for ${ticker}` },
         { fn: () => fetchArtemisStockPrice(ticker), label: `Artemis stock price failed for ${ticker}` },
         { fn: () => fetchStrategyTrackerStockPrice(ticker), label: `StrategyTracker price failed for ${ticker}` },
     ], price => {
@@ -477,10 +537,17 @@ export async function fetchAllStockPrices() {
         }
     }
 
-    // For tickers not found, try Artemis individually
+    // For tickers not found, try Yahoo Finance then Artemis
     for (const ticker of DAT_STOCK_TICKERS) {
-        if (results[ticker] === undefined && ARTEMIS_API_KEY) {
-            const price = await fetchArtemisStockPrice(ticker);
+        if (results[ticker] === undefined) {
+            // Try Yahoo Finance first (free, no API key needed)
+            let price = await fetchYahooFinanceStockPrice(ticker);
+
+            // Fall back to Artemis if Yahoo failed and we have API key
+            if (price === null && ARTEMIS_API_KEY) {
+                price = await fetchArtemisStockPrice(ticker);
+            }
+
             if (price !== null) {
                 results[ticker] = price;
                 stockPriceCache[ticker] = { price, ts: now };

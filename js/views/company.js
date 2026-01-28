@@ -713,23 +713,40 @@ function _getChartData(company, metric, timeframe) {
         }));
     }
 
-    // Filter by timeframe
-    if (timeframe !== 'ALL') {
+    // Sort by date ascending for proper chart display
+    rawData.sort((a, b) => a.date.localeCompare(b.date));
+
+    // Filter by timeframe - but keep data if filter results in empty
+    if (timeframe !== 'ALL' && rawData.length > 0) {
         const tf = TIMEFRAMES.find(t => t.key === timeframe);
         if (tf && tf.days) {
             const cutoff = new Date();
             cutoff.setDate(cutoff.getDate() - tf.days);
             const cutoffStr = cutoff.toISOString().slice(0, 10);
-            rawData = rawData.filter(d => d.date >= cutoffStr);
+            const filtered = rawData.filter(d => d.date >= cutoffStr);
+
+            // Only use filtered data if we have at least 1 point
+            // Otherwise, show all available data (user can see full history)
+            if (filtered.length > 0) {
+                rawData = filtered;
+            }
+            // If filtered is empty, we keep rawData as-is to show available data
         }
     }
 
-    // Add today's point if only one data point
-    if (rawData.length === 1) {
-        rawData.push({
-            date: new Date().toISOString().slice(0, 10),
-            cumulativeTokens: rawData[0].cumulativeTokens,
-        });
+    // Add today's point with current value if we have data
+    // This ensures the chart extends to today with the latest value
+    if (rawData.length >= 1) {
+        const today = new Date().toISOString().slice(0, 10);
+        const lastEntry = rawData[rawData.length - 1];
+
+        // Only add today's point if last entry isn't already today
+        if (lastEntry.date !== today) {
+            rawData.push({
+                date: today,
+                cumulativeTokens: lastEntry.cumulativeTokens,
+            });
+        }
     }
 
     return rawData;

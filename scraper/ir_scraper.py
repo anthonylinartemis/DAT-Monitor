@@ -25,6 +25,23 @@ USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36
 # Maximum age for press releases to include (days)
 MAX_PR_AGE_DAYS = 30
 
+# Q4 Inc and similar JavaScript-rendered IR platforms that can't be scraped with simple HTTP
+# These require headless browsers or have API access
+JS_RENDERED_PLATFORMS = [
+    "q4cdn.com",
+    "q4inc.com",
+    "investors.strive.com",  # Q4 platform
+    "ir.upexi.com",  # Q4 platform
+    "ir.hyperiondefi.com",  # Q4 platform
+]
+
+# PR wire services to search for company press releases
+PR_WIRE_SEARCH_URLS = {
+    "globenewswire": "https://www.globenewswire.com/search/keyword/{query}",
+    "prnewswire": "https://www.prnewswire.com/search/keyword/{query}",
+    "businesswire": "https://www.businesswire.com/portal/site/home/search/?searchTerm={query}",
+}
+
 
 @dataclass(frozen=True)
 class DiscoveredPR:
@@ -192,6 +209,64 @@ def _extract_press_releases(html: str, base_url: str) -> list[dict]:
     return unique_releases
 
 
+def _is_js_rendered_platform(url: str) -> bool:
+    """Check if URL is a JavaScript-rendered IR platform that can't be scraped."""
+    if not url:
+        return False
+    for platform in JS_RENDERED_PLATFORMS:
+        if platform in url.lower():
+            return True
+    return False
+
+
+def _scrape_globenewswire(company_name: str, ticker: str, token: str) -> list[DiscoveredPR]:
+    """Search GlobeNewswire for press releases mentioning the company."""
+    results = []
+    discovered_at = datetime.now().isoformat()
+
+    # Try searching by company name
+    search_url = f"https://www.globenewswire.com/search/tag/{ticker.upper()}"
+
+    try:
+        html = _http_get(search_url, timeout=15)
+
+        # GlobeNewswire has a specific structure for search results
+        # Look for news-item links
+        pattern = r'<a[^>]*href="(/news-release/[^"]+)"[^>]*>([^<]+)</a>'
+
+        for match in re.finditer(pattern, html, re.IGNORECASE):
+            href = match.group(1)
+            title = match.group(2).strip()
+
+            if not title or len(title) < 15:
+                continue
+
+            full_url = urljoin("https://www.globenewswire.com", href)
+
+            # Try to extract date from URL (format: /news-release/2026/01/28/...)
+            date_match = re.search(r'/news-release/(\d{4})/(\d{2})/(\d{2})/', href)
+            pr_date = None
+            if date_match:
+                pr_date = f"{date_match.group(1)}-{date_match.group(2)}-{date_match.group(3)}"
+
+            results.append(DiscoveredPR(
+                ticker=ticker,
+                token=token,
+                title=title[:200],
+                url=full_url,
+                date=pr_date,
+                source_page=search_url,
+                discovered_at=discovered_at,
+            ))
+
+        logger.info("GlobeNewswire: Found %d releases for %s", len(results), ticker)
+
+    except Exception as e:
+        logger.debug("GlobeNewswire search failed for %s: %s", ticker, e)
+
+    return results
+
+
 def scrape_ir_page(ticker: str, token: str, ir_url: str) -> list[DiscoveredPR]:
     """Scrape a single IR page for press releases.
 
@@ -202,11 +277,18 @@ def scrape_ir_page(ticker: str, token: str, ir_url: str) -> list[DiscoveredPR]:
 
     logger.info("Scraping IR page for %s: %s", ticker, ir_url)
 
+    # Check if this is a JS-rendered platform we can't scrape
+    if _is_js_rendered_platform(ir_url):
+        logger.info("Skipping %s: JS-rendered platform (%s)", ticker, ir_url)
+        # For JS platforms, try searching PR wire services instead
+        return _scrape_globenewswire("", ticker, token)
+
     try:
         html = _http_get(ir_url)
     except (ValueError, urllib.error.URLError) as e:
         logger.warning("Failed to fetch IR page for %s: %s", ticker, e)
-        return []
+        # Fall back to PR wire search
+        return _scrape_globenewswire("", ticker, token)
 
     releases = _extract_press_releases(html, ir_url)
     logger.info("Found %d potential press releases for %s", len(releases), ticker)
@@ -235,7 +317,18 @@ def scrape_ir_page(ticker: str, token: str, ir_url: str) -> list[DiscoveredPR]:
             discovered_at=discovered_at,
         ))
 
-    return results
+    # Also search GlobeNewswire for additional coverage
+    results.extend(_scrape_globenewswire("", ticker, token))
+
+    # Deduplicate by URL
+    seen_urls = set()
+    unique_results = []
+    for pr in results:
+        if pr.url not in seen_urls:
+            seen_urls.add(pr.url)
+            unique_results.append(pr)
+
+    return unique_results
 
 
 def scrape_all_ir_pages(data: dict) -> list[DiscoveredPR]:
