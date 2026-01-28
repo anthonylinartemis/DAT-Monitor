@@ -30,6 +30,6 @@ jobs:
         run: |
           git config user.name "DAT Monitor Bot"
           git config user.email "bot@dat-monitor.io"
-          git add data.json scraper/holdings_history.json
+          git add data.json
           git diff --staged --quiet || git commit -m "Auto-refresh token holdings data"
           git push
