@@ -3,6 +3,30 @@
   "lastUpdatedDisplay": "Jan 27, 2026 02:33 PM ET",
   "recentChanges": [
     {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "date": "2026-01-28",
+      "tokens": 712647,
+      "change": 0,
+      "summary": "MSTR holds 712,647 Bitcoin in treasury. Share price: $160.61, mNAV: 0.92x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-01-28",
+      "tokens": 13131,
+      "change": 5504,
+      "summary": "ASST holds 13,131 Bitcoin in treasury. Share price: $0.80, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-01-28",
+      "tokens": 35102,
+      "change": 0,
+      "summary": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 35,102 BTC. Source: https://metaplanet.jp/en/analytics"
+    },
+    {
       "ticker": "BMNR",
       "token": "ETH",
       "date": "2026-01-26",
@@ -115,15 +139,15 @@
         "name": "Strategy",
         "notes": "Rebranded from MicroStrategy Feb 2025",
         "tokens": 712647,
-        "lastUpdate": "2026-01-26",
-        "change": 2932,
+        "lastUpdate": "2026-01-28",
+        "change": 0,
         "cik": "0001050446",
         "irUrl": "https://www.strategy.com/investor-relations",
         "dashboardUrl": "https://www.strategy.com/purchases",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526021726/mstr-20260105.htm",
-        "alertDate": "2026-01-26",
-        "alertNote": "Web: mstr-20260105.htm",
-        "lastSecUpdate": "2026-01-20",
+        "alertUrl": "https://treasury.strive.com/?tab=home",
+        "alertDate": "2026-01-28",
+        "alertNote": "MSTR holds 712,647 Bitcoin in treasury. Share price: $160.61, mNAV: 0.92x. Source: https://treasury.",
+        "lastSecUpdate": "2026-01-28",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -220,7 +244,21 @@
             "source": "https://www.strategy.com/news",
             "fingerprint": "2025-11-25:BTC:5431341000"
           }
-        ]
+        ],
+        "filings": [
+          {
+            "url": "https://treasury.strive.com/?tab=home",
+            "date": "2026-01-28",
+            "note": "MSTR holds 712,647 Bitcoin in treasury. Share price: $160.61, mNAV: 0.92x. Source: https://treasury."
+          }
+        ],
+        "analytics": {
+          "totalBtc": 712647.0,
+          "sharePrice": 160.61,
+          "mNAV": 0.9190823071396783,
+          "btcYieldYtd": 0.3610534143652076,
+          "marketCap": 53282046280.00001
+        }
       },
       {
         "ticker": "XXI",
@@ -247,8 +285,8 @@
         "name": "Metaplanet",
         "notes": "Japan TSE - No SEC",
         "tokens": 35102,
-        "lastUpdate": "2025-12-30",
-        "change": 4279,
+        "lastUpdate": "2026-01-28",
+        "change": 0,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
         "dashboardUrl": "https://metaplanet.jp/en/analytics",
@@ -258,14 +296,32 @@
           "target_regex": "\u20bf([\\d,]+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-27T19:33:00.751072"
+        "lastChecked": "2026-01-27T19:33:00.751072",
+        "alertUrl": "https://metaplanet.jp/en/analytics",
+        "alertDate": "2026-01-28",
+        "alertNote": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 35,102 BTC. Source: https://metaplane",
+        "lastSecUpdate": "2026-01-28",
+        "filings": [
+          {
+            "url": "https://metaplanet.jp/en/analytics",
+            "date": "2026-01-28",
+            "note": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 35,102 BTC. Source: https://metaplane"
+          }
+        ],
+        "analytics": {
+          "totalBtc": 35102.0,
+          "sharePrice": 475.0,
+          "mNAV": 1.4336607745427916,
+          "btcYieldYtd": 0.0,
+          "marketCap": 3530174003.303105
+        }
       },
       {
         "ticker": "ASST",
         "name": "Strive",
-        "tokens": 7627,
-        "lastUpdate": "2026-01-05",
-        "change": 0,
+        "tokens": 13131,
+        "lastUpdate": "2026-01-28",
+        "change": 5504,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
         "dashboardUrl": "https://treasury.strive.com/",
@@ -277,7 +333,25 @@
         "status": "ok",
         "lastError": "Couldn't find a tree builder with the features you requested: lxml. Do you need to install a parser library?",
         "lastErrorTime": "2026-01-20T18:11:08.617945",
-        "lastChecked": "2026-01-27T19:33:00.993937"
+        "lastChecked": "2026-01-27T19:33:00.993937",
+        "alertUrl": "https://treasury.strive.com/?tab=home",
+        "alertDate": "2026-01-28",
+        "alertNote": "ASST holds 13,131 Bitcoin in treasury. Share price: $0.80, mNAV: 0.86x. Source: https://treasury.str",
+        "lastSecUpdate": "2026-01-28",
+        "filings": [
+          {
+            "url": "https://treasury.strive.com/?tab=home",
+            "date": "2026-01-28",
+            "note": "ASST holds 13,131 Bitcoin in treasury. Share price: $0.80, mNAV: 0.86x. Source: https://treasury.str"
+          }
+        ],
+        "analytics": {
+          "totalBtc": 13131.8,
+          "sharePrice": 0.8003,
+          "mNAV": 0.8638144595869127,
+          "btcYieldYtd": 21.386603995299648,
+          "marketCap": 998323682.2442
+        }
       },
       {
         "ticker": "NAKA",
@@ -608,7 +682,7 @@
     ]
   },
   "totals": {
-    "BTC": 810082,
+    "BTC": 815586,
     "ETH": 5878790,
     "SOL": 15617254,
     "HYPE": 14027178,
