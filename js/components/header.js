@@ -5,6 +5,7 @@
 import { getData } from '../services/data-store.js';
 import { getLastSaveTimestamp } from '../services/persistence.js';
 import { getPriceCacheTimestamp } from '../services/api.js';
+import { shouldShowBackupReminder } from '../services/backup.js';
 
 function _formatTimeAgo(ts) {
     if (!ts) return 'Never';
@@ -17,10 +18,11 @@ function _formatTimeAgo(ts) {
 
 export function renderHeader(currentView) {
     const data = getData();
+    const needsBackup = shouldShowBackupReminder();
     const tabs = [
         { id: 'dashboard', label: 'Dashboard', hash: '#/dashboard' },
         { id: 'holdings', label: 'Holdings', hash: '#/holdings' },
-        { id: 'export', label: 'Export / Import', hash: '#/export' }
+        { id: 'export', label: 'Export / Import', hash: '#/export', badge: needsBackup ? 'Backup' : null }
     ];
 
     const lastSave = getLastSaveTimestamp();
@@ -41,7 +43,9 @@ export function renderHeader(currentView) {
                     </a>
                     <nav class="header-nav" aria-label="Main navigation">
                         ${tabs.map(t => `
-                            <a href="${t.hash}" class="nav-tab ${currentView === t.id ? 'active' : ''}" aria-label="${t.label}" ${currentView === t.id ? 'aria-current="page"' : ''}>${t.label}</a>
+                            <a href="${t.hash}" class="nav-tab ${currentView === t.id ? 'active' : ''}" aria-label="${t.label}" ${currentView === t.id ? 'aria-current="page"' : ''}>
+                                ${t.label}${t.badge ? `<span class="nav-tab-badge">${t.badge}</span>` : ''}
+                            </a>
                         `).join('')}
                     </nav>
                     <div class="header-meta">

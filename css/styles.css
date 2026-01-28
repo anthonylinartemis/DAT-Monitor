@@ -118,6 +118,17 @@ body {
     color: var(--purple);
     font-weight: 600;
 }
+.nav-tab-badge {
+    margin-left: 6px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 9px;
+    font-weight: 600;
+    background: var(--orange);
+    color: white;
+    text-transform: uppercase;
+    animation: blink 2s infinite;
+}
 
 .header-meta {
     display: flex;

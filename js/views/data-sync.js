@@ -8,6 +8,62 @@ import { parseCSV, generateCSV, downloadCSV, isCustomFormat, parseCustomCSV } fr
 import { transactionFingerprint } from '../utils/dedup.js';
 import { fetchHistoricalPrice } from '../services/api.js';
 import { exportBackup, importBackup, clear as clearPersistence, getLastSaveTimestamp } from '../services/persistence.js';
+import {
+    exportLocalStorageData,
+    getGitHubToken,
+    setGitHubToken,
+    getGitHubRepo,
+    setGitHubRepo,
+    getLastBackupTime,
+    getBackupStats,
+    commitToGitHub,
+    downloadBackupFile
+} from '../services/backup.js';
+
+/**
+ * Render backup status message.
+ */
+function _renderBackupStatus() {
+    const lastBackup = getLastBackupTime();
+    if (!lastBackup) {
+        return '<br><strong style="color: var(--orange);">No GitHub backup yet.</strong>';
+    }
+    const date = new Date(lastBackup);
+    const hoursSince = (Date.now() - date.getTime()) / (1000 * 60 * 60);
+    const status = hoursSince > 24
+        ? `<strong style="color: var(--orange);">Last backup: ${date.toLocaleString()} (over 24h ago)</strong>`
+        : `<strong style="color: var(--green);">Last backup: ${date.toLocaleString()}</strong>`;
+    return '<br>' + status;
+}
+
+/**
+ * Render backup statistics.
+ */
+function _renderBackupStats() {
+    const stats = getBackupStats();
+    if (stats.companiesWithTreasury === 0 && stats.companiesWithTransactions === 0) {
+        return '';
+    }
+    return `
+        <div style="margin-top: 16px; padding-top: 12px; border-top: 1px solid var(--border);">
+            <h4 style="font-size: 12px; font-weight: 600; margin-bottom: 8px; color: var(--text-secondary);">Data to Backup</h4>
+            <div class="summary-list" style="font-size: 12px;">
+                <div class="summary-row">
+                    <span>Companies with treasury history</span>
+                    <span class="mono">${stats.companiesWithTreasury}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Total treasury entries</span>
+                    <span class="mono">${stats.totalTreasuryEntries}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Companies with transactions</span>
+                    <span class="mono">${stats.companiesWithTransactions}</span>
+                </div>
+            </div>
+        </div>
+    `;
+}
 
 export function renderDataSync() {
     const data = getData();
@@ -142,6 +198,51 @@ export function renderDataSync() {
                     <button class="btn btn-secondary" id="backup-clear-btn" style="color: var(--red);">Clear Local Data</button>
                 </div>
             </div>
+
+            <!-- GitHub Backup Section -->
+            <div class="sync-card" style="margin-top: 16px;">
+                <h3>GitHub Backup Sync</h3>
+                <p class="text-muted" style="margin: 8px 0 16px;">
+                    Sync your localStorage data to GitHub for safekeeping. Backups are stored in the <code>/backups/</code> folder.
+                    ${_renderBackupStatus()}
+                </p>
+
+                <div class="github-backup-config" style="margin-bottom: 16px;">
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label for="github-token-input">GitHub Personal Access Token</label>
+                        <div style="display: flex; gap: 8px;">
+                            <input type="password" id="github-token-input" class="form-input"
+                                placeholder="ghp_xxxxxxxxxxxx"
+                                value="${getGitHubToken() || ''}"
+                                style="flex: 1; font-family: monospace;" />
+                            <button class="btn btn-secondary" id="github-token-toggle" style="padding: 6px 10px;">Show</button>
+                        </div>
+                        <small class="text-muted">Needs <code>repo</code> scope. <a href="https://github.com/settings/tokens/new?scopes=repo&description=DAT%20Monitor%20Backup" target="_blank">Create token</a></small>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 12px;">
+                        <label for="github-repo-input">Repository (owner/repo)</label>
+                        <input type="text" id="github-repo-input" class="form-input"
+                            placeholder="anthonylinartemis/DAT-Monitor"
+                            value="${getGitHubRepo() || ''}"
+                            style="font-family: monospace;" />
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center;">
+                    <button class="btn btn-primary" id="github-backup-btn">
+                        Backup to GitHub
+                    </button>
+                    <button class="btn btn-secondary" id="github-download-btn">
+                        Download Backup File
+                    </button>
+                </div>
+
+                <div id="github-backup-result" style="margin-top: 12px;"></div>
+
+                <!-- Backup Stats -->
+                ${_renderBackupStats()}
+            </div>
         </main>
     `;
 }
@@ -221,6 +322,90 @@ export function initDataSync() {
                 clearPersistence();
                 window.location.reload();
             }
+        });
+    }
+
+    // GitHub Backup handlers
+    const tokenInput = document.getElementById('github-token-input');
+    const tokenToggle = document.getElementById('github-token-toggle');
+    const repoInput = document.getElementById('github-repo-input');
+    const githubBackupBtn = document.getElementById('github-backup-btn');
+    const githubDownloadBtn = document.getElementById('github-download-btn');
+    const githubResultEl = document.getElementById('github-backup-result');
+
+    // Token visibility toggle
+    if (tokenToggle && tokenInput) {
+        tokenToggle.addEventListener('click', () => {
+            const isPassword = tokenInput.type === 'password';
+            tokenInput.type = isPassword ? 'text' : 'password';
+            tokenToggle.textContent = isPassword ? 'Hide' : 'Show';
+        });
+    }
+
+    // Save token on blur
+    if (tokenInput) {
+        tokenInput.addEventListener('blur', () => {
+            setGitHubToken(tokenInput.value.trim());
+        });
+    }
+
+    // Save repo on blur
+    if (repoInput) {
+        repoInput.addEventListener('blur', () => {
+            setGitHubRepo(repoInput.value.trim());
+        });
+    }
+
+    // GitHub Backup button
+    if (githubBackupBtn) {
+        githubBackupBtn.addEventListener('click', async () => {
+            const token = tokenInput?.value.trim() || getGitHubToken();
+            const repo = repoInput?.value.trim() || getGitHubRepo();
+
+            if (!token) {
+                githubResultEl.innerHTML = '<span class="error">Please enter a GitHub token.</span>';
+                return;
+            }
+            if (!repo) {
+                githubResultEl.innerHTML = '<span class="error">Please enter a repository (owner/repo).</span>';
+                return;
+            }
+
+            // Save settings
+            setGitHubToken(token);
+            setGitHubRepo(repo);
+
+            githubBackupBtn.disabled = true;
+            githubBackupBtn.textContent = 'Backing up...';
+            githubResultEl.innerHTML = '<span class="text-muted">Exporting data and committing to GitHub...</span>';
+
+            try {
+                const data = exportLocalStorageData();
+                const result = await commitToGitHub(data, token, repo);
+
+                if (result.success) {
+                    githubResultEl.innerHTML = `
+                        <span style="color: var(--green);">${result.message}</span>
+                        ${result.url ? `<br><a href="${result.url}" target="_blank" style="font-size: 12px;">View on GitHub</a>` : ''}
+                    `;
+                } else {
+                    githubResultEl.innerHTML = `<span class="error">${result.message}</span>`;
+                }
+            } catch (err) {
+                githubResultEl.innerHTML = `<span class="error">Backup failed: ${err.message}</span>`;
+            } finally {
+                githubBackupBtn.disabled = false;
+                githubBackupBtn.textContent = 'Backup to GitHub';
+            }
+        });
+    }
+
+    // Download backup file button
+    if (githubDownloadBtn) {
+        githubDownloadBtn.addEventListener('click', () => {
+            const data = exportLocalStorageData();
+            downloadBackupFile(data);
+            githubResultEl.innerHTML = '<span style="color: var(--green);">Backup file downloaded.</span>';
         });
     }
 }
