@@ -21,9 +21,15 @@ const ASSET_IDS = {
     BNB: 'binancecoin'
 };
 
-// In-memory price cache with 60s TTL
+// In-memory price cache with 60s TTL for individual requests
 const cache = new Map();
 const CACHE_TTL = 60_000;
+
+// Global price cache for shared access (30 min refresh)
+let globalPriceCache = {};
+let globalPriceCacheTs = 0;
+const GLOBAL_CACHE_TTL = 30 * 60_000; // 30 minutes
+let priceRefreshCallbacks = [];
 
 function getCached(token) {
     const entry = cache.get(token);
@@ -35,6 +41,67 @@ function getCached(token) {
 
 function setCache(token, price) {
     cache.set(token, { price, ts: Date.now() });
+}
+
+/**
+ * Initialize the global price cache. Call once on app init.
+ * Fetches all token prices and stores them for synchronous access.
+ */
+export async function initPriceCache() {
+    const prices = await fetchAllPrices();
+    globalPriceCache = prices;
+    globalPriceCacheTs = Date.now();
+    _notifyPriceRefresh();
+    return prices;
+}
+
+/**
+ * Get a cached price synchronously. Returns null if not cached.
+ * Use after initPriceCache() has been called.
+ */
+export function getCachedPrice(token) {
+    return globalPriceCache[token] ?? null;
+}
+
+/**
+ * Get all cached prices synchronously.
+ */
+export function getAllCachedPrices() {
+    return { ...globalPriceCache };
+}
+
+/**
+ * Get the timestamp of the last price cache refresh.
+ */
+export function getPriceCacheTimestamp() {
+    return globalPriceCacheTs;
+}
+
+/**
+ * Check if the price cache is stale (older than TTL).
+ */
+export function isPriceCacheStale() {
+    return (Date.now() - globalPriceCacheTs) > GLOBAL_CACHE_TTL;
+}
+
+/**
+ * Register a callback to be notified when prices refresh.
+ */
+export function onPriceRefresh(callback) {
+    priceRefreshCallbacks.push(callback);
+}
+
+function _notifyPriceRefresh() {
+    for (const cb of priceRefreshCallbacks) {
+        try { cb(globalPriceCache); } catch (e) { console.warn('Price refresh callback error:', e); }
+    }
+}
+
+/**
+ * Refresh the global price cache manually.
+ */
+export async function refreshPriceCache() {
+    return initPriceCache();
 }
 
 async function fetchArtemisPrice(token) {

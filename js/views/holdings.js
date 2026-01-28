@@ -123,6 +123,7 @@ export function renderHoldings() {
                                 <th class="right">Holdings</th>
                                 <th class="right">NAV</th>
                                 <th class="right">mNAV</th>
+                                <th class="right">Price</th>
                                 <th class="right">Change</th>
                                 <th class="center">Updated</th>
                                 <th class="center">Trend</th>
@@ -153,6 +154,9 @@ export function renderHoldings() {
                                     </td>
                                     <td class="right mono" id="mnav-${c.ticker}">
                                         <span class="skeleton-pulse" style="min-width:40px;">&nbsp;</span>
+                                    </td>
+                                    <td class="right mono" id="price-${c.ticker}">
+                                        <span class="skeleton-pulse" style="min-width:50px;">&nbsp;</span>
                                     </td>
                                     <td class="right">
                                         ${c.change > 0 ? `<span class="change-pos mono">+${formatNum(c.change)}</span>` :
@@ -230,8 +234,13 @@ function _formatNAV(value) {
 }
 
 async function _populateLiveColumns(companies) {
-    // Fetch BTC price for NAV calculation (most DATs are BTC-backed)
-    const btcPrice = await fetchPrice('BTC');
+    // Fetch all token prices for NAV calculation (support multi-token DATs)
+    const tokenPrices = {};
+    const tokens = [...new Set(companies.map(c => c.token))];
+    await Promise.all(tokens.map(async (token) => {
+        const price = await fetchPrice(token);
+        if (price !== null) tokenPrices[token] = price;
+    }));
 
     const tickers = companies.map(c => c.ticker);
     const results = await Promise.allSettled(
@@ -239,29 +248,40 @@ async function _populateLiveColumns(companies) {
     );
 
     for (const result of results) {
-        if (result.status !== 'fulfilled' || !result.value.metrics) {
-            // No StrategyTracker coverage — show dash
-            const ticker = result.status === 'fulfilled' ? result.value.ticker : null;
-            if (ticker) {
-                const navEl = document.getElementById(`nav-${ticker}`);
-                const mnavEl = document.getElementById(`mnav-${ticker}`);
-                if (navEl) navEl.innerHTML = '<span class="no-alert">\u2014</span>';
-                if (mnavEl) mnavEl.innerHTML = '<span class="no-alert">\u2014</span>';
-            }
-            continue;
-        }
+        const ticker = result.status === 'fulfilled' ? result.value.ticker : null;
+        const metrics = result.status === 'fulfilled' ? result.value.metrics : null;
+        const company = companies.find(c => c.ticker === ticker);
 
-        const { ticker, metrics } = result.value;
+        if (!ticker || !company) continue;
 
-        // Populate NAV cell (btcHoldings * btcPrice = true NAV)
+        const tokenPrice = tokenPrices[company.token] || 0;
+
+        // Populate NAV cell with fallback chain:
+        // 1. btcHoldings * btcPrice (from StrategyTracker)
+        // 2. company.tokens * tokenPrice (from local data + CoinGecko)
+        // 3. treasury_history[0].num_of_tokens * tokenPrice (from user data)
         const navEl = document.getElementById(`nav-${ticker}`);
         if (navEl) {
-            if (typeof metrics.btcHoldings === 'number' && btcPrice) {
-                const nav = metrics.btcHoldings * btcPrice;
+            let nav = null;
+
+            // Primary: StrategyTracker btcHoldings * price
+            if (metrics && typeof metrics.btcHoldings === 'number' && tokenPrice > 0) {
+                nav = metrics.btcHoldings * tokenPrice;
+            }
+            // Secondary: local tokens * tokenPrice
+            else if (company.tokens && tokenPrice > 0) {
+                nav = company.tokens * tokenPrice;
+            }
+            // Tertiary: treasury_history tokens * tokenPrice
+            else if (company.treasury_history?.length > 0 && tokenPrice > 0) {
+                const latestTokens = company.treasury_history[0].num_of_tokens || 0;
+                if (latestTokens > 0) {
+                    nav = latestTokens * tokenPrice;
+                }
+            }
+
+            if (nav !== null) {
                 navEl.textContent = _formatNAV(nav);
-            } else if (typeof metrics.marketCap === 'number') {
-                // Fallback to market cap if no holdings data
-                navEl.textContent = _formatNAV(metrics.marketCap);
             } else {
                 navEl.innerHTML = '<span class="no-alert">\u2014</span>';
             }
@@ -270,17 +290,26 @@ async function _populateLiveColumns(companies) {
         // Populate mNAV cell
         const mnavEl = document.getElementById(`mnav-${ticker}`);
         if (mnavEl) {
-            if (typeof metrics.mNAV === 'number') {
+            if (metrics && typeof metrics.mNAV === 'number') {
                 mnavEl.textContent = metrics.mNAV.toFixed(2) + 'x';
             } else {
                 mnavEl.innerHTML = '<span class="no-alert">\u2014</span>';
             }
         }
 
+        // Populate Share Price cell
+        const priceEl = document.getElementById(`price-${ticker}`);
+        if (priceEl) {
+            if (metrics && typeof metrics.sharePrice === 'number') {
+                priceEl.textContent = '$' + metrics.sharePrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            } else {
+                priceEl.innerHTML = '<span class="no-alert">\u2014</span>';
+            }
+        }
+
         // Live data overlay: update holdings cell if btcHoldings differs
-        if (typeof metrics.btcHoldings === 'number' && metrics.btcHoldings > 0) {
-            const company = companies.find(c => c.ticker === ticker);
-            if (company && metrics.btcHoldings !== company.tokens) {
+        if (metrics && typeof metrics.btcHoldings === 'number' && metrics.btcHoldings > 0) {
+            if (metrics.btcHoldings !== company.tokens) {
                 const holdingsEl = document.getElementById(`holdings-${ticker}`);
                 if (holdingsEl) {
                     holdingsEl.innerHTML = `${formatNum(metrics.btcHoldings)} ${company.token} <span class="live-badge" style="font-size:8px;padding:1px 5px;margin-left:4px;"><span class="live-dot" style="width:4px;height:4px;"></span>LIVE</span>`;

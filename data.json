@@ -144,10 +144,10 @@
         "cik": "0001050446",
         "irUrl": "https://www.strategy.com/investor-relations",
         "dashboardUrl": "https://www.strategy.com/purchases",
-        "alertUrl": "https://treasury.strive.com/?tab=home",
+        "alertUrl": "https://www.strategy.com/purchases",
         "alertDate": "2026-01-28",
-        "alertNote": "MSTR holds 712,647 Bitcoin in treasury. Share price: $160.61, mNAV: 0.92x. Source: https://treasury.",
-        "lastSecUpdate": "2026-01-28",
+        "alertNote": "712,647 BTC (+2,932). 8-K filing Jan 26",
+        "lastSecUpdate": "2026-01-28"
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,

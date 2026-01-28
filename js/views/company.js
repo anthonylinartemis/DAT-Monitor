@@ -6,26 +6,39 @@ import { findCompany, TOKEN_INFO, getData, mergeTransactionsForCompany, addTreas
 import { formatNum } from '../utils/format.js';
 import { tokenIconHtml } from '../utils/icons.js';
 import { companyLogoHtml } from '../utils/company-logos.js';
-import { renderAreaChart } from '../components/area-chart.js';
-import { fetchPrice, fetchDATMetrics, fetchHistoricalPrice } from '../services/api.js';
+import { renderAreaChart, destroyAllAreaCharts } from '../components/area-chart.js';
+import { fetchPrice, fetchDATMetrics, fetchHistoricalPrice, getCachedPrice } from '../services/api.js';
 import { generateCSV, downloadCSV, formatForIDE, generateTreasuryCSV, formatTreasuryForIDE, enrichTransactionsWithPrices, parseCSV, isCustomFormat, parseCustomCSV } from '../services/csv.js';
 import { transactionFingerprint } from '../utils/dedup.js';
 import { generateHistory } from '../utils/history-generator.js';
+import { renderMetricsFlashcards } from '../components/metrics-flashcard.js';
+import { calculateDATMetrics } from '../services/metrics.js';
 
 // Companies with live dashboard connections
 const LIVE_DASHBOARDS = {
     SBET: 'https://investors.sharplink.com/',
     MTPLF: 'https://metaplanet.jp/en/shareholders/disclosures',
     ASST: 'https://treasury.strive.com/?tab=home',
+    BTBT: 'https://bit-digital.com/',
 };
 
-// Async hero stats populated from StrategyTracker CDN
-const DAT_HERO_STATS = [
-    { id: 'share-price', label: 'Share Price', key: 'sharePrice', fmt: v => '$' + v.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) },
-    { id: 'mnav', label: 'mNAV', key: 'mNAV', fmt: v => v.toFixed(2) + 'x' },
-    { id: 'fdm-mnav', label: 'FDM mNAV', key: 'fdmMNAV', fmt: v => v.toFixed(2) + 'x' },
-    { id: 'btc-yield', label: 'BTC Yield YTD', key: 'btcYieldYtd', fmt: v => v.toFixed(2) + '%' },
-    { id: 'market-cap', label: 'Market Cap', key: 'marketCap', fmt: v => v >= 1e9 ? '$' + (v / 1e9).toFixed(2) + 'B' : '$' + (v / 1e6).toFixed(1) + 'M' },
+// Chart metric options
+const CHART_METRICS = [
+    { key: 'holdings', label: 'Holdings', unit: 'tokens' },
+    { key: 'nav', label: 'NAV', unit: 'usd' },
+    { key: 'shares', label: 'Shares', unit: 'count' },
+    { key: 'cash', label: 'Cash', unit: 'usd' },
+    { key: 'debt', label: 'Debt', unit: 'usd' },
+];
+
+// Timeframe options
+const TIMEFRAMES = [
+    { key: '1W', label: '1W', days: 7 },
+    { key: '1M', label: '1M', days: 30 },
+    { key: '3M', label: '3M', days: 90 },
+    { key: '6M', label: '6M', days: 180 },
+    { key: '1Y', label: '1Y', days: 365 },
+    { key: 'ALL', label: 'ALL', days: null },
 ];
 
 const TREASURY_FIELDS = [
@@ -38,6 +51,12 @@ const TREASURY_FIELDS = [
     { key: 'num_of_shares', label: 'Shares Out.', format: formatNum },
     { key: 'latest_cash', label: 'Cash', format: v => '$' + formatNum(v) },
 ];
+
+// Module state for chart controls
+let currentChartMetric = 'holdings';
+let currentTimeframe = 'ALL';
+let cachedTokenPrice = null;
+let cachedExternalMetrics = null;
 
 export function renderCompanyPage(ticker) {
     const company = findCompany(ticker);
@@ -57,9 +76,6 @@ export function renderCompanyPage(ticker) {
     const tokenClass = info.class || '';
     const transactions = company.transactions || [];
     const hasTransactions = transactions.length > 0;
-    const avgCostBasis = hasTransactions
-        ? transactions[0].avgCostBasis
-        : null;
     const treasuryHistory = company.treasury_history || [];
     const hasTreasury = treasuryHistory.length > 0;
     const latestTreasury = hasTreasury
@@ -68,72 +84,56 @@ export function renderCompanyPage(ticker) {
 
     const isLive = !!LIVE_DASHBOARDS[company.ticker];
     const liveUrl = LIVE_DASHBOARDS[company.ticker] || '';
+    const treasuryCount = treasuryHistory.length;
 
     return `
         <main class="container" style="padding: 24px 20px 60px">
             <a href="#/holdings" class="back-link">\u2190 Back to Holdings</a>
 
-            <!-- Hero Section -->
-            <div class="company-hero">
-                <div class="company-hero-left">
-                    <div class="company-hero-title">
-                        ${companyLogoHtml(company.ticker, 36)}
-                        <span class="ticker mono ${tokenClass}" style="font-size: 14px; padding: 6px 12px;">${tokenIconHtml(company.token)}${company.ticker}</span>
-                        <h2>${company.name}</h2>
-                        ${isLive ? `<a href="${liveUrl}" target="_blank" rel="noopener" class="live-badge" title="Live dashboard connection"><span class="live-dot"></span>LIVE</a>` : ''}
-                    </div>
-                    ${company.notes ? `<p class="company-hero-notes">${company.notes}</p>` : ''}
-                </div>
-                <div class="company-hero-stats">
-                    <div class="hero-stat">
-                        <div class="hero-stat-label">Total Holdings</div>
-                        <div class="hero-stat-value mono">${formatNum(company.tokens)} ${company.token}</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-label">Live ${company.token} Price</div>
-                        <div class="hero-stat-value mono" id="live-token-price">
-                            <span class="skeleton-pulse">Loading...</span>
+            <!-- Company Header -->
+            <div class="company-header">
+                <div class="company-header-left">
+                    ${companyLogoHtml(company.ticker, 48)}
+                    <div>
+                        <div class="company-header-title">
+                            <span class="ticker mono ${tokenClass}" style="font-size: 14px; padding: 6px 12px;">${tokenIconHtml(company.token)}${company.ticker}</span>
+                            <h2>${company.name}</h2>
+                            ${isLive ? `<a href="${liveUrl}" target="_blank" rel="noopener" class="live-badge" title="Live dashboard connection"><span class="live-dot"></span>LIVE</a>` : ''}
                         </div>
+                        ${company.notes ? `<p class="company-header-notes">${company.notes}</p>` : ''}
                     </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-label">NAV</div>
-                        <div class="hero-stat-value mono" id="current-value">
-                            <span class="skeleton-pulse">Loading...</span>
-                        </div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-label">Last Change</div>
-                        <div class="hero-stat-value mono ${company.change > 0 ? 'text-green' : company.change < 0 ? 'text-red' : ''}">
-                            ${company.change !== 0 ? (company.change > 0 ? '+' : '') + formatNum(company.change) : '\u2014'}
-                        </div>
-                    </div>
-                    ${avgCostBasis ? `
-                    <div class="hero-stat">
-                        <div class="hero-stat-label">Avg Cost Basis</div>
-                        <div class="hero-stat-value mono">$${formatNum(avgCostBasis)}</div>
-                    </div>
-                    ` : ''}
-                    ${latestTreasury ? `
-                    <div class="hero-stat">
-                        <div class="hero-stat-label">Shares Outstanding</div>
-                        <div class="hero-stat-value mono">${formatNum(latestTreasury.num_of_shares)}</div>
-                    </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-label">Cash Position</div>
-                        <div class="hero-stat-value mono">$${formatNum(latestTreasury.latest_cash)}</div>
-                    </div>
-                    ` : ''}
-                    ${DAT_HERO_STATS.map(s => `
-                    <div class="hero-stat" id="${s.id}-stat" style="display:none">
-                        <div class="hero-stat-label">${s.label}</div>
-                        <div class="hero-stat-value mono" id="${s.id}-value">\u2014</div>
-                    </div>`).join('')}
                 </div>
             </div>
 
-            <!-- Area Chart -->
+            <!-- Strive Update Detection Banner (hidden by default) -->
+            <div id="strive-update-banner" class="update-banner" style="display: none;">
+                <div class="update-banner-content">
+                    <span id="strive-update-text"></span>
+                    <button class="btn btn-primary" id="add-strive-entry-btn" style="padding: 4px 12px; font-size: 12px;">Add Entry</button>
+                </div>
+            </div>
+
+            <!-- Metrics Flashcard Grid -->
+            <div class="metrics-section" id="metrics-flashcard-container">
+                <div class="flashcard-loading">
+                    <span class="skeleton-pulse" style="width: 100%; height: 200px;"></span>
+                </div>
+            </div>
+
+            <!-- Area Chart with Controls -->
             <div class="chart-card">
-                <h3>Cumulative Holdings</h3>
+                <div class="chart-controls">
+                    <div class="chart-metric-selector">
+                        ${CHART_METRICS.map(m => `
+                            <button class="chart-metric-btn ${m.key === currentChartMetric ? 'active' : ''}" data-metric="${m.key}">${m.label}</button>
+                        `).join('')}
+                    </div>
+                    <div class="chart-timeframe-selector">
+                        ${TIMEFRAMES.map(t => `
+                            <button class="chart-timeframe-btn ${t.key === currentTimeframe ? 'active' : ''}" data-timeframe="${t.key}">${t.label}</button>
+                        `).join('')}
+                    </div>
+                </div>
                 <div id="company-area-chart"></div>
             </div>
 
@@ -224,46 +224,48 @@ export function renderCompanyPage(ticker) {
                 </div>
             </div>
 
-            <!-- Treasury Metrics History -->
-            <div class="table-wrap" style="margin-top: 24px">
-                <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px;">
-                    <h3>Treasury Metrics</h3>
+            <!-- Treasury Metrics History (Collapsible) -->
+            <details class="treasury-details" ${hasTreasury ? 'open' : ''}>
+                <summary class="treasury-summary">
+                    <h3>Treasury Metrics ${hasTreasury ? `(${treasuryCount} entries)` : ''}</h3>
                     <div style="display: flex; gap: 8px;">
-                        ${hasTreasury ? `<button class="btn btn-secondary" id="export-treasury-btn">Export Treasury CSV</button>` : ''}
-                        ${(hasTreasury || hasTransactions) ? `<button class="btn btn-danger" id="clear-data-btn">Clear Import Data</button>` : ''}
+                        ${hasTreasury ? `<button class="btn btn-secondary" id="export-treasury-btn">Export CSV</button>` : ''}
+                        ${(hasTreasury || hasTransactions) ? `<button class="btn btn-danger" id="clear-data-btn">Clear Data</button>` : ''}
                         <button class="btn btn-secondary" id="paste-csv-btn">Paste CSV</button>
                         <button class="btn btn-primary" id="add-treasury-btn">+ New Entry</button>
                     </div>
-                </div>
-                ${hasTreasury ? `
-                <div class="table-scroll">
-                    <table id="treasury-table">
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                ${TREASURY_FIELDS.map(f => `<th class="right">${f.label}</th>`).join('')}
-                                <th class="center" style="width: 40px;"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            ${[...treasuryHistory].sort((a, b) => b.date.localeCompare(a.date)).map(entry => `
-                                <tr data-date="${entry.date}">
-                                    <td class="mono date">${entry.date}</td>
-                                    ${TREASURY_FIELDS.map(f => `
-                                        <td class="right mono editable-cell" data-field="${f.key}" data-date="${entry.date}" data-value="${entry[f.key] || 0}">${f.format(entry[f.key] || 0)}</td>
-                                    `).join('')}
-                                    <td class="center"><button class="btn-icon delete-treasury" data-date="${entry.date}" title="Delete row">\u00D7</button></td>
+                </summary>
+                <div class="treasury-content">
+                    ${hasTreasury ? `
+                    <div class="table-scroll treasury-table-scroll">
+                        <table id="treasury-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    ${TREASURY_FIELDS.map(f => `<th class="right">${f.label}</th>`).join('')}
+                                    <th class="center" style="width: 40px;"></th>
                                 </tr>
-                            `).join('')}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                ${[...treasuryHistory].sort((a, b) => b.date.localeCompare(a.date)).map(entry => `
+                                    <tr data-date="${entry.date}">
+                                        <td class="mono date">${entry.date}</td>
+                                        ${TREASURY_FIELDS.map(f => `
+                                            <td class="right mono editable-cell" data-field="${f.key}" data-date="${entry.date}" data-value="${entry[f.key] || 0}">${f.format(entry[f.key] || 0)}</td>
+                                        `).join('')}
+                                        <td class="center"><button class="btn-icon delete-treasury" data-date="${entry.date}" title="Delete row">\u00D7</button></td>
+                                    </tr>
+                                `).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                    ` : `
+                    <div style="text-align: center; padding: 24px;">
+                        <p class="text-muted">No treasury metrics yet. Import a CSV or click "+ New Entry" to start tracking.</p>
+                    </div>
+                    `}
                 </div>
-                ` : `
-                <div style="text-align: center; padding: 24px;">
-                    <p class="text-muted">No treasury metrics yet. Import a CSV or click "+ New Entry" to start tracking.</p>
-                </div>
-                `}
-            </div>
+            </details>
 
             <!-- Purchase History -->
             ${hasTransactions ? `
@@ -328,60 +330,30 @@ export function initCompanyPage(ticker) {
     const color = getComputedStyle(document.documentElement)
         .getPropertyValue(`--${(info.class || 'blue')}`).trim();
 
-    // Render area chart
-    if (company.transactions && company.transactions.length >= 2) {
-        renderAreaChart('company-area-chart', company.transactions, color, company.token);
-    } else {
-        const chartEl = document.getElementById('company-area-chart');
-        if (chartEl) {
-            chartEl.innerHTML = '<div class="chart-empty">Not enough data points for chart</div>';
-        }
-    }
+    // Reset chart state
+    currentChartMetric = 'holdings';
+    currentTimeframe = 'ALL';
 
-    // Fetch live token price and current value
-    fetchPrice(company.token).then(price => {
-        const priceEl = document.getElementById('live-token-price');
-        const valueEl = document.getElementById('current-value');
-        if (price === null) {
-            if (priceEl) priceEl.textContent = 'Unavailable';
-            if (valueEl) valueEl.textContent = 'Unavailable';
-            return;
-        }
+    // Fetch prices and metrics, then render flashcards and chart
+    _initMetricsAndChart(company, color);
 
-        // Show live token price
-        if (priceEl) {
-            priceEl.innerHTML = `$${Number(price.toFixed(2)).toLocaleString()}`;
-        }
-
-        // Show current portfolio value
-        if (valueEl) {
-            const totalValue = company.tokens * price;
-            valueEl.innerHTML = `$${Number(totalValue.toFixed(0)).toLocaleString()}`;
-
-            if (company.transactions && company.transactions.length > 0) {
-                const avgCost = company.transactions[0].avgCostBasis;
-                if (avgCost && avgCost > 0) {
-                    const gainPct = ((price - avgCost) / avgCost * 100).toFixed(1);
-                    const isPositive = parseFloat(gainPct) >= 0;
-                    valueEl.innerHTML += ` <span class="${isPositive ? 'text-green' : 'text-red'}">(${isPositive ? '+' : ''}${gainPct}%)</span>`;
-                }
-            }
-        }
+    // --- Chart Control Listeners ---
+    document.querySelectorAll('.chart-metric-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentChartMetric = btn.dataset.metric;
+            document.querySelectorAll('.chart-metric-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            _renderChart(company, color);
+        });
     });
 
-    // Fetch DAT-specific metrics (mNAV, FDM_mNAV, share price, yield, market cap)
-    fetchDATMetrics(ticker).then(metrics => {
-        if (!metrics) return;
-        for (const { id, key, fmt } of DAT_HERO_STATS) {
-            const val = metrics[key];
-            if (typeof val !== 'number') continue;
-            const el = document.getElementById(`${id}-stat`);
-            const valEl = document.getElementById(`${id}-value`);
-            if (el && valEl) {
-                valEl.textContent = fmt(val);
-                el.style.display = '';
-            }
-        }
+    document.querySelectorAll('.chart-timeframe-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentTimeframe = btn.dataset.timeframe;
+            document.querySelectorAll('.chart-timeframe-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            _renderChart(company, color);
+        });
     });
 
     // --- Treasury Metrics: Inline Editing ---
@@ -391,7 +363,9 @@ export function initCompanyPage(ticker) {
     const addBtn = document.getElementById('add-treasury-btn');
     const entryForm = document.getElementById('treasury-entry-form');
     if (addBtn && entryForm) {
-        addBtn.addEventListener('click', () => {
+        addBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             entryForm.style.display = entryForm.style.display === 'none' ? 'block' : 'none';
             if (entryForm.style.display === 'block') {
                 entryForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -444,7 +418,9 @@ export function initCompanyPage(ticker) {
     // --- Export Treasury CSV ---
     const exportTreasuryBtn = document.getElementById('export-treasury-btn');
     if (exportTreasuryBtn) {
-        exportTreasuryBtn.addEventListener('click', () => {
+        exportTreasuryBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
             const history = company.treasury_history || [];
             if (history.length === 0) return;
             const csv = generateTreasuryCSV(history);
@@ -536,7 +512,7 @@ export function initCompanyPage(ticker) {
                     statusEl.innerHTML = `<span style="color: var(--green);">Generated ${result.added} estimated transactions. Reloading...</span>`;
                     setTimeout(() => { window.location.hash = `#/company/${ticker}`; }, 800);
                 } else {
-                    statusEl.innerHTML = '<span class="text-muted">Could not generate history — no data available.</span>';
+                    statusEl.innerHTML = '<span class="text-muted">Could not generate history \u2014 no data available.</span>';
                     genBtn.disabled = false;
                     genBtn.textContent = 'Generate Estimated History';
                 }
@@ -548,6 +524,159 @@ export function initCompanyPage(ticker) {
             }
         });
     }
+
+    // --- Strive Update Detection: Add Entry Button ---
+    const addStriveBtn = document.getElementById('add-strive-entry-btn');
+    if (addStriveBtn) {
+        addStriveBtn.addEventListener('click', () => {
+            // Pre-fill entry form with live data
+            if (cachedExternalMetrics?.btcHoldings) {
+                const tokensInput = document.getElementById('entry-tokens');
+                if (tokensInput) {
+                    tokensInput.value = cachedExternalMetrics.btcHoldings;
+                }
+            }
+            // Show the entry form
+            const entryForm = document.getElementById('treasury-entry-form');
+            if (entryForm) {
+                entryForm.style.display = 'block';
+                entryForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+            // Hide the banner
+            const banner = document.getElementById('strive-update-banner');
+            if (banner) banner.style.display = 'none';
+        });
+    }
+}
+
+async function _initMetricsAndChart(company, color) {
+    // Fetch token price
+    const tokenPrice = await fetchPrice(company.token);
+    cachedTokenPrice = tokenPrice;
+
+    // Fetch external metrics (StrategyTracker)
+    const externalMetrics = await fetchDATMetrics(company.ticker);
+    cachedExternalMetrics = externalMetrics;
+
+    // Render flashcard grid
+    const container = document.getElementById('metrics-flashcard-container');
+    if (container) {
+        const sharePrice = externalMetrics?.sharePrice || null;
+        container.innerHTML = renderMetricsFlashcards(company, tokenPrice, sharePrice, externalMetrics || {});
+    }
+
+    // Check for Strive update detection
+    _checkForUpdateDelta(company, externalMetrics);
+
+    // Render initial chart
+    _renderChart(company, color);
+}
+
+function _checkForUpdateDelta(company, metrics) {
+    if (!metrics || typeof metrics.btcHoldings !== 'number') return;
+
+    const latestLocal = company.treasury_history?.[0]?.num_of_tokens || company.tokens || 0;
+    const liveHoldings = metrics.btcHoldings;
+    const delta = Math.abs(liveHoldings - latestLocal);
+    const threshold = 100; // BTC threshold for showing alert
+
+    if (delta > threshold && liveHoldings > latestLocal) {
+        const banner = document.getElementById('strive-update-banner');
+        const textEl = document.getElementById('strive-update-text');
+        if (banner && textEl) {
+            textEl.textContent = `Dashboard shows ${formatNum(liveHoldings)} ${company.token} but your data shows ${formatNum(latestLocal)} ${company.token}.`;
+            banner.style.display = 'flex';
+        }
+    }
+}
+
+function _renderChart(company, color) {
+    destroyAllAreaCharts();
+
+    const chartData = _getChartData(company, currentChartMetric, currentTimeframe);
+    const chartEl = document.getElementById('company-area-chart');
+
+    if (!chartData || chartData.length < 2) {
+        if (chartEl) {
+            chartEl.innerHTML = '<div class="chart-empty">Not enough data points for chart. Import treasury data to see chart.</div>';
+        }
+        return;
+    }
+
+    // Determine unit label
+    const metricConfig = CHART_METRICS.find(m => m.key === currentChartMetric);
+    const unitLabel = metricConfig?.unit === 'usd' ? 'USD' :
+                      metricConfig?.unit === 'tokens' ? company.token :
+                      metricConfig?.label || '';
+
+    renderAreaChart('company-area-chart', chartData, color, unitLabel);
+}
+
+function _getChartData(company, metric, timeframe) {
+    const transactions = company.transactions || [];
+    const treasuryHistory = company.treasury_history || [];
+    const tokenPrice = cachedTokenPrice || 0;
+
+    let rawData = [];
+
+    // Build data based on metric
+    if (metric === 'holdings') {
+        if (transactions.length >= 2) {
+            rawData = transactions.map(t => ({
+                date: t.date,
+                cumulativeTokens: t.cumulativeTokens,
+            }));
+        } else if (treasuryHistory.length >= 1) {
+            rawData = treasuryHistory.map(entry => ({
+                date: entry.date,
+                cumulativeTokens: entry.num_of_tokens || 0,
+            }));
+        }
+    } else if (metric === 'nav') {
+        rawData = treasuryHistory.map(entry => {
+            const tokens = entry.num_of_tokens || 0;
+            const cash = entry.latest_cash || 0;
+            const debt = (entry.convertible_debt || 0) + (entry.non_convertible_debt || 0);
+            const nav = (tokens * tokenPrice) + cash - debt;
+            return { date: entry.date, cumulativeTokens: nav };
+        });
+    } else if (metric === 'shares') {
+        rawData = treasuryHistory.map(entry => ({
+            date: entry.date,
+            cumulativeTokens: entry.num_of_shares || 0,
+        }));
+    } else if (metric === 'cash') {
+        rawData = treasuryHistory.map(entry => ({
+            date: entry.date,
+            cumulativeTokens: entry.latest_cash || 0,
+        }));
+    } else if (metric === 'debt') {
+        rawData = treasuryHistory.map(entry => ({
+            date: entry.date,
+            cumulativeTokens: (entry.convertible_debt || 0) + (entry.non_convertible_debt || 0),
+        }));
+    }
+
+    // Filter by timeframe
+    if (timeframe !== 'ALL') {
+        const tf = TIMEFRAMES.find(t => t.key === timeframe);
+        if (tf && tf.days) {
+            const cutoff = new Date();
+            cutoff.setDate(cutoff.getDate() - tf.days);
+            const cutoffStr = cutoff.toISOString().slice(0, 10);
+            rawData = rawData.filter(d => d.date >= cutoffStr);
+        }
+    }
+
+    // Add today's point if only one data point
+    if (rawData.length === 1) {
+        rawData.push({
+            date: new Date().toISOString().slice(0, 10),
+            cumulativeTokens: rawData[0].cumulativeTokens,
+        });
+    }
+
+    return rawData;
 }
 
 function _initTreasuryEditing(ticker, token) {

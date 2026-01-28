@@ -11,7 +11,7 @@ export function destroyAllAreaCharts() {
     chartInstances.length = 0;
 }
 
-export function renderAreaChart(containerId, transactions, color, tokenSymbol) {
+export function renderAreaChart(containerId, transactions, color, unitLabel) {
     const el = document.getElementById(containerId);
     if (!el || typeof ApexCharts === 'undefined') return;
     if (!transactions || transactions.length < 2) {
@@ -20,6 +20,9 @@ export function renderAreaChart(containerId, transactions, color, tokenSymbol) {
     }
 
     const sorted = [...transactions].sort((a, b) => a.date.localeCompare(b.date));
+
+    // Determine if we're showing USD values (for formatting)
+    const isUSD = unitLabel === 'USD';
 
     const chart = new ApexCharts(el, {
         chart: {
@@ -33,7 +36,7 @@ export function renderAreaChart(containerId, transactions, color, tokenSymbol) {
             fontFamily: 'Inter, sans-serif'
         },
         series: [{
-            name: `Cumulative ${tokenSymbol}`,
+            name: isUSD ? 'Value (USD)' : `Cumulative ${unitLabel}`,
             data: sorted.map(t => ({
                 x: new Date(t.date).getTime(),
                 y: t.cumulativeTokens
@@ -48,6 +51,12 @@ export function renderAreaChart(containerId, transactions, color, tokenSymbol) {
         yaxis: {
             labels: {
                 formatter: (val) => {
+                    if (isUSD) {
+                        if (val >= 1e9) return '$' + (val / 1e9).toFixed(1) + 'B';
+                        if (val >= 1e6) return '$' + (val / 1e6).toFixed(1) + 'M';
+                        if (val >= 1e3) return '$' + (val / 1e3).toFixed(0) + 'K';
+                        return '$' + val.toFixed(0);
+                    }
                     if (val >= 1e6) return (val / 1e6).toFixed(1) + 'M';
                     if (val >= 1e3) return (val / 1e3).toFixed(0) + 'K';
                     return val.toFixed(0);
@@ -70,7 +79,15 @@ export function renderAreaChart(containerId, transactions, color, tokenSymbol) {
         tooltip: {
             x: { format: 'MMM dd, yyyy' },
             y: {
-                formatter: (val) => val ? Number(val).toLocaleString() + ` ${tokenSymbol}` : '\u2014'
+                formatter: (val) => {
+                    if (!val) return '\u2014';
+                    if (isUSD) {
+                        if (val >= 1e9) return '$' + (val / 1e9).toFixed(2) + 'B';
+                        if (val >= 1e6) return '$' + (val / 1e6).toFixed(2) + 'M';
+                        return '$' + Number(val.toFixed(0)).toLocaleString();
+                    }
+                    return Number(val).toLocaleString() + ` ${unitLabel}`;
+                }
             }
         },
         grid: {

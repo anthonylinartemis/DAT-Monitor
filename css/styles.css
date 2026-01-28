@@ -813,3 +813,240 @@ a.ticker:hover { opacity: 0.8; }
 @media (max-width: 480px) {
     .entry-form-grid { grid-template-columns: 1fr; }
 }
+
+/* ============================================
+   COMPANY HEADER (Simplified)
+   ============================================ */
+.company-header {
+    background: var(--bg-primary);
+    border-radius: var(--card-radius);
+    padding: 20px 24px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-light);
+    margin-bottom: 16px;
+}
+.company-header-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.company-header-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.company-header-title h2 {
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+.company-header-notes {
+    color: var(--text-muted);
+    font-size: 13px;
+    line-height: 1.4;
+    margin-top: 4px;
+}
+
+/* ============================================
+   UPDATE DETECTION BANNER
+   ============================================ */
+.update-banner {
+    background: var(--orange);
+    background: linear-gradient(135deg, #F97316 0%, #EA580C 100%);
+    border-radius: var(--card-radius);
+    padding: 12px 20px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: white;
+    font-size: 13px;
+    font-weight: 500;
+    box-shadow: 0 2px 8px rgba(249, 115, 22, 0.25);
+}
+.update-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+.update-banner .btn-primary {
+    background: white;
+    color: var(--orange);
+}
+.update-banner .btn-primary:hover {
+    background: rgba(255,255,255,0.9);
+}
+
+/* ============================================
+   METRICS FLASHCARD GRID
+   ============================================ */
+.metrics-section {
+    margin-bottom: 16px;
+}
+.flashcard-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.flashcard-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+@media (max-width: 900px) {
+    .flashcard-row { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+    .flashcard-row { grid-template-columns: 1fr; }
+}
+.flashcard {
+    background: var(--bg-primary);
+    border-radius: 10px;
+    padding: 14px 16px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-light);
+    transition: box-shadow 0.15s ease;
+}
+.flashcard:hover {
+    box-shadow: var(--card-shadow-hover);
+}
+.flashcard-empty {
+    opacity: 0.6;
+}
+.flashcard-label {
+    font-size: 11px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+.flashcard-value {
+    font-size: 20px;
+    font-weight: 700;
+    font-family: 'JetBrains Mono', monospace;
+    letter-spacing: -0.5px;
+    color: var(--text-primary);
+}
+.flashcard-value-token { color: var(--text-primary); }
+.flashcard-value-btc { color: var(--btc); }
+.flashcard-value-eth { color: var(--eth); }
+.flashcard-value-sol { color: var(--sol); }
+.flashcard-value-hype { color: var(--hype); }
+.flashcard-value-bnb { color: var(--bnb); }
+.flashcard-value-positive { color: var(--green); }
+.flashcard-value-negative { color: var(--red); }
+.flashcard-loading {
+    display: flex;
+    gap: 8px;
+}
+
+/* ============================================
+   CHART CONTROLS
+   ============================================ */
+.chart-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+.chart-metric-selector,
+.chart-timeframe-selector {
+    display: flex;
+    gap: 4px;
+    flex-wrap: wrap;
+}
+.chart-metric-btn,
+.chart-timeframe-btn {
+    padding: 6px 12px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-primary);
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.15s ease;
+}
+.chart-metric-btn:hover,
+.chart-timeframe-btn:hover {
+    background: var(--purple-bg);
+    color: var(--purple);
+    border-color: rgba(104, 79, 248, 0.2);
+}
+.chart-metric-btn.active,
+.chart-timeframe-btn.active {
+    background: var(--purple-bg);
+    color: var(--purple);
+    border-color: rgba(104, 79, 248, 0.3);
+    font-weight: 600;
+}
+
+/* ============================================
+   COLLAPSIBLE TREASURY SECTION
+   ============================================ */
+.treasury-details {
+    background: var(--bg-primary);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-light);
+    margin-top: 24px;
+    overflow: hidden;
+}
+.treasury-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    border-bottom: 1px solid transparent;
+    transition: background 0.15s ease;
+}
+.treasury-summary::-webkit-details-marker {
+    display: none;
+}
+.treasury-summary:hover {
+    background: var(--bg-secondary);
+}
+.treasury-summary h3 {
+    font-size: 15px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.treasury-summary h3::before {
+    content: '\25B6';
+    font-size: 10px;
+    color: var(--text-muted);
+    transition: transform 0.2s ease;
+}
+.treasury-details[open] .treasury-summary {
+    border-bottom-color: var(--border-light);
+}
+.treasury-details[open] .treasury-summary h3::before {
+    transform: rotate(90deg);
+}
+.treasury-content {
+    max-height: 400px;
+    overflow-y: auto;
+}
+.treasury-table-scroll {
+    overflow-x: auto;
+}
+
+/* ============================================
+   COMPACT METRICS
+   ============================================ */
+.compact-metric {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    color: var(--text-secondary);
+}
