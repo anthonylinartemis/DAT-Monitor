@@ -327,8 +327,8 @@ export async function enrichTransactionsWithPrices(transactions, token, fetchPri
                     txn.totalCost = txn.quantity * txn.priceUsd;
                     txn.priceSource = 'estimated';
                 }
-            } catch {
-                // Price unavailable
+            } catch (err) {
+                console.warn(`Price enrichment failed for ${token} on ${txn.date}:`, err.message);
             }
         }
         cumulativeCost += txn.totalCost || 0;

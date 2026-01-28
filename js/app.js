@@ -8,9 +8,11 @@ import { renderDashboard } from './views/dashboard.js';
 import { renderHoldings, initHoldingsListeners } from './views/holdings.js';
 import { renderCompanyPage, initCompanyPage } from './views/company.js';
 import { renderDataSync, initDataSync } from './views/data-sync.js';
+import { renderFilingFeed, initFilingFeed } from './views/filing-feed.js';
 import { destroyAllSparklines } from './components/sparkline.js';
 import { destroyAllAreaCharts } from './components/area-chart.js';
 import { initPriceCache, refreshPriceCache, getPriceCacheTimestamp, onPriceRefresh } from './services/api.js';
+import * as AISummary from './services/ai-summary.js';
 
 // Price auto-refresh interval (30 minutes)
 const PRICE_REFRESH_INTERVAL = 30 * 60_000;
@@ -22,6 +24,7 @@ function getView() {
         return { id: 'company', ticker };
     }
     if (hash === '#/holdings') return { id: 'holdings' };
+    if (hash === '#/filings') return { id: 'filings' };
     if (hash === '#/export') return { id: 'export' };
     return { id: 'dashboard' };
 }
@@ -40,7 +43,7 @@ function renderFooter() {
     `;
 }
 
-function route() {
+export function route() {
     const app = document.getElementById('app');
     const view = getView();
 
@@ -55,6 +58,9 @@ function route() {
                 break;
             case 'holdings':
                 content += renderHoldings();
+                break;
+            case 'filings':
+                content += renderFilingFeed();
                 break;
             case 'company':
                 content += renderCompanyPage(view.ticker);
@@ -74,6 +80,9 @@ function route() {
         switch (view.id) {
             case 'holdings':
                 initHoldingsListeners();
+                break;
+            case 'filings':
+                initFilingFeed();
                 break;
             case 'company':
                 initCompanyPage(view.ticker);
@@ -107,6 +116,16 @@ async function init() {
         await initPriceCache();
     } catch (e) {
         console.warn('Initial price cache failed:', e);
+    }
+
+    // Initialize AI Summary service (optional - only if config available)
+    try {
+        const { CLAUDE_API_KEY, CLAUDE_API_ENDPOINT } = await import('./config.js');
+        if (CLAUDE_API_KEY && CLAUDE_API_ENDPOINT) {
+            AISummary.init({ apiKey: CLAUDE_API_KEY, apiEndpoint: CLAUDE_API_ENDPOINT });
+        }
+    } catch {
+        // config.js not present or missing keys - AI summaries disabled
     }
 
     route();

@@ -37,6 +37,7 @@ export function renderHeader(currentView) {
     const tabs = [
         { id: 'dashboard', label: 'Dashboard', hash: '#/dashboard' },
         { id: 'holdings', label: 'Holdings', hash: '#/holdings' },
+        { id: 'filings', label: 'Filing Feed', hash: '#/filings' },
         { id: 'export', label: 'Export / Import', hash: '#/export', badge: needsBackup ? 'Backup' : null }
     ];
 
