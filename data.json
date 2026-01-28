@@ -3,20 +3,44 @@
   "lastUpdatedDisplay": "Jan 27, 2026 02:33 PM ET",
   "recentChanges": [
     {
-      "ticker": "MSTR",
-      "token": "BTC",
-      "date": "2026-01-20",
-      "tokens": 709715,
-      "change": 22305,
-      "summary": "709,715 BTC (+22,305 this week). 8-K filing Jan 20"
-    },
-    {
       "ticker": "BMNR",
       "token": "ETH",
+      "date": "2026-01-26",
+      "tokens": 4243338,
+      "change": 40302,
+      "summary": "4.24M ETH (+40,302). 8-K filing Jan 26. Largest ETH treasury"
+    },
+    {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "date": "2026-01-26",
+      "tokens": 712647,
+      "change": 2932,
+      "summary": "712,647 BTC (+2,932). 8-K filing Jan 26"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "date": "2026-01-21",
+      "tokens": 40088,
+      "change": 0,
+      "summary": "40,088 ETH. 8-K filing Jan 21"
+    },
+    {
+      "ticker": "SBET",
+      "token": "ETH",
       "date": "2026-01-20",
-      "tokens": 4203036,
-      "change": 35268,
-      "summary": "4.203M ETH (+35,268 this week). Now 3.48% of ETH supply"
+      "tokens": 865797,
+      "change": 957,
+      "summary": "865,797 ETH (+957). Live dashboard update"
+    },
+    {
+      "ticker": "STSS",
+      "token": "SOL",
+      "date": "2026-01-16",
+      "tokens": 2000000,
+      "change": 0,
+      "summary": "2M SOL. Coinbase validator partnership. 8-K filing Jan 16"
     },
     {
       "ticker": "HYPD",
@@ -24,15 +48,7 @@
       "date": "2026-01-12",
       "tokens": 1427178,
       "change": 0,
-      "summary": "CEO shareholder letter - 2026 strategy"
-    },
-    {
-      "ticker": "STSS",
-      "token": "SOL",
-      "date": "2026-01-12",
-      "tokens": 2000000,
-      "change": 0,
-      "summary": "Coinbase validator launch - delegating 2M SOL"
+      "summary": "1.43M HYPE. CEO shareholder letter - 2026 strategy"
     },
     {
       "ticker": "BTCS",
@@ -40,7 +56,7 @@
       "date": "2026-01-07",
       "tokens": 70500,
       "change": 178,
-      "summary": "70,500 ETH. Record $16M revenue 2025 (+290% YoY)"
+      "summary": "70,500 ETH (+178). Record $16M revenue 2025"
     }
   ],
   "tokenConfig": {

@@ -28,8 +28,9 @@ SEC_ARCHIVES_URL = (
     "https://www.sec.gov/Archives/edgar/data/{cik_num}/{accession}/{doc}"
 )
 
-# SEC requires a descriptive User-Agent with contact info
-USER_AGENT = "DAT-Monitor-Bot/1.0 (dat-monitor-github-action)"
+# SEC requires a descriptive User-Agent with contact email
+# Format: "Company/App Name (contact@email.com)"
+USER_AGENT = "DAT-Monitor/1.0 (dat-monitor@artemis.xyz)"
 
 # Filing types that announce crypto acquisitions
 FILING_TYPES_OF_INTEREST: tuple[str, ...] = ("8-K", "8-K/A")
@@ -56,40 +57,70 @@ _last_request_time: float = 0.0
 # --- HTTP Layer ---
 
 
-def _sec_request(url: str) -> str:
+def _sec_request(url: str, retries: int = 3) -> str:
     """Fetch a URL from SEC EDGAR with proper User-Agent and rate limiting.
 
+    Includes retry logic for transient failures (429, 503, connection errors).
     Raises urllib.error.URLError on network failures.
-    Raises ValueError on non-200 responses.
+    Raises ValueError on non-200 responses after all retries.
     """
     global _last_request_time
 
-    # Rate limit: wait if needed
-    elapsed = time.monotonic() - _last_request_time
-    if elapsed < _REQUEST_DELAY_SECONDS:
-        time.sleep(_REQUEST_DELAY_SECONDS - elapsed)
+    last_error = None
+    for attempt in range(retries):
+        # Rate limit: wait if needed (increase delay on retries)
+        delay = _REQUEST_DELAY_SECONDS * (attempt + 1)
+        elapsed = time.monotonic() - _last_request_time
+        if elapsed < delay:
+            time.sleep(delay - elapsed)
 
-    req = urllib.request.Request(url)
-    req.add_header("User-Agent", USER_AGENT)
-    req.add_header("Accept-Encoding", "gzip, deflate")
+        req = urllib.request.Request(url)
+        req.add_header("User-Agent", USER_AGENT)
+        req.add_header("Accept", "application/json, text/html, */*")
+        req.add_header("Accept-Encoding", "gzip, deflate")
 
-    try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            _last_request_time = time.monotonic()
-            if resp.status != 200:
-                raise ValueError(
-                    f"SEC EDGAR returned status {resp.status} for {url}"
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                _last_request_time = time.monotonic()
+                if resp.status != 200:
+                    raise ValueError(
+                        f"SEC EDGAR returned status {resp.status} for {url}"
+                    )
+                raw = resp.read()
+                # Handle gzip encoding
+                if resp.headers.get("Content-Encoding") == "gzip":
+                    import gzip
+                    raw = gzip.decompress(raw)
+                return raw.decode("utf-8", errors="replace")
+        except urllib.error.HTTPError as e:
+            last_error = e
+            # Retry on rate limit or server errors
+            if e.code in (429, 500, 502, 503, 504):
+                logger.warning(
+                    "SEC EDGAR HTTP %d for %s, retrying (%d/%d)",
+                    e.code, url, attempt + 1, retries
                 )
-            raw = resp.read()
-            # Handle gzip encoding
-            if resp.headers.get("Content-Encoding") == "gzip":
-                import gzip
-                raw = gzip.decompress(raw)
-            return raw.decode("utf-8", errors="replace")
-    except urllib.error.HTTPError as e:
-        raise ValueError(
-            f"SEC EDGAR HTTP {e.code} for {url}: {e.reason}"
-        ) from e
+                time.sleep(2 ** attempt)  # Exponential backoff
+                continue
+            # 403 Forbidden - log but don't retry (likely auth/bot detection)
+            if e.code == 403:
+                logger.error(
+                    "SEC EDGAR 403 Forbidden for %s - check User-Agent compliance",
+                    url
+                )
+            raise ValueError(
+                f"SEC EDGAR HTTP {e.code} for {url}: {e.reason}"
+            ) from e
+        except (urllib.error.URLError, TimeoutError) as e:
+            last_error = e
+            logger.warning(
+                "Network error for %s: %s, retrying (%d/%d)",
+                url, e, attempt + 1, retries
+            )
+            time.sleep(2 ** attempt)
+            continue
+
+    raise ValueError(f"SEC EDGAR failed after {retries} retries: {last_error}")
 
 
 # --- Text Processing ---
