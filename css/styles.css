@@ -1350,3 +1350,79 @@ a.ticker:hover { opacity: 0.8; }
     max-height: 200px;
     overflow-y: auto;
 }
+
+/* ============================================
+   DISCOVERED PRESS RELEASES SECTION
+   ============================================ */
+.discovered-prs-section {
+    background: var(--bg-primary);
+    border-radius: var(--card-radius);
+    padding: 20px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid var(--border-light);
+}
+
+.discovered-prs-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+}
+
+.discovered-prs-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+}
+
+.discovered-prs-count {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+}
+
+.discovered-prs-subtitle {
+    font-size: 13px;
+    color: var(--text-muted);
+    width: 100%;
+    margin: 0;
+}
+
+.discovered-prs-empty {
+    padding: 24px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 14px;
+    background: var(--bg-secondary);
+    border-radius: 8px;
+}
+
+.discovered-pr-title {
+    font-size: 13px;
+    color: var(--text-primary);
+    display: inline-block;
+    max-width: 400px;
+}
+
+.discovered-pr-source {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-family: 'DM Mono', monospace;
+}
+
+.link-secondary {
+    color: var(--text-muted) !important;
+    font-size: 12px;
+}
+.link-secondary:hover {
+    color: var(--purple) !important;
+}
+
+/* Responsive adjustments for PR table */
+@media (max-width: 768px) {
+    .discovered-pr-title {
+        max-width: 200px;
+    }
+}

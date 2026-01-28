@@ -139,3 +139,40 @@ export function formatFilingDate(dateStr) {
 
     return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
 }
+
+/**
+ * Get discovered press releases from IR page scraping.
+ * @param {Object} options - Filter options
+ * @param {string} options.token - Token filter ('all' or specific token)
+ * @param {number} options.limit - Maximum results (default: 50)
+ * @returns {Array} Array of press release objects
+ */
+export function getDiscoveredPressReleases(options = {}) {
+    const { token = 'all', limit = 50 } = options;
+    const data = getData();
+
+    if (!data || !data.discoveredPressReleases) return [];
+
+    let releases = data.discoveredPressReleases;
+
+    // Filter by token if specified
+    if (token !== 'all') {
+        releases = releases.filter(pr => pr.token === token.toUpperCase());
+    }
+
+    return releases.slice(0, limit);
+}
+
+/**
+ * Get company info by ticker.
+ */
+export function getCompanyByTicker(ticker) {
+    const data = getData();
+    if (!data || !data.companies) return null;
+
+    for (const [token, companies] of Object.entries(data.companies)) {
+        const company = companies.find(c => c.ticker === ticker);
+        if (company) return { ...company, token };
+    }
+    return null;
+}

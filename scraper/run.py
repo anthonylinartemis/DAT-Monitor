@@ -11,7 +11,7 @@ import logging
 import sys
 from pathlib import Path
 
-from scraper import fetcher, parser, website_scrapers
+from scraper import fetcher, ir_scraper, parser, website_scrapers
 from scraper.config import DATA_JSON_PATH, HOLDINGS_HISTORY_PATH
 from scraper.updater import apply_enrichments, load_data, run_batch, save_data
 
@@ -64,10 +64,22 @@ def main(argv: list[str] | None = None) -> int:
     except Exception:
         logger.exception("Failed during website scraping")
 
+    # 2c. IR page scraper (discovers press releases from company news pages)
+    discovered_prs: list[dict] = []
+    logger.info("Scraping IR pages for press releases...")
+    try:
+        new_prs = ir_scraper.scrape_all_ir_pages(data)
+        existing_prs = data.get("discoveredPressReleases", [])
+        discovered_prs = ir_scraper.merge_discovered_prs(existing_prs, new_prs)
+        logger.info("IR Scraper: %d new PRs, %d total after merge",
+                    len(new_prs), len(discovered_prs))
+    except Exception:
+        logger.exception("Failed during IR page scraping")
+
     logger.info("Total: %d potential update(s)", len(updates))
 
-    if not updates and not enrichments:
-        logger.info("No updates or enrichments found. Done.")
+    if not updates and not enrichments and not discovered_prs:
+        logger.info("No updates, enrichments, or press releases found. Done.")
         return 0
 
     # 3. Classify and log each update (useful for dry-run)
@@ -96,12 +108,17 @@ def main(argv: list[str] | None = None) -> int:
         summary = run_batch(updates, data_path, history_path)
 
     # 5. Apply enrichments (analytics data from website scrapers)
-    if enrichments:
+    if enrichments or discovered_prs:
         logger.info("Applying enrichments to data.json...")
         data = load_data(data_path)
-        data = apply_enrichments(data, enrichments)
+        if enrichments:
+            data = apply_enrichments(data, enrichments)
+        if discovered_prs:
+            data["discoveredPressReleases"] = discovered_prs
+            logger.info("Saved %d discovered press releases", len(discovered_prs))
         save_data(data, data_path)
-        logger.info("Enrichments applied for: %s", ", ".join(enrichments.keys()))
+        if enrichments:
+            logger.info("Enrichments applied for: %s", ", ".join(enrichments.keys()))
 
     logger.info("=== Summary ===")
     logger.info("  Applied:             %d", summary["applied"])
@@ -111,6 +128,7 @@ def main(argv: list[str] | None = None) -> int:
     logger.info("  Skipped (unknown):   %d", summary["skipped_unknown"])
     logger.info("  Skipped (not found): %d", summary["skipped_not_found"])
     logger.info("  Enrichments:         %d", len(enrichments))
+    logger.info("  Discovered PRs:      %d", len(discovered_prs))
     logger.info("  Errors:              %d", summary["errors"])
 
     if summary["errors"] > 0:

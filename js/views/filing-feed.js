@@ -3,17 +3,19 @@
  * Displays a table of recent SEC filings for DAT companies.
  */
 
-import { getRecentFilings, formatFilingDate } from '../services/filing-feed.js';
+import { getRecentFilings, formatFilingDate, getDiscoveredPressReleases, getCompanyByTicker } from '../services/filing-feed.js';
 import * as AISummary from '../services/ai-summary.js';
 import { route } from '../app.js';
 
 let currentFilter = 'all';
+let showDiscoveredPRs = true;
 
 /**
  * Render the filing feed view.
  */
 export function renderFilingFeed() {
     const filings = getRecentFilings({ token: currentFilter });
+    const discoveredPRs = getDiscoveredPressReleases({ token: currentFilter });
 
     return `
         <main class="container" style="padding: 24px 20px 60px">
@@ -35,6 +37,8 @@ export function renderFilingFeed() {
             </div>
 
             ${filings.length === 0 ? _renderEmptyState() : _renderFilingTable(filings)}
+
+            ${_renderDiscoveredPRsSection(discoveredPRs)}
         </main>
     `;
 }
@@ -128,6 +132,109 @@ function _escapeHtml(text) {
     return div.innerHTML;
 }
 
+function _renderDiscoveredPRsSection(prs) {
+    if (!prs || prs.length === 0) {
+        return `
+            <div class="discovered-prs-section" style="margin-top: 32px;">
+                <div class="discovered-prs-header">
+                    <h2 class="discovered-prs-title">
+                        Discovered Press Releases
+                        <span class="discovered-prs-count">(0)</span>
+                    </h2>
+                    <p class="discovered-prs-subtitle">Auto-scraped from company IR pages for manual review</p>
+                </div>
+                <div class="discovered-prs-empty">
+                    <p>No press releases discovered yet. Run the scraper to fetch from company IR pages.</p>
+                </div>
+            </div>
+        `;
+    }
+
+    return `
+        <div class="discovered-prs-section" style="margin-top: 32px;">
+            <div class="discovered-prs-header">
+                <h2 class="discovered-prs-title">
+                    Discovered Press Releases
+                    <span class="discovered-prs-count">(${prs.length})</span>
+                </h2>
+                <p class="discovered-prs-subtitle">Auto-scraped from company IR pages for manual review</p>
+                <button id="toggle-discovered-prs" class="btn btn-sm" style="margin-left: auto;">
+                    ${showDiscoveredPRs ? 'Hide' : 'Show'}
+                </button>
+            </div>
+            <div class="discovered-prs-content" style="${showDiscoveredPRs ? '' : 'display: none;'}">
+                <div class="table-wrap">
+                    <div class="table-scroll">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Title</th>
+                                    <th>Date</th>
+                                    <th>Source</th>
+                                    <th class="center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${prs.map(pr => _renderDiscoveredPRRow(pr)).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function _renderDiscoveredPRRow(pr) {
+    const company = getCompanyByTicker(pr.ticker);
+    const tokenClass = (pr.token || '').toLowerCase();
+    const dateDisplay = pr.date ? formatFilingDate(pr.date) : 'Unknown';
+    const sourceDomain = _extractDomain(pr.sourcePage);
+
+    return `
+        <tr>
+            <td>
+                <div class="ticker-cell">
+                    <span class="ticker ${tokenClass}">${_escapeHtml(pr.ticker)}</span>
+                    <div>
+                        <div class="company-name">${_escapeHtml(company?.name || pr.ticker)}</div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <span class="discovered-pr-title" title="${_escapeHtml(pr.title)}">${_escapeHtml(_truncate(pr.title, 60))}</span>
+            </td>
+            <td>
+                <span class="date">${dateDisplay}</span>
+            </td>
+            <td>
+                <span class="discovered-pr-source" title="${_escapeHtml(pr.sourcePage)}">${_escapeHtml(sourceDomain)}</span>
+            </td>
+            <td class="center">
+                <div class="filing-actions">
+                    ${pr.url ? `<a href="${_escapeHtml(pr.url)}" target="_blank" rel="noopener" class="link">View PR</a>` : ''}
+                    ${pr.sourcePage ? `<a href="${_escapeHtml(pr.sourcePage)}" target="_blank" rel="noopener" class="link link-secondary">IR Page</a>` : ''}
+                </div>
+            </td>
+        </tr>
+    `;
+}
+
+function _extractDomain(url) {
+    if (!url) return '';
+    try {
+        return new URL(url).hostname.replace('www.', '');
+    } catch {
+        return url.slice(0, 30);
+    }
+}
+
+function _truncate(text, maxLength) {
+    if (!text || text.length <= maxLength) return text;
+    return text.slice(0, maxLength - 3) + '...';
+}
+
 /**
  * Initialize event listeners for the filing feed view.
  */
@@ -169,4 +276,17 @@ export function initFilingFeed() {
             }
         });
     });
+
+    // Toggle discovered PRs section
+    const toggleBtn = document.getElementById('toggle-discovered-prs');
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', () => {
+            showDiscoveredPRs = !showDiscoveredPRs;
+            const content = document.querySelector('.discovered-prs-content');
+            if (content) {
+                content.style.display = showDiscoveredPRs ? '' : 'none';
+            }
+            toggleBtn.textContent = showDiscoveredPRs ? 'Hide' : 'Show';
+        });
+    }
 }
