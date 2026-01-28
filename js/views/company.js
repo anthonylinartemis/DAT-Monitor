@@ -2,13 +2,14 @@
  * Company drill-down page view.
  */
 
-import { findCompany, TOKEN_INFO, getData, mergeTransactionsForCompany, addTreasuryEntry, updateTreasuryEntry, deleteTreasuryEntry } from '../services/data-store.js';
+import { findCompany, TOKEN_INFO, getData, mergeTransactionsForCompany, addTreasuryEntry, updateTreasuryEntry, deleteTreasuryEntry, clearTransactionsForCompany, setTreasuryHistory } from '../services/data-store.js';
 import { formatNum } from '../utils/format.js';
 import { tokenIconHtml } from '../utils/icons.js';
 import { companyLogoHtml } from '../utils/company-logos.js';
 import { renderAreaChart } from '../components/area-chart.js';
-import { fetchPrice, fetchDATMetrics } from '../services/api.js';
-import { generateCSV, downloadCSV, formatForIDE, generateTreasuryCSV } from '../services/csv.js';
+import { fetchPrice, fetchDATMetrics, fetchHistoricalPrice } from '../services/api.js';
+import { generateCSV, downloadCSV, formatForIDE, generateTreasuryCSV, formatTreasuryForIDE, enrichTransactionsWithPrices, parseCSV, isCustomFormat, parseCustomCSV } from '../services/csv.js';
+import { transactionFingerprint } from '../utils/dedup.js';
 import { generateHistory } from '../utils/history-generator.js';
 
 // Companies with live dashboard connections
@@ -185,12 +186,52 @@ export function renderCompanyPage(ticker) {
                 </div>
             </div>
 
+            <!-- Paste CSV Form (hidden by default) -->
+            <div id="paste-csv-form" class="treasury-entry-form" style="display:none;">
+                <div class="table-wrap" style="margin-top: 24px; padding: 24px;">
+                    <h3 style="margin-bottom: 8px;">Paste CSV Data</h3>
+                    <p class="text-muted" style="margin-bottom: 16px; font-size: 13px;">
+                        Paste CSV data with columns: date, num_of_tokens, convertible_debt, convertible_debt_shares, non_convertible_debt, warrants, warrant_shares, num_of_shares, latest_cash
+                    </p>
+                    <textarea id="paste-csv-input" class="form-input" rows="8" placeholder="date,num_of_tokens,convertible_debt,...
+2025-01-15,100000,0,0,0,0,0,50000000,100000000
+2025-01-22,105000,0,0,0,0,0,50000000,95000000" style="font-family: var(--font-mono); font-size: 12px; width: 100%; resize: vertical;"></textarea>
+
+                    <!-- Preview Table -->
+                    <div id="paste-preview" style="display:none; margin-top: 12px;">
+                        <h4 style="font-size: 13px; font-weight: 600; margin-bottom: 8px;">Preview (first 5 rows)</h4>
+                        <div class="table-scroll" style="max-height: 200px; overflow: auto;">
+                            <table id="paste-preview-table" style="font-size: 12px;"></table>
+                        </div>
+                        <p id="paste-format-info" class="text-muted" style="margin-top: 8px; font-size: 12px;"></p>
+                    </div>
+
+                    <!-- Progress -->
+                    <div id="paste-progress" style="display:none; margin-top: 12px;">
+                        <div style="background: var(--bg-tertiary); border-radius: 4px; height: 6px; overflow: hidden;">
+                            <div id="paste-progress-bar" style="background: var(--purple); height: 100%; width: 0%; transition: width 0.3s;"></div>
+                        </div>
+                        <p class="text-muted" style="margin-top: 6px; font-size: 12px;" id="paste-progress-text">Processing...</p>
+                    </div>
+
+                    <div id="paste-result" style="margin-top: 12px;"></div>
+
+                    <div style="display: flex; gap: 8px; margin-top: 16px;">
+                        <button class="btn btn-secondary" id="paste-preview-btn">Preview</button>
+                        <button class="btn btn-primary" id="paste-import-btn" disabled>Import Data</button>
+                        <button class="btn btn-secondary" id="paste-cancel-btn">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Treasury Metrics History -->
             <div class="table-wrap" style="margin-top: 24px">
                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px;">
                     <h3>Treasury Metrics</h3>
                     <div style="display: flex; gap: 8px;">
                         ${hasTreasury ? `<button class="btn btn-secondary" id="export-treasury-btn">Export Treasury CSV</button>` : ''}
+                        ${(hasTreasury || hasTransactions) ? `<button class="btn btn-danger" id="clear-data-btn">Clear Import Data</button>` : ''}
+                        <button class="btn btn-secondary" id="paste-csv-btn">Paste CSV</button>
                         <button class="btn btn-primary" id="add-treasury-btn">+ New Entry</button>
                     </div>
                 </div>
@@ -230,6 +271,7 @@ export function renderCompanyPage(ticker) {
                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 16px;">
                     <h3>Purchase History</h3>
                     <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-secondary" id="fetch-prices-btn">Fetch Prices</button>
                         <button class="btn btn-primary" id="export-csv-btn">Export CSV</button>
                         <button class="btn btn-secondary" id="copy-ide-btn">Copy for IDE</button>
                     </div>
@@ -410,6 +452,9 @@ export function initCompanyPage(ticker) {
         });
     }
 
+    // --- Paste CSV ---
+    _initPasteCSV(ticker, company.token);
+
     // --- Export / Copy Buttons ---
     const exportBtn = document.getElementById('export-csv-btn');
     if (exportBtn) {
@@ -423,12 +468,53 @@ export function initCompanyPage(ticker) {
     const copyBtn = document.getElementById('copy-ide-btn');
     if (copyBtn) {
         copyBtn.addEventListener('click', () => {
-            const transactions = company.transactions || [];
-            const text = formatForIDE(transactions, ticker);
+            const treasuryHistory = company.treasury_history || [];
+            const text = formatTreasuryForIDE(treasuryHistory);
             navigator.clipboard.writeText(text).then(() => {
                 copyBtn.textContent = 'Copied!';
                 setTimeout(() => { copyBtn.textContent = 'Copy for IDE'; }, 2000);
             });
+        });
+    }
+
+    // --- Clear Import Data ---
+    const clearBtn = document.getElementById('clear-data-btn');
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            if (confirm(`Clear all imported data (transactions and treasury history) for ${ticker}?`)) {
+                clearTransactionsForCompany(ticker, company.token);
+                window.location.hash = `#/company/${ticker}`;
+            }
+        });
+    }
+
+    // --- Fetch Prices ---
+    const fetchPricesBtn = document.getElementById('fetch-prices-btn');
+    if (fetchPricesBtn) {
+        fetchPricesBtn.addEventListener('click', async () => {
+            fetchPricesBtn.disabled = true;
+            fetchPricesBtn.textContent = 'Fetching...';
+
+            try {
+                const transactions = company.transactions || [];
+                const enriched = await enrichTransactionsWithPrices(
+                    transactions,
+                    company.token,
+                    fetchHistoricalPrice
+                );
+                mergeTransactionsForCompany(ticker, company.token, enriched);
+                fetchPricesBtn.textContent = 'Done!';
+                setTimeout(() => {
+                    window.location.hash = `#/company/${ticker}`;
+                }, 500);
+            } catch (err) {
+                console.error('Price fetch error:', err);
+                fetchPricesBtn.textContent = 'Error';
+                setTimeout(() => {
+                    fetchPricesBtn.disabled = false;
+                    fetchPricesBtn.textContent = 'Fetch Prices';
+                }, 2000);
+            }
         });
     }
 
@@ -501,5 +587,144 @@ function _initTreasuryEditing(ticker, token) {
             input.focus();
             input.select();
         });
+    });
+}
+
+// Module-level state for paste CSV
+let _pastePreviewData = null;
+let _pasteIsCustomFormat = false;
+
+function _initPasteCSV(ticker, token) {
+    const pasteBtn = document.getElementById('paste-csv-btn');
+    const pasteForm = document.getElementById('paste-csv-form');
+    const pasteInput = document.getElementById('paste-csv-input');
+    const previewBtn = document.getElementById('paste-preview-btn');
+    const importBtn = document.getElementById('paste-import-btn');
+    const cancelBtn = document.getElementById('paste-cancel-btn');
+    const previewEl = document.getElementById('paste-preview');
+    const previewTable = document.getElementById('paste-preview-table');
+    const formatInfo = document.getElementById('paste-format-info');
+    const resultEl = document.getElementById('paste-result');
+    const progressEl = document.getElementById('paste-progress');
+    const progressBar = document.getElementById('paste-progress-bar');
+    const progressText = document.getElementById('paste-progress-text');
+
+    if (!pasteBtn || !pasteForm) return;
+
+    // Toggle paste form visibility
+    pasteBtn.addEventListener('click', () => {
+        pasteForm.style.display = pasteForm.style.display === 'none' ? 'block' : 'none';
+        if (pasteForm.style.display === 'block') {
+            pasteForm.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            pasteInput.focus();
+        }
+    });
+
+    // Cancel button
+    cancelBtn.addEventListener('click', () => {
+        pasteForm.style.display = 'none';
+        pasteInput.value = '';
+        previewEl.style.display = 'none';
+        resultEl.innerHTML = '';
+        importBtn.disabled = true;
+        _pastePreviewData = null;
+    });
+
+    // Preview button
+    previewBtn.addEventListener('click', () => {
+        const csvText = pasteInput.value.trim();
+        if (!csvText) {
+            resultEl.innerHTML = '<span class="error">Please paste CSV data first.</span>';
+            return;
+        }
+
+        try {
+            const lines = csvText.replace(/\r\n/g, '\n').split('\n').filter(l => l.trim());
+            if (lines.length < 2) {
+                throw new Error('CSV must have a header row and at least one data row.');
+            }
+
+            _pasteIsCustomFormat = isCustomFormat(lines[0]);
+            _pastePreviewData = csvText;
+
+            // Build preview table from first 5 rows
+            const headerCells = lines[0].split(',').map(h => `<th style="padding: 4px 8px; font-size: 11px;">${h.trim()}</th>`).join('');
+            const bodyRows = lines.slice(1, 6).map(line =>
+                `<tr>${line.split(',').map(cell => `<td style="padding: 4px 8px; font-size: 11px;">${cell.trim()}</td>`).join('')}</tr>`
+            ).join('');
+
+            previewTable.innerHTML = `<thead><tr>${headerCells}</tr></thead><tbody>${bodyRows}</tbody>`;
+            previewEl.style.display = 'block';
+
+            const formatLabel = _pasteIsCustomFormat ? 'Custom (treasury history)' : 'Standard (transactions)';
+            formatInfo.innerHTML = `Detected format: <strong>${formatLabel}</strong> &middot; ${lines.length - 1} rows`;
+            resultEl.innerHTML = '';
+            importBtn.disabled = false;
+        } catch (err) {
+            resultEl.innerHTML = `<span class="error">Preview failed: ${err.message}</span>`;
+            previewEl.style.display = 'none';
+            importBtn.disabled = true;
+        }
+    });
+
+    // Import button
+    importBtn.addEventListener('click', async () => {
+        if (!_pastePreviewData) {
+            resultEl.innerHTML = '<span class="error">No data to import. Click Preview first.</span>';
+            return;
+        }
+
+        previewEl.style.display = 'none';
+        progressEl.style.display = 'block';
+        progressBar.style.width = '10%';
+        progressText.textContent = 'Parsing data...';
+        importBtn.disabled = true;
+
+        try {
+            let transactions;
+
+            if (_pasteIsCustomFormat) {
+                progressText.textContent = 'Parsing treasury history & fetching prices...';
+                progressBar.style.width = '30%';
+
+                const result = await parseCustomCSV(_pastePreviewData, ticker, token, fetchHistoricalPrice);
+                transactions = result.transactions;
+
+                // Store treasury history on the company
+                if (result.treasuryHistory && result.treasuryHistory.length > 0) {
+                    setTreasuryHistory(ticker, token, result.treasuryHistory);
+                }
+            } else {
+                progressBar.style.width = '30%';
+                transactions = parseCSV(_pastePreviewData);
+                for (const txn of transactions) {
+                    if (!txn.fingerprint) {
+                        txn.fingerprint = transactionFingerprint(txn);
+                    }
+                }
+            }
+
+            progressBar.style.width = '70%';
+            progressText.textContent = 'Merging transactions...';
+
+            const mergeResult = mergeTransactionsForCompany(ticker, token, transactions);
+
+            progressBar.style.width = '100%';
+            progressText.textContent = 'Done!';
+
+            resultEl.innerHTML = `<span style="color: var(--green);">Import complete: ${mergeResult.added} added, ${mergeResult.skipped} skipped (duplicates).</span>`;
+            _pastePreviewData = null;
+            pasteInput.value = '';
+
+            setTimeout(() => {
+                progressEl.style.display = 'none';
+                window.location.hash = `#/company/${ticker}`;
+            }, 1000);
+        } catch (err) {
+            console.error('Paste import error:', err);
+            progressEl.style.display = 'none';
+            resultEl.innerHTML = `<span class="error">Import failed: ${err.message}</span>`;
+            importBtn.disabled = false;
+        }
     });
 }

@@ -326,6 +326,17 @@ function _mergeLocalIntoServer(serverData, localData) {
     return merged;
 }
 
+export function clearTransactionsForCompany(ticker, token) {
+    if (!data?.companies?.[token]) return false;
+    const list = data.companies[token];
+    const idx = list.findIndex(c => c.ticker === ticker);
+    if (idx === -1) return false;
+
+    list[idx] = { ...list[idx], transactions: [], treasury_history: [] };
+    notifyDataChange();
+    return true;
+}
+
 export async function loadData() {
     let serverData = EMBEDDED_DATA;
     try {

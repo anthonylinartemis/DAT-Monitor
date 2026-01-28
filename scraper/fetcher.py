@@ -30,7 +30,7 @@ SEC_ARCHIVES_URL = (
 
 # SEC requires a descriptive User-Agent with contact email
 # Format: "Company/App Name (contact@email.com)"
-USER_AGENT = "DAT-Monitor/1.0 (dat-monitor@artemis.xyz)"
+USER_AGENT = "DAT-Monitor/1.0 (anthony.lin@artemisanalytics.xyz)"
 
 # Filing types that announce crypto acquisitions
 FILING_TYPES_OF_INTEREST: tuple[str, ...] = ("8-K", "8-K/A")

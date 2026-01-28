@@ -272,3 +272,46 @@ export function generateTreasuryCSV(treasuryHistory) {
     }
     return lines.join('\n');
 }
+
+export function formatTreasuryForIDE(treasuryHistory) {
+    const header = 'date,num_of_tokens,convertible_debt,convertible_debt_shares,non_convertible_debt,warrants,warrant_shares,num_of_shares,latest_cash';
+    const sorted = [...treasuryHistory].sort((a, b) => b.date.localeCompare(a.date));
+    const rows = sorted.map(e => [
+        e.date,
+        (e.num_of_tokens ?? 0).toFixed(2),
+        e.convertible_debt ?? 0,
+        e.convertible_debt_shares ?? 0,
+        e.non_convertible_debt ?? 0,
+        e.warrants ?? 0,
+        (e.warrant_shares ?? 0).toFixed(2),
+        e.num_of_shares ?? 0,
+        e.latest_cash ?? 0
+    ].join(','));
+    return [header, ...rows].join('\n');
+}
+
+export async function enrichTransactionsWithPrices(transactions, token, fetchPriceFn) {
+    const sorted = [...transactions].sort((a, b) => a.date.localeCompare(b.date));
+    let cumulativeCost = 0;
+
+    for (const txn of sorted) {
+        if (!txn.priceUsd || txn.priceUsd === 0) {
+            try {
+                const price = await fetchPriceFn(token, txn.date);
+                if (price !== null) {
+                    txn.priceUsd = Math.round(price);
+                    txn.totalCost = txn.quantity * txn.priceUsd;
+                    txn.priceSource = 'estimated';
+                }
+            } catch {
+                // Price unavailable
+            }
+        }
+        cumulativeCost += txn.totalCost || 0;
+        txn.avgCostBasis = txn.cumulativeTokens > 0
+            ? Math.round(cumulativeCost / txn.cumulativeTokens)
+            : 0;
+    }
+
+    return sorted;
+}

@@ -207,3 +207,14 @@ class ScrapedUpdate:
     new_value: int
     context_text: str
     source_url: str = ""
+
+
+@dataclass(frozen=True)
+class FilingInfo:
+    """SEC 8-K filing metadata for source URL linking."""
+
+    accession_number: str
+    filing_date: str
+    primary_document: str
+    url: str
+    cik: str
