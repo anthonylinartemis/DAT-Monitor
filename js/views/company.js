@@ -8,7 +8,7 @@ import { tokenIconHtml } from '../utils/icons.js';
 import { companyLogoHtml } from '../utils/company-logos.js';
 import { renderAreaChart, destroyAllAreaCharts } from '../components/area-chart.js';
 import { fetchPrice, fetchDATMetrics, fetchHistoricalPrice, getCachedPrice } from '../services/api.js';
-import { generateCSV, downloadCSV, formatForIDE, generateTreasuryCSV, formatTreasuryForIDE, enrichTransactionsWithPrices, parseCSV, isCustomFormat, parseCustomCSV } from '../services/csv.js';
+import { generateCSV, downloadCSV, formatForIDE, generateTreasuryCSV, formatTreasuryForIDE, formatSelectedTreasuryForIDE, enrichTransactionsWithPrices, parseCSV, isCustomFormat, parseCustomCSV } from '../services/csv.js';
 import { transactionFingerprint } from '../utils/dedup.js';
 import { generateHistory } from '../utils/history-generator.js';
 import { renderMetricsFlashcards } from '../components/metrics-flashcard.js';
@@ -229,6 +229,7 @@ export function renderCompanyPage(ticker) {
                 <summary class="treasury-summary">
                     <h3>Treasury Metrics ${hasTreasury ? `(${treasuryCount} entries)` : ''}</h3>
                     <div style="display: flex; gap: 8px;">
+                        ${hasTreasury ? `<button class="btn btn-secondary" id="copy-treasury-ide-btn">Copy for IDE</button>` : ''}
                         ${hasTreasury ? `<button class="btn btn-secondary" id="export-treasury-btn">Export CSV</button>` : ''}
                         ${(hasTreasury || hasTransactions) ? `<button class="btn btn-danger" id="clear-data-btn">Clear Data</button>` : ''}
                         <button class="btn btn-secondary" id="paste-csv-btn">Paste CSV</button>
@@ -241,6 +242,7 @@ export function renderCompanyPage(ticker) {
                         <table id="treasury-table">
                             <thead>
                                 <tr>
+                                    <th class="center" style="width: 32px;"><input type="checkbox" class="treasury-checkbox-header" id="treasury-select-all" title="Select all" /></th>
                                     <th>Date</th>
                                     ${TREASURY_FIELDS.map(f => `<th class="right">${f.label}</th>`).join('')}
                                     <th class="center" style="width: 40px;"></th>
@@ -248,7 +250,8 @@ export function renderCompanyPage(ticker) {
                             </thead>
                             <tbody>
                                 ${[...treasuryHistory].sort((a, b) => b.date.localeCompare(a.date)).map(entry => `
-                                    <tr data-date="${entry.date}">
+                                    <tr data-date="${entry.date}" class="treasury-row">
+                                        <td class="center"><input type="checkbox" class="treasury-checkbox" data-date="${entry.date}" /></td>
                                         <td class="mono date">${entry.date}</td>
                                         ${TREASURY_FIELDS.map(f => `
                                             <td class="right mono editable-cell" data-field="${f.key}" data-date="${entry.date}" data-value="${entry[f.key] || 0}">${f.format(entry[f.key] || 0)}</td>
@@ -428,6 +431,9 @@ export function initCompanyPage(ticker) {
         });
     }
 
+    // --- Treasury Row Selection ---
+    _initTreasurySelection(ticker, company);
+
     // --- Paste CSV ---
     _initPasteCSV(ticker, company.token);
 
@@ -448,6 +454,10 @@ export function initCompanyPage(ticker) {
             const text = formatTreasuryForIDE(treasuryHistory);
             navigator.clipboard.writeText(text).then(() => {
                 copyBtn.textContent = 'Copied!';
+                setTimeout(() => { copyBtn.textContent = 'Copy for IDE'; }, 2000);
+            }).catch(err => {
+                console.warn('Clipboard write failed:', err.message);
+                copyBtn.textContent = 'Copy failed';
                 setTimeout(() => { copyBtn.textContent = 'Copy for IDE'; }, 2000);
             });
         });
@@ -575,7 +585,8 @@ async function _initMetricsAndChart(company, color) {
 function _checkForUpdateDelta(company, metrics) {
     if (!metrics || typeof metrics.btcHoldings !== 'number') return;
 
-    const latestLocal = company.treasury_history?.[0]?.num_of_tokens || company.tokens || 0;
+    const latestTreasury = company.treasury_history?.[0] || null;
+    const latestLocal = latestTreasury?.num_of_tokens || company.tokens || 0;
     const liveHoldings = metrics.btcHoldings;
     const delta = Math.abs(liveHoldings - latestLocal);
     const threshold = 100; // BTC threshold for showing alert
@@ -586,6 +597,51 @@ function _checkForUpdateDelta(company, metrics) {
         if (banner && textEl) {
             textEl.textContent = `Dashboard shows ${formatNum(liveHoldings)} ${company.token} but your data shows ${formatNum(latestLocal)} ${company.token}.`;
             banner.style.display = 'flex';
+
+            // Pre-fill the form with live metrics and latest treasury data
+            _prefillFormFromMetrics(metrics, latestTreasury);
+        }
+    }
+}
+
+/**
+ * Pre-fill the treasury entry form with live metrics and fallback to latest treasury data.
+ * @param {Object} liveMetrics - External metrics from StrategyTracker
+ * @param {Object|null} latestTreasury - Most recent treasury_history entry
+ */
+function _prefillFormFromMetrics(liveMetrics, latestTreasury) {
+    // Pre-fill tokens from live holdings
+    const tokensInput = document.getElementById('entry-tokens');
+    if (tokensInput && liveMetrics?.btcHoldings) {
+        tokensInput.value = Math.round(liveMetrics.btcHoldings);
+    }
+
+    // Pre-fill shares outstanding: priority is live metrics > latest treasury
+    const sharesInput = document.getElementById('entry-shares-out');
+    if (sharesInput) {
+        if (liveMetrics?.sharesOutstanding) {
+            sharesInput.value = Math.round(liveMetrics.sharesOutstanding);
+        } else if (latestTreasury?.num_of_shares) {
+            sharesInput.value = latestTreasury.num_of_shares;
+        }
+    }
+
+    // Pre-fill other fields from latest treasury if available
+    if (latestTreasury) {
+        const fieldsToPreserve = [
+            { inputId: 'entry-conv-debt', field: 'convertible_debt' },
+            { inputId: 'entry-conv-shares', field: 'convertible_debt_shares' },
+            { inputId: 'entry-non-conv-debt', field: 'non_convertible_debt' },
+            { inputId: 'entry-warrants', field: 'warrants' },
+            { inputId: 'entry-warrant-shares', field: 'warrant_shares' },
+            { inputId: 'entry-cash', field: 'latest_cash' },
+        ];
+
+        for (const { inputId, field } of fieldsToPreserve) {
+            const input = document.getElementById(inputId);
+            if (input && latestTreasury[field] !== undefined) {
+                input.value = latestTreasury[field];
+            }
         }
     }
 }
@@ -856,4 +912,86 @@ function _initPasteCSV(ticker, token) {
             importBtn.disabled = false;
         }
     });
+}
+
+// Module-level state for treasury row selection
+let _selectedTreasuryDates = new Set();
+
+function _initTreasurySelection(ticker, company) {
+    const selectAllCheckbox = document.getElementById('treasury-select-all');
+    const rowCheckboxes = document.querySelectorAll('.treasury-checkbox');
+    const copyIdeBtn = document.getElementById('copy-treasury-ide-btn');
+
+    if (!selectAllCheckbox || rowCheckboxes.length === 0) return;
+
+    // Reset selection state
+    _selectedTreasuryDates = new Set();
+
+    // Select All checkbox
+    selectAllCheckbox.addEventListener('change', () => {
+        const isChecked = selectAllCheckbox.checked;
+        rowCheckboxes.forEach(cb => {
+            cb.checked = isChecked;
+            const row = cb.closest('tr');
+            const date = cb.dataset.date;
+            if (isChecked) {
+                _selectedTreasuryDates.add(date);
+                row?.classList.add('treasury-row-selected');
+            } else {
+                _selectedTreasuryDates.delete(date);
+                row?.classList.remove('treasury-row-selected');
+            }
+        });
+    });
+
+    // Individual row checkboxes
+    rowCheckboxes.forEach(cb => {
+        cb.addEventListener('change', () => {
+            const date = cb.dataset.date;
+            const row = cb.closest('tr');
+            if (cb.checked) {
+                _selectedTreasuryDates.add(date);
+                row?.classList.add('treasury-row-selected');
+            } else {
+                _selectedTreasuryDates.delete(date);
+                row?.classList.remove('treasury-row-selected');
+            }
+
+            // Update "Select All" checkbox state
+            const allChecked = Array.from(rowCheckboxes).every(c => c.checked);
+            const someChecked = Array.from(rowCheckboxes).some(c => c.checked);
+            selectAllCheckbox.checked = allChecked;
+            selectAllCheckbox.indeterminate = someChecked && !allChecked;
+        });
+    });
+
+    // Copy for IDE button - copies selected rows (or all if none selected)
+    if (copyIdeBtn) {
+        copyIdeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const treasuryHistory = company.treasury_history || [];
+            if (treasuryHistory.length === 0) return;
+
+            let text;
+            if (_selectedTreasuryDates.size > 0) {
+                // Copy only selected rows
+                text = formatSelectedTreasuryForIDE(treasuryHistory, _selectedTreasuryDates);
+            } else {
+                // Copy all rows
+                text = formatTreasuryForIDE(treasuryHistory);
+            }
+
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = copyIdeBtn.textContent;
+                const copiedCount = _selectedTreasuryDates.size > 0 ? _selectedTreasuryDates.size : treasuryHistory.length;
+                copyIdeBtn.textContent = `Copied ${copiedCount}!`;
+                setTimeout(() => { copyIdeBtn.textContent = originalText; }, 2000);
+            }).catch(err => {
+                console.warn('Clipboard write failed:', err.message);
+                copyIdeBtn.textContent = 'Copy failed';
+                setTimeout(() => { copyIdeBtn.textContent = 'Copy for IDE'; }, 2000);
+            });
+        });
+    }
 }

@@ -290,7 +290,7 @@ async function _populateLiveColumns(companies) {
         // Populate mNAV cell
         const mnavEl = document.getElementById(`mnav-${ticker}`);
         if (mnavEl) {
-            if (metrics && typeof metrics.mNAV === 'number') {
+            if (metrics && typeof metrics.mNAV === 'number' && metrics.mNAV > 0 && metrics.mNAV < 100) {
                 mnavEl.textContent = metrics.mNAV.toFixed(2) + 'x';
             } else {
                 mnavEl.innerHTML = '<span class="no-alert">\u2014</span>';
@@ -300,9 +300,10 @@ async function _populateLiveColumns(companies) {
         // Populate Share Price cell
         const priceEl = document.getElementById(`price-${ticker}`);
         if (priceEl) {
-            if (metrics && typeof metrics.sharePrice === 'number') {
+            if (metrics && typeof metrics.sharePrice === 'number' && metrics.sharePrice > 0) {
                 priceEl.textContent = '$' + metrics.sharePrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
             } else {
+                // Display "—" only as last resort
                 priceEl.innerHTML = '<span class="no-alert">\u2014</span>';
             }
         }

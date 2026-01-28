@@ -36,11 +36,11 @@ export function parseCSV(csvText) {
         const txn = {
             date: get('Date'),
             asset: get('Asset'),
-            quantity: parseInt(get('Quantity').replace(/,/g, ''), 10) || 0,
-            priceUsd: parseInt(get('PriceUSD').replace(/,/g, ''), 10) || 0,
-            totalCost: parseInt(get('TotalCost').replace(/,/g, ''), 10) || 0,
-            cumulativeTokens: parseInt(get('CumulativeTokens').replace(/,/g, ''), 10) || 0,
-            avgCostBasis: parseInt(get('AvgCostBasis').replace(/,/g, ''), 10) || 0,
+            quantity: Math.round(parseFloat(get('Quantity').replace(/,/g, '')) || 0),
+            priceUsd: Math.round(parseFloat(get('PriceUSD').replace(/,/g, '')) || 0),
+            totalCost: Math.round(parseFloat(get('TotalCost').replace(/,/g, '')) || 0),
+            cumulativeTokens: Math.round(parseFloat(get('CumulativeTokens').replace(/,/g, '')) || 0),
+            avgCostBasis: Math.round(parseFloat(get('AvgCostBasis').replace(/,/g, '')) || 0),
             source: get('Source')
         };
 
@@ -145,8 +145,8 @@ export async function parseCustomCSV(csvText, ticker, token, fetchPriceFn) {
                     priceUsd = Math.round(fetched);
                     priceSource = 'estimated';
                 }
-            } catch {
-                // Price unavailable
+            } catch (err) {
+                console.warn(`Price fetch failed for ${token} on ${row.date}:`, err.message);
             }
         }
 
@@ -276,6 +276,30 @@ export function generateTreasuryCSV(treasuryHistory) {
 export function formatTreasuryForIDE(treasuryHistory) {
     const header = 'date,num_of_tokens,convertible_debt,convertible_debt_shares,non_convertible_debt,warrants,warrant_shares,num_of_shares,latest_cash';
     const sorted = [...treasuryHistory].sort((a, b) => b.date.localeCompare(a.date));
+    const rows = sorted.map(e => [
+        e.date,
+        (e.num_of_tokens ?? 0).toFixed(2),
+        e.convertible_debt ?? 0,
+        e.convertible_debt_shares ?? 0,
+        e.non_convertible_debt ?? 0,
+        e.warrants ?? 0,
+        (e.warrant_shares ?? 0).toFixed(2),
+        e.num_of_shares ?? 0,
+        e.latest_cash ?? 0
+    ].join(','));
+    return [header, ...rows].join('\n');
+}
+
+/**
+ * Format selected treasury history entries for IDE copy.
+ * @param {Array} treasuryHistory - Full treasury history array
+ * @param {Set<string>} selectedDates - Set of selected date strings
+ * @returns {string} CSV-formatted string for IDE
+ */
+export function formatSelectedTreasuryForIDE(treasuryHistory, selectedDates) {
+    const header = 'date,num_of_tokens,convertible_debt,convertible_debt_shares,non_convertible_debt,warrants,warrant_shares,num_of_shares,latest_cash';
+    const filtered = treasuryHistory.filter(e => selectedDates.has(e.date));
+    const sorted = [...filtered].sort((a, b) => b.date.localeCompare(a.date));
     const rows = sorted.map(e => [
         e.date,
         (e.num_of_tokens ?? 0).toFixed(2),

@@ -237,6 +237,22 @@ const ST_TICKER_MAP = {
     ABTC: 'ABTC',
 };
 
+// Stock tickers for DATs (used for Artemis API stock price lookup)
+const DAT_STOCK_TICKERS = [
+    'MSTR', 'ASST', 'MTPLF', 'XXI', 'NAKA', 'ABTC',  // BTC
+    'BMNR', 'SBET', 'ETHM', 'BTBT', 'BTCS', 'FGNX', 'ETHZ',  // ETH
+    'FWDI', 'HSDT', 'DFDV', 'UPXI', 'STSS',  // SOL
+    'PURR', 'HYPD',  // HYPE
+    'BNC',  // BNB
+];
+
+// Stock price cache (separate from crypto prices) - uses per-ticker timestamps
+let stockPriceCache = {};  // { ticker: { price, ts } }
+const STOCK_CACHE_TTL = 60 * 60_000; // 1 hour
+
+// Metaplanet price validation: prices under this threshold are likely USD, above are likely JPY
+const MTPLF_USD_PRICE_THRESHOLD = 100;
+
 let stDataCache = null;
 let stCacheTs = 0;
 const ST_CACHE_TTL = 300_000; // 5 minutes
@@ -303,6 +319,34 @@ export async function fetchDATMetrics(ticker) {
         if (val !== undefined) metrics[key] = val;
     }
 
+    // Special handling for MTPLF (Metaplanet): convert JPY to USD
+    // StrategyTracker returns price in JPY for 3350.T (Tokyo Stock Exchange)
+    if (ticker === 'MTPLF' && metrics.sharePrice) {
+        // First try Artemis for direct USD price
+        const artemisPrice = await fetchArtemisStockPrice('MTPLF');
+        if (artemisPrice !== null && artemisPrice > 0 && artemisPrice < MTPLF_USD_PRICE_THRESHOLD) {
+            // Artemis returns USD price directly (should be ~$3-5 range)
+            metrics.sharePrice = artemisPrice;
+        } else if (metrics.sharePrice > MTPLF_USD_PRICE_THRESHOLD) {
+            // Price is likely in JPY (3350 yen = ~$22), convert to USD
+            const jpyRate = await fetchJpyToUsdRate();
+            if (jpyRate !== null) {
+                metrics.sharePrice = metrics.sharePrice * jpyRate;
+            }
+        }
+        // Recalculate mNAV if we have the required data
+        if (metrics.btcHoldings && metrics.sharePrice) {
+            const btcPrice = getCachedPrice('BTC') || await fetchPrice('BTC');
+            const sharesOutstanding = metrics.sharesOutstanding;
+            if (btcPrice && sharesOutstanding) {
+                const navPerShare = (metrics.btcHoldings * btcPrice) / sharesOutstanding;
+                if (navPerShare > 0) {
+                    metrics.mNAV = metrics.sharePrice / navPerShare;
+                }
+            }
+        }
+    }
+
     return Object.keys(metrics).length > 0 ? metrics : null;
 }
 
@@ -338,4 +382,143 @@ export async function fetchAllPrices() {
     }
 
     return results;
+}
+
+/**
+ * Fetch stock price for a DAT ticker via Artemis API.
+ * Artemis supports stock tickers directly.
+ * @param {string} ticker - Stock ticker (e.g., 'MSTR', 'ASST')
+ * @returns {number|null} - Price in USD, or null if unavailable
+ */
+async function fetchArtemisStockPrice(ticker) {
+    if (!ARTEMIS_API_KEY) return null;
+
+    try {
+        const response = await fetch(
+            `https://api.artemis.xyz/asset/${ticker}/metric/price`,
+            { headers: { 'x-artemis-api-key': ARTEMIS_API_KEY } }
+        );
+
+        if (!response.ok) return null;
+        const data = await response.json();
+
+        // Artemis returns { data: { value: number } } or similar
+        if (data && data.data && typeof data.data.value === 'number') {
+            return data.data.value;
+        }
+        if (data && typeof data.price === 'number') {
+            return data.price;
+        }
+    } catch (err) {
+        console.warn(`Artemis stock price failed for ${ticker}:`, err.message);
+    }
+    return null;
+}
+
+/**
+ * Fetch stock price from StrategyTracker CDN as fallback.
+ * @param {string} ticker - Stock ticker
+ * @returns {number|null} - Price in USD, or null if unavailable
+ */
+async function fetchStrategyTrackerStockPrice(ticker) {
+    const stTicker = ST_TICKER_MAP[ticker];
+    if (!stTicker) return null;
+
+    const data = await fetchStrategyTrackerData();
+    if (!data?.companies?.[stTicker]) return null;
+
+    const comp = data.companies[stTicker];
+    const pm = comp.processedMetrics || comp;
+    return pm.stockPrice ?? null;
+}
+
+/**
+ * Fetch stock price for a single ticker with fallback chain.
+ * @param {string} ticker - Stock ticker
+ * @returns {number|null} - Price in USD
+ */
+export async function fetchStockPrice(ticker) {
+    // Check per-ticker cache
+    const cached = stockPriceCache[ticker];
+    if (cached && (Date.now() - cached.ts) < STOCK_CACHE_TTL) {
+        return cached.price;
+    }
+
+    // Fallback chain: Artemis -> StrategyTracker
+    return _fetchWithFallback([
+        { fn: () => fetchArtemisStockPrice(ticker), label: `Artemis stock price failed for ${ticker}` },
+        { fn: () => fetchStrategyTrackerStockPrice(ticker), label: `StrategyTracker price failed for ${ticker}` },
+    ], price => {
+        stockPriceCache[ticker] = { price, ts: Date.now() };
+    });
+}
+
+/**
+ * Fetch stock prices for all DAT tickers.
+ * @returns {Object} - Map of ticker to price in USD
+ */
+export async function fetchAllStockPrices() {
+    const results = {};
+    const now = Date.now();
+
+    // Try to get from StrategyTracker first (batch fetch)
+    const stData = await fetchStrategyTrackerData();
+    if (stData?.companies) {
+        for (const ticker of DAT_STOCK_TICKERS) {
+            const stTicker = ST_TICKER_MAP[ticker] || ticker;
+            const comp = stData.companies[stTicker];
+            if (comp) {
+                const pm = comp.processedMetrics || comp;
+                if (typeof pm.stockPrice === 'number') {
+                    results[ticker] = pm.stockPrice;
+                    stockPriceCache[ticker] = { price: pm.stockPrice, ts: now };
+                }
+            }
+        }
+    }
+
+    // For tickers not found, try Artemis individually
+    for (const ticker of DAT_STOCK_TICKERS) {
+        if (results[ticker] === undefined && ARTEMIS_API_KEY) {
+            const price = await fetchArtemisStockPrice(ticker);
+            if (price !== null) {
+                results[ticker] = price;
+                stockPriceCache[ticker] = { price, ts: now };
+            }
+        }
+    }
+
+    return results;
+}
+
+/**
+ * Get cached stock price synchronously.
+ * @param {string} ticker - Stock ticker
+ * @returns {number|null}
+ */
+export function getCachedStockPrice(ticker) {
+    const cached = stockPriceCache[ticker];
+    if (cached && (Date.now() - cached.ts) < STOCK_CACHE_TTL) {
+        return cached.price;
+    }
+    return null;
+}
+
+/**
+ * Fetch JPY to USD exchange rate for Metaplanet conversion.
+ * @returns {number|null} - Exchange rate (USD per JPY)
+ */
+async function fetchJpyToUsdRate() {
+    try {
+        // Use a free exchange rate API
+        const response = await fetch('https://api.exchangerate-api.com/v4/latest/JPY');
+        if (response.ok) {
+            const data = await response.json();
+            return data.rates?.USD ?? null;
+        }
+    } catch (err) {
+        console.warn('JPY/USD exchange rate fetch failed:', err.message);
+    }
+    // Fallback: approximate rate
+    return 0.0066; // ~150 JPY per USD
 }

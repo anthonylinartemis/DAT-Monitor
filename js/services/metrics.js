@@ -8,14 +8,15 @@
  * @param {Object} company - Company object from data-store
  * @param {number} tokenPrice - Current token price (e.g., BTC price)
  * @param {number} sharePrice - Current share price (from StrategyTracker)
+ * @param {Object} externalMetrics - Optional external metrics (mNAV, marketCap, etc.)
  * @returns {Object} Calculated metrics object
  */
-export function calculateDATMetrics(company, tokenPrice, sharePrice) {
+export function calculateDATMetrics(company, tokenPrice, sharePrice, externalMetrics = {}) {
     const latest = company.treasury_history?.[0] || {};
 
-    // Core values
+    // Core values with fallback chain
     const tokens = latest.num_of_tokens || company.tokens || 0;
-    const shares = latest.num_of_shares || 0;
+    const shares = latest.num_of_shares || externalMetrics.sharesOutstanding || 0;
     const cash = latest.latest_cash || 0;
     const convDebt = latest.convertible_debt || 0;
     const nonConvDebt = latest.non_convertible_debt || 0;
@@ -25,11 +26,32 @@ export function calculateDATMetrics(company, tokenPrice, sharePrice) {
     const tokenReserve = tokens * (tokenPrice || 0);
     const nav = tokenReserve + cash - totalDebt;
     const navPerShare = shares > 0 ? nav / shares : 0;
-    const mNAV = (sharePrice && navPerShare > 0) ? sharePrice / navPerShare : null;
+
+    // Enhanced mNAV calculation with priority:
+    // 1. External mNAV from StrategyTracker (most reliable)
+    // 2. Calculated from market cap: marketCap / NAV
+    // 3. Calculated from share price: sharePrice / navPerShare
+    let mNAV = null;
+    if (externalMetrics.mNAV && typeof externalMetrics.mNAV === 'number' && externalMetrics.mNAV > 0) {
+        // Priority 1: Use external mNAV directly
+        mNAV = externalMetrics.mNAV;
+    } else if (externalMetrics.marketCap && nav > 0) {
+        // Priority 2: Calculate from market cap
+        mNAV = externalMetrics.marketCap / nav;
+    } else if (sharePrice && navPerShare > 0) {
+        // Priority 3: Calculate from share price
+        mNAV = sharePrice / navPerShare;
+    }
+
+    // Handle edge cases: mNAV should be positive and reasonable
+    if (mNAV !== null && (mNAV <= 0 || mNAV > 100 || !Number.isFinite(mNAV))) {
+        mNAV = null;
+    }
+
     const netLeverage = tokenReserve > 0 ? ((totalDebt - cash) / tokenReserve * 100) : 0;
 
-    // Get avg cost basis from transactions if available
-    const avgCostBasis = company.transactions?.[0]?.avgCostBasis || 0;
+    // Get avg cost basis from transactions or external metrics (use ?? for numeric fallback)
+    const avgCostBasis = company.transactions?.[0]?.avgCostBasis ?? externalMetrics.avgCostPerBtc ?? 0;
 
     return {
         // Token metrics

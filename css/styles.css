@@ -1050,3 +1050,34 @@ a.ticker:hover { opacity: 0.8; }
     font-size: 12px;
     color: var(--text-secondary);
 }
+
+/* ============================================
+   TREASURY ROW SELECTION
+   ============================================ */
+.treasury-row-selected {
+    background: var(--purple-bg) !important;
+}
+.treasury-row-selected:hover {
+    background: var(--purple-bg-hover) !important;
+}
+.treasury-checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--purple);
+}
+.treasury-checkbox-header {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--purple);
+}
+.btn-danger {
+    background: var(--red-bg);
+    color: var(--red);
+    border: 1px solid rgba(255, 80, 0, 0.2);
+}
+.btn-danger:hover {
+    background: rgba(255, 80, 0, 0.15);
+    border-color: rgba(255, 80, 0, 0.3);
+}

@@ -22,9 +22,17 @@ function renderFlashcard(key, value, tokenSymbol) {
     if (key === 'tokenPrice' || key === 'tokenCount' || key === 'tokenReserve') {
         valueClass = `flashcard-value-token flashcard-value-${tokenSymbol.toLowerCase()}`;
     } else if (key === 'mNAV' && value !== null) {
-        valueClass = value > 1 ? 'flashcard-value-positive' : value < 1 ? 'flashcard-value-negative' : '';
+        if (value > 1) {
+            valueClass = 'flashcard-value-positive';
+        } else if (value < 1) {
+            valueClass = 'flashcard-value-negative';
+        }
     } else if (key === 'netLeverage' && value !== null) {
-        valueClass = value < 0 ? 'flashcard-value-positive' : value > 30 ? 'flashcard-value-negative' : '';
+        if (value < 0) {
+            valueClass = 'flashcard-value-positive';
+        } else if (value > 30) {
+            valueClass = 'flashcard-value-negative';
+        }
     }
 
     return `
@@ -44,13 +52,11 @@ function renderFlashcard(key, value, tokenSymbol) {
  * @returns {string} HTML string
  */
 export function renderMetricsFlashcards(company, tokenPrice, sharePrice, externalMetrics = {}) {
-    const metrics = calculateDATMetrics(company, tokenPrice, sharePrice);
+    // Pass external metrics to calculateDATMetrics for enhanced calculation
+    const metrics = calculateDATMetrics(company, tokenPrice, sharePrice, externalMetrics);
 
-    // Override with external metrics if available (StrategyTracker has more accurate mNAV)
-    if (externalMetrics.mNAV !== undefined && externalMetrics.mNAV !== null) {
-        metrics.mNAV = externalMetrics.mNAV;
-    }
-    if (externalMetrics.sharePrice !== undefined) {
+    // Override share price if external is more recent
+    if (externalMetrics.sharePrice !== undefined && externalMetrics.sharePrice > 0) {
         metrics.sharePrice = externalMetrics.sharePrice;
     }
     if (externalMetrics.marketCap !== undefined) {

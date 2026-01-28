@@ -91,6 +91,12 @@
       "keywords": [
         "bitcoin",
         "btc"
+      ],
+      "holdingsKeywords": [
+        "BTC Holdings",
+        "Bitcoin Holdings",
+        "Total BTC",
+        "BTC Count"
       ]
     },
     "ETH": {
@@ -101,6 +107,12 @@
         "ethereum",
         "ether",
         "eth"
+      ],
+      "holdingsKeywords": [
+        "ETH Holdings",
+        "Ethereum Holdings",
+        "Total ETH",
+        "ETH Count"
       ]
     },
     "SOL": {
@@ -110,6 +122,12 @@
       "keywords": [
         "solana",
         "sol"
+      ],
+      "holdingsKeywords": [
+        "SOL Count",
+        "SOL Holdings",
+        "Total SOL",
+        "Solana Holdings"
       ]
     },
     "HYPE": {
@@ -119,6 +137,12 @@
       "keywords": [
         "hyperliquid",
         "hype"
+      ],
+      "holdingsKeywords": [
+        "HYPE Holdings",
+        "Hyperliquid Holdings",
+        "Total HYPE",
+        "HYPE Count"
       ]
     },
     "BNB": {
@@ -129,6 +153,11 @@
         "bnb",
         "binance coin",
         "binance"
+      ],
+      "holdingsKeywords": [
+        "BNB Holdings",
+        "Total BNB",
+        "BNB Count"
       ]
     }
   },
@@ -147,7 +176,7 @@
         "alertUrl": "https://www.strategy.com/purchases",
         "alertDate": "2026-01-28",
         "alertNote": "712,647 BTC (+2,932). 8-K filing Jan 26",
-        "lastSecUpdate": "2026-01-28"
+        "lastSecUpdate": "2026-01-28",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
