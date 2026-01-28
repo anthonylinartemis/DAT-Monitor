@@ -3,6 +3,38 @@
   "lastUpdatedDisplay": "Jan 27, 2026 02:33 PM ET",
   "recentChanges": [
     {
+      "ticker": "BNC",
+      "token": "BNB",
+      "date": "2026-01-28",
+      "tokens": 515054,
+      "change": 0,
+      "summary": "BNC holds 515,054 BNB in treasury. Source: https://ceaindustries.com/data.js"
+    },
+    {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "date": "2026-01-28",
+      "tokens": 712647,
+      "change": 0,
+      "summary": "MSTR holds 712,647 Bitcoin in treasury. Share price: $157.86, mNAV: 0.90x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-01-28",
+      "tokens": 13131,
+      "change": 0,
+      "summary": "ASST holds 13,131 Bitcoin in treasury. Share price: $0.80, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-01-28",
+      "tokens": 35102,
+      "change": 0,
+      "summary": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 35,102 BTC. Source: https://metaplanet.jp/en/analytics"
+    },
+    {
       "ticker": "MSTR",
       "token": "BTC",
       "date": "2026-01-28",
@@ -49,38 +81,6 @@
       "tokens": 40088,
       "change": 0,
       "summary": "40,088 ETH. 8-K filing Jan 21"
-    },
-    {
-      "ticker": "SBET",
-      "token": "ETH",
-      "date": "2026-01-20",
-      "tokens": 865797,
-      "change": 957,
-      "summary": "865,797 ETH (+957). Live dashboard update"
-    },
-    {
-      "ticker": "STSS",
-      "token": "SOL",
-      "date": "2026-01-16",
-      "tokens": 2000000,
-      "change": 0,
-      "summary": "2M SOL. Coinbase validator partnership. 8-K filing Jan 16"
-    },
-    {
-      "ticker": "HYPD",
-      "token": "HYPE",
-      "date": "2026-01-12",
-      "tokens": 1427178,
-      "change": 0,
-      "summary": "1.43M HYPE. CEO shareholder letter - 2026 strategy"
-    },
-    {
-      "ticker": "BTCS",
-      "token": "ETH",
-      "date": "2026-01-07",
-      "tokens": 70500,
-      "change": 178,
-      "summary": "70,500 ETH (+178). Record $16M revenue 2025"
     }
   ],
   "tokenConfig": {
@@ -173,9 +173,9 @@
         "cik": "0001050446",
         "irUrl": "https://www.strategy.com/investor-relations",
         "dashboardUrl": "https://www.strategy.com/purchases",
-        "alertUrl": "https://www.strategy.com/purchases",
+        "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-01-28",
-        "alertNote": "712,647 BTC (+2,932). 8-K filing Jan 26",
+        "alertNote": "MSTR holds 712,647 Bitcoin in treasury. Share price: $157.86, mNAV: 0.90x. Source: https://treasury.",
         "lastSecUpdate": "2026-01-28",
         "scrape_config": {
           "method": "sec_edgar",
@@ -278,15 +278,20 @@
           {
             "url": "https://treasury.strive.com/?tab=home",
             "date": "2026-01-28",
+            "note": "MSTR holds 712,647 Bitcoin in treasury. Share price: $157.86, mNAV: 0.90x. Source: https://treasury."
+          },
+          {
+            "url": "https://treasury.strive.com/?tab=home",
+            "date": "2026-01-28",
             "note": "MSTR holds 712,647 Bitcoin in treasury. Share price: $160.61, mNAV: 0.92x. Source: https://treasury."
           }
         ],
         "analytics": {
           "totalBtc": 712647.0,
-          "sharePrice": 160.61,
-          "mNAV": 0.9190823071396783,
+          "sharePrice": 157.86,
+          "mNAV": 0.9042074591268046,
           "btcYieldYtd": 0.3610534143652076,
-          "marketCap": 53282046280.00001
+          "marketCap": 52369739280.00001
         }
       },
       {
@@ -335,14 +340,19 @@
             "url": "https://metaplanet.jp/en/analytics",
             "date": "2026-01-28",
             "note": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 35,102 BTC. Source: https://metaplane"
+          },
+          {
+            "url": "https://metaplanet.jp/en/analytics",
+            "date": "2026-01-28",
+            "note": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 35,102 BTC. Source: https://metaplane"
           }
         ],
         "analytics": {
           "totalBtc": 35102.0,
           "sharePrice": 475.0,
-          "mNAV": 1.4336607745427916,
+          "mNAV": 1.4426944151796535,
           "btcYieldYtd": 0.0,
-          "marketCap": 3530174003.303105
+          "marketCap": 3535670341.8586
         }
       },
       {
@@ -350,7 +360,7 @@
         "name": "Strive",
         "tokens": 13131,
         "lastUpdate": "2026-01-28",
-        "change": 5504,
+        "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
         "dashboardUrl": "https://treasury.strive.com/",
@@ -365,9 +375,14 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-01-28",
-        "alertNote": "ASST holds 13,131 Bitcoin in treasury. Share price: $0.80, mNAV: 0.86x. Source: https://treasury.str",
+        "alertNote": "ASST holds 13,131 Bitcoin in treasury. Share price: $0.80, mNAV: 0.87x. Source: https://treasury.str",
         "lastSecUpdate": "2026-01-28",
         "filings": [
+          {
+            "url": "https://treasury.strive.com/?tab=home",
+            "date": "2026-01-28",
+            "note": "ASST holds 13,131 Bitcoin in treasury. Share price: $0.80, mNAV: 0.87x. Source: https://treasury.str"
+          },
           {
             "url": "https://treasury.strive.com/?tab=home",
             "date": "2026-01-28",
@@ -376,10 +391,10 @@
         ],
         "analytics": {
           "totalBtc": 13131.8,
-          "sharePrice": 0.8003,
-          "mNAV": 0.8638144595869127,
+          "sharePrice": 0.804,
+          "mNAV": 0.8719187076667502,
           "btcYieldYtd": 21.386603995299648,
-          "marketCap": 998323682.2442
+          "marketCap": 1002939198.4560001
         }
       },
       {
@@ -694,7 +709,7 @@
         "ticker": "BNC",
         "name": "CEA Industries",
         "tokens": 515054,
-        "lastUpdate": "2025-12-01",
+        "lastUpdate": "2026-01-28",
         "change": 0,
         "cik": "0001482541",
         "irUrl": "https://ceaindustries.com/investors.html",
@@ -706,7 +721,22 @@
           "target_regex": "totalHoldings:\\s*(\\d+)"
         },
         "status": "ok",
-        "lastChecked": "2026-01-27T19:33:08.261745"
+        "lastChecked": "2026-01-27T19:33:08.261745",
+        "alertUrl": "https://ceaindustries.com/data.js",
+        "alertDate": "2026-01-28",
+        "alertNote": "BNC holds 515,054 BNB in treasury. Source: https://ceaindustries.com/data.js",
+        "lastSecUpdate": "2026-01-28",
+        "filings": [
+          {
+            "url": "https://ceaindustries.com/data.js",
+            "date": "2026-01-28",
+            "note": "BNC holds 515,054 BNB in treasury. Source: https://ceaindustries.com/data.js"
+          }
+        ],
+        "analytics": {
+          "totalBnb": 515054,
+          "avgCostBasis": 851.29
+        }
       }
     ]
   },
