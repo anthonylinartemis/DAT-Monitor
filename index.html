@@ -104,7 +104,7 @@
         .stat-card.bnb .stat-value { color: var(--bnb); }
 
         /* === FILTER TABS === */
-        .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
+        .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; padding: 0 4px; }
         .tabs { display: flex; gap: 4px; background: var(--bg-secondary); padding: 4px; border-radius: 8px; border: 1px solid var(--border); }
         .tab { 
             padding: 7px 14px; 
@@ -217,6 +217,437 @@
         }
         .footer a { color: var(--accent); text-decoration: none; }
         .footer a:hover { text-decoration: underline; }
+
+        /* === FILING FEED === */
+        .filing-feed {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .filing-feed-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border);
+        }
+        .filing-feed-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        .filing-feed-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .filing-feed-filter {
+            margin-left: auto;
+        }
+        .filing-feed-filter select {
+            padding: 6px 10px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-size: 11px;
+            cursor: pointer;
+        }
+        .filing-feed-list {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .filing-feed-empty {
+            padding: 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+        .filing-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.15s;
+        }
+        .filing-item:last-child {
+            border-bottom: none;
+        }
+        .filing-item:hover {
+            background: rgba(255,255,255,0.02);
+        }
+        .filing-item.is-new {
+            background: rgba(249,115,22,0.05);
+        }
+        .filing-item-left {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            min-width: 180px;
+        }
+        .filing-new-badge {
+            padding: 2px 6px;
+            background: var(--orange);
+            border-radius: 3px;
+            font-size: 9px;
+            font-weight: 700;
+            color: white;
+            animation: blink 1.8s infinite;
+        }
+        .filing-ticker {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .filing-ticker.btc { background: rgba(247,147,26,0.12); color: var(--btc); }
+        .filing-ticker.eth { background: rgba(98,126,234,0.12); color: var(--eth); }
+        .filing-ticker.sol { background: rgba(153,69,255,0.12); color: var(--sol); }
+        .filing-ticker.hype { background: rgba(0,211,149,0.12); color: var(--hype); }
+        .filing-ticker.bnb { background: rgba(240,185,11,0.12); color: var(--bnb); }
+        .filing-type {
+            font-size: 10px;
+            color: var(--text-muted);
+            padding: 2px 6px;
+            background: var(--bg-tertiary);
+            border-radius: 3px;
+        }
+        .filing-date {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .filing-item-center {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filing-summary {
+            font-size: 12px;
+            color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 400px;
+        }
+        .filing-change {
+            font-size: 11px;
+            font-family: 'JetBrains Mono', monospace;
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
+        .filing-change.positive {
+            background: rgba(34,197,94,0.12);
+            color: var(--green);
+        }
+        .filing-change.negative {
+            background: rgba(239,68,68,0.12);
+            color: var(--red);
+        }
+        .filing-item-right {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filing-link {
+            padding: 4px 10px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--accent);
+            font-size: 11px;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+        .filing-link:hover {
+            background: rgba(167,139,250,0.1);
+        }
+        .filing-ai-btn {
+            padding: 4px 8px;
+            background: linear-gradient(135deg, var(--accent-dark), var(--accent));
+            border: none;
+            border-radius: 4px;
+            color: white;
+            font-size: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.15s;
+        }
+        .filing-ai-btn:hover {
+            opacity: 0.9;
+        }
+        .filing-ai-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* === AI SUMMARY POPUP === */
+        .ai-summary-popup {
+            position: fixed;
+            z-index: 1000;
+            width: 320px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        .ai-summary-popup-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 14px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border);
+            border-radius: 10px 10px 0 0;
+        }
+        .ai-summary-popup-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+        .ai-summary-popup-close {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 18px;
+            cursor: pointer;
+            padding: 0;
+            line-height: 1;
+        }
+        .ai-summary-popup-close:hover {
+            color: var(--text-primary);
+        }
+        .ai-summary-popup-content {
+            padding: 14px;
+            font-size: 12px;
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+
+        /* === SECTOR PULSE === */
+        .sector-pulse {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .sector-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+        }
+        .sector-card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        .sector-token {
+            font-size: 12px;
+            font-weight: 600;
+        }
+        .sector-token.btc { color: var(--btc); }
+        .sector-token.eth { color: var(--eth); }
+        .sector-token.sol { color: var(--sol); }
+        .sector-token.hype { color: var(--hype); }
+        .sector-token.bnb { color: var(--bnb); }
+        .sector-count {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .sector-activity {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+        .sector-activity.has-change {
+            color: var(--green);
+        }
+
+        /* === V2 DASHBOARD LAYOUT === */
+        .dashboard-hero {
+            margin-bottom: 24px;
+        }
+        .dashboard-hero .filing-feed {
+            border-radius: 16px;
+            border-width: 2px;
+        }
+        .dashboard-hero .filing-feed-header {
+            padding: 18px 20px;
+        }
+        .dashboard-hero .filing-feed-title {
+            font-size: 16px;
+        }
+        .dashboard-hero .filing-feed-list {
+            max-height: 400px;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+        @media (max-width: 900px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .recent-activity-panel,
+        .sector-summary-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        .panel-header {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            padding: 14px 16px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border);
+        }
+        .panel-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        .panel-subtitle {
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+
+        .recent-activity-list {
+            max-height: 280px;
+            overflow-y: auto;
+        }
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
+            transition: background 0.15s;
+        }
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+        .activity-item:hover {
+            background: rgba(255,255,255,0.02);
+        }
+        .activity-ticker {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+            min-width: 50px;
+            text-align: center;
+        }
+        .activity-ticker.btc { background: rgba(247,147,26,0.12); color: var(--btc); }
+        .activity-ticker.eth { background: rgba(98,126,234,0.12); color: var(--eth); }
+        .activity-ticker.sol { background: rgba(153,69,255,0.12); color: var(--sol); }
+        .activity-ticker.hype { background: rgba(0,211,149,0.12); color: var(--hype); }
+        .activity-ticker.bnb { background: rgba(240,185,11,0.12); color: var(--bnb); }
+        .activity-info {
+            flex: 1;
+        }
+        .activity-name {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+        .activity-date {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+        .activity-change {
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .activity-change.positive {
+            color: var(--green);
+        }
+        .activity-change.negative {
+            color: var(--red);
+        }
+        .activity-empty {
+            padding: 32px 16px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .sector-summary-panel .sector-pulse {
+            margin: 0;
+            padding: 12px;
+            gap: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+        .sector-summary-panel .sector-card {
+            background: var(--bg-tertiary);
+            padding: 12px 14px;
+            border-radius: 8px;
+        }
+
+        /* Stats details (collapsible) */
+        .stats-details {
+            margin-bottom: 24px;
+        }
+        .stats-summary {
+            padding: 12px 16px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-muted);
+            font-size: 12px;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+        .stats-summary:hover {
+            background: var(--bg-tertiary);
+            color: var(--text-secondary);
+        }
+        .stats-details[open] .stats-summary {
+            border-radius: 8px 8px 0 0;
+            border-bottom: none;
+        }
+        .stats-details .stats-row {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+            padding: 12px;
+            margin-bottom: 0;
+        }
+
+        /* Holdings section */
+        .holdings-section {
+            margin-bottom: 24px;
+        }
+        .section-title {
+            font-size: 16px;
+            font-weight: 600;
+            margin: 0;
+            margin-right: 16px;
+        }
+        .toolbar-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
     </style>
 </head>
 <body>
@@ -242,36 +673,66 @@
     </header>
 
     <main class="main">
-        <!-- Stats Row -->
-        <div class="stats-row" id="statsRow"></div>
+        <!-- V2 Hero Section: Filing Feed -->
+        <section class="dashboard-hero">
+            <div id="filingFeed"></div>
+        </section>
 
-        <!-- Toolbar -->
-        <div class="toolbar">
-            <div class="tabs" id="tabs"></div>
-            <div class="toolbar-right">
-                <span class="company-count" id="companyCount">21 companies</span>
+        <!-- V2 Two-Column Layout: Recent Activity + Sector Summary -->
+        <section class="dashboard-grid">
+            <div class="recent-activity-panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">Recent Activity</h3>
+                    <span class="panel-subtitle">Token purchases this week</span>
+                </div>
+                <div class="recent-activity-list" id="recentActivity"></div>
             </div>
-        </div>
+            <div class="sector-summary-panel">
+                <div class="panel-header">
+                    <h3 class="panel-title">Sector Summary</h3>
+                    <span class="panel-subtitle">DAT holdings by token</span>
+                </div>
+                <div class="sector-pulse" id="sectorPulse"></div>
+            </div>
+        </section>
 
-        <!-- Table -->
-        <div class="table-container">
-            <div class="table-scroll">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Company</th>
-                            <th class="right">Holdings</th>
-                            <th class="right">Change</th>
-                            <th class="center">Updated</th>
-                            <th class="center">Alert</th>
-                            <th class="center">SEC</th>
-                            <th class="center">IR</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody"></tbody>
-                </table>
+        <!-- Collapsible Stats (de-emphasized) -->
+        <details class="stats-details">
+            <summary class="stats-summary">View Token Totals</summary>
+            <div class="stats-row" id="statsRow"></div>
+        </details>
+
+        <!-- Holdings Table -->
+        <section class="holdings-section">
+            <div class="toolbar">
+                <div class="toolbar-left">
+                    <h3 class="section-title">Holdings Overview</h3>
+                    <div class="tabs" id="tabs"></div>
+                </div>
+                <div class="toolbar-right">
+                    <span class="company-count" id="companyCount">21 companies</span>
+                </div>
             </div>
-        </div>
+
+            <div class="table-container">
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Company</th>
+                                <th class="right">Holdings</th>
+                                <th class="right">Change</th>
+                                <th class="center">Updated</th>
+                                <th class="center">Alert</th>
+                                <th class="center">SEC</th>
+                                <th class="center">IR</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="footer">
@@ -418,12 +879,127 @@
             renderTable();
         }
 
+        function renderSectorPulse() {
+            const pulseEl = document.getElementById('sectorPulse');
+            if (!pulseEl) return;
+
+            pulseEl.innerHTML = TOKENS.map(token => {
+                const list = DATA.companies[token] || [];
+                const totalChange = list.reduce((s, c) => s + (c.change || 0), 0);
+                const totalHoldings = list.reduce((s, c) => s + (c.tokens || 0), 0);
+                const recentChanges = list.filter(c => c.change !== 0 && isRecent(c.lastUpdate, 7));
+
+                let activityText = 'No changes';
+                let activityClass = '';
+                if (totalChange > 0) {
+                    activityText = `+${formatNum(totalChange)} this week`;
+                    activityClass = 'has-change';
+                } else if (recentChanges.length > 0) {
+                    activityText = `${recentChanges.length} update${recentChanges.length > 1 ? 's' : ''} this week`;
+                }
+
+                return `
+                    <div class="sector-card">
+                        <div class="sector-card-header">
+                            <span class="sector-token ${token.toLowerCase()}">${TOKEN_LABELS[token]}</span>
+                            <span class="sector-count">${list.length} DATs</span>
+                        </div>
+                        <div class="sector-holdings mono" style="font-size: 18px; font-weight: 600; margin: 4px 0; color: var(--${token.toLowerCase()});">
+                            ${formatCompact(totalHoldings)}
+                        </div>
+                        <div class="sector-activity ${activityClass}">${activityText}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderRecentActivity() {
+            const activityEl = document.getElementById('recentActivity');
+            if (!activityEl) return;
+
+            // Get all companies with recent changes
+            const recentChanges = [];
+            TOKENS.forEach(token => {
+                const list = DATA.companies[token] || [];
+                list.forEach(company => {
+                    if (company.change !== 0 && isRecent(company.lastUpdate, 14)) {
+                        recentChanges.push({
+                            ...company,
+                            token: token
+                        });
+                    }
+                });
+            });
+
+            // Sort by date (most recent first)
+            recentChanges.sort((a, b) => new Date(b.lastUpdate) - new Date(a.lastUpdate));
+
+            if (recentChanges.length === 0) {
+                activityEl.innerHTML = `
+                    <div class="activity-empty">
+                        No token purchases in the last 14 days
+                    </div>
+                `;
+                return;
+            }
+
+            activityEl.innerHTML = recentChanges.slice(0, 10).map(c => {
+                const changeClass = c.change > 0 ? 'positive' : 'negative';
+                const changePrefix = c.change > 0 ? '+' : '';
+                const dateFormatted = formatRelativeDate(c.lastUpdate);
+
+                return `
+                    <div class="activity-item">
+                        <span class="activity-ticker ${c.token.toLowerCase()}">${escapeHtml(c.ticker)}</span>
+                        <div class="activity-info">
+                            <div class="activity-name">${escapeHtml(c.name)}</div>
+                            <div class="activity-date">${dateFormatted}</div>
+                        </div>
+                        <span class="activity-change ${changeClass}">
+                            ${changePrefix}${formatNum(c.change)} ${c.token}
+                        </span>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function formatRelativeDate(dateStr) {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            const now = new Date();
+            const diffDays = Math.floor((now - date) / (24 * 60 * 60 * 1000));
+
+            if (diffDays === 0) return 'Today';
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+            if (diffDays < 14) return 'Last week';
+            return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+
         function render() {
             // Use textContent for safe assignment (XSS protection)
             document.getElementById('lastUpdated').textContent = `Updated: ${DATA.lastUpdatedDisplay || 'Unknown'}`;
+
+            // V2 Dashboard Components
+            renderRecentActivity();
+            renderSectorPulse();
             renderStats();
             renderTabs();
             renderTable();
+
+            // Initialize Filing Feed if available
+            if (typeof FilingFeed !== 'undefined') {
+                FilingFeed.init('filingFeed', DATA);
+            }
+
+            // Initialize AI Summary service if available
+            if (typeof AISummary !== 'undefined') {
+                AISummary.init({
+                    // API endpoint would be configured here
+                    // apiEndpoint: 'https://api.anthropic.com/v1/messages',
+                    // apiKey: 'your-api-key'
+                });
+            }
         }
 
         // Load data from data.json, fallback to embedded
@@ -445,5 +1021,9 @@
 
         init();
     </script>
+
+    <!-- V2 Components -->
+    <script src="js/services/ai-summary.js"></script>
+    <script src="js/views/filing-feed.js"></script>
 </body>
 </html>
