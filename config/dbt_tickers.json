@@ -1,0 +1,137 @@
+{
+  "$schema": "./dbt_tickers.schema.json",
+  "description": "Configuration for dbt-main sync. Maps DAT Monitor tickers to dbt seed files.",
+  "version": "1.0.0",
+  "dbt_paths": {
+    "seeds": "~/code/dbt-main/seeds/digital_asset_treasury",
+    "models": "~/code/dbt-main/models/equities/digital_asset_treasury"
+  },
+  "tickers": {
+    "MSTR": {
+      "enabled": true,
+      "output_file": "mstr_datadump.csv",
+      "token": "BTC",
+      "notes": "MicroStrategy - largest BTC corporate holder"
+    },
+    "MTPLF": {
+      "enabled": true,
+      "output_file": "mtplf_datadump.csv",
+      "token": "BTC",
+      "notes": "Metaplanet"
+    },
+    "XXI": {
+      "enabled": true,
+      "output_file": "xxi_datadump.csv",
+      "token": "BTC",
+      "notes": "Twenty One Capital"
+    },
+    "NAKA": {
+      "enabled": true,
+      "output_file": "naka_datadump.csv",
+      "token": "BTC",
+      "notes": "Nakamoto Holdings"
+    },
+    "ASST": {
+      "enabled": true,
+      "output_file": "asst_datadump.csv",
+      "token": "BTC",
+      "notes": "Asset Entities"
+    },
+    "ABTC": {
+      "enabled": true,
+      "output_file": "abtc_datadump.csv",
+      "token": "BTC",
+      "notes": "Ability BTC"
+    },
+    "BMNR": {
+      "enabled": true,
+      "output_file": "bmnr_datadump.csv",
+      "token": "ETH",
+      "notes": "Bitmonero"
+    },
+    "SBET": {
+      "enabled": true,
+      "output_file": "sbet_datadump.csv",
+      "token": "ETH",
+      "notes": "SharpLink Gaming"
+    },
+    "ETHM": {
+      "enabled": true,
+      "output_file": "ethm_datadump.csv",
+      "token": "ETH",
+      "notes": "Ethereum Meta"
+    },
+    "BTBT": {
+      "enabled": true,
+      "output_file": "btbt_datadump.csv",
+      "token": "ETH",
+      "notes": "Bit Digital"
+    },
+    "BTCS": {
+      "enabled": true,
+      "output_file": "btcs_datadump.csv",
+      "token": "ETH",
+      "notes": "BTCS Inc"
+    },
+    "FGNX": {
+      "enabled": true,
+      "output_file": "fgnx_datadump.csv",
+      "token": "ETH",
+      "notes": "Faraday"
+    },
+    "ETHZ": {
+      "enabled": true,
+      "output_file": "ethz_datadump.csv",
+      "token": "ETH",
+      "notes": "Ether Capital"
+    },
+    "FWDI": {
+      "enabled": true,
+      "output_file": "fwdi_datadump.csv",
+      "token": "SOL",
+      "notes": "Forward Industries"
+    },
+    "HSDT": {
+      "enabled": true,
+      "output_file": "hsdt_datadump.csv",
+      "token": "SOL",
+      "notes": "Helius Digital"
+    },
+    "DFDV": {
+      "enabled": true,
+      "output_file": "dfdv_datadump.csv",
+      "token": "SOL",
+      "notes": "DeFi Development"
+    },
+    "UPXI": {
+      "enabled": true,
+      "output_file": "upxi_datadump.csv",
+      "token": "SOL",
+      "notes": "Upexi"
+    },
+    "STSS": {
+      "enabled": true,
+      "output_file": "stss_datadump.csv",
+      "token": "SOL",
+      "notes": "Sharps Technology"
+    },
+    "PURR": {
+      "enabled": true,
+      "output_file": "purr_datadump.csv",
+      "token": "HYPE",
+      "notes": "Purrfect Capital"
+    },
+    "HYPD": {
+      "enabled": true,
+      "output_file": "hypd_datadump.csv",
+      "token": "HYPE",
+      "notes": "Hyperion DeFi"
+    },
+    "BNC": {
+      "enabled": true,
+      "output_file": "bnc_datadump.csv",
+      "token": "BNB",
+      "notes": "BNC Capital"
+    }
+  }
+}

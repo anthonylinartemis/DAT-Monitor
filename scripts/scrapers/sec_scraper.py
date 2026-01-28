@@ -249,15 +249,77 @@ class SECScraper(BaseScraper):
 
         return None
 
+    def _has_sell_language(self, text: str) -> bool:
+        """
+        Check if document contains explicit sell/disposal language.
+
+        Returns True only if there's clear indication of selling tokens.
+        This prevents false decreases from misinterpreting "previous holdings" numbers.
+        """
+        text_lower = text.lower()
+        keywords = self.get_keywords()
+
+        # Sell/disposal keywords that must appear near our token
+        sell_keywords = [
+            "sold", "selling", "sale of", "disposed", "disposing",
+            "liquidated", "liquidating", "divested", "reduced holdings",
+            "decreased holdings", "sold off"
+        ]
+
+        for sell_word in sell_keywords:
+            if sell_word in text_lower:
+                # Check if sell word is near our token keyword
+                for kw in keywords:
+                    # Look for sell word within 100 chars of token keyword
+                    pattern = rf'{sell_word}.{{0,100}}{kw}|{kw}.{{0,100}}{sell_word}'
+                    if re.search(pattern, text_lower):
+                        return True
+
+        return False
+
+    def _extract_from_to_pattern(self, text: str) -> tuple[int, int] | None:
+        """
+        Look for "from X to Y" patterns that indicate previous and new holdings.
+
+        Returns (previous, new) tuple if found, None otherwise.
+        Examples:
+          - "from 687,410 to 709,715 bitcoin"
+          - "increased from 687,410 bitcoin to 709,715"
+        """
+        text_lower = text.lower()
+        keywords = self.get_keywords()
+
+        for kw in keywords:
+            # Pattern: "from X to Y <keyword>" or "from X <keyword> to Y"
+            patterns = [
+                rf'from\s+(\d[\d,]*)\s+to\s+(\d[\d,]*)\s+{kw}',
+                rf'from\s+(\d[\d,]*)\s+{kw}\s+to\s+(\d[\d,]*)',
+                rf'{kw}\s+from\s+(\d[\d,]*)\s+to\s+(\d[\d,]*)',
+                rf'(\d[\d,]*)\s+{kw}\s+to\s+(\d[\d,]*)\s+{kw}',
+            ]
+
+            for pattern in patterns:
+                match = re.search(pattern, text_lower)
+                if match:
+                    try:
+                        prev_val = int(match.group(1).replace(",", ""))
+                        new_val = int(match.group(2).replace(",", ""))
+                        if self.is_valid_holdings_amount(prev_val) and self.is_valid_holdings_amount(new_val):
+                            return (prev_val, new_val)
+                    except (ValueError, IndexError):
+                        continue
+
+        return None
+
     def _find_holdings_in_text(self, text: str) -> Optional[int]:
         """
         Find token holdings in text using multiple strategies.
 
-        Uses keyword configuration for improved detection:
-        - ACTION_KEYWORDS: Verbs indicating trade events
-        - ASSET_KEYWORDS: Token-specific terms
-        - STRATEGY_KEYWORDS: DAT/treasury terminology
-        - METRIC_ANCHORS: Quantitative context phrases
+        Key improvements:
+        - Collects ALL candidate numbers instead of returning on first match
+        - Detects "from X to Y" patterns to identify previous vs current holdings
+        - Requires explicit sell language before allowing holdings to decrease
+        - Returns the highest valid candidate (since DAT companies rarely sell)
         """
         text_lower = text.lower()
         keywords = self.get_keywords()
@@ -270,27 +332,41 @@ class SECScraper(BaseScraper):
         # Calculate document relevance score
         relevance = calculate_document_relevance(text, self.token)
         if relevance < 10:
-            # Document doesn't seem relevant to treasury holdings
             return None
 
-        # Try custom regex first
+        # Try custom regex first (highest priority)
         custom_regex = self.get_target_regex()
         if custom_regex:
             result = extract_holdings_with_regex(text, custom_regex)
             if result:
                 return result
 
-        # Extract all candidate numbers
+        # Check for "from X to Y" pattern first - this gives us definitive answer
+        from_to = self._extract_from_to_pattern(text)
+        if from_to:
+            prev_val, new_val = from_to
+            self.log(f"Found from/to pattern: {prev_val:,} -> {new_val:,}")
+            # Return the new (higher) value, which is the current total
+            return max(prev_val, new_val)
+
+        # Extract all candidate numbers from the document
         all_numbers = extract_numbers_from_text(text)
         if not all_numbers:
             return None
 
-        # Strategy 1: Look for metric anchors with token keywords
-        # This is the highest priority - explicit quantitative statements
+        # Collect candidates with their priority scores
+        # Higher score = higher confidence this is the actual total
+        candidates: dict[int, int] = {}  # number -> priority score
+
+        def add_candidate(num: int, priority: int):
+            """Add a candidate number with priority (higher = better)."""
+            if self.is_valid_holdings_amount(num):
+                candidates[num] = max(candidates.get(num, 0), priority)
+
+        # Strategy 1: Metric anchors with token keywords (priority 100)
         for anchor in METRIC_ANCHORS:
             anchor_lower = anchor.lower()
             for kw in keywords:
-                # Pattern: "total holdings of 1,234 SOL" or "aggregate 1,234 bitcoin"
                 patterns = [
                     rf'{anchor_lower}\s+(\d[\d,]*)\s+{kw}',
                     rf'{anchor_lower}\s+{kw}[:\s]+(\d[\d,]*)',
@@ -305,12 +381,11 @@ class SECScraper(BaseScraper):
                             context = text_lower[match.end():match.end() + 20]
                             if "million" in context or (num_str.count('.') > 0 and num < 100):
                                 num = int(num * 1_000_000)
-                            if self.is_valid_holdings_amount(num):
-                                return num
+                            add_candidate(num, 100)
                         except ValueError:
                             continue
 
-        # Strategy 2: Look for "aggregate" or "total" holdings patterns
+        # Strategy 2: "aggregate" or "total" holdings patterns (priority 90)
         aggregate_patterns = [
             rf'aggregate\s+{self.token}\s+holdings[:\s]+(\d[\d,]*)',
             rf'total\s+{self.token}\s+holdings[:\s]+(\d[\d,]*)',
@@ -340,12 +415,12 @@ class SECScraper(BaseScraper):
                     if "million" in context or (num_str.count('.') > 0 and num < 100):
                         num = int(num * 1_000_000)
                     if num >= 1000:
-                        return num
+                        add_candidate(num, 90)
                 except ValueError:
                     continue
 
-        # Strategy 3: Look for action keywords near token and numbers
-        # E.g., "purchased 1,234 SOL" or "acquired 5,000 bitcoin"
+        # Strategy 3: Action keywords near token (priority 70)
+        # Lower priority - these often capture purchase amounts, not totals
         for action in ACTION_KEYWORDS:
             action_lower = action.lower()
             for kw in keywords:
@@ -362,12 +437,11 @@ class SECScraper(BaseScraper):
                             context = text_lower[match.end():match.end() + 20]
                             if "million" in context or (num_str.count('.') > 0 and num < 100):
                                 num = int(num * 1_000_000)
-                            if self.is_valid_holdings_amount(num):
-                                return num
+                            add_candidate(num, 70)
                         except ValueError:
                             continue
 
-        # Strategy 4: Look for numbers near token keywords with context
+        # Strategy 4: Numbers near token keywords (priority 50)
         for kw in keywords:
             for match in re.finditer(rf'\b{kw}\b', text_lower):
                 start = max(0, match.start() - 200)
@@ -375,16 +449,42 @@ class SECScraper(BaseScraper):
                 context = text_lower[start:end]
 
                 context_numbers = extract_numbers_from_text(context)
+                for num in context_numbers:
+                    add_candidate(num, 50)
 
-                for num in sorted(context_numbers, reverse=True):
-                    if self.is_valid_holdings_amount(num):
-                        return num
-
-        # Strategy 5: If we have current holdings, look for similar number
+        # Strategy 5: Numbers similar to current holdings (priority 30)
         if self.current_holdings > 0:
             for num in all_numbers:
                 ratio = num / self.current_holdings
                 if 0.5 <= ratio <= 2.0:
-                    return num
+                    add_candidate(num, 30)
 
-        return None
+        if not candidates:
+            return None
+
+        # Sort by priority first, then by value (prefer higher values for ties)
+        sorted_candidates = sorted(
+            candidates.items(),
+            key=lambda x: (x[1], x[0]),  # (priority, value)
+            reverse=True
+        )
+
+        best_candidate = sorted_candidates[0][0]
+        best_priority = sorted_candidates[0][1]
+
+        # Safety check: if best candidate is LOWER than current holdings,
+        # only accept if there's explicit sell language
+        if self.current_holdings > 0 and best_candidate < self.current_holdings:
+            if not self._has_sell_language(text):
+                # No sell language - look for a higher candidate
+                for num, priority in sorted_candidates:
+                    if num >= self.current_holdings:
+                        self.log(f"Rejecting {best_candidate:,} (no sell language), using {num:,}")
+                        return num
+
+                # All candidates are lower - reject the change
+                self.log(f"Rejecting decrease to {best_candidate:,} (no sell language)")
+                return None
+
+        self.log(f"Selected {best_candidate:,} (priority {best_priority}) from {len(candidates)} candidates")
+        return best_candidate

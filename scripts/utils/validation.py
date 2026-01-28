@@ -203,3 +203,131 @@ def add_company_to_whitelist(ticker: str, token: str) -> None:
 
     COMPANY_WHITELIST[token].add(ticker)
     ALL_WHITELISTED_TICKERS.add(ticker)
+
+
+def validate_treasury_row(
+    row: dict,
+    row_num: int = 0,
+    strict: bool = True,
+) -> list[str]:
+    """
+    Validate a treasury data row for import.
+
+    Checks:
+    - Required fields present (date, token_count)
+    - Numeric values are non-negative where expected
+    - Date format is valid
+    - Values are within reasonable ranges
+
+    Args:
+        row: Dict with treasury data fields
+        row_num: Row number for error messages (0 = unknown)
+        strict: If True, enforce stricter validation
+
+    Returns:
+        List of validation error messages (empty if valid)
+    """
+    errors = []
+    row_prefix = f"Row {row_num}: " if row_num > 0 else ""
+
+    # Required: date
+    if not row.get('date'):
+        errors.append(f"{row_prefix}Missing required field: date")
+    elif not _is_valid_date_format(row['date']):
+        errors.append(f"{row_prefix}Invalid date format: {row['date']} (expected YYYY-MM-DD)")
+
+    # Required: token_count (for holdings history)
+    if row.get('token_count') is None and strict:
+        errors.append(f"{row_prefix}Missing required field: token_count")
+
+    # Non-negative numeric fields
+    non_negative_fields = [
+        'token_count',
+        'shares_outstanding',
+        'convertible_debt',
+        'convertible_debt_shares',
+        'non_convertible_debt',
+        'warrants',
+        'warrant_shares',
+        'cash_position',
+    ]
+
+    for field in non_negative_fields:
+        value = row.get(field)
+        if value is not None:
+            try:
+                num_value = float(value)
+                if num_value < 0:
+                    errors.append(f"{row_prefix}Negative value not allowed for {field}: {value}")
+            except (TypeError, ValueError):
+                errors.append(f"{row_prefix}Invalid numeric value for {field}: {value}")
+
+    # Range validation for token_count
+    if row.get('token_count') is not None:
+        try:
+            tokens = float(row['token_count'])
+            # Sanity check: tokens should be reasonable (< 100 trillion)
+            if tokens > 100_000_000_000_000:
+                errors.append(f"{row_prefix}Token count unreasonably large: {tokens}")
+        except (TypeError, ValueError):
+            pass  # Already caught above
+
+    # Range validation for shares_outstanding
+    if row.get('shares_outstanding') is not None:
+        try:
+            shares = float(row['shares_outstanding'])
+            # Sanity check: shares should be reasonable (< 100 trillion)
+            if shares > 100_000_000_000_000:
+                errors.append(f"{row_prefix}Shares outstanding unreasonably large: {shares}")
+        except (TypeError, ValueError):
+            pass  # Already caught above
+
+    return errors
+
+
+def _is_valid_date_format(date_str: str) -> bool:
+    """Check if string is a valid YYYY-MM-DD date."""
+    if not date_str or not isinstance(date_str, str):
+        return False
+    try:
+        from datetime import datetime
+        datetime.strptime(date_str, '%Y-%m-%d')
+        return True
+    except ValueError:
+        return False
+
+
+def validate_csv_row(row: dict, row_num: int = 0) -> list[str]:
+    """
+    Validate a row from dbt-format CSV.
+
+    This is a convenience wrapper around validate_treasury_row
+    that handles the CSV column naming.
+
+    Args:
+        row: Dict from csv.DictReader with dbt column names
+        row_num: Row number for error messages
+
+    Returns:
+        List of validation error messages
+    """
+    # Map CSV columns to internal names for validation
+    mapped_row = {}
+
+    csv_to_internal = {
+        'date': 'date',
+        'num_of_tokens': 'token_count',
+        'convertible_debt': 'convertible_debt',
+        'convertible_debt_shares': 'convertible_debt_shares',
+        'non_convertible_debt': 'non_convertible_debt',
+        'warrents': 'warrants',  # Note: typo in CSV
+        'warrent_shares': 'warrant_shares',  # Note: typo in CSV
+        'num_of_shares': 'shares_outstanding',
+        'latest_cash': 'cash_position',
+    }
+
+    for csv_col, internal_col in csv_to_internal.items():
+        if csv_col in row:
+            mapped_row[internal_col] = row[csv_col]
+
+    return validate_treasury_row(mapped_row, row_num, strict=True)

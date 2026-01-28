@@ -1,0 +1,250 @@
+================================================================================
+DAT Monitor V2 Implementation Notes
+================================================================================
+
+Date: January 2026
+Version: 2.0.0
+Author: Claude Code (Opus 4.5)
+
+================================================================================
+SUMMARY OF CHANGES
+================================================================================
+
+This implementation transforms DAT Monitor from a basic holdings tracker into a
+production-grade DAT analyst workstation with the following key features:
+
+1. RELIABLE CSV IMPORT
+   - New script: scripts/import_csv.py
+   - Handles exact dbt-main CSV format
+   - Supports single file and bulk import
+   - Validation-first approach (dry-run, validate-only modes)
+   - Idempotent operations (safe to re-run)
+
+2. DBT-MAIN INTEGRATION
+   - New script: scripts/export_dbt_seeds.py
+   - New script: scripts/validate_dbt_sync.py
+   - New script: scripts/sync_to_dbt.sh
+   - Direct export pipeline to dbt-main seeds
+   - Consistency validation between systems
+
+3. TREASURY ANALYTICS
+   - Schema migration: scripts/schema/holdings_history_v2.sql
+   - New database fields: convertible_debt, warrant_shares, cash_position, etc.
+   - Import audit trail (import_source, imported_at)
+
+4. DASHBOARD REDESIGN
+   - Filing Feed component: js/views/filing-feed.js
+   - AI Summary service: js/services/ai-summary.js
+   - Sector Pulse summary cards
+   - Real-time SEC filing alerts
+
+================================================================================
+NEW FILES CREATED
+================================================================================
+
+Backend (Python):
+  - scripts/import_csv.py              CSV importer for dbt format
+  - scripts/export_dbt_seeds.py        Export to dbt-main seeds
+  - scripts/validate_dbt_sync.py       Sync validation tool
+  - scripts/sync_to_dbt.sh             Automation wrapper
+  - scripts/schema/holdings_history_v2.sql  Schema migration
+
+Configuration:
+  - config/dbt_tickers.json            Ticker to dbt mapping
+
+Frontend (JavaScript):
+  - js/views/filing-feed.js            Filing feed component
+  - js/services/ai-summary.js          AI summary service
+
+================================================================================
+FILES MODIFIED
+================================================================================
+
+  - scripts/utils/database.py          Added save_treasury_holding() method
+                                       Added get_treasury_history() method
+
+  - scripts/utils/validation.py        Added validate_treasury_row() function
+                                       Added validate_csv_row() function
+
+  - index.html                         Added Filing Feed section
+                                       Added Sector Pulse cards
+                                       Added CSS for new components
+                                       Integrated new JS modules
+
+================================================================================
+CONFIGURATION REQUIREMENTS
+================================================================================
+
+Environment Variables (required for full functionality):
+  - SUPABASE_URL           Supabase database URL
+  - SUPABASE_KEY           Supabase API key (anon key)
+  - SEC_USER_AGENT         Email for SEC EDGAR API requests
+
+Optional Environment Variables:
+  - DBT_MAIN_PATH          Custom path to dbt-main repo (default: ~/code/dbt-main)
+  - CLAUDE_API_KEY         For AI Summary feature (not yet integrated)
+
+Database Schema Migration:
+  Run the schema migration to add treasury fields:
+    psql $DATABASE_URL -f scripts/schema/holdings_history_v2.sql
+
+  Or execute directly in Supabase SQL editor.
+
+================================================================================
+USAGE EXAMPLES
+================================================================================
+
+1. CSV Import (Historical Data)
+   --------------------------------
+   # Dry run (preview without writing)
+   python scripts/import_csv.py --file btbt_datadump.csv --ticker BTBT --dry-run
+
+   # Validate only
+   python scripts/import_csv.py --file btbt_datadump.csv --ticker BTBT --validate-only
+
+   # Actual import
+   python scripts/import_csv.py --file btbt_datadump.csv --ticker BTBT
+
+   # Bulk import from dbt-main
+   python scripts/import_csv.py --bulk --source ~/code/dbt-main/seeds/digital_asset_treasury/
+
+2. dbt Export
+   --------------------------------
+   # Export all tickers
+   python scripts/export_dbt_seeds.py --all
+
+   # Export specific ticker
+   python scripts/export_dbt_seeds.py --ticker BTBT
+
+   # Dry run
+   python scripts/export_dbt_seeds.py --all --dry-run
+
+3. Sync Validation
+   --------------------------------
+   # Validate all tickers
+   python scripts/validate_dbt_sync.py
+
+   # Validate specific ticker
+   python scripts/validate_dbt_sync.py --ticker BTBT
+
+   # Show fix suggestions
+   python scripts/validate_dbt_sync.py --fix
+
+4. Full Sync Workflow
+   --------------------------------
+   # Export and validate
+   ./scripts/sync_to_dbt.sh
+
+   # Export, validate, and commit to dbt-main
+   ./scripts/sync_to_dbt.sh --commit
+
+================================================================================
+KNOWN LIMITATIONS
+================================================================================
+
+1. AI Summary Feature
+   - Requires Claude API key (not integrated in this release)
+   - Uses client-side API calls (should be proxied for security)
+   - Cost: ~$17.50/month at 150 summaries with Haiku
+
+2. Twitter/X Integration
+   - Not implemented (API limitations)
+   - Plan uses curated watchlist links instead of live feed
+
+3. Real-time Updates
+   - Still batch-based (not real-time push to dbt)
+   - Sync requires manual trigger or scheduled runs
+
+4. New Ticker Onboarding
+   - Requires manual steps:
+     a. Add ticker to validation.py whitelist
+     b. Create dbt model in dbt-main
+     c. Initialize data in holdings_history
+
+5. Schema Migration
+   - Must be run manually before using treasury fields
+   - Does not auto-migrate existing data
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+1. "Company not found in database"
+   - Ensure ticker is in validation.py COMPANY_WHITELIST
+   - Run init_db.py to register company in Supabase
+
+2. "CSV missing required columns"
+   - Verify CSV has headers: date, num_of_tokens
+   - Check for typos: 'warrents' not 'warrants' in CSV
+
+3. "Failed to connect to database"
+   - Check SUPABASE_URL and SUPABASE_KEY in .env
+   - Verify Supabase project is active
+
+4. "Validation found issues" during sync
+   - Run with --fix flag to see suggestions
+   - Usually means data mismatch between systems
+
+5. Filing Feed not showing
+   - Ensure data.json has alertUrl/alertDate fields
+   - Check browser console for JS errors
+
+================================================================================
+HANDOFF NOTES FOR TEAM
+================================================================================
+
+CRITICAL: READ BEFORE MAKING CHANGES
+
+1. DO NOT auto-commit to dbt-main without explicit user approval
+   - The --commit flag is intentionally separate from export
+
+2. DO NOT generate AI summaries automatically
+   - This is a cost-control measure
+   - Summaries are on-demand only (user clicks button)
+
+3. ALWAYS run --dry-run first on any import operation
+   - Prevents accidental data corruption
+
+4. PRESERVE historical data
+   - Never overwrite, only append
+   - Use upsert with ON CONFLICT for idempotent operations
+
+5. TEST dbt compile before pushing any seed changes
+   - Run: cd ~/code/dbt-main && dbt compile --select tag:dat_fundamental_metrics
+
+6. COORDINATE with Data Engineering
+   - Changes to CSV format affect downstream dbt models
+   - Column names must match exactly (including typos like 'warrents')
+
+================================================================================
+VERIFICATION CHECKLIST
+================================================================================
+
+[ ] Schema migration applied to Supabase
+[ ] Environment variables configured
+[ ] CSV import works (test with dry-run)
+[ ] dbt export produces valid CSV
+[ ] Sync validation passes
+[ ] Dashboard displays Filing Feed
+[ ] Sector Pulse shows correct data
+
+================================================================================
+FUTURE IMPROVEMENTS
+================================================================================
+
+1. WebSocket-based real-time updates
+2. Server-side AI proxy for secure API calls
+3. Automated new ticker detection from SEC filings
+4. Historical price backfill integration
+5. Mobile-responsive dashboard improvements
+6. Email/Slack digest reports
+
+================================================================================
+CONTACT
+================================================================================
+
+For questions about this implementation:
+- Review the plan file: ~/.claude/plans/immutable-fluttering-pudding.md
+- Check GitHub Issues: https://github.com/anthropics/claude-code/issues
+
+================================================================================

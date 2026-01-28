@@ -186,6 +186,142 @@ class DATDatabase:
         print(f"    ✅ DB: {ticker} {prev_tokens:,.0f} → {tokens_decimal:,.0f} ({sign}{change_amount:,.0f}) saved to Supabase")
         return True
 
+    def save_treasury_holding(
+        self,
+        ticker: str,
+        date: str,
+        token_count: Union[int, float, Decimal, None] = None,
+        shares_outstanding: Union[int, float, Decimal, None] = None,
+        convertible_debt: Union[int, float, Decimal, None] = None,
+        convertible_debt_shares: Union[int, float, Decimal, None] = None,
+        non_convertible_debt: Union[int, float, Decimal, None] = None,
+        warrants: Union[int, float, Decimal, None] = None,
+        warrant_shares: Union[int, float, Decimal, None] = None,
+        cash_position: Union[int, float, Decimal, None] = None,
+        import_source: str = "manual",
+    ) -> bool:
+        """
+        Save or update a treasury holding record in holdings_history.
+
+        This method handles the full treasury data model including:
+        - Token holdings
+        - Shares outstanding
+        - Debt instruments (convertible and non-convertible)
+        - Warrants
+        - Cash position
+
+        Args:
+            ticker: Company ticker symbol (validated against whitelist)
+            date: Date of the record (YYYY-MM-DD)
+            token_count: Number of tokens held
+            shares_outstanding: Total shares outstanding
+            convertible_debt: Value of convertible debt
+            convertible_debt_shares: Shares from convertible debt
+            non_convertible_debt: Value of non-convertible debt
+            warrants: Value of warrants
+            warrant_shares: Shares from warrants
+            cash_position: Cash and cash equivalents
+            import_source: Source identifier (csv_import, excel_import, manual, etc.)
+
+        Returns:
+            True if saved successfully, False otherwise
+        """
+        # Validate ticker
+        try:
+            ticker = validate_ticker(ticker, strict=True)
+        except ValidationError as e:
+            print(f"    ⚠️ DB: Validation error: {e}")
+            return False
+
+        company_id = self.get_company_id(ticker)
+        if not company_id:
+            print(f"    ⚠️ DB: {ticker} not found in companies table")
+            return False
+
+        # Build record with only non-None values
+        def to_float(val):
+            if val is None:
+                return None
+            return float(Decimal(str(val)))
+
+        record = {
+            "company_id": company_id,
+            "date": date,
+            "import_source": import_source,
+        }
+
+        if token_count is not None:
+            record["token_count"] = to_float(token_count)
+        if shares_outstanding is not None:
+            record["shares_outstanding"] = to_float(shares_outstanding)
+        if convertible_debt is not None:
+            record["convertible_debt"] = to_float(convertible_debt)
+        if convertible_debt_shares is not None:
+            record["convertible_debt_shares"] = to_float(convertible_debt_shares)
+        if non_convertible_debt is not None:
+            record["non_convertible_debt"] = to_float(non_convertible_debt)
+        if warrants is not None:
+            record["warrants"] = to_float(warrants)
+        if warrant_shares is not None:
+            record["warrant_shares"] = to_float(warrant_shares)
+        if cash_position is not None:
+            record["cash_position"] = to_float(cash_position)
+
+        try:
+            self.supabase.table("holdings_history").upsert(
+                [record],
+                on_conflict="company_id,date"
+            ).execute()
+            print(f"    ✅ DB: {ticker} treasury record for {date} saved")
+            return True
+        except Exception as e:
+            print(f"    ⚠️ DB: Error saving treasury record: {e}")
+            return False
+
+    def get_treasury_history(
+        self,
+        ticker: str,
+        start_date: Optional[str] = None,
+        end_date: Optional[str] = None,
+        limit: int = 100,
+    ) -> list[dict]:
+        """
+        Get treasury history records for a company.
+
+        Args:
+            ticker: Company ticker symbol
+            start_date: Filter records on or after this date (optional)
+            end_date: Filter records on or before this date (optional)
+            limit: Maximum records to return
+
+        Returns:
+            List of treasury records ordered by date descending
+        """
+        try:
+            ticker = validate_ticker(ticker, strict=True)
+        except ValidationError:
+            return []
+
+        company_id = self.get_company_id(ticker)
+        if not company_id:
+            return []
+
+        query = (
+            self.supabase.table("holdings_history")
+            .select("*")
+            .eq("company_id", company_id)
+            .order("date", desc=True)
+            .limit(limit)
+        )
+
+        if start_date:
+            query = query.gte("date", start_date)
+        if end_date:
+            query = query.lte("date", end_date)
+
+        result = query.execute()
+        return result.data if result.data else []
+
 
 # Lazy initialization to avoid errors when .env is missing
 _db_instance: Optional[DATDatabase] = None
