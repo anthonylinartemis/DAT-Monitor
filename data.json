@@ -11,6 +11,46 @@
       "summary": "BNC holds 515,054 BNB in treasury. Source: https://ceaindustries.com/data.js"
     },
     {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-02-15",
+      "tokens": 35102,
+      "change": 35051,
+      "summary": "MTPLF holds 35,102 Bitcoin in treasury. Share price: $325.00, mNAV: 1.26x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "date": "2026-02-15",
+      "tokens": 714644,
+      "change": 0,
+      "summary": "MSTR holds 714,644 Bitcoin in treasury. Share price: $133.88, mNAV: 0.99x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-02-15",
+      "tokens": 13131,
+      "change": 0,
+      "summary": "ASST holds 13,131 Bitcoin in treasury. Share price: $8.33, mNAV: 0.59x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-02-15",
+      "tokens": 51,
+      "change": -35051,
+      "summary": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 51 BTC. Source: https://metaplanet.jp/en/analytics"
+    },
+    {
+      "ticker": "BNC",
+      "token": "BNB",
+      "date": "2026-02-15",
+      "tokens": 515054,
+      "change": 0,
+      "summary": "BNC holds 515,054 BNB in treasury. Source: https://ceaindustries.com/data.js"
+    },
+    {
       "ticker": "MSTR",
       "token": "BTC",
       "date": "2026-02-15",
@@ -33,46 +73,6 @@
       "tokens": 35102,
       "change": 0,
       "summary": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 35,102 BTC. Source: https://metaplanet.jp/en/analytics"
-    },
-    {
-      "ticker": "BNC",
-      "token": "BNB",
-      "date": "2026-02-15",
-      "tokens": 515054,
-      "change": 0,
-      "summary": "BNC holds 515,054 BNB in treasury. Source: https://ceaindustries.com/data.js"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-02-15",
-      "tokens": 35102,
-      "change": 35051,
-      "summary": "MTPLF holds 35,102 Bitcoin in treasury. Share price: $325.00, mNAV: 1.23x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "MSTR",
-      "token": "BTC",
-      "date": "2026-02-15",
-      "tokens": 714644,
-      "change": 0,
-      "summary": "MSTR holds 714,644 Bitcoin in treasury. Share price: $133.88, mNAV: 0.97x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-02-15",
-      "tokens": 13131,
-      "change": 0,
-      "summary": "ASST holds 13,131 Bitcoin in treasury. Share price: $8.33, mNAV: 0.57x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-02-15",
-      "tokens": 51,
-      "change": -35051,
-      "summary": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 51 BTC. Source: https://metaplanet.jp/en/analytics"
     },
     {
       "ticker": "BNC",
@@ -175,7 +175,7 @@
         "dashboardUrl": "https://www.strategy.com/purchases",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-02-15",
-        "alertNote": "MSTR holds 714,644 Bitcoin in treasury. Share price: $133.88, mNAV: 0.97x. Source: https://treasury.",
+        "alertNote": "MSTR holds 714,644 Bitcoin in treasury. Share price: $133.88, mNAV: 0.99x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-15",
         "scrape_config": {
           "method": "sec_edgar",
@@ -278,6 +278,11 @@
           {
             "url": "https://treasury.strive.com/?tab=home",
             "date": "2026-02-15",
+            "note": "MSTR holds 714,644 Bitcoin in treasury. Share price: $133.88, mNAV: 0.99x. Source: https://treasury."
+          },
+          {
+            "url": "https://treasury.strive.com/?tab=home",
+            "date": "2026-02-15",
             "note": "MSTR holds 714,644 Bitcoin in treasury. Share price: $133.88, mNAV: 0.97x. Source: https://treasury."
           },
           {
@@ -369,17 +374,12 @@
             "url": "https://treasury.strive.com/?tab=home",
             "date": "2026-02-12",
             "note": "MSTR holds 714,644 Bitcoin in treasury. Share price: $126.07, mNAV: 0.95x. Source: https://treasury."
-          },
-          {
-            "url": "https://treasury.strive.com/?tab=home",
-            "date": "2026-02-12",
-            "note": "MSTR holds 714,644 Bitcoin in treasury. Share price: $126.07, mNAV: 0.96x. Source: https://treasury."
           }
         ],
         "analytics": {
           "totalBtc": 714644.0,
           "sharePrice": 133.88,
-          "mNAV": 0.9734738128138024,
+          "mNAV": 0.9947560871380103,
           "btcYieldYtd": 0.28720157960868786,
           "marketCap": 44593152040.0
         }
@@ -410,7 +410,7 @@
         "notes": "Japan TSE - No SEC",
         "tokens": 35102,
         "lastUpdate": "2026-02-15",
-        "change": 0,
+        "change": 35051,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
         "dashboardUrl": "https://metaplanet.jp/en/analytics",
@@ -421,11 +421,21 @@
         },
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:00.751072",
-        "alertUrl": "https://metaplanet.jp/en/analytics",
+        "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-02-15",
-        "alertNote": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 35,102 BTC. Source: https://metaplane",
+        "alertNote": "MTPLF holds 35,102 Bitcoin in treasury. Share price: $325.00, mNAV: 1.26x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-15",
         "filings": [
+          {
+            "url": "https://treasury.strive.com/?tab=home",
+            "date": "2026-02-15",
+            "note": "MTPLF holds 35,102 Bitcoin in treasury. Share price: $325.00, mNAV: 1.26x. Source: https://treasury."
+          },
+          {
+            "url": "https://metaplanet.jp/en/analytics",
+            "date": "2026-02-15",
+            "note": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 51 BTC. Source: https://metaplanet.jp"
+          },
           {
             "url": "https://metaplanet.jp/en/analytics",
             "date": "2026-02-15",
@@ -515,22 +525,12 @@
             "url": "https://metaplanet.jp/en/analytics",
             "date": "2026-02-13",
             "note": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 0 BTC. Source: https://metaplanet.jp/"
-          },
-          {
-            "url": "https://metaplanet.jp/en/analytics",
-            "date": "2026-02-13",
-            "note": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 35,102 BTC. Source: https://metaplane"
-          },
-          {
-            "url": "https://metaplanet.jp/en/analytics",
-            "date": "2026-02-13",
-            "note": "Metaplanet acquired 4279 Bitcoin for treasury holdings. Total: 35,102 BTC. Source: https://metaplane"
           }
         ],
         "analytics": {
           "totalBtc": 35102.0,
           "sharePrice": 324.99999999999994,
-          "mNAV": 1.237687440871097,
+          "mNAV": 1.2647460050538437,
           "btcYieldYtd": 0.0,
           "marketCap": 2430502783.7935
         }
@@ -555,9 +555,14 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-02-15",
-        "alertNote": "ASST holds 13,131 Bitcoin in treasury. Share price: $8.33, mNAV: 0.58x. Source: https://treasury.str",
+        "alertNote": "ASST holds 13,131 Bitcoin in treasury. Share price: $8.33, mNAV: 0.59x. Source: https://treasury.str",
         "lastSecUpdate": "2026-02-15",
         "filings": [
+          {
+            "url": "https://treasury.strive.com/?tab=home",
+            "date": "2026-02-15",
+            "note": "ASST holds 13,131 Bitcoin in treasury. Share price: $8.33, mNAV: 0.59x. Source: https://treasury.str"
+          },
           {
             "url": "https://treasury.strive.com/?tab=home",
             "date": "2026-02-15",
@@ -652,17 +657,12 @@
             "url": "https://treasury.strive.com/?tab=home",
             "date": "2026-02-12",
             "note": "ASST holds 13,131 Bitcoin in treasury. Share price: $8.09, mNAV: 0.58x. Source: https://treasury.str"
-          },
-          {
-            "url": "https://treasury.strive.com/?tab=home",
-            "date": "2026-02-12",
-            "note": "ASST holds 13,131 Bitcoin in treasury. Share price: $8.09, mNAV: 0.59x. Source: https://treasury.str"
           }
         ],
         "analytics": {
           "totalBtc": 13131.8,
           "sharePrice": 8.33,
-          "mNAV": 0.5790701275285096,
+          "mNAV": 0.5917298715758547,
           "btcYieldYtd": 20.057525240666823,
           "marketCap": 525194163.27
         }
@@ -1019,6 +1019,11 @@
           },
           {
             "url": "https://ceaindustries.com/data.js",
+            "date": "2026-02-15",
+            "note": "BNC holds 515,054 BNB in treasury. Source: https://ceaindustries.com/data.js"
+          },
+          {
+            "url": "https://ceaindustries.com/data.js",
             "date": "2026-02-14",
             "note": "BNC holds 515,054 BNB in treasury. Source: https://ceaindustries.com/data.js"
           },
@@ -1075,11 +1080,6 @@
           {
             "url": "https://ceaindustries.com/data.js",
             "date": "2026-02-13",
-            "note": "BNC holds 515,054 BNB in treasury. Source: https://ceaindustries.com/data.js"
-          },
-          {
-            "url": "https://ceaindustries.com/data.js",
-            "date": "2026-02-12",
             "note": "BNC holds 515,054 BNB in treasury. Source: https://ceaindustries.com/data.js"
           },
           {
@@ -1139,6 +1139,105 @@
       "date": "2026-01-28",
       "sourcePage": "https://bit-digital.com/investors/",
       "discoveredAt": "2026-01-29T01:55:18.441217"
+    },
+    {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "title": "$HAREHOLDER ALERT: The M&amp;A Class Action Firm Encourages $hareholders to Act Before the Vote \u2013 CYBR, PNFP, TGNA, and MTSR",
+      "url": "https://www.globenewswire.com/news-release/2025/10/29/3176954/0/en/HAREHOLDER-ALERT-The-M-A-Class-Action-Firm-Encourages-hareholders-to-Act-Before-the-Vote-CYBR-PNFP-TGNA-and-MTSR.html",
+      "date": "2025-10-29",
+      "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
+      "discoveredAt": "2026-02-15T16:28:38.037812"
+    },
+    {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "title": "$HAREHOLDER ALERT: The M&amp;A Class Action Launches Legal Inquiry for the Merger \u2013 MTSR, GES, BLBX, and SCS",
+      "url": "https://www.globenewswire.com/news-release/2025/10/08/3163773/0/en/HAREHOLDER-ALERT-The-M-A-Class-Action-Launches-Legal-Inquiry-for-the-Merger-MTSR-GES-BLBX-and-SCS.html",
+      "date": "2025-10-08",
+      "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
+      "discoveredAt": "2026-02-15T16:28:38.037812"
+    },
+    {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "title": "STRATEGY (MSTR) INVESTIGATION ALERT: Bragar Eagel &amp; Squire, P.C. Continues Investigation into Strategy Incorporated on Behalf of Long-Term Stockholders and Encourages Investors to Contact the Firm",
+      "url": "https://www.globenewswire.com/news-release/2025/10/02/3160288/0/en/STRATEGY-MSTR-INVESTIGATION-ALERT-Bragar-Eagel-Squire-P-C-Continues-Investigation-into-Strategy-Incorporated-on-Behalf-of-Long-Term-Stockholders-and-Encourages-Investors-to-Contact.html",
+      "date": "2025-10-02",
+      "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
+      "discoveredAt": "2026-02-15T16:28:38.037812"
+    },
+    {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "title": "Kuehn Law Encourages Investors of MicroStrategy Incorporated to Contact Law Firm",
+      "url": "https://www.globenewswire.com/news-release/2025/07/29/3123509/0/en/Kuehn-Law-Encourages-Investors-of-MicroStrategy-Incorporated-to-Contact-Law-Firm.html",
+      "date": "2025-07-29",
+      "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
+      "discoveredAt": "2026-02-15T16:28:38.037812"
+    },
+    {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "title": "STRATEGY INVESTIGATION ALERT: Bragar Eagel &amp; Squire, P.C. is Investigating Strategy Incorporated on Behalf of Long-Term Stockholders and Encourages Investors to Contact the Firm",
+      "url": "https://www.globenewswire.com/news-release/2025/07/16/3116917/0/en/STRATEGY-INVESTIGATION-ALERT-Bragar-Eagel-Squire-P-C-is-Investigating-Strategy-Incorporated-on-Behalf-of-Long-Term-Stockholders-and-Encourages-Investors-to-Contact-the-Firm.html",
+      "date": "2025-07-16",
+      "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
+      "discoveredAt": "2026-02-15T16:28:38.037812"
+    },
+    {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "title": "FINAL STRATEGY DEADLINE ALERT: Bragar Eagel &amp; Squire, P.C. Urges Investors in Strategy Incorporated (MSTR) to Inquire About Their Rights in Class Action Lawsuit",
+      "url": "https://www.globenewswire.com/news-release/2025/07/15/3115580/0/en/FINAL-STRATEGY-DEADLINE-ALERT-Bragar-Eagel-Squire-P-C-Urges-Investors-in-Strategy-Incorporated-MSTR-to-Inquire-About-Their-Rights-in-Class-Action-Lawsuit.html",
+      "date": "2025-07-15",
+      "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
+      "discoveredAt": "2026-02-15T16:28:38.037812"
+    },
+    {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "title": "DEADLINE ALERT for IOVA, DNUT, and MSTR: The Law Offices of Frank R. Cruz Reminds Investors of Class Actions on Behalf of Shareholders",
+      "url": "https://www.globenewswire.com/news-release/2025/07/14/3115048/0/en/DEADLINE-ALERT-for-IOVA-DNUT-and-MSTR-The-Law-Offices-of-Frank-R-Cruz-Reminds-Investors-of-Class-Actions-on-Behalf-of-Shareholders.html",
+      "date": "2025-07-14",
+      "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
+      "discoveredAt": "2026-02-15T16:28:38.037812"
+    },
+    {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "title": "MICROSTRATEGY INCORPORATED (NASDAQ: MSTR) SHAREHOLDER ALERT Bernstein Liebhard LLP Reminds MicroStrategy Incorporated Investors of Upcoming Deadline",
+      "url": "https://www.globenewswire.com/news-release/2025/07/14/3114948/0/en/MICROSTRATEGY-INCORPORATED-NASDAQ-MSTR-SHAREHOLDER-ALERT-Bernstein-Liebhard-LLP-Reminds-MicroStrategy-Incorporated-Investors-of-Upcoming-Deadline.html",
+      "date": "2025-07-14",
+      "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
+      "discoveredAt": "2026-02-15T16:28:38.037812"
+    },
+    {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "title": "STRATEGY DEADLINE ALERT: Bragar Eagel &amp; Squire, P.C. Announces that a Class Action Lawsuit Has Been Filed Against Strategy Incorporated and Urgently Encourages Investors to Contact the Firm",
+      "url": "https://www.globenewswire.com/news-release/2025/07/12/3114364/0/en/STRATEGY-DEADLINE-ALERT-Bragar-Eagel-Squire-P-C-Announces-that-a-Class-Action-Lawsuit-Has-Been-Filed-Against-Strategy-Incorporated-and-Urgently-Encourages-Investors-to-Contact-the-.html",
+      "date": "2025-07-12",
+      "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
+      "discoveredAt": "2026-02-15T16:28:38.037812"
+    },
+    {
+      "ticker": "MSTR",
+      "token": "BTC",
+      "title": "DEADLINE ALERT for IOVA, DNUT, and MSTR: The Law Offices of Frank R. Cruz Reminds Investors of Class Actions on Behalf of Shareholders",
+      "url": "https://www.globenewswire.com/news-release/2025/07/08/3112057/0/en/DEADLINE-ALERT-for-IOVA-DNUT-and-MSTR-The-Law-Offices-of-Frank-R-Cruz-Reminds-Investors-of-Class-Actions-on-Behalf-of-Shareholders.html",
+      "date": "2025-07-08",
+      "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
+      "discoveredAt": "2026-02-15T16:28:38.037812"
+    },
+    {
+      "ticker": "ABTC",
+      "token": "BTC",
+      "title": "AML Bitcoin Compliance System Unveiled at FATF Regtech Forum",
+      "url": "https://www.globenewswire.com/news-release/2018/09/25/1575947/0/en/AML-Bitcoin-Compliance-System-Unveiled-at-FATF-Regtech-Forum.html",
+      "date": "2018-09-25",
+      "sourcePage": "https://www.globenewswire.com/search/tag/ABTC",
+      "discoveredAt": "2026-02-15T16:29:20.418119"
     },
     {
       "ticker": "FGNX",
