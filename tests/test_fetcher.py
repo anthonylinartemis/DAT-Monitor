@@ -13,9 +13,11 @@ import pytest
 
 from scraper.fetcher import (
     _extract_token_quantity,
+    _get_filing_text_with_exhibits,
     _strip_html,
     build_updates,
     fetch_company_filings,
+    fetch_exhibit_docs,
     fetch_filing_text,
 )
 
@@ -149,6 +151,130 @@ class TestFetchFilingText:
         text = fetch_filing_text("0001050446", "0001050446-26-000001", "filing.htm")
 
         assert text == ""
+
+
+# --- Test: exhibit fetching ---
+
+
+class TestFetchExhibitDocs:
+    @patch("scraper.fetcher._sec_request")
+    def test_finds_exhibit_filenames(self, mock_request: MagicMock) -> None:
+        # Simulated EDGAR filing directory page
+        mock_request.return_value = """
+        <html><body><table>
+        <tr><td><a href="form8-k.htm">form8-k.htm</a></td></tr>
+        <tr><td><a href="ex99-1.htm">ex99-1.htm</a></td></tr>
+        <tr><td><a href="ex99-2.htm">ex99-2.htm</a></td></tr>
+        </table></body></html>
+        """
+
+        exhibits = fetch_exhibit_docs("1234567", "0001234567-26-000001")
+
+        assert exhibits == ["ex99-1.htm", "ex99-2.htm"]
+
+    @patch("scraper.fetcher._sec_request")
+    def test_no_exhibits_returns_empty(self, mock_request: MagicMock) -> None:
+        mock_request.return_value = """
+        <html><body><table>
+        <tr><td><a href="form8-k.htm">form8-k.htm</a></td></tr>
+        <tr><td><a href="R1.htm">R1.htm</a></td></tr>
+        </table></body></html>
+        """
+
+        exhibits = fetch_exhibit_docs("1234567", "0001234567-26-000001")
+
+        assert exhibits == []
+
+    @patch("scraper.fetcher._sec_request")
+    def test_deduplicates_exhibits(self, mock_request: MagicMock) -> None:
+        mock_request.return_value = """
+        <html><body>
+        <a href="ex99-1.htm">ex99-1.htm</a>
+        <a href="ex99-1.htm">ex99-1.htm</a>
+        </body></html>
+        """
+
+        exhibits = fetch_exhibit_docs("1234567", "0001234567-26-000001")
+
+        assert exhibits == ["ex99-1.htm"]
+
+    @patch("scraper.fetcher._sec_request")
+    def test_handles_network_error(self, mock_request: MagicMock) -> None:
+        mock_request.side_effect = ValueError("HTTP 503")
+
+        exhibits = fetch_exhibit_docs("1234567", "0001234567-26-000001")
+
+        assert exhibits == []
+
+
+class TestGetFilingTextWithExhibits:
+    @patch("scraper.fetcher.fetch_exhibit_docs")
+    @patch("scraper.fetcher.fetch_filing_text")
+    def test_uses_primary_doc_when_it_has_data(
+        self, mock_text: MagicMock, mock_exhibits: MagicMock
+    ) -> None:
+        mock_text.return_value = "Company holds 4,371,497 ETH in treasury"
+
+        text, doc = _get_filing_text_with_exhibits(
+            "1234567", "0001234567-26-000001", "form8-k.htm", "ETH"
+        )
+
+        assert "4,371,497 ETH" in text
+        assert doc == "form8-k.htm"
+        mock_exhibits.assert_not_called()
+
+    @patch("scraper.fetcher.fetch_exhibit_docs")
+    @patch("scraper.fetcher.fetch_filing_text")
+    def test_falls_back_to_exhibit(
+        self, mock_text: MagicMock, mock_exhibits: MagicMock
+    ) -> None:
+        # Primary doc has no token data, exhibit does
+        mock_text.side_effect = [
+            "Form 8-K cover page with no token info",  # primary doc
+            "Company acquired 4,371,497 Ether in treasury",  # exhibit
+        ]
+        mock_exhibits.return_value = ["ex99-1.htm"]
+
+        text, doc = _get_filing_text_with_exhibits(
+            "1234567", "0001234567-26-000001", "form8-k.htm", "ETH"
+        )
+
+        assert "4,371,497 Ether" in text
+        assert doc == "ex99-1.htm"
+
+    @patch("scraper.fetcher.fetch_exhibit_docs")
+    @patch("scraper.fetcher.fetch_filing_text")
+    def test_returns_empty_when_nothing_found(
+        self, mock_text: MagicMock, mock_exhibits: MagicMock
+    ) -> None:
+        mock_text.return_value = "Board approved new compensation plan"
+        mock_exhibits.return_value = []
+
+        text, doc = _get_filing_text_with_exhibits(
+            "1234567", "0001234567-26-000001", "form8-k.htm", "ETH"
+        )
+
+        # Returns the primary text (even though no token data)
+        assert doc == "form8-k.htm"
+
+    @patch("scraper.fetcher.fetch_exhibit_docs")
+    @patch("scraper.fetcher.fetch_filing_text")
+    def test_tries_multiple_exhibits(
+        self, mock_text: MagicMock, mock_exhibits: MagicMock
+    ) -> None:
+        mock_text.side_effect = [
+            "Cover page boilerplate",  # primary
+            "Financial summary no tokens",  # ex99-1
+            "Treasury holds 5,427 BTC as of filing date",  # ex99-2
+        ]
+        mock_exhibits.return_value = ["ex99-1.htm", "ex99-2.htm"]
+
+        text, doc = _get_filing_text_with_exhibits(
+            "1234567", "0001234567-26-000001", "form8-k.htm", "BTC"
+        )
+
+        assert "5,427 BTC" in text
+        assert doc == "ex99-2.htm"
 
 
 # --- Test: build_updates ---

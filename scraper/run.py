@@ -13,7 +13,13 @@ from pathlib import Path
 
 from scraper import fetcher, ir_scraper, parser, website_scrapers
 from scraper.config import DATA_JSON_PATH, HOLDINGS_HISTORY_PATH
-from scraper.updater import apply_enrichments, load_data, run_batch, save_data
+from scraper.updater import (
+    apply_enrichments,
+    load_data,
+    run_batch,
+    save_data,
+    stamp_last_updated,
+)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -116,6 +122,7 @@ def main(argv: list[str] | None = None) -> int:
         if discovered_prs:
             data["discoveredPressReleases"] = discovered_prs
             logger.info("Saved %d discovered press releases", len(discovered_prs))
+        stamp_last_updated(data)
         save_data(data, data_path)
         if enrichments:
             logger.info("Enrichments applied for: %s", ", ".join(enrichments.keys()))

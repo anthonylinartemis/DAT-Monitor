@@ -10,15 +10,25 @@ import json
 import logging
 import os
 import tempfile
-from datetime import date
+from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Optional
+from zoneinfo import ZoneInfo
 
 from scraper import parser, state_guard
 from scraper.config import DATA_JSON_PATH, HoldingClassification, VALID_TOKENS
 from scraper.models import ScrapedUpdate
 
 logger = logging.getLogger(__name__)
+
+
+def stamp_last_updated(data: dict) -> dict:
+    """Set lastUpdated and lastUpdatedDisplay to the current time in ET."""
+    et = ZoneInfo("America/New_York")
+    now = datetime.now(et)
+    data["lastUpdated"] = now.isoformat()
+    data["lastUpdatedDisplay"] = now.strftime("%b %d, %Y %I:%M %p ET")
+    return data
 
 
 def load_data(path: Optional[Path] = None) -> dict:
@@ -238,6 +248,7 @@ def run_batch(
             summary["errors"] += 1
 
     if dirty:
+        stamp_last_updated(data)
         save_data(data, data_path)
         state_guard.save_history(history, history_path)
 

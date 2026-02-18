@@ -27,6 +27,9 @@ SEC_SUBMISSIONS_URL = "https://data.sec.gov/submissions/CIK{cik}.json"
 SEC_ARCHIVES_URL = (
     "https://www.sec.gov/Archives/edgar/data/{cik_num}/{accession}/{doc}"
 )
+SEC_FILING_DIR_URL = (
+    "https://www.sec.gov/Archives/edgar/data/{cik_num}/{accession}/"
+)
 
 # SEC requires a descriptive User-Agent with contact email
 # Format: "Company/App Name (contact@email.com)"
@@ -247,6 +250,95 @@ def fetch_filing_text(cik: str, accession_number: str, primary_doc: str) -> str:
     return _strip_html(html)
 
 
+# --- Exhibit Fetching ---
+
+
+# Regex to find exhibit filenames in EDGAR filing directory pages
+_EXHIBIT_FILENAME_RE = re.compile(
+    r'href="([^"]*(?:ex\s*-?\s*99|exhibit\s*99)[^"]*\.htm[l]?)"',
+    re.IGNORECASE,
+)
+
+
+def fetch_exhibit_docs(cik: str, accession_number: str) -> list[str]:
+    """Fetch the EDGAR filing directory and return EX-99.* exhibit filenames.
+
+    Returns a list of exhibit document filenames (e.g., ["ex99-1.htm"]).
+    Returns empty list on failure or if no exhibits found.
+    """
+    cik_num = cik.lstrip("0")
+    accession_path = accession_number.replace("-", "")
+    url = SEC_FILING_DIR_URL.format(cik_num=cik_num, accession=accession_path)
+
+    try:
+        html = _sec_request(url)
+    except (ValueError, urllib.error.URLError) as e:
+        logger.warning(
+            "Failed to fetch filing directory for CIK %s accession %s: %s",
+            cik, accession_number, e,
+        )
+        return []
+
+    # Parse exhibit filenames from the directory listing
+    exhibits = _EXHIBIT_FILENAME_RE.findall(html)
+    # Deduplicate while preserving order
+    seen: set[str] = set()
+    unique: list[str] = []
+    for ex in exhibits:
+        if ex not in seen:
+            seen.add(ex)
+            unique.append(ex)
+
+    if unique:
+        logger.debug(
+            "Found %d exhibit(s) for %s: %s",
+            len(unique), accession_number, unique,
+        )
+    return unique
+
+
+def _get_filing_text_with_exhibits(
+    cik: str,
+    accession_number: str,
+    primary_doc: str,
+    token_symbol: str,
+) -> tuple[str, str]:
+    """Try primaryDocument first; if no token data found, scan EX-99 exhibits.
+
+    Returns (text, source_doc_filename) tuple.
+    Returns ("", "") if no document contains token data.
+    """
+    # Try primary document first
+    text = fetch_filing_text(cik, accession_number, primary_doc)
+    if text:
+        quantity = _extract_token_quantity(text, token_symbol)
+        if quantity is not None:
+            return text, primary_doc
+
+    # Primary doc didn't have token data — try exhibits
+    logger.debug(
+        "No %s data in primary doc %s, scanning exhibits for %s",
+        token_symbol, primary_doc, accession_number,
+    )
+    exhibits = fetch_exhibit_docs(cik, accession_number)
+
+    for exhibit_doc in exhibits:
+        exhibit_text = fetch_filing_text(cik, accession_number, exhibit_doc)
+        if not exhibit_text:
+            continue
+
+        quantity = _extract_token_quantity(exhibit_text, token_symbol)
+        if quantity is not None:
+            logger.info(
+                "Found %s data in exhibit %s (not primary doc %s)",
+                token_symbol, exhibit_doc, primary_doc,
+            )
+            return exhibit_text, exhibit_doc
+
+    # Nothing found in primary or exhibits
+    return text or "", primary_doc
+
+
 # --- Main Entry Point ---
 
 
@@ -279,10 +371,11 @@ def build_updates(data: dict) -> list[ScrapedUpdate]:
             logger.info("Found %d recent 8-K filing(s) for %s", len(filings), ticker)
 
             for filing in filings:
-                text = fetch_filing_text(
+                text, source_doc = _get_filing_text_with_exhibits(
                     cik,
                     filing["accessionNumber"],
                     filing["primaryDocument"],
+                    token_group,
                 )
                 if not text:
                     continue
@@ -290,7 +383,7 @@ def build_updates(data: dict) -> list[ScrapedUpdate]:
                 quantity = _extract_token_quantity(text, token_group)
                 if quantity is None:
                     logger.debug(
-                        "No %s quantity found in %s filing %s",
+                        "No %s quantity found in %s filing %s (primary + exhibits)",
                         token_group, ticker, filing["accessionNumber"],
                     )
                     continue
@@ -300,7 +393,7 @@ def build_updates(data: dict) -> list[ScrapedUpdate]:
                 source_url = SEC_ARCHIVES_URL.format(
                     cik_num=cik.lstrip("0"),
                     accession=filing["accessionNumber"].replace("-", ""),
-                    doc=filing["primaryDocument"],
+                    doc=source_doc,
                 )
 
                 update = ScrapedUpdate(

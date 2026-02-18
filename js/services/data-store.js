@@ -14,18 +14,18 @@ export const TOKEN_INFO = {
 };
 
 const EMBEDDED_DATA = {
-    "lastUpdated": "2026-01-27T14:33:08-05:00",
-    "lastUpdatedDisplay": "Jan 27, 2026 2:33 PM ET",
+    "lastUpdated": "2026-02-17T12:00:00-05:00",
+    "lastUpdatedDisplay": "Feb 17, 2026 12:00 PM ET",
     "recentChanges": [
-        {"ticker": "BMNR", "token": "ETH", "date": "2026-01-26", "tokens": 4243338, "change": 40302, "summary": "4.24M ETH (+40,302). 8-K filing Jan 26. Largest ETH treasury"},
-        {"ticker": "MSTR", "token": "BTC", "date": "2026-01-26", "tokens": 712647, "change": 2932, "summary": "712,647 BTC (+2,932). 8-K filing Jan 26"},
+        {"ticker": "BMNR", "token": "ETH", "date": "2026-01-26", "tokens": 4371497, "change": 40302, "summary": "4.24M ETH (+40,302). 8-K filing Jan 26. Largest ETH treasury"},
+        {"ticker": "MSTR", "token": "BTC", "date": "2026-01-26", "tokens": 717131, "change": 4484, "summary": "712,647 BTC (+2,932). 8-K filing Jan 26"},
         {"ticker": "FGNX", "token": "ETH", "date": "2026-01-21", "tokens": 40088, "change": 0, "summary": "40,088 ETH. 8-K filing Jan 21"},
         {"ticker": "SBET", "token": "ETH", "date": "2026-01-20", "tokens": 865797, "change": 957, "summary": "865,797 ETH (+957). Live dashboard update"},
         {"ticker": "STSS", "token": "SOL", "date": "2026-01-16", "tokens": 2000000, "change": 0, "summary": "2M SOL. Coinbase validator partnership. 8-K filing Jan 16"}
     ],
     "companies": {
         "BTC": [
-            {"ticker": "MSTR", "name": "Strategy", "notes": "Rebranded from MicroStrategy Feb 2025", "tokens": 712647, "lastUpdate": "2026-01-26", "change": 2932, "cik": "0001050446", "irUrl": "https://www.strategy.com/investor-relations", "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526021726/mstr-20260105.htm", "alertDate": "2026-01-26", "alertNote": "712,647 BTC (+2,932). 8-K filing Jan 26", "transactions": [
+            {"ticker": "MSTR", "name": "Strategy", "notes": "Rebranded from MicroStrategy Feb 2025", "tokens": 717131, "lastUpdate": "2026-01-26", "change": 4484, "cik": "0001050446", "irUrl": "https://www.strategy.com/investor-relations", "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526021726/mstr-20260105.htm", "alertDate": "2026-01-26", "alertNote": "712,647 BTC (+2,932). 8-K filing Jan 26", "transactions": [
                 {"date": "2026-01-12", "asset": "BTC", "quantity": 13627, "priceUsd": 91519, "totalCost": 1247142213, "cumulativeTokens": 687410, "avgCostBasis": 65033, "source": "https://www.strategy.com/news", "fingerprint": "2026-01-12:BTC:1247142213"},
                 {"date": "2026-01-06", "asset": "BTC", "quantity": 1070, "priceUsd": 94004, "totalCost": 100584280, "cumulativeTokens": 673783, "avgCostBasis": 64553, "source": "https://www.strategy.com/news", "fingerprint": "2026-01-06:BTC:100584280"},
                 {"date": "2025-12-30", "asset": "BTC", "quantity": 2138, "priceUsd": 97837, "totalCost": 209179506, "cumulativeTokens": 672713, "avgCostBasis": 64452, "source": "https://www.strategy.com/news", "fingerprint": "2025-12-30:BTC:209179506"},
@@ -39,10 +39,10 @@ const EMBEDDED_DATA = {
             {"ticker": "MTPLF", "name": "Metaplanet", "notes": "Japan TSE - No SEC", "tokens": 35102, "lastUpdate": "2025-12-30", "change": 4279, "cik": "", "irUrl": "https://metaplanet.jp/en/shareholders/disclosures", "dashboardUrl": "https://metaplanet.jp/en/analytics"},
             {"ticker": "ASST", "name": "Strive", "tokens": 7627, "lastUpdate": "2026-01-05", "change": 0, "cik": "0001855631", "irUrl": "https://investors.strive.com/overview/default.aspx", "dashboardUrl": "https://treasury.strive.com/?tab=home", "alertUrl": "https://treasury.strive.com/?tab=home", "alertDate": "2026-01-05", "alertNote": "7,627 BTC in treasury — live tracker via StrategyTracker"},
             {"ticker": "NAKA", "name": "Nakamoto Holdings", "notes": "Nasdaq warning", "tokens": 5765, "lastUpdate": "2025-11-19", "change": 0, "cik": "0001946573", "irUrl": "https://nakamoto.com/dashboard"},
-            {"ticker": "ABTC", "name": "American Bitcoin", "notes": "fka Gryphon Digital", "tokens": 5427, "lastUpdate": "2026-01-05", "change": 644, "cik": "0001755953", "irUrl": "https://www.abtc.com/news"}
+            {"ticker": "ABTC", "name": "American Bitcoin", "notes": "fka Gryphon Digital", "tokens": 6072, "lastUpdate": "2026-01-05", "change": 644, "cik": "0001755953", "irUrl": "https://www.abtc.com/news"}
         ],
         "ETH": [
-            {"ticker": "BMNR", "name": "BitMine Immersion", "notes": "Largest ETH treasury. 3.48% of supply", "tokens": 4243338, "lastUpdate": "2026-01-26", "change": 40302, "cik": "0001829311", "irUrl": "https://www.bitminetech.io/investor-relations", "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226003536/ex99-1.htm", "alertDate": "2026-01-26", "alertNote": "4.24M ETH (+40,302). 8-K filing Jan 26. Largest ETH treasury"},
+            {"ticker": "BMNR", "name": "BitMine Immersion", "notes": "Largest ETH treasury. 3.48% of supply", "tokens": 4371497, "lastUpdate": "2026-01-26", "change": 40302, "cik": "0001829311", "irUrl": "https://www.bitminetech.io/investor-relations", "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226003536/ex99-1.htm", "alertDate": "2026-01-26", "alertNote": "4.24M ETH (+40,302). 8-K filing Jan 26. Largest ETH treasury"},
             {"ticker": "SBET", "name": "SharpLink Gaming", "notes": "Has live ETH dashboard", "tokens": 864840, "lastUpdate": "2026-01-08", "change": 0, "cik": "0001811115", "irUrl": "https://investors.sharplink.com/"},
             {"ticker": "ETHM", "name": "Ether Machine", "tokens": 495362, "lastUpdate": "2025-09-02", "change": 0, "cik": "0002028699", "irUrl": "https://ethermachine.com/investors"},
             {"ticker": "BTBT", "name": "Bit Digital", "tokens": 155227, "lastUpdate": "2026-01-07", "change": 0, "cik": "0001710350", "irUrl": "https://bit-digital.com/investors/"},
@@ -51,14 +51,14 @@ const EMBEDDED_DATA = {
             {"ticker": "ETHZ", "name": "Ethzilla", "notes": "fka 180 Life Sciences", "tokens": 8478, "lastUpdate": "2025-12-01", "change": 0, "cik": "0001690080", "irUrl": "https://www.ethzilla.com/investors"}
         ],
         "SOL": [
-            {"ticker": "FWDI", "name": "Forward Industries", "notes": "Largest SOL. Ticker was FORD", "tokens": 6921342, "lastUpdate": "2025-12-02", "change": 0, "cik": "0000038264", "irUrl": "https://www.forwardindustries.com/media"},
+            {"ticker": "FWDI", "name": "Forward Industries", "notes": "Largest SOL. Ticker was FORD", "tokens": 6979967, "lastUpdate": "2025-12-02", "change": 0, "cik": "0000038264", "irUrl": "https://www.forwardindustries.com/media"},
             {"ticker": "HSDT", "name": "Solana Company", "notes": "fka Helius Medical", "tokens": 2300000, "lastUpdate": "2025-10-29", "change": 0, "cik": "0001610853", "irUrl": "https://www.solanacompany.co/"},
             {"ticker": "DFDV", "name": "DeFi Development", "notes": "dfdvSOL liquid staking", "tokens": 2221329, "lastUpdate": "2026-01-05", "change": 25403, "cik": "0001805526", "irUrl": "https://defidevcorp.com/investor", "alertUrl": "https://www.globenewswire.com/news-release/2026/01/07/3214530/0/en/DeFi-Development-Year-Review.html", "alertDate": "2026-01-08", "alertNote": "2.2M SOL (+25,403). 2025 Year in Review — dfdvSOL staking"},
             {"ticker": "UPXI", "name": "Upexi", "notes": "High-yield strategy 2026", "tokens": 2174583, "lastUpdate": "2026-01-05", "change": 67594, "cik": "0001839175", "irUrl": "https://ir.upexi.com/", "alertUrl": "https://www.globenewswire.com/news-release/2026/01/07/3214451/0/en/Upexi-High-Return-Strategy.html", "alertDate": "2026-01-07", "alertNote": "2.17M SOL (+67,594). High-yield staking strategy for 2026"},
             {"ticker": "STSS", "name": "Sharps Technology", "notes": "Coinbase validator partner", "tokens": 2000000, "lastUpdate": "2026-01-12", "change": 0, "cik": "0001737995", "irUrl": "https://www.sharpstechnology.com/investors/news", "alertUrl": "https://www.globenewswire.com/news-release/2026/01/12/3216808/0/en/Sharps-Coinbase-Validator.html", "alertDate": "2026-01-12", "alertNote": "Coinbase validator launch — delegating 2M SOL for staking rewards"}
         ],
         "HYPE": [
-            {"ticker": "PURR", "name": "Hyperliquid Strategies", "notes": "fka Sonnet Bio", "tokens": 12600000, "lastUpdate": "2025-07-14", "change": 0, "cik": "0001106838", "irUrl": "https://www.sonnetbio.com/investors/news-events"},
+            {"ticker": "PURR", "name": "Hyperliquid Strategies", "notes": "fka Sonnet Bio", "tokens": 17600000, "lastUpdate": "2025-07-14", "change": 0, "cik": "0001106838", "irUrl": "https://www.sonnetbio.com/investors/news-events"},
             {"ticker": "HYPD", "name": "Hyperion DeFi", "notes": "fka Eyenovia. Felix HIP-3", "tokens": 1427178, "lastUpdate": "2026-01-12", "change": 0, "cik": "0001682639", "irUrl": "https://ir.hyperiondefi.com/", "alertUrl": "https://www.globenewswire.com/news-release/2026/01/12/3216808/0/en/Hyperion-DeFi-Shareholder-Letter.html", "alertDate": "2026-01-12", "alertNote": "CEO shareholder letter — 2026 HYPE accumulation strategy via Felix HIP-3"}
         ],
         "BNB": [
