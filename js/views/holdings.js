@@ -8,8 +8,9 @@ import { tokenIconHtml } from '../utils/icons.js';
 import { companyLogoHtml } from '../utils/company-logos.js';
 import { renderSparkline } from '../components/sparkline.js';
 import { fetchDATMetrics, fetchPrice } from '../services/api.js';
+import { hasViewedFiling, markFilingAsViewed } from '../services/viewed-filings.js';
 
-const LIVE_TICKERS = new Set(['SBET', 'MTPLF', 'ASST']);
+const LIVE_TICKERS = new Set(['MTPLF', 'ASST']);
 
 function _filingSummary(c) {
     if (c.alertNote) {
@@ -82,12 +83,14 @@ function _filingCell(c) {
         return `<details class="filing-group">
             <summary class="alert-new">${filings.length} filings</summary>
             <ul class="filing-list">
-                ${filings.map(f => `<li><a href="${f.url}" target="_blank" rel="noopener" class="link">${f.date}: ${f.note || 'Filing'}</a></li>`).join('')}
+                ${filings.map(f => `<li><a href="${f.url}" target="_blank" rel="noopener" class="link" data-ticker="${c.ticker}" data-date="${f.date}">${f.date}: ${f.note || 'Filing'}</a></li>`).join('')}
             </ul>
         </details>`;
     }
     if (c.alertUrl && isRecent(c.alertDate)) {
-        return `<a href="${c.alertUrl}" target="_blank" rel="noopener" class="alert-new" title="${(c.alertNote || 'New update').replace(/"/g, '&quot;')}">${_filingSummary(c)}</a>`;
+        const isViewed = hasViewedFiling(c.ticker, c.alertDate);
+        const cssClass = isViewed ? 'link' : 'alert-new';
+        return `<a href="${c.alertUrl}" target="_blank" rel="noopener" class="${cssClass}" data-ticker="${c.ticker}" data-date="${c.alertDate}" title="${(c.alertNote || 'New update').replace(/"/g, '&quot;')}">${_filingSummary(c)}</a>`;
     }
     return '<span class="no-alert">\u2014</span>';
 }
@@ -222,6 +225,17 @@ export function initHoldingsListeners() {
             renderSparkline(`spark-${c.ticker}`, c.transactions, color);
         }
     }
+
+    // Mark filings as viewed when clicked
+    document.querySelectorAll('a[data-ticker][data-date]').forEach(link => {
+        link.addEventListener('click', () => {
+            const ticker = link.dataset.ticker;
+            const date = link.dataset.date;
+            if (ticker && date) {
+                markFilingAsViewed(ticker, date);
+            }
+        });
+    });
 
     // Async: fetch StrategyTracker data for NAV, mNAV, and live holdings overlay
     _populateLiveColumns(companies);

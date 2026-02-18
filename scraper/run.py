@@ -64,10 +64,20 @@ def main(argv: list[str] | None = None) -> int:
     logger.info("Running website scrapers...")
     try:
         web_updates, web_enrichments = website_scrapers.build_website_updates(data)
-        updates.extend(web_updates)
+        # Source priority: EDGAR updates take precedence over website updates.
+        # If EDGAR already produced an update for a ticker, skip the website
+        # update for that same ticker to prevent stale website data from
+        # overwriting fresh SEC filing data.
+        edgar_tickers = {u.ticker for u in edgar_updates}
+        filtered_web = [u for u in web_updates if u.ticker not in edgar_tickers]
+        if len(filtered_web) < len(web_updates):
+            skipped = len(web_updates) - len(filtered_web)
+            logger.info("Source priority: skipped %d web update(s) for EDGAR-covered tickers: %s",
+                         skipped, edgar_tickers & {u.ticker for u in web_updates})
+        updates.extend(filtered_web)
         enrichments.update(web_enrichments)
-        logger.info("Websites: %d update(s), %d enrichment(s)",
-                     len(web_updates), len(web_enrichments))
+        logger.info("Websites: %d update(s) (%d after EDGAR filter), %d enrichment(s)",
+                     len(web_updates), len(filtered_web), len(web_enrichments))
     except Exception:
         logger.exception("Failed during website scraping")
 

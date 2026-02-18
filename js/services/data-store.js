@@ -20,7 +20,7 @@ const EMBEDDED_DATA = {
         {"ticker": "BMNR", "token": "ETH", "date": "2026-01-26", "tokens": 4371497, "change": 40302, "summary": "4.24M ETH (+40,302). 8-K filing Jan 26. Largest ETH treasury"},
         {"ticker": "MSTR", "token": "BTC", "date": "2026-01-26", "tokens": 717131, "change": 4484, "summary": "712,647 BTC (+2,932). 8-K filing Jan 26"},
         {"ticker": "FGNX", "token": "ETH", "date": "2026-01-21", "tokens": 40088, "change": 0, "summary": "40,088 ETH. 8-K filing Jan 21"},
-        {"ticker": "SBET", "token": "ETH", "date": "2026-01-20", "tokens": 865797, "change": 957, "summary": "865,797 ETH (+957). Live dashboard update"},
+        {"ticker": "SBET", "token": "ETH", "date": "2026-02-18", "tokens": 867798, "change": 2001, "summary": "867,798 ETH (+2,001). Manual update from dashboard"},
         {"ticker": "STSS", "token": "SOL", "date": "2026-01-16", "tokens": 2000000, "change": 0, "summary": "2M SOL. Coinbase validator partnership. 8-K filing Jan 16"}
     ],
     "companies": {
@@ -43,7 +43,7 @@ const EMBEDDED_DATA = {
         ],
         "ETH": [
             {"ticker": "BMNR", "name": "BitMine Immersion", "notes": "Largest ETH treasury. 3.48% of supply", "tokens": 4371497, "lastUpdate": "2026-01-26", "change": 40302, "cik": "0001829311", "irUrl": "https://www.bitminetech.io/investor-relations", "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226003536/ex99-1.htm", "alertDate": "2026-01-26", "alertNote": "4.24M ETH (+40,302). 8-K filing Jan 26. Largest ETH treasury"},
-            {"ticker": "SBET", "name": "SharpLink Gaming", "notes": "Has live ETH dashboard", "tokens": 864840, "lastUpdate": "2026-01-08", "change": 0, "cik": "0001811115", "irUrl": "https://investors.sharplink.com/"},
+            {"ticker": "SBET", "name": "SharpLink Gaming", "notes": "Has live ETH dashboard", "tokens": 867798, "lastUpdate": "2026-02-18", "change": 2001, "cik": "0001811115", "irUrl": "https://investors.sharplink.com/"},
             {"ticker": "ETHM", "name": "Ether Machine", "tokens": 495362, "lastUpdate": "2025-09-02", "change": 0, "cik": "0002028699", "irUrl": "https://ethermachine.com/investors"},
             {"ticker": "BTBT", "name": "Bit Digital", "tokens": 155227, "lastUpdate": "2026-01-07", "change": 0, "cik": "0001710350", "irUrl": "https://bit-digital.com/investors/"},
             {"ticker": "BTCS", "name": "BTCS", "notes": "Record $16M revenue 2025", "tokens": 70500, "lastUpdate": "2026-01-07", "change": 178, "cik": "0001521184", "irUrl": "https://www.btcs.com/news-media/", "alertUrl": "https://www.globenewswire.com/news-release/2026/01/07/3214520/0/en/BTCS-Record-Revenue.html", "alertDate": "2026-01-07", "alertNote": "70,500 ETH. Record $16M revenue 2025 (+290% YoY)"},
@@ -54,7 +54,7 @@ const EMBEDDED_DATA = {
             {"ticker": "FWDI", "name": "Forward Industries", "notes": "Largest SOL. Ticker was FORD", "tokens": 6979967, "lastUpdate": "2025-12-02", "change": 0, "cik": "0000038264", "irUrl": "https://www.forwardindustries.com/media"},
             {"ticker": "HSDT", "name": "Solana Company", "notes": "fka Helius Medical", "tokens": 2300000, "lastUpdate": "2025-10-29", "change": 0, "cik": "0001610853", "irUrl": "https://www.solanacompany.co/"},
             {"ticker": "DFDV", "name": "DeFi Development", "notes": "dfdvSOL liquid staking", "tokens": 2221329, "lastUpdate": "2026-01-05", "change": 25403, "cik": "0001805526", "irUrl": "https://defidevcorp.com/investor", "alertUrl": "https://www.globenewswire.com/news-release/2026/01/07/3214530/0/en/DeFi-Development-Year-Review.html", "alertDate": "2026-01-08", "alertNote": "2.2M SOL (+25,403). 2025 Year in Review — dfdvSOL staking"},
-            {"ticker": "UPXI", "name": "Upexi", "notes": "High-yield strategy 2026", "tokens": 2174583, "lastUpdate": "2026-01-05", "change": 67594, "cik": "0001839175", "irUrl": "https://ir.upexi.com/", "alertUrl": "https://www.globenewswire.com/news-release/2026/01/07/3214451/0/en/Upexi-High-Return-Strategy.html", "alertDate": "2026-01-07", "alertNote": "2.17M SOL (+67,594). High-yield staking strategy for 2026"},
+            {"ticker": "UPXI", "name": "Upexi", "notes": "High-yield strategy 2026", "tokens": 2400000, "lastUpdate": "2026-02-18", "change": 225417, "cik": "0001839175", "irUrl": "https://ir.upexi.com/", "alertUrl": "https://www.globenewswire.com/news-release/2026/01/07/3214451/0/en/Upexi-High-Return-Strategy.html", "alertDate": "2026-01-07", "alertNote": "2.4M SOL (+225,417). High-yield staking strategy for 2026"},
             {"ticker": "STSS", "name": "Sharps Technology", "notes": "Coinbase validator partner", "tokens": 2000000, "lastUpdate": "2026-01-12", "change": 0, "cik": "0001737995", "irUrl": "https://www.sharpstechnology.com/investors/news", "alertUrl": "https://www.globenewswire.com/news-release/2026/01/12/3216808/0/en/Sharps-Coinbase-Validator.html", "alertDate": "2026-01-12", "alertNote": "Coinbase validator launch — delegating 2M SOL for staking rewards"}
         ],
         "HYPE": [
@@ -65,7 +65,7 @@ const EMBEDDED_DATA = {
             {"ticker": "BNC", "name": "CEA Industries", "tokens": 515054, "lastUpdate": "2025-12-01", "change": 0, "cik": "0001482541", "irUrl": "https://ceaindustries.com/investors.html"}
         ]
     },
-    "totals": {"BTC": 810082, "ETH": 5878790, "SOL": 15617254, "HYPE": 14027178, "BNB": 515054}
+    "totals": {"BTC": 810082, "ETH": 5881748, "SOL": 15842671, "HYPE": 14027178, "BNB": 515054}
 };
 
 let data = EMBEDDED_DATA;

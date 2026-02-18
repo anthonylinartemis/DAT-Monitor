@@ -486,6 +486,18 @@ def build_website_updates(
     if dfdv_analytics:
         enrichments["DFDV"] = dfdv_analytics
 
+    # UPXI (Upexi) - SOL holdings from static homepage
+    upxi_updates, upxi_analytics = fetch_upxi_updates(data)
+    all_updates.extend(upxi_updates)
+    if upxi_analytics:
+        enrichments["UPXI"] = upxi_analytics
+
+    # BTBT (Bit Digital) - ETH holdings from static homepage
+    btbt_updates, btbt_analytics = fetch_btbt_updates(data)
+    all_updates.extend(btbt_updates)
+    if btbt_analytics:
+        enrichments["BTBT"] = btbt_analytics
+
     # PURR (Hyperliquid Strategies) - HYPE holdings from dashboard
     purr_updates, purr_analytics = fetch_purr_updates(data)
     all_updates.extend(purr_updates)
@@ -876,3 +888,144 @@ def fetch_purr_updates(
 
     analytics_dict = analytics.to_json_dict() if analytics.total_hype else None
     return updates, analytics_dict
+
+
+# --- UPXI (Upexi) Scraper ---
+
+UPXI_URL = "https://www.upexi.com/"
+
+
+def _parse_upxi_sol(text: str) -> Optional[int]:
+    """Parse SOL holdings from Upexi homepage text.
+
+    Looks for patterns like "Upexi SOL Count: 2,400,000" or
+    "Total SOL Count: 2,400,000" in the stripped HTML text.
+    """
+    for pattern in [
+        r"(?:Upexi\s+)?SOL\s+Count[:\s]*([\d,]+)",
+        r"Total\s+SOL[:\s]*([\d,]+)",
+        r"SOL\s+Holdings[:\s]*([\d,]+)",
+        r"([\d,]{7,})\s*SOL",  # 7+ digit chars near SOL
+    ]:
+        m = re.search(pattern, text, re.IGNORECASE)
+        if m:
+            try:
+                val = int(m.group(1).replace(",", ""))
+                # Bounds check: reasonable SOL treasury (100 to 100M)
+                if 100 < val < 100_000_000:
+                    return val
+            except ValueError:
+                pass
+    return None
+
+
+def fetch_upxi_updates(
+    data: dict,
+) -> tuple[list[ScrapedUpdate], dict | None]:
+    """Fetch UPXI (Upexi) SOL holdings from static homepage.
+
+    Returns:
+        (updates, enrichment_dict) — updates for the pipeline,
+        enrichment dict or None on failure.
+    """
+    logger.info("Fetching UPXI data from %s", UPXI_URL)
+
+    try:
+        html = _http_get(UPXI_URL)
+    except (ValueError, urllib.error.URLError) as e:
+        logger.warning("Failed to fetch UPXI homepage: %s", e)
+        return [], None
+
+    text = _strip_html(html)
+    total_sol = _parse_upxi_sol(text)
+
+    logger.info("UPXI parsed: total_sol=%s", total_sol)
+
+    updates: list[ScrapedUpdate] = []
+
+    if total_sol is not None and total_sol > 0:
+        context = (
+            f"UPXI holds {total_sol:,} SOL in treasury holdings. "
+            f"Source: {UPXI_URL}"
+        )
+        updates.append(ScrapedUpdate(
+            ticker="UPXI",
+            token="SOL",
+            new_value=total_sol,
+            context_text=context,
+            source_url=UPXI_URL,
+        ))
+
+    enrichment = {"totalSol": total_sol} if total_sol else None
+    return updates, enrichment
+
+
+# --- BTBT (Bit Digital) Scraper ---
+
+BTBT_URL = "https://bit-digital.com/"
+
+
+def _parse_btbt_eth(text: str) -> Optional[int]:
+    """Parse ETH holdings from Bit Digital homepage text.
+
+    Looks for patterns like "Total ETH Held: 155,227 ETH" or
+    "ETH Holdings: 155,227" in the stripped HTML text.
+    """
+    for pattern in [
+        r"Total\s+ETH\s+Held[:\s]*([\d,]+)",
+        r"ETH\s+Holdings[:\s]*([\d,]+)",
+        r"ETH\s+Treasury[:\s]*([\d,]+)",
+        r"Ethereum\s+Holdings[:\s]*([\d,]+)",
+        r"([\d,]{4,})\s*ETH\s+(?:held|in\s+treasury)",
+    ]:
+        m = re.search(pattern, text, re.IGNORECASE)
+        if m:
+            try:
+                val = int(m.group(1).replace(",", ""))
+                # Bounds check: reasonable ETH treasury (100 to 50M)
+                if 100 < val < 50_000_000:
+                    return val
+            except ValueError:
+                pass
+    return None
+
+
+def fetch_btbt_updates(
+    data: dict,
+) -> tuple[list[ScrapedUpdate], dict | None]:
+    """Fetch BTBT (Bit Digital) ETH holdings from static homepage.
+
+    Returns:
+        (updates, enrichment_dict) — updates for the pipeline,
+        enrichment dict or None on failure.
+    """
+    logger.info("Fetching BTBT data from %s", BTBT_URL)
+
+    try:
+        html = _http_get(BTBT_URL)
+    except (ValueError, urllib.error.URLError) as e:
+        logger.warning("Failed to fetch BTBT homepage: %s", e)
+        return [], None
+
+    text = _strip_html(html)
+    total_eth = _parse_btbt_eth(text)
+
+    logger.info("BTBT parsed: total_eth=%s", total_eth)
+
+    updates: list[ScrapedUpdate] = []
+
+    if total_eth is not None and total_eth > 0:
+        context = (
+            f"BTBT holds {total_eth:,} ETH in treasury holdings. "
+            f"Source: {BTBT_URL}"
+        )
+        updates.append(ScrapedUpdate(
+            ticker="BTBT",
+            token="ETH",
+            new_value=total_eth,
+            context_text=context,
+            source_url=BTBT_URL,
+        ))
+
+    enrichment = {"totalEth": total_eth} if total_eth else None
+    return updates, enrichment
