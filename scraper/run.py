@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import logging
 import sys
+from datetime import date, timedelta
 from pathlib import Path
 
 from scraper import fetcher, ir_scraper, parser, website_scrapers
@@ -138,9 +139,45 @@ def main(argv: list[str] | None = None) -> int:
     logger.info("  Discovered PRs:      %d", len(discovered_prs))
     logger.info("  Errors:              %d", summary["errors"])
 
+    # 6. Staleness check — warn about companies that haven't updated in >14 days
+    _check_stale_companies(data_path)
+
     if summary["errors"] > 0:
         return 1
     return 0
+
+
+STALENESS_THRESHOLD_DAYS = 14
+
+
+def _check_stale_companies(data_path: Path) -> None:
+    """Log warnings for any company with lastUpdate older than threshold."""
+    logger = logging.getLogger(__name__)
+    try:
+        data = load_data(data_path)
+    except Exception:
+        return
+
+    cutoff = (date.today() - timedelta(days=STALENESS_THRESHOLD_DAYS)).isoformat()
+    stale: list[tuple[str, str, str]] = []  # (ticker, token, lastUpdate)
+
+    for token_group, company_list in data.get("companies", {}).items():
+        for company in company_list:
+            ticker = company.get("ticker", "")
+            last_update = company.get("lastUpdate", "")
+            if last_update and last_update < cutoff:
+                stale.append((ticker, token_group, last_update))
+
+    if stale:
+        logger.warning("=== STALE DATA ALERT (%d companies) ===", len(stale))
+        for ticker, token, last_update in sorted(stale, key=lambda x: x[2]):
+            days_old = (date.today() - date.fromisoformat(last_update)).days
+            logger.warning(
+                "  %s (%s): last updated %s (%d days ago)",
+                ticker, token, last_update, days_old,
+            )
+    else:
+        logger.info("No stale companies (all updated within %d days)", STALENESS_THRESHOLD_DAYS)
 
 
 def _parse_args(argv: list[str] | None) -> argparse.Namespace:

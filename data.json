@@ -943,7 +943,7 @@
         "tokens": 17600000,
         "lastUpdate": "2025-07-14",
         "change": 5000000,
-        "cik": "0001106838",
+        "cik": "0002078856",
         "irUrl": "https://www.sonnetbio.com/investors/news-events",
         "scrape_config": {
           "method": "sec_edgar",
@@ -1106,10 +1106,10 @@
     ]
   },
   "totals": {
-    "BTC": 820070,
-    "ETH": 5878790,
-    "SOL": 15617254,
-    "HYPE": 14027178,
+    "BTC": 820715,
+    "ETH": 6006949,
+    "SOL": 15675879,
+    "HYPE": 19027178,
     "BNB": 515054
   },
   "discoveredPressReleases": [

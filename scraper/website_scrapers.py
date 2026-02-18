@@ -486,6 +486,12 @@ def build_website_updates(
     if dfdv_analytics:
         enrichments["DFDV"] = dfdv_analytics
 
+    # PURR (Hyperliquid Strategies) - HYPE holdings from dashboard
+    purr_updates, purr_analytics = fetch_purr_updates(data)
+    all_updates.extend(purr_updates)
+    if purr_analytics:
+        enrichments["PURR"] = purr_analytics
+
     logger.info(
         "Website scrapers: %d update(s), %d enrichment(s)",
         len(all_updates), len(enrichments),
@@ -705,4 +711,168 @@ def fetch_dfdv_updates(
         ))
 
     analytics_dict = analytics.to_json_dict() if analytics.total_sol else None
+    return updates, analytics_dict
+
+
+# --- PURR (Hyperliquid Strategies) Scraper ---
+
+PURR_DASHBOARD_URL = "https://www.hypestrat.xyz/dashboard"
+
+
+@dataclass(frozen=True)
+class PURRAnalytics:
+    """Data extracted from Hyperliquid Strategies dashboard."""
+    total_hype: Optional[int]
+    cash_holdings: Optional[float]
+    nav: Optional[float]
+    share_price: Optional[float]
+    fully_diluted_shares: Optional[int]
+
+    def to_json_dict(self) -> dict:
+        result: dict = {}
+        if self.total_hype is not None:
+            result["totalHype"] = self.total_hype
+        if self.cash_holdings is not None:
+            result["cashHoldings"] = self.cash_holdings
+        if self.nav is not None:
+            result["nav"] = self.nav
+        if self.share_price is not None:
+            result["sharePrice"] = self.share_price
+        if self.fully_diluted_shares is not None:
+            result["fullyDilutedShares"] = self.fully_diluted_shares
+        return result
+
+
+def _parse_purr_data(text: str) -> PURRAnalytics:
+    """Parse PURR dashboard HTML to extract HYPE holdings and metrics."""
+    total_hype = None
+    cash_holdings = None
+    nav = None
+    share_price = None
+    fully_diluted_shares = None
+
+    # HYPE Tokens Held: look for "17.6M" or "17,600,000" near "HYPE Tokens"
+    for pattern in [
+        r"HYPE\s+Tokens?\s+Held[^\d]*([\d,.]+)\s*M",
+        r"HYPE\s+Tokens?\s+Held[^\d]*([\d,]+)",
+        r"([\d,.]+)\s*M?\s*HYPE\s+tokens?\s+held",
+        r"Total\s+HYPE[^\d]*([\d,.]+)\s*M",
+        r"([\d,.]+)\s*M\s*HYPE",
+    ]:
+        m = re.search(pattern, text, re.IGNORECASE)
+        if m:
+            try:
+                val = float(m.group(1).replace(",", ""))
+                # If matched with M suffix, multiply by 1M
+                if "M" in pattern or val < 1000:
+                    val *= 1_000_000
+                total_hype = int(val)
+                break
+            except ValueError:
+                pass
+
+    # Also check for config-style data (the dashboard embeds JSON config)
+    if total_hype is None:
+        # Look for hypeTokensHeld or similar in embedded JS
+        m = re.search(r"hypeTokens?Held['\"]?\s*[:=]\s*([\d,.]+)", text, re.IGNORECASE)
+        if m:
+            try:
+                val = float(m.group(1).replace(",", ""))
+                if val > 100_000:
+                    total_hype = int(val)
+            except ValueError:
+                pass
+
+    # Cash Holdings
+    m = re.search(r"Cash\s+Holdings[^\d$]*([\d,.]+)\s*M", text, re.IGNORECASE)
+    if m:
+        try:
+            cash_holdings = float(m.group(1).replace(",", "")) * 1_000_000
+        except ValueError:
+            pass
+
+    # NAV
+    m = re.search(r"Net\s+Asset\s+Value[^\d$]*\$?([\d,.]+)\s*([MB])", text, re.IGNORECASE)
+    if m:
+        try:
+            val = float(m.group(1).replace(",", ""))
+            suffix = m.group(2).upper()
+            if suffix == "B":
+                val *= 1_000_000_000
+            elif suffix == "M":
+                val *= 1_000_000
+            nav = val
+        except ValueError:
+            pass
+
+    # Share Price
+    m = re.search(r"Share\s+Price[^\d$]*\$?([\d,.]+)", text, re.IGNORECASE)
+    if m:
+        try:
+            share_price = float(m.group(1).replace(",", ""))
+        except ValueError:
+            pass
+
+    # Fully Diluted Shares
+    m = re.search(r"Fully\s+Diluted\s+Shares[^\d]*([\d,]+)", text, re.IGNORECASE)
+    if m:
+        try:
+            val = int(m.group(1).replace(",", ""))
+            if val > 1_000_000:
+                fully_diluted_shares = val
+        except ValueError:
+            pass
+
+    return PURRAnalytics(
+        total_hype=total_hype,
+        cash_holdings=cash_holdings,
+        nav=nav,
+        share_price=share_price,
+        fully_diluted_shares=fully_diluted_shares,
+    )
+
+
+def fetch_purr_updates(
+    data: dict,
+) -> tuple[list[ScrapedUpdate], dict | None]:
+    """Fetch PURR (Hyperliquid Strategies) data from dashboard.
+
+    Returns:
+        (updates, analytics_dict) -- updates for the pipeline,
+        analytics_dict to store on the company entry (or None on failure).
+    """
+    logger.info("Fetching PURR data from %s", PURR_DASHBOARD_URL)
+
+    try:
+        html = _http_get(PURR_DASHBOARD_URL)
+    except (ValueError, urllib.error.URLError) as e:
+        logger.warning("Failed to fetch PURR dashboard: %s", e)
+        return [], None
+
+    text = _strip_html(html)
+    analytics = _parse_purr_data(text)
+
+    logger.info(
+        "PURR parsed: total_hype=%s, cash=%s, nav=%s",
+        analytics.total_hype,
+        analytics.cash_holdings,
+        analytics.nav,
+    )
+
+    updates: list[ScrapedUpdate] = []
+
+    if analytics.total_hype is not None and analytics.total_hype > 0:
+        context = (
+            f"PURR holds {analytics.total_hype:,} HYPE in treasury. "
+            f"Source: {PURR_DASHBOARD_URL}"
+        )
+        updates.append(ScrapedUpdate(
+            ticker="PURR",
+            token="HYPE",
+            new_value=analytics.total_hype,
+            context_text=context,
+            source_url=PURR_DASHBOARD_URL,
+        ))
+
+    analytics_dict = analytics.to_json_dict() if analytics.total_hype else None
     return updates, analytics_dict

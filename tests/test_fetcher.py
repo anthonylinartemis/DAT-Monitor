@@ -113,7 +113,7 @@ class TestFetchCompanyFilings:
 
     @patch("scraper.fetcher._sec_request")
     def test_filters_old_filings(self, mock_request: MagicMock) -> None:
-        old_date = (date.today() - timedelta(days=30)).isoformat()
+        old_date = (date.today() - timedelta(days=60)).isoformat()
         mock_request.return_value = self._mock_submissions_response([
             {"form": "8-K", "date": old_date},
         ])

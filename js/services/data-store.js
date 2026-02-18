@@ -58,7 +58,7 @@ const EMBEDDED_DATA = {
             {"ticker": "STSS", "name": "Sharps Technology", "notes": "Coinbase validator partner", "tokens": 2000000, "lastUpdate": "2026-01-12", "change": 0, "cik": "0001737995", "irUrl": "https://www.sharpstechnology.com/investors/news", "alertUrl": "https://www.globenewswire.com/news-release/2026/01/12/3216808/0/en/Sharps-Coinbase-Validator.html", "alertDate": "2026-01-12", "alertNote": "Coinbase validator launch — delegating 2M SOL for staking rewards"}
         ],
         "HYPE": [
-            {"ticker": "PURR", "name": "Hyperliquid Strategies", "notes": "fka Sonnet Bio", "tokens": 17600000, "lastUpdate": "2025-07-14", "change": 0, "cik": "0001106838", "irUrl": "https://www.sonnetbio.com/investors/news-events"},
+            {"ticker": "PURR", "name": "Hyperliquid Strategies", "notes": "fka Sonnet Bio", "tokens": 17600000, "lastUpdate": "2025-07-14", "change": 0, "cik": "0002078856", "irUrl": "https://www.sonnetbio.com/investors/news-events"},
             {"ticker": "HYPD", "name": "Hyperion DeFi", "notes": "fka Eyenovia. Felix HIP-3", "tokens": 1427178, "lastUpdate": "2026-01-12", "change": 0, "cik": "0001682639", "irUrl": "https://ir.hyperiondefi.com/", "alertUrl": "https://www.globenewswire.com/news-release/2026/01/12/3216808/0/en/Hyperion-DeFi-Shareholder-Letter.html", "alertDate": "2026-01-12", "alertNote": "CEO shareholder letter — 2026 HYPE accumulation strategy via Felix HIP-3"}
         ],
         "BNB": [

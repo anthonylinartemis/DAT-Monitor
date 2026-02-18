@@ -38,8 +38,8 @@ USER_AGENT = "DAT-Monitor/1.0 (anthony.lin@artemisanalytics.xyz)"
 # Filing types that announce crypto acquisitions
 FILING_TYPES_OF_INTEREST: tuple[str, ...] = ("8-K", "8-K/A")
 
-# Only check filings from the last week
-LOOKBACK_DAYS = 7
+# Check filings from the last 30 days (covers gaps if scraper misses a run)
+LOOKBACK_DAYS = 30
 
 # Minimum delay between SEC requests (SEC allows 10 req/sec)
 _REQUEST_DELAY_SECONDS = 0.11
@@ -160,9 +160,9 @@ def _extract_token_quantity(text: str, token_symbol: str) -> Optional[int]:
         if not match:
             continue
 
-        # Extract a window of text around the match (200 chars each side)
-        start = max(0, match.start() - 200)
-        end = min(len(text), match.end() + 200)
+        # Extract a window of text around the match (500 chars each side)
+        start = max(0, match.start() - 500)
+        end = min(len(text), match.end() + 500)
         window = text[start:end]
 
         quantity = _extract_quantity(window)
@@ -254,8 +254,16 @@ def fetch_filing_text(cik: str, accession_number: str, primary_doc: str) -> str:
 
 
 # Regex to find exhibit filenames in EDGAR filing directory pages
+# Matches: ex99-1.htm, ex-99-1.htm, exhibit99.htm, ex99_1.htm,
+# pressrelease.htm, item9_01.htm, and similar patterns
 _EXHIBIT_FILENAME_RE = re.compile(
-    r'href="([^"]*(?:ex\s*-?\s*99|exhibit\s*99)[^"]*\.htm[l]?)"',
+    r'href="([^"]*(?:'
+    r'ex\s*-?\s*99'          # ex99, ex-99, ex 99
+    r'|exhibit\s*99'         # exhibit99
+    r'|pressrelease'         # pressrelease.htm
+    r'|press[\-_]?release'   # press-release.htm, press_release.htm
+    r'|item9'                # item9_01.htm (Item 9.01 exhibits)
+    r')[^"]*\.htm[l]?)"',
     re.IGNORECASE,
 )
 
