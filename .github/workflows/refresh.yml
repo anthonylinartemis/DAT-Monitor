@@ -21,11 +21,12 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: Recalculate totals (heal manual edits)
-        run: python -c "
-          import json, pathlib;
-          p = pathlib.Path('data.json');
-          d = json.loads(p.read_text());
-          d['totals'] = {k: sum(c.get('tokens', 0) for c in v) for k, v in d['companies'].items()};
+        run: |
+          python -c "
+          import json, pathlib
+          p = pathlib.Path('data.json')
+          d = json.loads(p.read_text())
+          d['totals'] = {k: sum(c.get('tokens', 0) for c in v) for k, v in d['companies'].items()}
           p.write_text(json.dumps(d, indent=2) + '\n')
           "
 
