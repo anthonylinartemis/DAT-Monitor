@@ -298,7 +298,16 @@ def fetch_exhibit_docs(cik: str, accession_number: str) -> list[str]:
         return []
 
     # Parse exhibit filenames from the directory listing
-    exhibits = _EXHIBIT_FILENAME_RE.findall(html)
+    raw_exhibits = _EXHIBIT_FILENAME_RE.findall(html)
+    # Strip path prefixes — EDGAR hrefs can be absolute paths like
+    # "/Archives/edgar/data/123/000.../ex99-1.htm" but we only need
+    # the filename since fetch_filing_text builds the full URL.
+    exhibits = []
+    for ex in raw_exhibits:
+        # Extract just the filename from any path
+        if "/" in ex:
+            ex = ex.rsplit("/", 1)[-1]
+        exhibits.append(ex)
     # Deduplicate while preserving order
     seen: set[str] = set()
     unique: list[str] = []
