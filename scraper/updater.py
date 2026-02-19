@@ -158,11 +158,15 @@ def process_update(
 
     # Update alert fields for the dashboard
     source_url = getattr(scraped, "source_url", "") or ""
+    source_type = getattr(scraped, "source_type", "") or ""
     if source_url:
         company["alertUrl"] = source_url
         company["alertDate"] = today
         company["alertNote"] = scraped.context_text[:100] if scraped.context_text else ""
-        company["lastSecUpdate"] = today
+        if source_type:
+            company["alertSource"] = source_type
+        if source_type == "sec_edgar":
+            company["lastSecUpdate"] = today
 
     # Append to filings[] for grouped filing history
     if scraped.context_text:
@@ -170,10 +174,20 @@ def process_update(
             "url": source_url,
             "date": today,
             "note": scraped.context_text[:100],
+            "type": "sec_filing" if source_type == "sec_edgar" else "dashboard_update",
         }
+        items = getattr(scraped, "items", "") or ""
+        if items:
+            filing_entry["items"] = items
+        filing_form = getattr(scraped, "filing_form", "") or ""
+        if filing_form:
+            filing_entry["form"] = filing_form
         filings = company.get("filings", [])
-        filings.insert(0, filing_entry)
-        company["filings"] = filings[:20]  # Cap at 20 entries
+        # Deduplicate: don't add if same URL already exists
+        existing_urls = {f.get("url") for f in filings}
+        if source_url not in existing_urls:
+            filings.insert(0, filing_entry)
+            company["filings"] = filings[:20]  # Cap at 20 entries
 
     # Recalculate totals
     data["totals"] = _recalculate_totals(companies)
@@ -204,6 +218,69 @@ def process_update(
     return data, history, True
 
 
+def record_filing_only(
+    scraped: ScrapedUpdate,
+    data: dict,
+) -> tuple[dict, bool]:
+    """Record a filing in a company's filings[] without updating token counts.
+
+    Used for SEC filings where no token quantity was extracted, but we still
+    want to surface the filing in the Filing Feed. Bypasses classification
+    and oscillation checks since there's no token change.
+
+    Returns (updated_data, was_recorded).
+    """
+    companies = data.get("companies", {})
+    result = _find_company(companies, scraped.ticker, scraped.token)
+    if result is None:
+        return data, False
+
+    company, idx, token_group = result
+    today = date.today().isoformat()
+    source_url = getattr(scraped, "source_url", "") or ""
+    source_type = getattr(scraped, "source_type", "") or ""
+    items = getattr(scraped, "items", "") or ""
+    filing_form = getattr(scraped, "filing_form", "") or ""
+
+    # Build filing entry
+    filing_entry = {
+        "url": source_url,
+        "date": today,
+        "note": scraped.context_text[:100] if scraped.context_text else "",
+        "type": "sec_filing",
+    }
+    if items:
+        filing_entry["items"] = items
+    if filing_form:
+        filing_entry["form"] = filing_form
+
+    # Deduplicate
+    filings = company.get("filings", [])
+    existing_urls = {f.get("url") for f in filings}
+    if source_url and source_url in existing_urls:
+        return data, False
+
+    filings.insert(0, filing_entry)
+    company["filings"] = filings[:20]
+
+    # Update alert fields so it shows in the filing feed
+    if source_url:
+        company["alertUrl"] = source_url
+        company["alertDate"] = today
+        company["alertNote"] = scraped.context_text[:100] if scraped.context_text else ""
+        if source_type:
+            company["alertSource"] = source_type
+        if source_type == "sec_edgar":
+            company["lastSecUpdate"] = today
+
+    logger.info(
+        "Recorded filing-only for %s: %s (%s)",
+        scraped.ticker, filing_form or "8-K", items,
+    )
+
+    return data, True
+
+
 def run_batch(
     updates: list[ScrapedUpdate],
     data_path: Optional[Path] = None,
@@ -224,6 +301,7 @@ def run_batch(
         "skipped_oscillation": 0,
         "skipped_unknown": 0,
         "skipped_not_found": 0,
+        "filings_recorded": 0,
         "errors": 0,
     }
 
@@ -233,13 +311,22 @@ def run_batch(
 
     for update in updates:
         try:
+            # Check if this is a filing-only update (SEC filing without token data).
+            # These have filing_form set and new_value == current company tokens.
+            is_filing_only = _is_filing_only_update(update, data)
+
+            if is_filing_only:
+                data, was_recorded = record_filing_only(update, data)
+                if was_recorded:
+                    summary["filings_recorded"] += 1
+                    dirty = True
+                continue
+
             data, history, was_applied = process_update(update, data, history)
 
             if was_applied:
                 summary["applied"] += 1
                 dirty = True
-            # Determine skip reason from process_update's logging behavior
-            # by re-checking conditions (lightweight since no I/O)
             elif not was_applied:
                 _classify_skip(update, data, history, summary)
 
@@ -253,6 +340,27 @@ def run_batch(
         state_guard.save_history(history, history_path)
 
     return summary
+
+
+def _is_filing_only_update(update: ScrapedUpdate, data: dict) -> bool:
+    """Detect if a ScrapedUpdate is a filing-only entry (no token change).
+
+    Filing-only entries are created by the EDGAR fetcher when an 8-K filing
+    is found but no token quantity could be extracted from the text.
+    """
+    filing_form = getattr(update, "filing_form", "") or ""
+    source_type = getattr(update, "source_type", "") or ""
+    if not filing_form or source_type != "sec_edgar":
+        return False
+
+    # Check if new_value matches the company's current token count
+    companies = data.get("companies", {})
+    result = _find_company(companies, update.ticker, update.token)
+    if result is None:
+        return False
+
+    company, _, _ = result
+    return update.new_value == company.get("tokens", 0)
 
 
 def _classify_skip(

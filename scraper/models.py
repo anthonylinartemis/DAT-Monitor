@@ -207,6 +207,9 @@ class ScrapedUpdate:
     new_value: int
     context_text: str
     source_url: str = ""
+    source_type: str = ""  # "sec_edgar" or "dashboard"
+    items: str = ""  # EDGAR items field (e.g., "2.02,9.01")
+    filing_form: str = ""  # e.g., "8-K", "10-Q", "10-K"
 
 
 @dataclass(frozen=True)

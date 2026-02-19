@@ -4,6 +4,7 @@
  */
 
 import { getData } from './data-store.js';
+import { hasViewedFiling } from './viewed-filings.js';
 
 const CONFIG = {
     defaultDays: 7,
@@ -40,17 +41,23 @@ export function getRecentFilings(options = {}) {
             if (company.alertUrl && company.alertDate) {
                 const alertDate = new Date(company.alertDate);
                 if (alertDate >= cutoffDate) {
+                    const isRecent = _isWithinDays(company.alertDate, CONFIG.newBadgeDays);
+                    const isViewed = hasViewedFiling(company.ticker, company.alertDate);
+                    const isDashboard = company.alertSource === 'dashboard';
                     allFilings.push({
                         ticker: company.ticker,
                         name: company.name,
                         token: tokenType,
                         date: company.alertDate,
-                        type: _detectFilingType(company.alertNote || company.alertUrl),
-                        summary: company.alertNote || '',
+                        type: isDashboard ? 'Dashboard' : _detectFilingType(company.alertNote || company.alertUrl),
+                        summary: isDashboard
+                            ? `Dashboard update: ${company.alertNote || 'Live data refresh'}`
+                            : (company.alertNote || ''),
                         url: company.alertUrl,
                         cik: company.cik,
-                        isNew: _isWithinDays(company.alertDate, CONFIG.newBadgeDays),
+                        isNew: isRecent && !isViewed,
                         change: null,
+                        alertSource: company.alertSource || 'unknown',
                     });
                 }
             }
@@ -65,6 +72,8 @@ export function getRecentFilings(options = {}) {
                         f => f.ticker === company.ticker && f.date === company.lastUpdate
                     );
                     if (!isDuplicate) {
+                        const isRecent = _isWithinDays(company.lastUpdate, CONFIG.newBadgeDays);
+                        const isViewed = hasViewedFiling(company.ticker, company.lastUpdate);
                         allFilings.push({
                             ticker: company.ticker,
                             name: company.name,
@@ -76,7 +85,7 @@ export function getRecentFilings(options = {}) {
                                 ? `https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=${company.cik}&type=8-K`
                                 : company.irUrl || '',
                             cik: company.cik,
-                            isNew: _isWithinDays(company.lastUpdate, CONFIG.newBadgeDays),
+                            isNew: isRecent && !isViewed,
                             change: company.change,
                         });
                     }

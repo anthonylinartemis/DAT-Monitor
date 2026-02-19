@@ -1236,6 +1236,35 @@ a.ticker:hover { opacity: 0.8; }
     background: rgba(98, 126, 234, 0.10);
     color: var(--eth);
 }
+.filing-type-dashboard {
+    background: rgba(136, 136, 136, 0.12);
+    color: #888;
+}
+.filing-type-earnings {
+    background: rgba(247, 147, 26, 0.12);
+    color: var(--btc);
+    font-weight: 700;
+}
+
+/* Earnings tab */
+.earnings-section {
+    margin-bottom: 24px;
+}
+.earnings-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 12px 0;
+    color: var(--text-primary);
+}
+.earnings-count {
+    font-weight: 400;
+    color: var(--text-muted);
+    font-size: 14px;
+}
+.earnings-quarter {
+    font-weight: 500;
+    color: var(--text-secondary);
+}
 
 /* NEW badge for recent filings */
 .filing-new-badge {

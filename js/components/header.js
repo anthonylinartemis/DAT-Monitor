@@ -15,7 +15,7 @@ const LIVE_DASHBOARDS = [
     { name: 'StrategyTracker', url: 'https://strategytracker.com/', desc: 'All BTC DATs' },
     { name: 'Strategy (MSTR)', url: 'https://www.strategy.com/purchases', desc: 'BTC purchases' },
     { name: 'Metaplanet', url: 'https://metaplanet.jp/en/analytics', desc: 'BTC analytics' },
-    { name: 'Strive (ASST)', url: 'https://treasury.strive.com/', desc: 'BTC treasury' },
+    { name: 'Strive (ASST)', url: 'https://treasury.strive.com/?tab=strive', desc: 'ASST BTC treasury' },
     { name: 'CEA Industries (BNC)', url: 'https://ceaindustries.com/dashboard.html', desc: 'BNB dashboard' },
     { name: 'DeFi Dev (DFDV)', url: 'https://defidevcorp.com/?tab=history-purchases', desc: 'SOL purchases' },
     { name: 'SharpLink (SMLR)', url: 'https://www.sharplink.com/eth-dashboard', desc: 'ETH dashboard' },
@@ -38,6 +38,7 @@ export function renderHeader(currentView) {
         { id: 'dashboard', label: 'Dashboard', hash: '#/dashboard' },
         { id: 'holdings', label: 'Holdings', hash: '#/holdings' },
         { id: 'filings', label: 'Filing Feed', hash: '#/filings' },
+        { id: 'earnings', label: 'Earnings', hash: '#/earnings' },
         { id: 'export', label: 'Export / Import', hash: '#/export', badge: needsBackup ? 'Backup' : null }
     ];
 
@@ -81,7 +82,7 @@ export function renderHeader(currentView) {
                                 </a>
                             `).join('')}
                         </div>
-                        <button class="btn btn-secondary" id="refresh-prices-btn" title="${priceLabel}" style="padding: 4px 10px; font-size: 11px;">
+                        <button class="btn btn-secondary" id="refresh-prices-btn" title="Refresh prices and reload data from server (after running scraper)" style="padding: 4px 10px; font-size: 11px;">
                             Refresh
                         </button>
                         <div class="persistence-indicator" title="${saveLabel}">

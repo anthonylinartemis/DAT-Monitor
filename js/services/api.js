@@ -427,7 +427,6 @@ async function fetchYahooFinanceStockPrice(ticker) {
     const yahooTicker = ticker === 'MTPLF' ? '3350.T' : ticker;
 
     try {
-        // Use Yahoo Finance v8 quote endpoint (free, CORS-friendly)
         const response = await fetch(
             `https://query1.finance.yahoo.com/v8/finance/chart/${yahooTicker}?interval=1d&range=1d`
         );
@@ -438,35 +437,20 @@ async function fetchYahooFinanceStockPrice(ticker) {
         }
 
         const data = await response.json();
+        const meta = data?.chart?.result?.[0]?.meta;
+        if (!meta) return null;
 
-        // Extract current price from chart data
-        if (data?.chart?.result?.[0]?.meta?.regularMarketPrice) {
-            let price = data.chart.result[0].meta.regularMarketPrice;
+        // Use regularMarketPrice if available, otherwise fall back to previousClose
+        const rawPrice = meta.regularMarketPrice ?? meta.previousClose;
+        if (rawPrice === undefined) return null;
 
-            // Convert JPY to USD for Japanese stocks
-            if (yahooTicker.endsWith('.T') && price > MTPLF_USD_PRICE_THRESHOLD) {
-                const jpyRate = await fetchJpyToUsdRate();
-                if (jpyRate) {
-                    price = price * jpyRate;
-                }
-            }
-
-            return price;
+        // Convert JPY to USD for Japanese stocks
+        if (yahooTicker.endsWith('.T') && rawPrice > MTPLF_USD_PRICE_THRESHOLD) {
+            const jpyRate = await fetchJpyToUsdRate();
+            return jpyRate ? rawPrice * jpyRate : rawPrice;
         }
 
-        // Fallback to previous close if regular market price unavailable
-        if (data?.chart?.result?.[0]?.meta?.previousClose) {
-            let price = data.chart.result[0].meta.previousClose;
-
-            if (yahooTicker.endsWith('.T') && price > MTPLF_USD_PRICE_THRESHOLD) {
-                const jpyRate = await fetchJpyToUsdRate();
-                if (jpyRate) {
-                    price = price * jpyRate;
-                }
-            }
-
-            return price;
-        }
+        return rawPrice;
     } catch (err) {
         console.warn(`Yahoo Finance stock price failed for ${ticker}:`, err.message);
     }

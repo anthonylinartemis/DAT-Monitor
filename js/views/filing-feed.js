@@ -6,6 +6,7 @@
 import { getRecentFilings, formatFilingDate, getDiscoveredPressReleases, getCompanyByTicker } from '../services/filing-feed.js';
 import * as AISummary from '../services/ai-summary.js';
 import { route } from '../app.js';
+import { markFilingAsViewed, markAllAsViewed } from '../services/viewed-filings.js';
 
 let currentFilter = 'all';
 let showDiscoveredPRs = true;
@@ -25,6 +26,7 @@ export function renderFilingFeed() {
                     <span class="filing-feed-subtitle">Last 7 days</span>
                 </div>
                 <div class="filing-feed-controls">
+                    ${filings.some(f => f.isNew) ? `<button id="mark-all-read-btn" class="btn btn-sm" style="margin-right: 8px;">Mark All as Read</button>` : ''}
                     <select id="filing-token-filter" class="form-select" style="width: auto; min-width: 120px;">
                         <option value="all" ${currentFilter === 'all' ? 'selected' : ''}>All Tokens</option>
                         <option value="BTC" ${currentFilter === 'BTC' ? 'selected' : ''}>BTC</option>
@@ -92,7 +94,7 @@ function _renderFilingRow(filing) {
                 </div>
             </td>
             <td>
-                <span class="filing-type-badge filing-type-${filing.type.toLowerCase().replace('-', '')}">${_escapeHtml(filing.type)}</span>
+                <span class="filing-type-badge filing-type-${filing.type.toLowerCase().replace('-', '')}${filing.type === 'Dashboard' ? ' filing-type-dashboard' : ''}">${_escapeHtml(filing.type)}</span>
             </td>
             <td>
                 <span class="date ${filing.isNew ? 'recent' : ''}">${dateDisplay}</span>
@@ -239,6 +241,8 @@ function _truncate(text, maxLength) {
  * Initialize event listeners for the filing feed view.
  */
 export function initFilingFeed() {
+    const filings = getRecentFilings({ token: currentFilter });
+
     // Token filter dropdown
     const filterSelect = document.getElementById('filing-token-filter');
     if (filterSelect) {
@@ -247,6 +251,38 @@ export function initFilingFeed() {
             route();
         });
     }
+
+    // Mark All as Read button
+    const markAllBtn = document.getElementById('mark-all-read-btn');
+    if (markAllBtn) {
+        markAllBtn.addEventListener('click', () => {
+            markAllAsViewed(filings);
+            route(); // Re-render to remove NEW badges
+        });
+    }
+
+    // Mark individual filings as viewed when their links are clicked
+    document.querySelectorAll('a[href*="sec.gov"], a[href*="treasury.strive.com"], a[href*="metaplanet.jp"]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            // Find the filing row
+            const row = e.target.closest('tr');
+            if (row) {
+                const tickerCell = row.querySelector('.ticker');
+                const dateCell = row.querySelector('.date');
+                if (tickerCell && dateCell) {
+                    const ticker = tickerCell.textContent.trim();
+                    const dateText = dateCell.textContent.trim();
+                    // Try to extract date from the row's data
+                    const filing = filings.find(f =>
+                        f.ticker === ticker && formatFilingDate(f.date) === dateText
+                    );
+                    if (filing) {
+                        markFilingAsViewed(filing.ticker, filing.date);
+                    }
+                }
+            }
+        });
+    });
 
     // AI Summary buttons
     document.querySelectorAll('.btn-ai-summary').forEach(btn => {

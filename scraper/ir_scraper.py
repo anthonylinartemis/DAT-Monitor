@@ -198,25 +198,27 @@ def _extract_press_releases(html: str, base_url: str) -> list[dict]:
                 "date": pr_date,
             })
 
-    # Deduplicate by URL
-    seen_urls = set()
-    unique_releases = []
-    for pr in releases:
-        if pr["url"] not in seen_urls:
-            seen_urls.add(pr["url"])
-            unique_releases.append(pr)
-
-    return unique_releases
+    return _dedupe_by_url(releases, url_getter=lambda x: x["url"])
 
 
 def _is_js_rendered_platform(url: str) -> bool:
     """Check if URL is a JavaScript-rendered IR platform that can't be scraped."""
     if not url:
         return False
-    for platform in JS_RENDERED_PLATFORMS:
-        if platform in url.lower():
-            return True
-    return False
+    url_lower = url.lower()
+    return any(platform in url_lower for platform in JS_RENDERED_PLATFORMS)
+
+
+def _dedupe_by_url(items: list, url_getter=lambda x: x.url):
+    """Deduplicate a list of items by URL, preserving order."""
+    seen = set()
+    result = []
+    for item in items:
+        url = url_getter(item)
+        if url not in seen:
+            seen.add(url)
+            result.append(item)
+    return result
 
 
 def _scrape_globenewswire(company_name: str, ticker: str, token: str) -> list[DiscoveredPR]:
@@ -320,15 +322,7 @@ def scrape_ir_page(ticker: str, token: str, ir_url: str) -> list[DiscoveredPR]:
     # Also search GlobeNewswire for additional coverage
     results.extend(_scrape_globenewswire("", ticker, token))
 
-    # Deduplicate by URL
-    seen_urls = set()
-    unique_results = []
-    for pr in results:
-        if pr.url not in seen_urls:
-            seen_urls.add(pr.url)
-            unique_results.append(pr)
-
-    return unique_results
+    return _dedupe_by_url(results)
 
 
 def scrape_all_ir_pages(data: dict) -> list[DiscoveredPR]:

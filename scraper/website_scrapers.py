@@ -284,6 +284,7 @@ def fetch_metaplanet_updates(
             new_value=analytics.total_btc,
             context_text=context,
             source_url=METAPLANET_ANALYTICS_URL,
+            source_type="dashboard",
         ))
 
     analytics_dict = analytics.to_json_dict() if analytics.total_btc else None
@@ -443,6 +444,7 @@ def fetch_strive_updates(
                 new_value=btc_int,
                 context_text=context,
                 source_url=STRIVE_TREASURY_URL,
+                source_type="dashboard",
             ))
 
     logger.info(
@@ -610,6 +612,7 @@ def fetch_bnc_updates(
             new_value=analytics.total_bnb,
             context_text=context,
             source_url=BNC_DATA_URL,
+            source_type="dashboard",
         ))
 
     analytics_dict = analytics.to_json_dict() if analytics.total_bnb else None
@@ -720,6 +723,7 @@ def fetch_dfdv_updates(
             new_value=analytics.total_sol,
             context_text=context,
             source_url=DFDV_DASHBOARD_URL,
+            source_type="dashboard",
         ))
 
     analytics_dict = analytics.to_json_dict() if analytics.total_sol else None
@@ -884,6 +888,7 @@ def fetch_purr_updates(
             new_value=analytics.total_hype,
             context_text=context,
             source_url=PURR_DASHBOARD_URL,
+            source_type="dashboard",
         ))
 
     analytics_dict = analytics.to_json_dict() if analytics.total_hype else None
@@ -954,6 +959,7 @@ def fetch_upxi_updates(
             new_value=total_sol,
             context_text=context,
             source_url=UPXI_URL,
+            source_type="dashboard",
         ))
 
     enrichment = {"totalSol": total_sol} if total_sol else None
@@ -1025,6 +1031,7 @@ def fetch_btbt_updates(
             new_value=total_eth,
             context_text=context,
             source_url=BTBT_URL,
+            source_type="dashboard",
         ))
 
     enrichment = {"totalEth": total_eth} if total_eth else None

@@ -38,6 +38,9 @@ USER_AGENT = "DAT-Monitor/1.0 (anthony.lin@artemisanalytics.xyz)"
 # Filing types that announce crypto acquisitions
 FILING_TYPES_OF_INTEREST: tuple[str, ...] = ("8-K", "8-K/A")
 
+# Broader set of filing types for comprehensive tracking (earnings, quarterlies)
+ALL_FILING_TYPES_OF_INTEREST: tuple[str, ...] = ("8-K", "8-K/A", "10-Q", "10-K", "10-K/A")
+
 # Check filings from the last 30 days (covers gaps if scraper misses a run)
 LOOKBACK_DAYS = 30
 
@@ -175,12 +178,17 @@ def _extract_token_quantity(text: str, token_symbol: str) -> Optional[int]:
 # --- EDGAR API ---
 
 
-def fetch_company_filings(cik: str) -> list[dict]:
-    """Fetch recent 8-K filings from SEC EDGAR for a given CIK.
+def fetch_company_filings(
+    cik: str, filing_types: tuple[str, ...] | None = None
+) -> list[dict]:
+    """Fetch recent filings from SEC EDGAR for a given CIK.
 
     Returns list of dicts with keys:
-    {accessionNumber, filingDate, primaryDocument, form}
+    {accessionNumber, filingDate, primaryDocument, form, items}
     """
+    if filing_types is None:
+        filing_types = FILING_TYPES_OF_INTEREST
+
     padded_cik = cik.lstrip("0").zfill(10)
     url = SEC_SUBMISSIONS_URL.format(cik=padded_cik)
 
@@ -205,12 +213,13 @@ def fetch_company_filings(cik: str) -> list[dict]:
     dates = recent.get("filingDate", [])
     accessions = recent.get("accessionNumber", [])
     primary_docs = recent.get("primaryDocument", [])
+    items_list = recent.get("items", [])
 
     cutoff = (date.today() - timedelta(days=LOOKBACK_DAYS)).isoformat()
     results: list[dict] = []
 
     for i in range(len(forms)):
-        if forms[i] not in FILING_TYPES_OF_INTEREST:
+        if forms[i] not in filing_types:
             continue
         if i >= len(dates) or dates[i] < cutoff:
             continue
@@ -220,6 +229,7 @@ def fetch_company_filings(cik: str) -> list[dict]:
             "filingDate": dates[i],
             "primaryDocument": primary_docs[i] if i < len(primary_docs) else "",
             "form": forms[i],
+            "items": items_list[i] if i < len(items_list) else "",
         }
         results.append(filing)
 
@@ -350,11 +360,40 @@ def _get_filing_text_with_exhibits(
 # --- Main Entry Point ---
 
 
+def _describe_filing_items(items: str, form: str) -> str:
+    """Generate a human-readable note for a filing based on its items field."""
+    item_descriptions = {
+        "1.01": "Entry into Material Agreement",
+        "2.02": "Results of Operations (Earnings)",
+        "2.05": "Costs Associated with Exit",
+        "5.02": "Departure/Election of Officers",
+        "5.07": "Submission of Matters to Shareholder Vote",
+        "7.01": "Regulation FD Disclosure",
+        "8.01": "Other Events",
+        "9.01": "Financial Statements and Exhibits",
+    }
+    if not items:
+        return f"{form} filing"
+
+    parts = []
+    for item in items.split(","):
+        item = item.strip()
+        if item in item_descriptions:
+            parts.append(f"Item {item} - {item_descriptions[item]}")
+        elif item:
+            parts.append(f"Item {item}")
+    return f"{form}: {'; '.join(parts)}" if parts else f"{form} filing"
+
+
 def build_updates(data: dict) -> list[ScrapedUpdate]:
     """Check all companies for recent EDGAR filings and build ScrapedUpdates.
 
     Reads companies from the data dict (same structure as data.json).
     Skips companies without CIK numbers.
+
+    Now tracks ALL 8-K filings (not just those with token quantities),
+    so that regulatory activity is visible even when no holdings data
+    can be extracted.
     """
     updates: list[ScrapedUpdate] = []
     companies = data.get("companies", {})
@@ -385,38 +424,56 @@ def build_updates(data: dict) -> list[ScrapedUpdate]:
                     filing["primaryDocument"],
                     token_group,
                 )
-                if not text:
-                    continue
 
-                quantity = _extract_token_quantity(text, token_group)
-                if quantity is None:
-                    logger.debug(
-                        "No %s quantity found in %s filing %s (primary + exhibits)",
-                        token_group, ticker, filing["accessionNumber"],
-                    )
-                    continue
-
-                # Use a context snippet (first 500 chars of filing text)
-                context = text[:500]
                 source_url = SEC_ARCHIVES_URL.format(
                     cik_num=cik.lstrip("0"),
                     accession=filing["accessionNumber"].replace("-", ""),
                     doc=source_doc,
                 )
 
-                update = ScrapedUpdate(
-                    ticker=ticker,
-                    token=token_group,
-                    new_value=quantity,
-                    context_text=context,
-                    source_url=source_url,
-                )
-                updates.append(update)
-                logger.info(
-                    "Extracted %s update: %s = %d %s from filing %s",
-                    ticker, ticker, quantity, token_group,
-                    filing["accessionNumber"],
-                )
+                quantity = None
+                if text:
+                    quantity = _extract_token_quantity(text, token_group)
+
+                if quantity is not None:
+                    context = text[:500]
+                    update = ScrapedUpdate(
+                        ticker=ticker,
+                        token=token_group,
+                        new_value=quantity,
+                        context_text=context,
+                        source_url=source_url,
+                        source_type="sec_edgar",
+                        items=filing.get("items", ""),
+                        filing_form=filing.get("form", ""),
+                    )
+                    updates.append(update)
+                    logger.info(
+                        "Extracted %s update: %s = %d %s from filing %s",
+                        ticker, ticker, quantity, token_group,
+                        filing["accessionNumber"],
+                    )
+                else:
+                    # No token quantity found, but still record the filing
+                    # so it appears in the filing feed
+                    note = _describe_filing_items(
+                        filing.get("items", ""), filing.get("form", "8-K")
+                    )
+                    update = ScrapedUpdate(
+                        ticker=ticker,
+                        token=token_group,
+                        new_value=company.get("tokens", 0),  # Keep current value
+                        context_text=note,
+                        source_url=source_url,
+                        source_type="sec_edgar",
+                        items=filing.get("items", ""),
+                        filing_form=filing.get("form", ""),
+                    )
+                    updates.append(update)
+                    logger.info(
+                        "Recorded %s filing without token data: %s (%s)",
+                        ticker, filing["accessionNumber"], note,
+                    )
 
     logger.info("Built %d update(s) from EDGAR filings", len(updates))
     return updates

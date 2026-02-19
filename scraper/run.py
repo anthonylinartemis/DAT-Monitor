@@ -12,7 +12,7 @@ import sys
 from datetime import date, timedelta
 from pathlib import Path
 
-from scraper import fetcher, ir_scraper, parser, website_scrapers
+from scraper import earnings_tracker, fetcher, ir_scraper, parser, website_scrapers
 from scraper.config import DATA_JSON_PATH, HOLDINGS_HISTORY_PATH
 from scraper.updater import (
     apply_enrichments,
@@ -93,9 +93,18 @@ def main(argv: list[str] | None = None) -> int:
     except Exception:
         logger.exception("Failed during IR page scraping")
 
+    # 2d. Earnings tracker (8-K Item 2.02, 10-Q, 10-K)
+    earnings_events: list[dict] = []
+    logger.info("Scanning for earnings events...")
+    try:
+        earnings_events = earnings_tracker.build_earnings_events(data)
+        logger.info("Earnings tracker: %d event(s) found", len(earnings_events))
+    except Exception:
+        logger.exception("Failed during earnings tracking")
+
     logger.info("Total: %d potential update(s)", len(updates))
 
-    if not updates and not enrichments and not discovered_prs:
+    if not updates and not enrichments and not discovered_prs and not earnings_events:
         logger.info("No updates, enrichments, or press releases found. Done.")
         return 0
 
@@ -118,14 +127,14 @@ def main(argv: list[str] | None = None) -> int:
     # 4. Run pipeline for token updates
     summary = {"applied": 0, "skipped_override": 0, "skipped_buyback": 0,
                "skipped_oscillation": 0, "skipped_unknown": 0,
-               "skipped_not_found": 0, "errors": 0}
+               "skipped_not_found": 0, "filings_recorded": 0, "errors": 0}
 
     if updates:
         logger.info("Processing updates through pipeline...")
         summary = run_batch(updates, data_path, history_path)
 
     # 5. Apply enrichments (analytics data from website scrapers)
-    if enrichments or discovered_prs:
+    if enrichments or discovered_prs or earnings_events:
         logger.info("Applying enrichments to data.json...")
         data = load_data(data_path)
         if enrichments:
@@ -133,6 +142,9 @@ def main(argv: list[str] | None = None) -> int:
         if discovered_prs:
             data["discoveredPressReleases"] = discovered_prs
             logger.info("Saved %d discovered press releases", len(discovered_prs))
+        if earnings_events:
+            data["earnings"] = earnings_events
+            logger.info("Saved %d earnings events", len(earnings_events))
         stamp_last_updated(data)
         save_data(data, data_path)
         if enrichments:
@@ -145,8 +157,10 @@ def main(argv: list[str] | None = None) -> int:
     logger.info("  Skipped (oscillation):%d", summary["skipped_oscillation"])
     logger.info("  Skipped (unknown):   %d", summary["skipped_unknown"])
     logger.info("  Skipped (not found): %d", summary["skipped_not_found"])
+    logger.info("  Filings recorded:    %d", summary["filings_recorded"])
     logger.info("  Enrichments:         %d", len(enrichments))
     logger.info("  Discovered PRs:      %d", len(discovered_prs))
+    logger.info("  Earnings events:     %d", len(earnings_events))
     logger.info("  Errors:              %d", summary["errors"])
 
     # 6. Staleness check — warn about companies that haven't updated in >14 days

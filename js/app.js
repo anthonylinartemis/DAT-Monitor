@@ -9,6 +9,7 @@ import { renderHoldings, initHoldingsListeners } from './views/holdings.js';
 import { renderCompanyPage, initCompanyPage } from './views/company.js';
 import { renderDataSync, initDataSync } from './views/data-sync.js';
 import { renderFilingFeed, initFilingFeed } from './views/filing-feed.js';
+import { renderEarnings, initEarningsListeners } from './views/earnings.js';
 import { destroyAllSparklines } from './components/sparkline.js';
 import { destroyAllAreaCharts } from './components/area-chart.js';
 import { initPriceCache, refreshPriceCache, getPriceCacheTimestamp, onPriceRefresh } from './services/api.js';
@@ -25,6 +26,7 @@ function getView() {
     }
     if (hash === '#/holdings') return { id: 'holdings' };
     if (hash === '#/filings') return { id: 'filings' };
+    if (hash === '#/earnings') return { id: 'earnings' };
     if (hash === '#/export') return { id: 'export' };
     return { id: 'dashboard' };
 }
@@ -62,6 +64,9 @@ export function route() {
             case 'filings':
                 content += renderFilingFeed();
                 break;
+            case 'earnings':
+                content += renderEarnings();
+                break;
             case 'company':
                 content += renderCompanyPage(view.ticker);
                 break;
@@ -83,6 +88,9 @@ export function route() {
                 break;
             case 'filings':
                 initFilingFeed();
+                break;
+            case 'earnings':
+                initEarningsListeners();
                 break;
             case 'company':
                 initCompanyPage(view.ticker);
@@ -150,10 +158,24 @@ async function init() {
             btn.disabled = true;
             btn.textContent = 'Refreshing...';
             try {
+                // Refresh prices
                 await refreshPriceCache();
-                route(); // Re-render to show new prices
+                console.log('Price cache refreshed');
+
+                // Reload data.json from server to get latest scraper results
+                await loadData();
+                console.log('Data reloaded from server');
+
+                // Re-render to show updates
+                route();
             } catch (err) {
-                console.warn('Manual price refresh failed:', err);
+                console.warn('Manual refresh failed:', err);
+                btn.textContent = 'Error';
+                setTimeout(() => {
+                    btn.textContent = 'Refresh';
+                    btn.disabled = false;
+                }, 2000);
+                return;
             }
             btn.disabled = false;
             btn.textContent = 'Refresh';

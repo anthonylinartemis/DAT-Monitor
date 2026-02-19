@@ -659,13 +659,42 @@ function _renderChart(company, color) {
         return;
     }
 
-    // Determine unit label
+    // Determine unit label based on metric type
     const metricConfig = CHART_METRICS.find(m => m.key === currentChartMetric);
-    const unitLabel = metricConfig?.unit === 'usd' ? 'USD' :
-                      metricConfig?.unit === 'tokens' ? company.token :
-                      metricConfig?.label || '';
+    let unitLabel = metricConfig?.label || '';
+    if (metricConfig?.unit === 'usd') {
+        unitLabel = 'USD';
+    } else if (metricConfig?.unit === 'tokens') {
+        unitLabel = company.token;
+    }
 
     renderAreaChart('company-area-chart', chartData, color, unitLabel);
+}
+
+/**
+ * Compute the value for a given metric from a treasury entry.
+ * @param {Object} entry - Treasury history entry
+ * @param {string} metric - Metric key (nav, shares, cash, debt)
+ * @param {number} tokenPrice - Current token price in USD
+ * @returns {number}
+ */
+function _computeMetricValue(entry, metric, tokenPrice) {
+    switch (metric) {
+        case 'nav': {
+            const tokens = entry.num_of_tokens || 0;
+            const cash = entry.latest_cash || 0;
+            const debt = (entry.convertible_debt || 0) + (entry.non_convertible_debt || 0);
+            return (tokens * tokenPrice) + cash - debt;
+        }
+        case 'shares':
+            return entry.num_of_shares || 0;
+        case 'cash':
+            return entry.latest_cash || 0;
+        case 'debt':
+            return (entry.convertible_debt || 0) + (entry.non_convertible_debt || 0);
+        default:
+            return 0;
+    }
 }
 
 function _getChartData(company, metric, timeframe) {
@@ -677,6 +706,7 @@ function _getChartData(company, metric, timeframe) {
 
     // Build data based on metric
     if (metric === 'holdings') {
+        // Prefer transactions if available, otherwise use treasury history
         if (transactions.length >= 2) {
             rawData = transactions.map(t => ({
                 date: t.date,
@@ -688,29 +718,12 @@ function _getChartData(company, metric, timeframe) {
                 cumulativeTokens: entry.num_of_tokens || 0,
             }));
         }
-    } else if (metric === 'nav') {
+    } else {
+        // All other metrics derive from treasury history
         rawData = treasuryHistory.map(entry => {
-            const tokens = entry.num_of_tokens || 0;
-            const cash = entry.latest_cash || 0;
-            const debt = (entry.convertible_debt || 0) + (entry.non_convertible_debt || 0);
-            const nav = (tokens * tokenPrice) + cash - debt;
-            return { date: entry.date, cumulativeTokens: nav };
+            const value = _computeMetricValue(entry, metric, tokenPrice);
+            return { date: entry.date, cumulativeTokens: value };
         });
-    } else if (metric === 'shares') {
-        rawData = treasuryHistory.map(entry => ({
-            date: entry.date,
-            cumulativeTokens: entry.num_of_shares || 0,
-        }));
-    } else if (metric === 'cash') {
-        rawData = treasuryHistory.map(entry => ({
-            date: entry.date,
-            cumulativeTokens: entry.latest_cash || 0,
-        }));
-    } else if (metric === 'debt') {
-        rawData = treasuryHistory.map(entry => ({
-            date: entry.date,
-            cumulativeTokens: (entry.convertible_debt || 0) + (entry.non_convertible_debt || 0),
-        }));
     }
 
     // Sort by date ascending for proper chart display
