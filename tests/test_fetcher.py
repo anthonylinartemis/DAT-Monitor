@@ -338,17 +338,20 @@ class TestBuildUpdates:
 
     @patch("scraper.fetcher.fetch_filing_text")
     @patch("scraper.fetcher.fetch_company_filings")
-    def test_no_quantity_no_update(
+    def test_no_quantity_creates_filing_only_update(
         self,
         mock_filings: MagicMock,
         mock_text: MagicMock,
     ) -> None:
+        """When no token quantity is found, a filing-only update is still created
+        so the filing appears in the Filing Feed."""
         mock_filings.return_value = [
             {
                 "accessionNumber": "0001050446-26-000001",
                 "filingDate": date.today().isoformat(),
                 "primaryDocument": "filing.htm",
                 "form": "8-K",
+                "items": "",
             }
         ]
         mock_text.return_value = "Board approved new compensation plan for executives."
@@ -363,4 +366,9 @@ class TestBuildUpdates:
 
         updates = build_updates(data)
 
-        assert len(updates) == 0
+        # Filing-only update preserves current token count
+        assert len(updates) == 1
+        assert updates[0].ticker == "MSTR"
+        assert updates[0].new_value == 687410  # unchanged
+        assert updates[0].source_type == "sec_edgar"
+        assert updates[0].filing_form == "8-K"

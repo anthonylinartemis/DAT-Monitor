@@ -1,6 +1,7 @@
 """Tests for the IR page scraper."""
 
 import pytest
+from datetime import date, timedelta
 from scraper.ir_scraper import (
     DiscoveredPR,
     _extract_date_from_text,
@@ -121,8 +122,11 @@ class TestMergeDiscoveredPRs:
     """Tests for merge_discovered_prs function."""
 
     def test_merges_new_prs(self):
+        # Use relative dates so the test doesn't become stale over time
+        recent_date = (date.today() - timedelta(days=5)).isoformat()
+        older_date = (date.today() - timedelta(days=15)).isoformat()
         existing = [
-            {"url": "https://example.com/old", "title": "Old PR", "date": "2026-01-20"}
+            {"url": "https://example.com/old", "title": "Old PR", "date": older_date}
         ]
         new_prs = [
             DiscoveredPR(
@@ -130,9 +134,9 @@ class TestMergeDiscoveredPRs:
                 token="BTC",
                 title="New PR",
                 url="https://example.com/new",
-                date="2026-01-28",
+                date=recent_date,
                 source_page="https://example.com",
-                discovered_at="2026-01-28T12:00:00",
+                discovered_at=f"{recent_date}T12:00:00",
             )
         ]
         result = merge_discovered_prs(existing, new_prs)
@@ -142,8 +146,10 @@ class TestMergeDiscoveredPRs:
         assert "https://example.com/new" in urls
 
     def test_deduplicates_by_url(self):
+        recent_date = (date.today() - timedelta(days=5)).isoformat()
+        older_date = (date.today() - timedelta(days=15)).isoformat()
         existing = [
-            {"url": "https://example.com/same", "title": "Existing", "date": "2026-01-20"}
+            {"url": "https://example.com/same", "title": "Existing", "date": older_date}
         ]
         new_prs = [
             DiscoveredPR(
@@ -151,9 +157,9 @@ class TestMergeDiscoveredPRs:
                 token="BTC",
                 title="Duplicate",
                 url="https://example.com/same",
-                date="2026-01-28",
+                date=recent_date,
                 source_page="https://example.com",
-                discovered_at="2026-01-28T12:00:00",
+                discovered_at=f"{recent_date}T12:00:00",
             )
         ]
         result = merge_discovered_prs(existing, new_prs)
@@ -161,16 +167,18 @@ class TestMergeDiscoveredPRs:
         assert len(result) == 1
 
     def test_sorted_by_date_descending(self):
+        older_date = (date.today() - timedelta(days=20)).isoformat()
+        newer_date = (date.today() - timedelta(days=3)).isoformat()
         new_prs = [
             DiscoveredPR(
                 ticker="A", token="BTC", title="Old", url="https://a.com",
-                date="2026-01-01", source_page="", discovered_at="",
+                date=older_date, source_page="", discovered_at="",
             ),
             DiscoveredPR(
                 ticker="B", token="BTC", title="New", url="https://b.com",
-                date="2026-01-28", source_page="", discovered_at="",
+                date=newer_date, source_page="", discovered_at="",
             ),
         ]
         result = merge_discovered_prs([], new_prs)
-        assert result[0]["date"] == "2026-01-28"
-        assert result[1]["date"] == "2026-01-01"
+        assert result[0]["date"] == newer_date
+        assert result[1]["date"] == older_date
