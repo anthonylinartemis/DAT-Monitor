@@ -139,11 +139,28 @@ def _strip_html(html: str) -> str:
     return text.strip()
 
 
+# Patterns to strip from extraction windows before quantity parsing
+_WINDOW_NOISE_RE = re.compile(
+    r"EX-?\s*99\.\d+"       # EX-99.1, EX 99.2, EX99.1
+    r"|Item\s+9\.01"        # Item 9.01
+    r"|Exhibit\s+99\.\d+",  # Exhibit 99.1
+    re.IGNORECASE,
+)
+
+
+def _clean_extraction_window(window: str) -> str:
+    """Strip exhibit headers and item references that pollute number extraction."""
+    return _WINDOW_NOISE_RE.sub("", window)
+
+
 def _extract_token_quantity(text: str, token_symbol: str) -> Optional[int]:
     """Search filing text for a token quantity near a token name mention.
 
     Looks for patterns like "acquired 13,627 BTC", "holds 687,410 Bitcoin",
     "treasury of 4,167,768 ETH".
+
+    Uses close-proximity search (50 chars) first, then falls back to a wider
+    window (200 chars). Strips exhibit/item headers before parsing.
 
     Returns the extracted integer quantity, or None if not found.
     """
@@ -163,14 +180,15 @@ def _extract_token_quantity(text: str, token_symbol: str) -> Optional[int]:
         if not match:
             continue
 
-        # Extract a window of text around the match (500 chars each side)
-        start = max(0, match.start() - 500)
-        end = min(len(text), match.end() + 500)
-        window = text[start:end]
+        # Try close-proximity window first (50 chars each side)
+        for window_size in (50, 200):
+            start = max(0, match.start() - window_size)
+            end = min(len(text), match.end() + window_size)
+            window = _clean_extraction_window(text[start:end])
 
-        quantity = _extract_quantity(window)
-        if quantity is not None and quantity > 0:
-            return quantity
+            quantity = _extract_quantity(window)
+            if quantity is not None and quantity > 0:
+                return quantity
 
     return None
 

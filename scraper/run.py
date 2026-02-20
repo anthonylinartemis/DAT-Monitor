@@ -13,6 +13,7 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from scraper import earnings_tracker, fetcher, ir_scraper, parser, website_scrapers
+from scraper.auditor import run_audit
 from scraper.config import DATA_JSON_PATH, HOLDINGS_HISTORY_PATH
 from scraper.updater import (
     apply_enrichments,
@@ -165,6 +166,29 @@ def main(argv: list[str] | None = None) -> int:
 
     # 6. Staleness check — warn about companies that haven't updated in >14 days
     _check_stale_companies(data_path)
+
+    # 7. Post-scrape audit
+    try:
+        audit_report = run_audit(data_path, history_path)
+        for flag in audit_report.flags:
+            if flag.severity == "CRITICAL":
+                logger.error(
+                    "AUDIT %s: %s (%s) — %s: %s",
+                    flag.severity, flag.ticker, flag.token,
+                    flag.check_name, flag.message,
+                )
+            else:
+                logger.warning(
+                    "AUDIT %s: %s (%s) — %s: %s",
+                    flag.severity, flag.ticker, flag.token,
+                    flag.check_name, flag.message,
+                )
+        if audit_report.critical_count:
+            logger.error(
+                "Audit found %d CRITICAL issue(s)", audit_report.critical_count
+            )
+    except Exception:
+        logger.exception("Failed during post-scrape audit")
 
     if summary["errors"] > 0:
         return 1

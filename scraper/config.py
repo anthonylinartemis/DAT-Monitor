@@ -67,6 +67,22 @@ OPTIONAL_COMPANY_FIELDS: dict[str, type] = {
     "transactions": list,
 }
 
+# --- Magnitude sanity-check thresholds ---
+
+LARGE_DECREASE_THRESHOLD = 0.50  # >50% decrease triggers sanity check
+SMALL_VALUE_FLOOR = 50  # Values below this are almost always artifacts
+
+DECREASE_KEYWORDS: tuple[str, ...] = (
+    "sold",
+    "disposed",
+    "reduced",
+    "liquidated",
+    "transferred",
+    "distributed",
+    "divested",
+    "decreased",
+)
+
 # --- File paths (relative to project root) ---
 
 _PROJECT_ROOT = Path(__file__).resolve().parent.parent

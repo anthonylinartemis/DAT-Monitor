@@ -13,7 +13,13 @@ import tempfile
 from pathlib import Path
 from typing import Optional
 
-from scraper.config import CONFIRMATION_KEYWORDS, HOLDINGS_HISTORY_PATH
+from scraper.config import (
+    CONFIRMATION_KEYWORDS,
+    DECREASE_KEYWORDS,
+    HOLDINGS_HISTORY_PATH,
+    LARGE_DECREASE_THRESHOLD,
+    SMALL_VALUE_FLOOR,
+)
 from scraper.models import HoldingRecord, ScrapedUpdate
 
 
@@ -62,21 +68,34 @@ def _contains_confirmation(text: str) -> bool:
     return any(kw.lower() in text_lower for kw in CONFIRMATION_KEYWORDS)
 
 
+def _contains_decrease_keyword(text: str) -> bool:
+    """Case-insensitive scan for decrease-related keywords in context text."""
+    text_lower = text.lower()
+    return any(kw.lower() in text_lower for kw in DECREASE_KEYWORDS)
+
+
 def should_update(
     update: ScrapedUpdate, history: dict[str, HoldingRecord]
 ) -> tuple[bool, str]:
-    """Core oscillation decision. Returns (should_apply, reason).
+    """Core oscillation + magnitude decision. Returns (should_apply, reason).
 
     Decision matrix:
-    1. Ticker not in history      → YES (first observation)
+    1. Ticker not in history      → check artifact floor → accept if passes
     2. Value == last_confirmed    → NO  (no change)
-    3. Value not in seen_values   → YES (genuinely new value)
+    3. Value not in seen_values:
+       3a. Value < SMALL_VALUE_FLOOR         → NO  (artifact floor)
+       3b. Decrease > 50% + no decrease kw   → NO  (suspicious decrease)
+       3c. Decrease > 50% + has decrease kw  → YES (confirmed large decrease)
+       3d. Otherwise                         → YES (normal magnitude)
     4. Value in seen + confirmed  → YES (confirmed return)
     5. Value in seen + no keyword → NO  (oscillation suppressed)
     """
     key = f"{update.ticker}:{update.token}"
 
     if key not in history:
+        # First observation — still check artifact floor
+        if 0 < update.new_value < SMALL_VALUE_FLOOR:
+            return False, "artifact floor (first observation below minimum)"
         return True, "first observation"
 
     record = history[key]
@@ -85,6 +104,21 @@ def should_update(
         return False, "no change from last confirmed value"
 
     if update.new_value not in record.seen_values:
+        # Genuinely new value — apply magnitude checks
+        if 0 < update.new_value < SMALL_VALUE_FLOOR:
+            return False, "artifact floor (value too small to be real)"
+
+        # Check for suspicious large decrease
+        if record.last_confirmed_value > 0:
+            decrease_pct = (
+                (record.last_confirmed_value - update.new_value)
+                / record.last_confirmed_value
+            )
+            if decrease_pct > LARGE_DECREASE_THRESHOLD:
+                if _contains_decrease_keyword(update.context_text):
+                    return True, "large decrease confirmed by keyword"
+                return False, "suspicious large decrease (>50% drop, no confirmation)"
+
         return True, "genuinely new value"
 
     # Value was seen before — require confirmation keyword

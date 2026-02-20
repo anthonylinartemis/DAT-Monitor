@@ -89,6 +89,75 @@ class TestShouldUpdate:
         assert result is True
         assert "confirmed" in reason.lower()
 
+    def test_large_decrease_without_keyword_blocked(self) -> None:
+        """5765→99 should be blocked (>50% drop, no decrease keyword)."""
+        history = {
+            "NAKA:BTC": HoldingRecord(
+                last_confirmed_value=5765,
+                seen_values=frozenset({5765}),
+                last_update_date="2026-01-10",
+            )
+        }
+        update = _make_update(
+            ticker="NAKA", new_value=99,
+            context_text="EX-99.1 Filing Document Bitcoin rebrand",
+        )
+        result, reason = should_update(update, history)
+        assert result is False
+        assert "suspicious" in reason.lower() or "artifact" in reason.lower()
+
+    def test_large_decrease_with_keyword_accepted(self) -> None:
+        """5765→100 with 'sold' keyword should be accepted."""
+        history = {
+            "NAKA:BTC": HoldingRecord(
+                last_confirmed_value=5765,
+                seen_values=frozenset({5765}),
+                last_update_date="2026-01-10",
+            )
+        }
+        update = _make_update(
+            ticker="NAKA", new_value=100,
+            context_text="Company sold most of its Bitcoin holdings",
+        )
+        result, reason = should_update(update, history)
+        assert result is True
+        assert "confirmed" in reason.lower() or "keyword" in reason.lower()
+
+    def test_small_increase_passes_normally(self) -> None:
+        """5765→6000 should pass as genuinely new value."""
+        history = {
+            "NAKA:BTC": HoldingRecord(
+                last_confirmed_value=5765,
+                seen_values=frozenset({5765}),
+                last_update_date="2026-01-10",
+            )
+        }
+        update = _make_update(ticker="NAKA", new_value=6000)
+        result, reason = should_update(update, history)
+        assert result is True
+        assert "genuinely new" in reason.lower()
+
+    def test_artifact_floor_blocks_tiny_values(self) -> None:
+        """Value=15 should be blocked by artifact floor."""
+        history = {
+            "NAKA:BTC": HoldingRecord(
+                last_confirmed_value=5765,
+                seen_values=frozenset({5765}),
+                last_update_date="2026-01-10",
+            )
+        }
+        update = _make_update(ticker="NAKA", new_value=15)
+        result, reason = should_update(update, history)
+        assert result is False
+        assert "artifact" in reason.lower()
+
+    def test_first_observation_below_floor_blocked(self) -> None:
+        """First-time value=10 should be blocked."""
+        update = _make_update(ticker="NEW", new_value=10)
+        result, reason = should_update(update, {})
+        assert result is False
+        assert "artifact" in reason.lower()
+
 
 # --- Test: confirmation keyword detection ---
 

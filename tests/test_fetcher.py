@@ -12,6 +12,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 
 from scraper.fetcher import (
+    _clean_extraction_window,
     _extract_token_quantity,
     _get_filing_text_with_exhibits,
     _strip_html,
@@ -70,6 +71,42 @@ class TestExtractTokenQuantity:
     def test_no_quantity_near_token_returns_none(self) -> None:
         text = "The board discussed BTC strategy going forward"
         assert _extract_token_quantity(text, "BTC") is None
+
+
+# --- Test: window cleaning ---
+
+
+class TestCleanExtractionWindow:
+    def test_strips_exhibit_reference(self) -> None:
+        assert "99" not in _clean_extraction_window("EX-99.1 Filing Bitcoin")
+
+    def test_strips_item_reference(self) -> None:
+        assert "9.01" not in _clean_extraction_window("Item 9.01 Financial Statements")
+
+    def test_strips_exhibit_variant(self) -> None:
+        assert "99" not in _clean_extraction_window("Exhibit 99.1 press release")
+
+    def test_preserves_real_numbers(self) -> None:
+        cleaned = _clean_extraction_window("holds 5,765 Bitcoin in treasury")
+        assert "5,765" in cleaned
+
+
+# --- Test: NAKA false positive scenario ---
+
+
+class TestNakaFalsePositive:
+    def test_naka_false_positive_prevented(self) -> None:
+        """Exhibit text with 'Bitcoin' + 'EX-99.1' should NOT extract 99."""
+        text = (
+            "EX-99.1 PRESS RELEASE Nakamoto Holdings Inc announces corporate "
+            "rebrand from NAKA to Bitcoin themed branding"
+        )
+        assert _extract_token_quantity(text, "BTC") is None
+
+    def test_real_btc_quantity_still_extracted(self) -> None:
+        """Real BTC quantity in filing text still works."""
+        text = "The company holds 5,765 Bitcoin in its digital asset treasury"
+        assert _extract_token_quantity(text, "BTC") == 5765
 
 
 # --- Test: fetch_company_filings response parsing ---

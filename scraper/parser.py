@@ -18,13 +18,34 @@ from scraper.config import (
 from scraper.models import ParseResult
 
 
+# Exhibit numbers that commonly leak into extraction windows
+_ARTIFACT_NUMBERS: frozenset[int] = frozenset({99, 991, 992, 993, 994, 995})
+
+
+def _is_artifact_number(n: int, text: str) -> bool:
+    """Return True if *n* is likely a document artifact, not a real quantity.
+
+    Rejects:
+    - Known exhibit numbers (EX-99.1 → 99, 991, etc.)
+    - Year-like values (1990–2035)
+    - Very small values (< 10) that are almost certainly not token counts
+    """
+    if n < 10:
+        return True
+    if n in _ARTIFACT_NUMBERS:
+        return True
+    if 1990 <= n <= 2035:
+        return True
+    return False
+
+
 def _extract_quantity(text: str) -> Optional[int]:
     """Extract a numeric quantity from financial text.
 
     Supports formats: 9M, 9,000,000, 2.5M, 500K, plain integers.
     Returns None if no number is found.
     """
-    # Try suffix notation first: 2.5M, 9M, 500K
+    # Try suffix notation first: 2.5M, 9M, 500K (high confidence)
     suffix_match = re.search(
         r"([\d,]+(?:\.\d+)?)\s*([MmKk])\b", text
     )
@@ -33,15 +54,16 @@ def _extract_quantity(text: str) -> Optional[int]:
         multiplier = {"m": 1_000_000, "k": 1_000}[suffix_match.group(2).lower()]
         return int(float(raw_number) * multiplier)
 
-    # Try comma-formatted or plain integers: 9,000,000 or 13627
+    # Try comma-formatted or plain integers: 9,000,000 or 13627 (high confidence)
     int_match = re.search(r"\b(\d{1,3}(?:,\d{3})+)\b", text)
     if int_match:
         return int(int_match.group(1).replace(",", ""))
 
-    # Plain integer (at least 2 digits to avoid matching stray single digits)
-    plain_match = re.search(r"\b(\d{2,})\b", text)
-    if plain_match:
-        return int(plain_match.group(1))
+    # Plain integer fallback — iterate all candidates and skip artifacts
+    for plain_match in re.finditer(r"\b(\d{2,})\b", text):
+        candidate = int(plain_match.group(1))
+        if not _is_artifact_number(candidate, text):
+            return candidate
 
     return None
 

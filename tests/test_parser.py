@@ -87,5 +87,46 @@ class TestQuantityExtraction:
         assert _extract_quantity("no numbers here") is None
 
     def test_zero(self) -> None:
-        # Single digit "0" won't match (need >= 2 digits), but "00" would
-        assert _extract_quantity("holds 00 tokens") == 0
+        # "00" is now rejected by artifact filter (value < 10)
+        assert _extract_quantity("holds 00 tokens") is None
+
+
+# --- Test: artifact filtering ---
+
+class TestArtifactFiltering:
+    def test_exhibit_number_99_rejected(self) -> None:
+        """'EX-99.1 Filing Document' should not extract 99."""
+        assert _extract_quantity("EX-99.1 Filing Document") is None
+
+    def test_year_rejected(self) -> None:
+        """Text with only a year should not extract it."""
+        assert _extract_quantity("filed in 2026 fiscal year") is None
+
+    def test_real_number_still_works(self) -> None:
+        """'holds 5427 tokens' should extract 5427."""
+        assert _extract_quantity("holds 5427 tokens") == 5427
+
+    def test_small_artifact_rejected(self) -> None:
+        """Single-digit-like small numbers are rejected."""
+        # Value < 10 is rejected as artifact
+        assert _extract_quantity("only 5 remaining") is None
+
+    def test_suffix_notation_unaffected(self) -> None:
+        """Suffix notation (9M, 500K) should bypass artifact filtering."""
+        assert _extract_quantity("9M tokens") == 9_000_000
+
+    def test_comma_formatted_unaffected(self) -> None:
+        """Comma-formatted numbers should bypass artifact filtering."""
+        assert _extract_quantity("holds 9,000,000 BTC") == 9_000_000
+
+    def test_991_exhibit_number_rejected(self) -> None:
+        """Exhibit number 991 should be rejected."""
+        assert _extract_quantity("see exhibit 991 for details") is None
+
+    def test_year_2025_rejected(self) -> None:
+        assert _extract_quantity("In 2025 the company") is None
+
+    def test_legitimate_value_near_year(self) -> None:
+        """A real number coexisting with a year should still extract."""
+        # 5427 comes first and is not an artifact
+        assert _extract_quantity("In 2026 holds 5427 tokens") == 5427
