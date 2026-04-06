@@ -1,11 +1,11 @@
 {
-  "lastUpdated": "2026-04-05T16:27:25.515794-04:00",
-  "lastUpdatedDisplay": "Apr 05, 2026 04:27 PM ET",
+  "lastUpdated": "2026-04-05T22:03:06.916192-04:00",
+  "lastUpdatedDisplay": "Apr 05, 2026 10:03 PM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
       "token": "HYPE",
-      "date": "2026-04-05",
+      "date": "2026-04-06",
       "tokens": 18000000,
       "change": 0,
       "summary": "PURR holds 18,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
@@ -13,7 +13,7 @@
     {
       "ticker": "UPXI",
       "token": "SOL",
-      "date": "2026-04-05",
+      "date": "2026-04-06",
       "tokens": 2400000,
       "change": 0,
       "summary": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/"
@@ -21,23 +21,23 @@
     {
       "ticker": "MTPLF",
       "token": "BTC",
-      "date": "2026-04-05",
+      "date": "2026-04-06",
       "tokens": 40177,
       "change": 0,
-      "summary": "MTPLF holds 40,177 Bitcoin in treasury. Share price: $298.00, mNAV: 1.12x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 40,177 Bitcoin in treasury. Share price: $300.89, mNAV: 1.11x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
       "token": "BTC",
-      "date": "2026-04-05",
+      "date": "2026-04-06",
       "tokens": 13627,
       "change": 0,
-      "summary": "ASST holds 13,627 Bitcoin in treasury. Share price: $9.75, mNAV: 0.75x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 13,627 Bitcoin in treasury. Share price: $9.75, mNAV: 0.73x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
       "token": "ETH",
-      "date": "2026-04-05",
+      "date": "2026-04-06",
       "tokens": 535,
       "change": -61,
       "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 4.535 Million Tokens, and Total Crypto and Total Cash Holdings of $10.3 Billi"
@@ -45,7 +45,7 @@
     {
       "ticker": "BMNR",
       "token": "ETH",
-      "date": "2026-04-05",
+      "date": "2026-04-06",
       "tokens": 596,
       "change": -65,
       "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 4.596 Million Tokens, and Total Crypto and Total Cash Holdings of $11.5 Billi"
@@ -53,7 +53,7 @@
     {
       "ticker": "BMNR",
       "token": "ETH",
-      "date": "2026-04-05",
+      "date": "2026-04-06",
       "tokens": 661,
       "change": -71,
       "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 4.661 Million Tokens, and Total Crypto and Total Cash Holdings of $11.0 Billi"
@@ -61,7 +61,7 @@
     {
       "ticker": "BMNR",
       "token": "ETH",
-      "date": "2026-04-05",
+      "date": "2026-04-06",
       "tokens": 732,
       "change": 197,
       "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 4.732 Million Tokens, and Total Crypto and Total Cash Holdings of $10.7 Billi"
@@ -400,7 +400,7 @@
         "analytics": {
           "totalBtc": 762099.0,
           "sharePrice": 119.83,
-          "mNAV": 0.8821718208110737,
+          "mNAV": 0.8626406320659444,
           "btcYieldYtd": 3.4412903556683845,
           "marketCap": 41412529020.0
         },
@@ -443,7 +443,7 @@
         "name": "Metaplanet",
         "notes": "Japan TSE - No SEC",
         "tokens": 40177,
-        "lastUpdate": "2026-04-05",
+        "lastUpdate": "2026-04-06",
         "change": 0,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
@@ -456,8 +456,8 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-04-05",
-        "alertNote": "MTPLF holds 40,177 Bitcoin in treasury. Share price: $298.00, mNAV: 1.12x. Source: https://treasury.",
+        "alertDate": "2026-04-06",
+        "alertNote": "MTPLF holds 40,177 Bitcoin in treasury. Share price: $300.89, mNAV: 1.11x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -563,10 +563,10 @@
         ],
         "analytics": {
           "totalBtc": 40177.0,
-          "sharePrice": 298.0,
-          "mNAV": 1.120172722823814,
+          "sharePrice": 300.8889868136816,
+          "mNAV": 1.1063994569497861,
           "btcYieldYtd": 2.8702163061564057,
-          "marketCap": 2377320854.4025197
+          "marketCap": 2401253614.68174
         },
         "alertSource": "dashboard"
       },
@@ -574,7 +574,7 @@
         "ticker": "ASST",
         "name": "Strive",
         "tokens": 13627,
-        "lastUpdate": "2026-04-05",
+        "lastUpdate": "2026-04-06",
         "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
@@ -589,8 +589,8 @@
         "lastErrorTime": "2026-01-20T18:11:08.617945",
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-04-05",
-        "alertNote": "ASST holds 13,627 Bitcoin in treasury. Share price: $9.75, mNAV: 0.75x. Source: https://treasury.str",
+        "alertDate": "2026-04-06",
+        "alertNote": "ASST holds 13,627 Bitcoin in treasury. Share price: $9.75, mNAV: 0.73x. Source: https://treasury.str",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -697,7 +697,7 @@
         "analytics": {
           "totalBtc": 13627.9,
           "sharePrice": 9.75,
-          "mNAV": 0.7469542259960231,
+          "mNAV": 0.7304167401823332,
           "btcYieldYtd": 13.76496830241841,
           "marketCap": 674298153.75
         },
@@ -783,14 +783,14 @@
         "name": "BitMine Immersion",
         "notes": "Largest ETH treasury. 3.48% of supply",
         "tokens": 535,
-        "lastUpdate": "2026-04-05",
+        "lastUpdate": "2026-04-06",
         "change": -61,
         "cik": "0001829311",
         "irUrl": "https://www.bitminetech.io/investor-relations",
         "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226009312/ex99-1.htm",
-        "alertDate": "2026-04-05",
+        "alertDate": "2026-04-06",
         "alertNote": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announ",
-        "lastSecUpdate": "2026-04-05",
+        "lastSecUpdate": "2026-04-06",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -1331,13 +1331,13 @@
         "name": "Upexi",
         "notes": "High-yield strategy 2026",
         "tokens": 2400000,
-        "lastUpdate": "2026-04-05",
+        "lastUpdate": "2026-04-06",
         "change": 0,
         "cik": "0001839175",
         "irUrl": "https://ir.upexi.com/",
         "dashboardUrl": "https://www.upexi.com/",
         "alertUrl": "https://www.upexi.com/",
-        "alertDate": "2026-04-05",
+        "alertDate": "2026-04-06",
         "alertNote": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/",
         "scrape_config": {
           "method": "html_static",
@@ -1418,7 +1418,7 @@
         "name": "Hyperliquid Strategies",
         "notes": "fka Sonnet Bio",
         "tokens": 18000000,
-        "lastUpdate": "2026-04-05",
+        "lastUpdate": "2026-04-06",
         "change": 0,
         "cik": "0002078856",
         "irUrl": "https://www.sonnetbio.com/investors/news-events",
@@ -1449,7 +1449,7 @@
           }
         ],
         "alertUrl": "https://www.hypestrat.xyz/dashboard",
-        "alertDate": "2026-04-05",
+        "alertDate": "2026-04-06",
         "alertNote": "PURR holds 18,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard",
         "alertSource": "dashboard",
         "lastSecUpdate": "2026-03-01"
@@ -1703,7 +1703,7 @@
       "url": "https://www.globenewswire.com/news-release/2026/03/03/3248359/0/en/BTCS-to-Participate-in-Upcoming-March-Webinars.html",
       "date": "2026-03-03",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTCS",
-      "discoveredAt": "2026-04-05T20:27:09.082589"
+      "discoveredAt": "2026-04-06T02:02:49.004238"
     },
     {
       "ticker": "ETHZ",
@@ -1712,7 +1712,7 @@
       "url": "https://www.globenewswire.com/news-release/2026/01/07/3214683/0/en/ETHZ-Investors-Have-Opportunity-to-Join-ETHZilla-Corporation-Fraud-Investigation-with-the-Schall-Law-Firm.html",
       "date": "2026-01-07",
       "sourcePage": "https://www.globenewswire.com/search/tag/ETHZ",
-      "discoveredAt": "2026-04-05T20:27:11.299915"
+      "discoveredAt": "2026-04-06T02:02:52.427429"
     },
     {
       "ticker": "BTCS",
@@ -1721,7 +1721,7 @@
       "url": "https://www.globenewswire.com/news-release/2026/01/07/3214520/0/en/BTCS-Preannounces-Record-Revenue-for-2025-and-Issues-Annual-Shareholder-Letter.html",
       "date": "2026-01-07",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTCS",
-      "discoveredAt": "2026-04-05T20:27:09.082589"
+      "discoveredAt": "2026-04-06T02:02:49.004238"
     },
     {
       "ticker": "BNC",
@@ -1730,7 +1730,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/12/29/3210762/0/en/CEA-Industries-BNC-Adopts-Stockholder-Rights-Plan-and-Amended-and-Restated-Bylaws-in-Response-to-YZi-Labs-Group-Formation.html",
       "date": "2025-12-29",
       "sourcePage": "https://www.globenewswire.com/search/tag/BNC",
-      "discoveredAt": "2026-04-05T20:27:17.559146"
+      "discoveredAt": "2026-04-06T02:02:59.500366"
     },
     {
       "ticker": "BTCS",
@@ -1739,7 +1739,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/12/08/3201535/0/en/BTCS-to-Host-Virtual-Fireside-Chat-on-December-16th.html",
       "date": "2025-12-08",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTCS",
-      "discoveredAt": "2026-04-05T20:27:09.082589"
+      "discoveredAt": "2026-04-06T02:02:49.004238"
     },
     {
       "ticker": "BTCS",
@@ -1748,7 +1748,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/11/14/3188311/0/en/BTCS-Reports-Record-Revenue-for-the-Third-Quarter-2025.html",
       "date": "2025-11-14",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTCS",
-      "discoveredAt": "2026-04-05T20:27:09.082589"
+      "discoveredAt": "2026-04-06T02:02:49.004238"
     },
     {
       "ticker": "BTCS",
@@ -1757,7 +1757,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/11/03/3179283/0/en/BTCS-to-Participate-in-Upcoming-November-Conferences.html",
       "date": "2025-11-03",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTCS",
-      "discoveredAt": "2026-04-05T20:27:09.082589"
+      "discoveredAt": "2026-04-06T02:02:49.004238"
     },
     {
       "ticker": "MSTR",
@@ -1766,7 +1766,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/10/29/3176954/0/en/HAREHOLDER-ALERT-The-M-A-Class-Action-Firm-Encourages-hareholders-to-Act-Before-the-Vote-CYBR-PNFP-TGNA-and-MTSR.html",
       "date": "2025-10-29",
       "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
-      "discoveredAt": "2026-04-05T20:27:02.138531"
+      "discoveredAt": "2026-04-06T02:02:09.113681"
     },
     {
       "ticker": "BTCS",
@@ -1775,7 +1775,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/10/08/3163335/0/en/BTCS-to-Participate-in-Water-Tower-Fireside-Chat-on-Thursday-October-9-2025.html",
       "date": "2025-10-08",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTCS",
-      "discoveredAt": "2026-04-05T20:27:09.082589"
+      "discoveredAt": "2026-04-06T02:02:49.004238"
     },
     {
       "ticker": "MSTR",
@@ -1784,7 +1784,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/10/08/3163773/0/en/HAREHOLDER-ALERT-The-M-A-Class-Action-Launches-Legal-Inquiry-for-the-Merger-MTSR-GES-BLBX-and-SCS.html",
       "date": "2025-10-08",
       "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
-      "discoveredAt": "2026-04-05T20:27:02.138531"
+      "discoveredAt": "2026-04-06T02:02:09.113681"
     },
     {
       "ticker": "MSTR",
@@ -1793,7 +1793,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/10/02/3160288/0/en/STRATEGY-MSTR-INVESTIGATION-ALERT-Bragar-Eagel-Squire-P-C-Continues-Investigation-into-Strategy-Incorporated-on-Behalf-of-Long-Term-Stockholders-and-Encourages-Investors-to-Contact.html",
       "date": "2025-10-02",
       "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
-      "discoveredAt": "2026-04-05T20:27:02.138531"
+      "discoveredAt": "2026-04-06T02:02:09.113681"
     },
     {
       "ticker": "BTCS",
@@ -1802,7 +1802,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/08/21/3137388/0/en/BTCS-Engages-Equity-Stock-Transfer-as-Transfer-Agent-for-Bividend-the-First-Blockchain-Dividend-Payable-in-Ethereum.html",
       "date": "2025-08-21",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTCS",
-      "discoveredAt": "2026-04-05T20:27:09.082589"
+      "discoveredAt": "2026-04-06T02:02:49.004238"
     },
     {
       "ticker": "BNC",
@@ -1811,7 +1811,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/08/18/3135036/0/en/BNC-Expands-Holdings-to-325-000-BNB-Cementing-Its-Role-as-the-World-s-Largest-BNB-Treasury.html",
       "date": "2025-08-18",
       "sourcePage": "https://www.globenewswire.com/search/tag/BNC",
-      "discoveredAt": "2026-04-05T20:27:17.559146"
+      "discoveredAt": "2026-04-06T02:02:59.500366"
     },
     {
       "ticker": "BTCS",
@@ -1820,7 +1820,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/08/18/3134896/0/en/BTCS-Offers-Shareholders-a-0-05-per-share-Bividend-a-Blockchain-Dividend-Payable-in-Ethereum.html",
       "date": "2025-08-18",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTCS",
-      "discoveredAt": "2026-04-05T20:27:09.082589"
+      "discoveredAt": "2026-04-06T02:02:49.004238"
     },
     {
       "ticker": "MSTR",
@@ -1829,7 +1829,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/07/29/3123509/0/en/Kuehn-Law-Encourages-Investors-of-MicroStrategy-Incorporated-to-Contact-Law-Firm.html",
       "date": "2025-07-29",
       "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
-      "discoveredAt": "2026-04-05T20:27:02.138531"
+      "discoveredAt": "2026-04-06T02:02:09.113681"
     },
     {
       "ticker": "MSTR",
@@ -1838,7 +1838,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/07/16/3116917/0/en/STRATEGY-INVESTIGATION-ALERT-Bragar-Eagel-Squire-P-C-is-Investigating-Strategy-Incorporated-on-Behalf-of-Long-Term-Stockholders-and-Encourages-Investors-to-Contact-the-Firm.html",
       "date": "2025-07-16",
       "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
-      "discoveredAt": "2026-04-05T20:27:02.138531"
+      "discoveredAt": "2026-04-06T02:02:09.113681"
     },
     {
       "ticker": "MSTR",
@@ -1847,7 +1847,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/07/15/3115580/0/en/FINAL-STRATEGY-DEADLINE-ALERT-Bragar-Eagel-Squire-P-C-Urges-Investors-in-Strategy-Incorporated-MSTR-to-Inquire-About-Their-Rights-in-Class-Action-Lawsuit.html",
       "date": "2025-07-15",
       "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
-      "discoveredAt": "2026-04-05T20:27:02.138531"
+      "discoveredAt": "2026-04-06T02:02:09.113681"
     },
     {
       "ticker": "MSTR",
@@ -1856,7 +1856,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/07/14/3115048/0/en/DEADLINE-ALERT-for-IOVA-DNUT-and-MSTR-The-Law-Offices-of-Frank-R-Cruz-Reminds-Investors-of-Class-Actions-on-Behalf-of-Shareholders.html",
       "date": "2025-07-14",
       "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
-      "discoveredAt": "2026-04-05T20:27:02.138531"
+      "discoveredAt": "2026-04-06T02:02:09.113681"
     },
     {
       "ticker": "MSTR",
@@ -1865,7 +1865,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/07/14/3114948/0/en/MICROSTRATEGY-INCORPORATED-NASDAQ-MSTR-SHAREHOLDER-ALERT-Bernstein-Liebhard-LLP-Reminds-MicroStrategy-Incorporated-Investors-of-Upcoming-Deadline.html",
       "date": "2025-07-14",
       "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
-      "discoveredAt": "2026-04-05T20:27:02.138531"
+      "discoveredAt": "2026-04-06T02:02:09.113681"
     },
     {
       "ticker": "MSTR",
@@ -1874,7 +1874,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/07/12/3114364/0/en/STRATEGY-DEADLINE-ALERT-Bragar-Eagel-Squire-P-C-Announces-that-a-Class-Action-Lawsuit-Has-Been-Filed-Against-Strategy-Incorporated-and-Urgently-Encourages-Investors-to-Contact-the-.html",
       "date": "2025-07-12",
       "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
-      "discoveredAt": "2026-04-05T20:27:02.138531"
+      "discoveredAt": "2026-04-06T02:02:09.113681"
     },
     {
       "ticker": "MSTR",
@@ -1883,7 +1883,7 @@
       "url": "https://www.globenewswire.com/news-release/2025/07/08/3112057/0/en/DEADLINE-ALERT-for-IOVA-DNUT-and-MSTR-The-Law-Offices-of-Frank-R-Cruz-Reminds-Investors-of-Class-Actions-on-Behalf-of-Shareholders.html",
       "date": "2025-07-08",
       "sourcePage": "https://www.globenewswire.com/search/tag/MSTR",
-      "discoveredAt": "2026-04-05T20:27:02.138531"
+      "discoveredAt": "2026-04-06T02:02:09.113681"
     },
     {
       "ticker": "HSDT",
@@ -1892,7 +1892,7 @@
       "url": "https://www.globenewswire.com/news-release/2024/10/18/2965489/0/en/Helius-Medical-Technologies-Inc-to-Present-at-the-2024-ThinkEquity-Conference.html",
       "date": "2024-10-18",
       "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
-      "discoveredAt": "2026-04-05T20:27:12.798072"
+      "discoveredAt": "2026-04-06T02:02:54.219637"
     },
     {
       "ticker": "SBET",
@@ -1901,7 +1901,7 @@
       "url": "https://www.globenewswire.com/news-release/2024/01/23/2814097/0/en/SharpLink-Gaming-Sells-Fantasy-Sports-and-Sports-Game-Development-Business-Units-to-RSports-Interactive.html",
       "date": "2024-01-23",
       "sourcePage": "https://www.globenewswire.com/search/tag/SBET",
-      "discoveredAt": "2026-04-05T20:27:07.141987"
+      "discoveredAt": "2026-04-06T02:02:44.787842"
     },
     {
       "ticker": "BTBT",
@@ -1910,7 +1910,7 @@
       "url": "https://www.globenewswire.com/news-release/2023/06/05/2682004/0/en/Mega-Matrix-Corp-Announces-Additional-Operation-Capacity-of-Ethereum-Staking-Validators-for-Bit-Digital.html",
       "date": "2023-06-05",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-04-05T20:27:08.693567"
+      "discoveredAt": "2026-04-06T02:02:47.536008"
     },
     {
       "ticker": "BTBT",
@@ -1919,7 +1919,7 @@
       "url": "https://www.globenewswire.com/news-release/2023/03/07/2622582/0/en/Mega-Matrix-Corp-Announces-Establishment-of-a-Joint-Venture-With-Bit-Digital-Inc-to-Jointly-Provide-Digital-Assets-Staking-Services.html",
       "date": "2023-03-07",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-04-05T20:27:08.693567"
+      "discoveredAt": "2026-04-06T02:02:47.536008"
     },
     {
       "ticker": "BTBT",
@@ -1928,7 +1928,7 @@
       "url": "https://www.globenewswire.com/news-release/2021/03/17/2194971/673/en/ROSEN-A-LEADING-LAW-FIRM-Encourages-Bit-Digital-Inc-Investors-to-Secure-Counsel-Before-Important-Monday-Deadline-in-Securities-Class-Action-BTBT.html",
       "date": "2021-03-17",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-04-05T20:27:08.693567"
+      "discoveredAt": "2026-04-06T02:02:47.536008"
     },
     {
       "ticker": "BTBT",
@@ -1937,7 +1937,7 @@
       "url": "https://www.globenewswire.com/news-release/2021/03/15/2193046/0/en/DEADLINE-ALERT-for-CLSK-BTBT-LIZI-and-JFU-The-Law-Offices-of-Frank-R-Cruz-Reminds-Investors-of-Class-Actions-on-Behalf-of-Shareholders.html",
       "date": "2021-03-15",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-04-05T20:27:08.693567"
+      "discoveredAt": "2026-04-06T02:02:47.536008"
     },
     {
       "ticker": "BTBT",
@@ -1946,7 +1946,7 @@
       "url": "https://www.globenewswire.com/news-release/2021/03/09/2189109/673/en/ROSEN-RECOGNIZED-INVESTOR-COUNSEL-Encourages-Bit-Digital-Inc-Investors-With-Large-Losses-to-Secure-Counsel-Before-Important-March-22-Deadline-in-Securities-Class-Action-BTBT.html",
       "date": "2021-03-09",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-04-05T20:27:08.693567"
+      "discoveredAt": "2026-04-06T02:02:47.536008"
     },
     {
       "ticker": "BTBT",
@@ -1955,7 +1955,7 @@
       "url": "https://www.globenewswire.com/news-release/2021/03/08/2188928/0/en/DEADLINE-ALERT-for-CLSK-BTBT-LIZI-and-JFU-The-Law-Offices-of-Frank-R-Cruz-Reminds-Investors-of-Class-Actions-on-Behalf-of-Shareholders.html",
       "date": "2021-03-08",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-04-05T20:27:08.693567"
+      "discoveredAt": "2026-04-06T02:02:47.536008"
     },
     {
       "ticker": "BTBT",
@@ -1964,7 +1964,7 @@
       "url": "https://www.globenewswire.com/news-release/2021/03/02/2185497/0/en/DEADLINE-ALERT-for-CLSK-BTBT-LIZI-and-JFU-The-Law-Offices-of-Frank-R-Cruz-Reminds-Investors-of-Class-Actions-on-Behalf-of-Shareholders.html",
       "date": "2021-03-02",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-04-05T20:27:08.693567"
+      "discoveredAt": "2026-04-06T02:02:47.536008"
     },
     {
       "ticker": "BTBT",
@@ -1973,7 +1973,7 @@
       "url": "https://www.globenewswire.com/news-release/2021/02/27/2183768/673/en/ROSEN-A-LONGSTANDING-AND-TRUSTED-FIRM-Encourages-Bit-Digital-Inc-Investors-to-Secure-Counsel-Before-Important-Deadline-in-Securities-Class-Action-BTBT.html",
       "date": "2021-02-27",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-04-05T20:27:08.693567"
+      "discoveredAt": "2026-04-06T02:02:47.536008"
     },
     {
       "ticker": "BTBT",
@@ -1982,7 +1982,7 @@
       "url": "https://www.globenewswire.com/news-release/2021/02/23/2180753/0/en/DEADLINE-ALERT-for-CLSK-BTBT-LIZI-and-JFU-The-Law-Offices-of-Frank-R-Cruz-Reminds-Investors-of-Class-Actions-on-Behalf-of-Shareholders.html",
       "date": "2021-02-23",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-04-05T20:27:08.693567"
+      "discoveredAt": "2026-04-06T02:02:47.536008"
     },
     {
       "ticker": "BTBT",
@@ -1991,7 +1991,7 @@
       "url": "https://www.globenewswire.com/news-release/2021/02/18/2178308/0/en/DEADLINE-ALERT-for-CLSK-BTBT-LIZI-and-JFU-The-Law-Offices-of-Frank-R-Cruz-Reminds-Investors-of-Class-Actions-on-Behalf-of-Shareholders.html",
       "date": "2021-02-18",
       "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-04-05T20:27:08.693567"
+      "discoveredAt": "2026-04-06T02:02:47.536008"
     },
     {
       "ticker": "BNC",
@@ -2000,7 +2000,7 @@
       "url": "https://www.globenewswire.com/news-release/2020/10/22/2112651/0/en/Decentralized-Exchange-LEVERJ-Launches-Perpetual-Swap-Futures-Powered-by-Brave-New-Coin.html",
       "date": "2020-10-22",
       "sourcePage": "https://www.globenewswire.com/search/tag/BNC",
-      "discoveredAt": "2026-04-05T20:27:17.559146"
+      "discoveredAt": "2026-04-06T02:02:59.500366"
     },
     {
       "ticker": "BNC",
@@ -2009,7 +2009,7 @@
       "url": "https://www.globenewswire.com/news-release/2020/10/01/2101988/0/en/BTSE-com-Launches-Brave-New-Coin-s-DeFi-Index-Perpetual-Swap-with-Leverage-Trading-for-DeFi-Exposure.html",
       "date": "2020-10-01",
       "sourcePage": "https://www.globenewswire.com/search/tag/BNC",
-      "discoveredAt": "2026-04-05T20:27:17.559146"
+      "discoveredAt": "2026-04-06T02:02:59.500366"
     },
     {
       "ticker": "BNC",
@@ -2018,7 +2018,7 @@
       "url": "https://www.globenewswire.com/news-release/2020/09/02/2087556/0/en/LEVERJ-Partners-with-Brave-New-Coin-to-Launch-World-s-First-Scalable-Decentralized-Derivatives-Exchange.html",
       "date": "2020-09-02",
       "sourcePage": "https://www.globenewswire.com/search/tag/BNC",
-      "discoveredAt": "2026-04-05T20:27:17.559146"
+      "discoveredAt": "2026-04-06T02:02:59.500366"
     },
     {
       "ticker": "HSDT",
@@ -2027,7 +2027,7 @@
       "url": "https://www.globenewswire.com/news-release/2020/06/15/2047926/0/en/INVESTIGATION-ALERT-Fields-Kupka-Shukurov-LLP-Is-Investigating-Helius-Medical-Technologies-Inc-for-Potential-Breach-of-Fiduciary-Duty-Claims.html",
       "date": "2020-06-15",
       "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
-      "discoveredAt": "2026-04-05T20:27:12.798072"
+      "discoveredAt": "2026-04-06T02:02:54.219637"
     },
     {
       "ticker": "HSDT",
@@ -2036,7 +2036,7 @@
       "url": "https://www.globenewswire.com/news-release/2019/09/09/1912757/0/en/MONDAY-DEADLINE-ALERT-The-Schall-Law-Firm-Announces-the-Filing-of-a-Class-Action-Lawsuit-Against-Helius-Medical-Technologies-Inc-and-Encourages-Investors-with-Losses-in-Excess-of-1.html",
       "date": "2019-09-09",
       "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
-      "discoveredAt": "2026-04-05T20:27:12.798072"
+      "discoveredAt": "2026-04-06T02:02:54.219637"
     },
     {
       "ticker": "HSDT",
@@ -2045,7 +2045,7 @@
       "url": "https://www.globenewswire.com/news-release/2019/09/03/1910440/34548/en/Glancy-Prongay-Murray-Reminds-Investors-of-Looming-Deadline-in-the-Class-Action-Lawsuit-Against-Helius-Medical-Technologies-Inc.html",
       "date": "2019-09-03",
       "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
-      "discoveredAt": "2026-04-05T20:27:12.798072"
+      "discoveredAt": "2026-04-06T02:02:54.219637"
     },
     {
       "ticker": "HSDT",
@@ -2054,7 +2054,7 @@
       "url": "https://www.globenewswire.com/news-release/2019/09/03/1910322/3448/en/Deadline-Reminder-The-Law-Offices-of-Howard-G-Smith-Reminds-Investors-of-Looming-Deadline-in-the-Class-Action-Lawsuit-Against-Helius-Medical-Technologies-Inc.html",
       "date": "2019-09-03",
       "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
-      "discoveredAt": "2026-04-05T20:27:12.798072"
+      "discoveredAt": "2026-04-06T02:02:54.219637"
     },
     {
       "ticker": "HSDT",
@@ -2063,7 +2063,7 @@
       "url": "https://www.globenewswire.com/news-release/2019/09/02/1909566/0/en/7-DAY-DEADLINE-ALERT-The-Schall-Law-Firm-Announces-the-Filing-of-a-Class-Action-Lawsuit-Against-Helius-Medical-Technologies-Inc-and-Encourages-Investors-with-Losses-in-Excess-of-10.html",
       "date": "2019-09-02",
       "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
-      "discoveredAt": "2026-04-05T20:27:12.798072"
+      "discoveredAt": "2026-04-06T02:02:54.219637"
     },
     {
       "ticker": "HSDT",
@@ -2072,7 +2072,7 @@
       "url": "https://www.globenewswire.com/news-release/2019/08/27/1907220/0/en/SHAREHOLDER-ALERT-Rigrodsky-Long-P-A-Reminds-Investors-of-HSDT-and-INS-of-Upcoming-Deadlines.html",
       "date": "2019-08-27",
       "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
-      "discoveredAt": "2026-04-05T20:27:12.798072"
+      "discoveredAt": "2026-04-06T02:02:54.219637"
     },
     {
       "ticker": "HSDT",
@@ -2081,7 +2081,7 @@
       "url": "https://www.globenewswire.com/news-release/2019/08/26/1906561/0/en/UPCOMING-DEADLINE-ALERT-The-Schall-Law-Firm-Announces-the-Filing-of-a-Class-Action-Lawsuit-Against-Helius-Medical-Technologies-Inc-and-Encourages-Investors-with-Losses-in-Excess-of.html",
       "date": "2019-08-26",
       "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
-      "discoveredAt": "2026-04-05T20:27:12.798072"
+      "discoveredAt": "2026-04-06T02:02:54.219637"
     },
     {
       "ticker": "HSDT",
@@ -2090,7 +2090,7 @@
       "url": "https://www.globenewswire.com/news-release/2019/08/14/1901900/0/en/SHAREHOLDER-ALERT-Rigrodsky-Long-P-A-Reminds-Investors-of-HSDT-and-INS-of-Upcoming-Deadlines.html",
       "date": "2019-08-14",
       "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
-      "discoveredAt": "2026-04-05T20:27:12.798072"
+      "discoveredAt": "2026-04-06T02:02:54.219637"
     },
     {
       "ticker": "HSDT",
@@ -2099,7 +2099,7 @@
       "url": "https://www.globenewswire.com/news-release/2019/08/12/1900584/0/en/INVESTOR-ACTION-REMINDER-The-Schall-Law-Firm-Announces-the-Filing-of-a-Class-Action-Lawsuit-Against-Helius-Medical-Technologies-Inc-and-Encourages-Investors-with-Losses-in-Excess-o.html",
       "date": "2019-08-12",
       "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
-      "discoveredAt": "2026-04-05T20:27:12.798072"
+      "discoveredAt": "2026-04-06T02:02:54.219637"
     },
     {
       "ticker": "ABTC",
@@ -2108,7 +2108,7 @@
       "url": "https://www.globenewswire.com/news-release/2018/09/25/1575947/0/en/AML-Bitcoin-Compliance-System-Unveiled-at-FATF-Regtech-Forum.html",
       "date": "2018-09-25",
       "sourcePage": "https://www.globenewswire.com/search/tag/ABTC",
-      "discoveredAt": "2026-04-05T20:27:05.881502"
+      "discoveredAt": "2026-04-06T02:02:43.243346"
     },
     {
       "ticker": "BTCS",
@@ -3124,19 +3124,6 @@
       "filingUrl": "https://www.sec.gov/Archives/edgar/data/1482541/000149315226010296/form10-q.htm",
       "indexUrl": "https://www.sec.gov/Archives/edgar/data/1482541/000149315226010296/",
       "accession": "0001493152-26-010296",
-      "status": "reported"
-    },
-    {
-      "ticker": "ETHM",
-      "name": "Ether Machine",
-      "token": "ETH",
-      "type": "10-K",
-      "items": "",
-      "date": "2026-03-06",
-      "quarter": "FY2025",
-      "filingUrl": "https://www.sec.gov/Archives/edgar/data/2028699/000121390026024814/ea0277870-10k_dynamix.htm",
-      "indexUrl": "https://www.sec.gov/Archives/edgar/data/2028699/000121390026024814/",
-      "accession": "0001213900-26-024814",
       "status": "reported"
     }
   ]
