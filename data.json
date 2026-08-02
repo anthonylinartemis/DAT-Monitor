@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-01T22:16:28.372805-04:00",
-  "lastUpdatedDisplay": "Aug 01, 2026 10:16 PM ET",
+  "lastUpdated": "2026-08-02T02:32:55.180786-04:00",
+  "lastUpdatedDisplay": "Aug 02, 2026 02:32 AM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -24,7 +24,7 @@
       "date": "2026-08-02",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $245.00, mNAV: 0.94x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $245.00, mNAV: 0.93x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -32,7 +32,7 @@
       "date": "2026-08-02",
       "tokens": 20000,
       "change": 0,
-      "summary": "ASST holds 20,000 Bitcoin in treasury. Share price: $11.11, mNAV: 0.77x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 20,000 Bitcoin in treasury. Share price: $11.11, mNAV: 0.76x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -53,7 +53,7 @@
     {
       "ticker": "PURR",
       "token": "HYPE",
-      "date": "2026-08-01",
+      "date": "2026-08-02",
       "tokens": 3000000,
       "change": 0,
       "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
@@ -61,7 +61,7 @@
     {
       "ticker": "UPXI",
       "token": "SOL",
-      "date": "2026-08-01",
+      "date": "2026-08-02",
       "tokens": 2400000,
       "change": 0,
       "summary": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/"
@@ -69,7 +69,7 @@
     {
       "ticker": "MTPLF",
       "token": "BTC",
-      "date": "2026-08-01",
+      "date": "2026-08-02",
       "tokens": 43000,
       "change": 0,
       "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $245.00, mNAV: 0.94x. Source: https://treasury.strive.com/?tab=home"
@@ -77,7 +77,7 @@
     {
       "ticker": "ASST",
       "token": "BTC",
-      "date": "2026-08-01",
+      "date": "2026-08-02",
       "tokens": 20000,
       "change": 0,
       "summary": "ASST holds 20,000 Bitcoin in treasury. Share price: $11.11, mNAV: 0.77x. Source: https://treasury.strive.com/?tab=home"
@@ -415,7 +415,7 @@
         "analytics": {
           "totalBtc": 843775.0,
           "sharePrice": 93.28,
-          "mNAV": 0.7047511347075801,
+          "mNAV": 0.6998480065107437,
           "btcYieldYtd": 7.835474523681309,
           "marketCap": 34664153920.0
         },
@@ -512,7 +512,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-02",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $245.00, mNAV: 0.94x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $245.00, mNAV: 0.93x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -619,7 +619,7 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 245.0,
-          "mNAV": 0.9378850227791121,
+          "mNAV": 0.9313599243803888,
           "btcYieldYtd": 9.608985024958402,
           "marketCap": 1993670912.52588
         },
@@ -645,7 +645,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-02",
-        "alertNote": "ASST holds 20,000 Bitcoin in treasury. Share price: $11.11, mNAV: 0.77x. Source: https://treasury.st",
+        "alertNote": "ASST holds 20,000 Bitcoin in treasury. Share price: $11.11, mNAV: 0.76x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -752,7 +752,7 @@
         "analytics": {
           "totalBtc": 20000.0,
           "sharePrice": 11.11,
-          "mNAV": 0.7660487675338397,
+          "mNAV": 0.7607191765232408,
           "btcYieldYtd": 35.23714486968772,
           "marketCap": 934350700.03
         },
@@ -2005,6 +2005,96 @@
     "BNB": 99
   },
   "discoveredPressReleases": [
+    {
+      "ticker": "HSDT",
+      "token": "SOL",
+      "title": "Helius Medical Technologies, Inc. to Present at the 2024 ThinkEquity Conference",
+      "url": "https://www.globenewswire.com/news-release/2024/10/18/2965489/0/en/helius-medical-technologies-inc-to-present-at-the-2024-thinkequity-conference.html",
+      "date": "2024-10-18",
+      "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
+      "discoveredAt": "2026-08-02T06:31:41.677867"
+    },
+    {
+      "ticker": "HSDT",
+      "token": "SOL",
+      "title": "INVESTIGATION ALERT: Fields Kupka &amp; Shukurov LLP Is Investigating Helius Medical Technologies, Inc. for Potential Breach of Fiduciary Duty Claims",
+      "url": "https://www.globenewswire.com/news-release/2020/06/15/2047926/0/en/investigation-alert-fields-kupka-shukurov-llp-is-investigating-helius-medical-technologies-inc-for-potential-breach-of-fiduciary-duty-claims.html",
+      "date": "2020-06-15",
+      "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
+      "discoveredAt": "2026-08-02T06:31:41.677867"
+    },
+    {
+      "ticker": "HSDT",
+      "token": "SOL",
+      "title": "MONDAY DEADLINE ALERT: The Schall Law Firm Announces the Filing of a Class Action Lawsuit Against Helius Medical Technologies, Inc. and Encourages Investors with Losses in Excess of $100,000 to Contac",
+      "url": "https://www.globenewswire.com/news-release/2019/09/09/1912757/0/en/monday-deadline-alert-the-schall-law-firm-announces-the-filing-of-a-class-action-lawsuit-against-helius-medical-technologies-inc-and-encourages-investors-with-losses-in-excess-of-1.html",
+      "date": "2019-09-09",
+      "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
+      "discoveredAt": "2026-08-02T06:31:41.677867"
+    },
+    {
+      "ticker": "HSDT",
+      "token": "SOL",
+      "title": "Glancy Prongay &amp; Murray Reminds Investors of Looming Deadline in the Class Action Lawsuit Against Helius Medical Technologies, Inc.",
+      "url": "https://www.globenewswire.com/news-release/2019/09/03/1910440/34548/en/glancy-prongay-murray-reminds-investors-of-looming-deadline-in-the-class-action-lawsuit-against-helius-medical-technologies-inc.html",
+      "date": "2019-09-03",
+      "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
+      "discoveredAt": "2026-08-02T06:31:41.677867"
+    },
+    {
+      "ticker": "HSDT",
+      "token": "SOL",
+      "title": "Deadline Reminder: The Law Offices of Howard G. Smith Reminds Investors of Looming Deadline in the Class Action Lawsuit Against Helius Medical Technologies, Inc.",
+      "url": "https://www.globenewswire.com/news-release/2019/09/03/1910322/3448/en/deadline-reminder-the-law-offices-of-howard-g-smith-reminds-investors-of-looming-deadline-in-the-class-action-lawsuit-against-helius-medical-technologies-inc.html",
+      "date": "2019-09-03",
+      "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
+      "discoveredAt": "2026-08-02T06:31:41.677867"
+    },
+    {
+      "ticker": "HSDT",
+      "token": "SOL",
+      "title": "7-DAY DEADLINE ALERT: The Schall Law Firm Announces the Filing of a Class Action Lawsuit Against Helius Medical Technologies, Inc. and Encourages Investors with Losses in Excess of $100,000 to Contact",
+      "url": "https://www.globenewswire.com/news-release/2019/09/02/1909566/0/en/7-day-deadline-alert-the-schall-law-firm-announces-the-filing-of-a-class-action-lawsuit-against-helius-medical-technologies-inc-and-encourages-investors-with-losses-in-excess-of-10.html",
+      "date": "2019-09-02",
+      "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
+      "discoveredAt": "2026-08-02T06:31:41.677867"
+    },
+    {
+      "ticker": "HSDT",
+      "token": "SOL",
+      "title": "SHAREHOLDER ALERT: Rigrodsky &amp; Long, P.A. Reminds Investors of HSDT and INS of Upcoming Deadlines",
+      "url": "https://www.globenewswire.com/news-release/2019/08/27/1907220/0/en/shareholder-alert-rigrodsky-long-p-a-reminds-investors-of-hsdt-and-ins-of-upcoming-deadlines.html",
+      "date": "2019-08-27",
+      "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
+      "discoveredAt": "2026-08-02T06:31:41.677867"
+    },
+    {
+      "ticker": "HSDT",
+      "token": "SOL",
+      "title": "UPCOMING DEADLINE ALERT: The Schall Law Firm Announces the Filing of a Class Action Lawsuit Against Helius Medical Technologies, Inc. and Encourages Investors with Losses in Excess of $100,000 to Cont",
+      "url": "https://www.globenewswire.com/news-release/2019/08/26/1906561/0/en/upcoming-deadline-alert-the-schall-law-firm-announces-the-filing-of-a-class-action-lawsuit-against-helius-medical-technologies-inc-and-encourages-investors-with-losses-in-excess-of.html",
+      "date": "2019-08-26",
+      "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
+      "discoveredAt": "2026-08-02T06:31:41.677867"
+    },
+    {
+      "ticker": "HSDT",
+      "token": "SOL",
+      "title": "SHAREHOLDER ALERT: Rigrodsky &amp; Long, P.A. Reminds Investors of HSDT and INS of Upcoming Deadlines",
+      "url": "https://www.globenewswire.com/news-release/2019/08/14/1901900/0/en/shareholder-alert-rigrodsky-long-p-a-reminds-investors-of-hsdt-and-ins-of-upcoming-deadlines.html",
+      "date": "2019-08-14",
+      "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
+      "discoveredAt": "2026-08-02T06:31:41.677867"
+    },
+    {
+      "ticker": "HSDT",
+      "token": "SOL",
+      "title": "INVESTOR ACTION REMINDER: The Schall Law Firm Announces the Filing of a Class Action Lawsuit Against Helius Medical Technologies, Inc. and Encourages Investors with Losses in Excess of $100,000 to Con",
+      "url": "https://www.globenewswire.com/news-release/2019/08/12/1900584/0/en/investor-action-reminder-the-schall-law-firm-announces-the-filing-of-a-class-action-lawsuit-against-helius-medical-technologies-inc-and-encourages-investors-with-losses-in-excess-o.html",
+      "date": "2019-08-12",
+      "sourcePage": "https://www.globenewswire.com/search/tag/HSDT",
+      "discoveredAt": "2026-08-02T06:31:41.677867"
+    },
     {
       "ticker": "BMNR",
       "token": "ETH",
