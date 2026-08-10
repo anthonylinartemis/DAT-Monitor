@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-10T09:00:02.813912-04:00",
-  "lastUpdatedDisplay": "Aug 10, 2026 09:00 AM ET",
+  "lastUpdated": "2026-08-10T12:53:35.914455-04:00",
+  "lastUpdatedDisplay": "Aug 10, 2026 12:53 PM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -24,15 +24,15 @@
       "date": "2026-08-10",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $233.00, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $233.00, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
       "token": "BTC",
       "date": "2026-08-10",
       "tokens": 20167,
-      "change": 147,
-      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.48, mNAV: 0.85x. Source: https://treasury.strive.com/?tab=home"
+      "change": 0,
+      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.25, mNAV: 0.84x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -72,15 +72,15 @@
       "date": "2026-08-10",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $233.00, mNAV: 0.85x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $233.00, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
       "token": "BTC",
       "date": "2026-08-10",
-      "tokens": 20020,
-      "change": 0,
-      "summary": "ASST holds 20,020 Bitcoin in treasury. Share price: $12.48, mNAV: 0.83x. Source: https://treasury.strive.com/?tab=home"
+      "tokens": 20167,
+      "change": 147,
+      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.48, mNAV: 0.85x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -414,10 +414,10 @@
         ],
         "analytics": {
           "totalBtc": 840447.0,
-          "sharePrice": 100.01,
-          "mNAV": 0.777501768495675,
+          "sharePrice": 97.9545,
+          "mNAV": 0.7718257569336072,
           "btcYieldYtd": 1.6939764597276714,
-          "marketCap": 39424242030.0
+          "marketCap": 38613957763.5
         },
         "alertSource": "sec_edgar"
       },
@@ -512,7 +512,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-10",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $233.00, mNAV: 0.86x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $233.00, mNAV: 0.87x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -619,9 +619,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 233.0,
-          "mNAV": 0.8581682403085251,
+          "mNAV": 0.8691555405863759,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 1879885687.4622042
+          "marketCap": 1878536290.8007526
         },
         "alertSource": "dashboard"
       },
@@ -630,7 +630,7 @@
         "name": "Strive",
         "tokens": 20167,
         "lastUpdate": "2026-08-10",
-        "change": 147,
+        "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
         "dashboardUrl": "https://treasury.strive.com/",
@@ -645,7 +645,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-10",
-        "alertNote": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.48, mNAV: 0.85x. Source: https://treasury.st",
+        "alertNote": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.25, mNAV: 0.84x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -751,10 +751,10 @@
         ],
         "analytics": {
           "totalBtc": 20167.0,
-          "sharePrice": 12.48,
-          "mNAV": 0.8462161091161348,
+          "sharePrice": 12.25,
+          "mNAV": 0.8418596782639618,
           "btcYieldYtd": 33.44681850199577,
-          "marketCap": 1066290863.0400001
+          "marketCap": 1046639669.25
         },
         "alertSource": "dashboard"
       },
@@ -2029,105 +2029,6 @@
     "BNB": 99
   },
   "discoveredPressReleases": [
-    {
-      "ticker": "ETHZ",
-      "token": "ETH",
-      "title": "ETHZ Investors Have Opportunity to Join ETHZilla Corporation Fraud Investigation with the Schall Law Firm",
-      "url": "https://www.globenewswire.com/news-release/2026/01/07/3214683/0/en/ethz-investors-have-opportunity-to-join-ethzilla-corporation-fraud-investigation-with-the-schall-law-firm.html",
-      "date": "2026-01-07",
-      "sourcePage": "https://www.globenewswire.com/search/tag/ETHZ",
-      "discoveredAt": "2026-08-10T12:57:42.013432"
-    },
-    {
-      "ticker": "BTBT",
-      "token": "ETH",
-      "title": "Mega Matrix Corp. Announces Additional Operation Capacity of Ethereum Staking Validators for Bit Digital",
-      "url": "https://www.globenewswire.com/news-release/2023/06/05/2682004/0/en/mega-matrix-corp-announces-additional-operation-capacity-of-ethereum-staking-validators-for-bit-digital.html",
-      "date": "2023-06-05",
-      "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-08-10T12:57:04.635693"
-    },
-    {
-      "ticker": "BTBT",
-      "token": "ETH",
-      "title": "Mega Matrix Corp. Announces Establishment of a Joint Venture With Bit Digital, Inc. to Jointly Provide Digital Assets Staking Services",
-      "url": "https://www.globenewswire.com/news-release/2023/03/07/2622582/0/en/mega-matrix-corp-announces-establishment-of-a-joint-venture-with-bit-digital-inc-to-jointly-provide-digital-assets-staking-services.html",
-      "date": "2023-03-07",
-      "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-08-10T12:57:04.635693"
-    },
-    {
-      "ticker": "BTBT",
-      "token": "ETH",
-      "title": "ROSEN, A LEADING LAW FIRM, Encourages Bit Digital, Inc. Investors to Secure Counsel Before Important Monday Deadline in Securities Class Action \u2013 BTBT",
-      "url": "https://www.globenewswire.com/news-release/2021/03/17/2194971/673/en/rosen-a-leading-law-firm-encourages-bit-digital-inc-investors-to-secure-counsel-before-important-monday-deadline-in-securities-class-action-btbt.html",
-      "date": "2021-03-17",
-      "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-08-10T12:57:04.635693"
-    },
-    {
-      "ticker": "BTBT",
-      "token": "ETH",
-      "title": "DEADLINE ALERT for CLSK, BTBT, LIZI, and JFU: The Law Offices of Frank R. Cruz Reminds Investors of Class Actions on Behalf of Shareholders",
-      "url": "https://www.globenewswire.com/news-release/2021/03/15/2193046/0/en/deadline-alert-for-clsk-btbt-lizi-and-jfu-the-law-offices-of-frank-r-cruz-reminds-investors-of-class-actions-on-behalf-of-shareholders.html",
-      "date": "2021-03-15",
-      "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-08-10T12:57:04.635693"
-    },
-    {
-      "ticker": "BTBT",
-      "token": "ETH",
-      "title": "ROSEN, RECOGNIZED INVESTOR COUNSEL, Encourages Bit Digital, Inc. Investors With Large Losses to Secure Counsel Before Important March 22 Deadline in Securities Class Action \u2013 BTBT",
-      "url": "https://www.globenewswire.com/news-release/2021/03/09/2189109/673/en/rosen-recognized-investor-counsel-encourages-bit-digital-inc-investors-with-large-losses-to-secure-counsel-before-important-march-22-deadline-in-securities-class-action-btbt.html",
-      "date": "2021-03-09",
-      "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-08-10T12:57:04.635693"
-    },
-    {
-      "ticker": "BTBT",
-      "token": "ETH",
-      "title": "DEADLINE ALERT for CLSK, BTBT, LIZI, and JFU: The Law Offices of Frank R. Cruz Reminds Investors of Class Actions on Behalf of Shareholders",
-      "url": "https://www.globenewswire.com/news-release/2021/03/08/2188928/0/en/deadline-alert-for-clsk-btbt-lizi-and-jfu-the-law-offices-of-frank-r-cruz-reminds-investors-of-class-actions-on-behalf-of-shareholders.html",
-      "date": "2021-03-08",
-      "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-08-10T12:57:04.635693"
-    },
-    {
-      "ticker": "BTBT",
-      "token": "ETH",
-      "title": "DEADLINE ALERT for CLSK, BTBT, LIZI, and JFU: The Law Offices of Frank R. Cruz Reminds Investors of Class Actions on Behalf of Shareholders",
-      "url": "https://www.globenewswire.com/news-release/2021/03/02/2185497/0/en/deadline-alert-for-clsk-btbt-lizi-and-jfu-the-law-offices-of-frank-r-cruz-reminds-investors-of-class-actions-on-behalf-of-shareholders.html",
-      "date": "2021-03-02",
-      "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-08-10T12:57:04.635693"
-    },
-    {
-      "ticker": "BTBT",
-      "token": "ETH",
-      "title": "ROSEN, A LONGSTANDING AND TRUSTED FIRM, Encourages Bit Digital, Inc. Investors to Secure Counsel Before Important Deadline in Securities Class Action \u2013 BTBT",
-      "url": "https://www.globenewswire.com/news-release/2021/02/27/2183768/673/en/rosen-a-longstanding-and-trusted-firm-encourages-bit-digital-inc-investors-to-secure-counsel-before-important-deadline-in-securities-class-action-btbt.html",
-      "date": "2021-02-27",
-      "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-08-10T12:57:04.635693"
-    },
-    {
-      "ticker": "BTBT",
-      "token": "ETH",
-      "title": "DEADLINE ALERT for CLSK, BTBT, LIZI, and JFU: The Law Offices of Frank R. Cruz Reminds Investors of Class Actions on Behalf of Shareholders",
-      "url": "https://www.globenewswire.com/news-release/2021/02/23/2180753/0/en/deadline-alert-for-clsk-btbt-lizi-and-jfu-the-law-offices-of-frank-r-cruz-reminds-investors-of-class-actions-on-behalf-of-shareholders.html",
-      "date": "2021-02-23",
-      "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-08-10T12:57:04.635693"
-    },
-    {
-      "ticker": "BTBT",
-      "token": "ETH",
-      "title": "DEADLINE ALERT for CLSK, BTBT, LIZI, and JFU: The Law Offices of Frank R. Cruz Reminds Investors of Class Actions on Behalf of Shareholders",
-      "url": "https://www.globenewswire.com/news-release/2021/02/18/2178308/0/en/deadline-alert-for-clsk-btbt-lizi-and-jfu-the-law-offices-of-frank-r-cruz-reminds-investors-of-class-actions-on-behalf-of-shareholders.html",
-      "date": "2021-02-18",
-      "sourcePage": "https://www.globenewswire.com/search/tag/BTBT",
-      "discoveredAt": "2026-08-10T12:57:04.635693"
-    },
     {
       "ticker": "BMNR",
       "token": "ETH",
