@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-11T04:53:09.782580-04:00",
-  "lastUpdatedDisplay": "Aug 11, 2026 04:53 AM ET",
+  "lastUpdated": "2026-08-11T08:56:20.256908-04:00",
+  "lastUpdatedDisplay": "Aug 11, 2026 08:56 AM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -24,7 +24,7 @@
       "date": "2026-08-11",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $233.00, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $233.00, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -32,7 +32,7 @@
       "date": "2026-08-11",
       "tokens": 20167,
       "change": 0,
-      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.44, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.44, mNAV: 0.85x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -80,7 +80,7 @@
       "date": "2026-08-11",
       "tokens": 20167,
       "change": 0,
-      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.44, mNAV: 0.85x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.44, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -415,7 +415,7 @@
         "analytics": {
           "totalBtc": 840447.0,
           "sharePrice": 97.33,
-          "mNAV": 0.767135777773341,
+          "mNAV": 0.7633179194536645,
           "btcYieldYtd": 1.6939764597276714,
           "marketCap": 38367777990.0
         },
@@ -512,7 +512,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-11",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $233.00, mNAV: 0.87x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $233.00, mNAV: 0.86x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -618,10 +618,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 233.0,
-          "mNAV": 0.8673873300991919,
+          "sharePrice": 233.00000000000003,
+          "mNAV": 0.8631626551929352,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 1874150751.651034
+          "marketCap": 1874350772.8375769
         },
         "alertSource": "dashboard"
       },
@@ -645,7 +645,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-11",
-        "alertNote": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.44, mNAV: 0.86x. Source: https://treasury.st",
+        "alertNote": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.44, mNAV: 0.85x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -752,7 +752,7 @@
         "analytics": {
           "totalBtc": 20167.0,
           "sharePrice": 12.44,
-          "mNAV": 0.8551742980813797,
+          "mNAV": 0.8509182922955718,
           "btcYieldYtd": 33.44681850199577,
           "marketCap": 1062873264.12
         },
@@ -2877,6 +2877,19 @@
     }
   ],
   "earnings": [
+    {
+      "ticker": "XXI",
+      "name": "Twenty One Capital",
+      "token": "BTC",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-08-11",
+      "quarter": "Q2 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/2070457/000121390026087471/ea0299640-10q_twentyone.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/2070457/000121390026087471/",
+      "accession": "0001213900-26-087471",
+      "status": "reported"
+    },
     {
       "ticker": "STSS",
       "name": "Sharps Technology",
