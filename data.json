@@ -1,11 +1,11 @@
 {
-  "lastUpdated": "2026-08-11T16:42:57.213047-04:00",
-  "lastUpdatedDisplay": "Aug 11, 2026 04:42 PM ET",
+  "lastUpdated": "2026-08-11T21:28:34.177838-04:00",
+  "lastUpdatedDisplay": "Aug 11, 2026 09:28 PM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
       "token": "HYPE",
-      "date": "2026-08-11",
+      "date": "2026-08-12",
       "tokens": 3000000,
       "change": 0,
       "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
@@ -13,7 +13,7 @@
     {
       "ticker": "UPXI",
       "token": "SOL",
-      "date": "2026-08-11",
+      "date": "2026-08-12",
       "tokens": 2400000,
       "change": 0,
       "summary": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/"
@@ -21,15 +21,15 @@
     {
       "ticker": "MTPLF",
       "token": "BTC",
-      "date": "2026-08-11",
+      "date": "2026-08-12",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $233.00, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $217.03, mNAV: 0.81x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
       "token": "BTC",
-      "date": "2026-08-11",
+      "date": "2026-08-12",
       "tokens": 20167,
       "change": 0,
       "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.62, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
@@ -37,7 +37,7 @@
     {
       "ticker": "BMNR",
       "token": "ETH",
-      "date": "2026-08-11",
+      "date": "2026-08-12",
       "tokens": 77,
       "change": -4,
       "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 5.77 Million Tokens, and Total Crypto and Total Cash Holdings of $11.3 Billio"
@@ -45,7 +45,7 @@
     {
       "ticker": "BMNR",
       "token": "ETH",
-      "date": "2026-08-11",
+      "date": "2026-08-12",
       "tokens": 81,
       "change": 4,
       "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 5.81 Million Tokens, and Total Crypto and Total Cash Holdings of $11.6 Billio"
@@ -80,7 +80,7 @@
       "date": "2026-08-11",
       "tokens": 20167,
       "change": 0,
-      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.51, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.62, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -415,7 +415,7 @@
         "analytics": {
           "totalBtc": 840447.0,
           "sharePrice": 96.09,
-          "mNAV": 0.7615808418451251,
+          "mNAV": 0.7610450151820118,
           "btcYieldYtd": 1.6939764597276714,
           "marketCap": 37878966270.0
         },
@@ -498,7 +498,7 @@
         "name": "Metaplanet",
         "notes": "Japan TSE - No SEC",
         "tokens": 43000,
-        "lastUpdate": "2026-08-11",
+        "lastUpdate": "2026-08-12",
         "change": 0,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
@@ -511,8 +511,8 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-08-11",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $233.00, mNAV: 0.87x. Source: https://treasury.",
+        "alertDate": "2026-08-12",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $217.03, mNAV: 0.81x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -618,10 +618,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 233.0,
-          "mNAV": 0.8722686840547336,
+          "sharePrice": 217.03180966463142,
+          "mNAV": 0.8116566074643828,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 1874258225.7214153
+          "marketCap": 1745247955.803016
         },
         "alertSource": "dashboard"
       },
@@ -629,7 +629,7 @@
         "ticker": "ASST",
         "name": "Strive",
         "tokens": 20167,
-        "lastUpdate": "2026-08-11",
+        "lastUpdate": "2026-08-12",
         "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
@@ -644,7 +644,7 @@
         "lastErrorTime": "2026-01-20T18:11:08.617945",
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-08-11",
+        "alertDate": "2026-08-12",
         "alertNote": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.62, mNAV: 0.87x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
@@ -752,7 +752,7 @@
         "analytics": {
           "totalBtc": 20167.0,
           "sharePrice": 12.62,
-          "mNAV": 0.872380434933735,
+          "mNAV": 0.8717666528219327,
           "btcYieldYtd": 33.44681850199577,
           "marketCap": 1078252459.26
         },
@@ -901,14 +901,14 @@
         "name": "BitMine Immersion",
         "notes": "Largest ETH treasury. 3.48% of supply",
         "tokens": 77,
-        "lastUpdate": "2026-08-11",
+        "lastUpdate": "2026-08-12",
         "change": -4,
         "cik": "0001829311",
         "irUrl": "https://www.bitminetech.io/investor-relations",
         "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226032951/ex99-1.htm",
-        "alertDate": "2026-08-11",
+        "alertDate": "2026-08-12",
         "alertNote": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announ",
-        "lastSecUpdate": "2026-08-11",
+        "lastSecUpdate": "2026-08-12",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -1632,13 +1632,13 @@
         "name": "Upexi",
         "notes": "High-yield strategy 2026",
         "tokens": 2400000,
-        "lastUpdate": "2026-08-11",
+        "lastUpdate": "2026-08-12",
         "change": 0,
         "cik": "0001839175",
         "irUrl": "https://ir.upexi.com/",
         "dashboardUrl": "https://www.upexi.com/",
         "alertUrl": "https://www.upexi.com/",
-        "alertDate": "2026-08-11",
+        "alertDate": "2026-08-12",
         "alertNote": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/",
         "scrape_config": {
           "method": "html_static",
@@ -1735,7 +1735,7 @@
         "name": "Hyperliquid Strategies",
         "notes": "fka Sonnet Bio",
         "tokens": 3000000,
-        "lastUpdate": "2026-08-11",
+        "lastUpdate": "2026-08-12",
         "change": 0,
         "cik": "0002078856",
         "irUrl": "https://www.sonnetbio.com/investors/news-events",
@@ -1767,7 +1767,7 @@
           }
         ],
         "alertUrl": "https://www.hypestrat.xyz/dashboard",
-        "alertDate": "2026-08-11",
+        "alertDate": "2026-08-12",
         "alertNote": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard",
         "alertSource": "dashboard",
         "lastSecUpdate": "2026-03-01"
