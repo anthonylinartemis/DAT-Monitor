@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-12T12:57:24.436954-04:00",
-  "lastUpdatedDisplay": "Aug 12, 2026 12:57 PM ET",
+  "lastUpdated": "2026-08-12T16:42:37.953934-04:00",
+  "lastUpdatedDisplay": "Aug 12, 2026 04:42 PM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -32,7 +32,15 @@
       "date": "2026-08-12",
       "tokens": 20167,
       "change": 0,
-      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.42, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.39, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "HYPD",
+      "token": "HYPE",
+      "date": "2026-08-12",
+      "tokens": 31000000,
+      "change": 29000000,
+      "summary": "EX-99.1 2 tm2622908d1_ex99-1.htm EXHIBIT 99.1 &nbsp; Exhibit 99.1 &nbsp; Hyperion DeFi Reports 2Q 2026 Financial Results with Another Record Quarterly Net Income and Strong Operating Momentum &nbsp; C"
     },
     {
       "ticker": "BMNR",
@@ -72,15 +80,7 @@
       "date": "2026-08-12",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $221.00, mNAV: 0.82x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-08-12",
-      "tokens": 20167,
-      "change": 0,
-      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.62, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $221.00, mNAV: 0.83x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -414,10 +414,10 @@
         ],
         "analytics": {
           "totalBtc": 840447.0,
-          "sharePrice": 95.42,
-          "mNAV": 0.7580730457028082,
+          "sharePrice": 94.83,
+          "mNAV": 0.754771308672646,
           "btcYieldYtd": 1.6939764597276714,
-          "marketCap": 37614850260.0
+          "marketCap": 37382270490.0
         },
         "alertSource": "sec_edgar"
       },
@@ -619,9 +619,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 221.0,
-          "mNAV": 0.828936353444619,
+          "mNAV": 0.8297991748069489,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 1776914393.6823988
+          "marketCap": 1775498575.277879
         },
         "alertSource": "dashboard"
       },
@@ -645,7 +645,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-12",
-        "alertNote": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.42, mNAV: 0.86x. Source: https://treasury.st",
+        "alertNote": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.39, mNAV: 0.86x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -751,10 +751,10 @@
         ],
         "analytics": {
           "totalBtc": 20167.0,
-          "sharePrice": 12.42,
-          "mNAV": 0.8606012718742834,
+          "sharePrice": 12.39,
+          "mNAV": 0.8601014575688595,
           "btcYieldYtd": 33.44681850199577,
-          "marketCap": 1061164464.66
+          "marketCap": 1058601265.47
         },
         "alertSource": "dashboard"
       },
@@ -1776,14 +1776,14 @@
         "ticker": "HYPD",
         "name": "Hyperion DeFi",
         "notes": "fka Eyenovia. Felix HIP-3",
-        "tokens": 2000000,
-        "lastUpdate": "2026-05-14",
-        "change": 70000,
+        "tokens": 31000000,
+        "lastUpdate": "2026-08-12",
+        "change": 29000000,
         "cik": "0001682639",
         "irUrl": "https://ir.hyperiondefi.com/",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926081616/tm2619949d1_8k.htm",
-        "alertDate": "2026-07-08",
-        "alertNote": "8-K: Item 5.02 - Departure/Election of Officers; Item 9.01 - Financial Statements and Exhibits",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926094849/tm2622908d1_ex99-1.htm",
+        "alertDate": "2026-08-12",
+        "alertNote": "EX-99.1 2 tm2622908d1_ex99-1.htm EXHIBIT 99.1 &nbsp; Exhibit 99.1 &nbsp; Hyperion DeFi Reports 2Q 20",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -1792,8 +1792,16 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:07.873676",
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-07-08",
+        "lastSecUpdate": "2026-08-12",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926094849/tm2622908d1_ex99-1.htm",
+            "date": "2026-08-12",
+            "note": "EX-99.1 2 tm2622908d1_ex99-1.htm EXHIBIT 99.1 &nbsp; Exhibit 99.1 &nbsp; Hyperion DeFi Reports 2Q 20",
+            "type": "sec_filing",
+            "items": "2.02,7.01,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926081616/tm2619949d1_8k.htm",
             "date": "2026-07-08",
@@ -2025,7 +2033,7 @@
     "BTC": 891837,
     "ETH": 1638731,
     "SOL": 13680066,
-    "HYPE": 5000000,
+    "HYPE": 34000000,
     "BNB": 99
   },
   "discoveredPressReleases": [
@@ -2877,6 +2885,47 @@
     }
   ],
   "earnings": [
+    {
+      "ticker": "FWDI",
+      "name": "Forward Industries",
+      "token": "SOL",
+      "type": "8-K",
+      "items": "2.02,7.01,9.01",
+      "date": "2026-08-12",
+      "quarter": "Q2 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/38264/000168316826006277/forward_8k.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/38264/000168316826006277/",
+      "accession": "0001683168-26-006277",
+      "status": "reported",
+      "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/38264/000168316826006277/forward_ex9901.htm"
+    },
+    {
+      "ticker": "FWDI",
+      "name": "Forward Industries",
+      "token": "SOL",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-08-12",
+      "quarter": "Q2 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/38264/000168316826006270/forward_i10q-063026.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/38264/000168316826006270/",
+      "accession": "0001683168-26-006270",
+      "status": "reported"
+    },
+    {
+      "ticker": "HYPD",
+      "name": "Hyperion DeFi",
+      "token": "HYPE",
+      "type": "8-K",
+      "items": "2.02,7.01,9.01",
+      "date": "2026-08-12",
+      "quarter": "Q2 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926094849/tm2622908d1_8k.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926094849/",
+      "accession": "0001104659-26-094849",
+      "status": "reported",
+      "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926094849/tm2622908d1_ex99-1.htm"
+    },
     {
       "ticker": "XXI",
       "name": "Twenty One Capital",
