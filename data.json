@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-13T05:11:18.003064-04:00",
-  "lastUpdatedDisplay": "Aug 13, 2026 05:11 AM ET",
+  "lastUpdated": "2026-08-13T09:02:22.517666-04:00",
+  "lastUpdatedDisplay": "Aug 13, 2026 09:02 AM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -24,7 +24,7 @@
       "date": "2026-08-13",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $223.00, mNAV: 0.83x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $223.00, mNAV: 0.84x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -56,7 +56,7 @@
       "date": "2026-08-13",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $223.00, mNAV: 0.84x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $223.00, mNAV: 0.83x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -415,7 +415,7 @@
         "analytics": {
           "totalBtc": 840447.0,
           "sharePrice": 94.83,
-          "mNAV": 0.7506638869502311,
+          "mNAV": 0.7532783434722585,
           "btcYieldYtd": 1.6939764597276714,
           "marketCap": 37382270490.0
         },
@@ -512,7 +512,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-13",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $223.00, mNAV: 0.83x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $223.00, mNAV: 0.84x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -619,9 +619,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 223.0,
-          "mNAV": 0.8331916876433486,
+          "mNAV": 0.8366973045744069,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 1792512189.5690165
+          "marketCap": 1793806529.4731452
         },
         "alertSource": "dashboard"
       },
@@ -752,7 +752,7 @@
         "analytics": {
           "totalBtc": 20167.0,
           "sharePrice": 12.39,
-          "mNAV": 0.855420835280087,
+          "mNAV": 0.8584001454890309,
           "btcYieldYtd": 33.44681850199577,
           "marketCap": 1058601265.47
         },
@@ -2893,6 +2893,45 @@
     }
   ],
   "earnings": [
+    {
+      "ticker": "NAKA",
+      "name": "Nakamoto Holdings",
+      "token": "BTC",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-08-13",
+      "quarter": "Q2 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1946573/000149315226037603/form10-q.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1946573/000149315226037603/",
+      "accession": "0001493152-26-037603",
+      "status": "reported"
+    },
+    {
+      "ticker": "BTBT",
+      "name": "Bit Digital",
+      "token": "ETH",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-08-13",
+      "quarter": "Q2 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1710350/000121390026088709/ea0300693-10q_bitdigital.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1710350/000121390026088709/",
+      "accession": "0001213900-26-088709",
+      "status": "reported"
+    },
+    {
+      "ticker": "HYPD",
+      "name": "Hyperion DeFi",
+      "token": "HYPE",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-08-13",
+      "quarter": "Q2 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926095181/hypd-20260630x10q.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926095181/",
+      "accession": "0001104659-26-095181",
+      "status": "reported"
+    },
     {
       "ticker": "FGNX",
       "name": "FG Nexus",
