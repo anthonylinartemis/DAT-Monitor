@@ -1,7 +1,39 @@
 {
-  "lastUpdated": "2026-08-12T21:30:24.839510-04:00",
-  "lastUpdatedDisplay": "Aug 12, 2026 09:30 PM ET",
+  "lastUpdated": "2026-08-13T01:35:12.771167-04:00",
+  "lastUpdatedDisplay": "Aug 13, 2026 01:35 AM ET",
   "recentChanges": [
+    {
+      "ticker": "PURR",
+      "token": "HYPE",
+      "date": "2026-08-13",
+      "tokens": 3000000,
+      "change": 0,
+      "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
+    },
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-08-13",
+      "tokens": 2400000,
+      "change": 0,
+      "summary": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-08-13",
+      "tokens": 43000,
+      "change": 0,
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $223.00, mNAV: 0.84x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-08-13",
+      "tokens": 20167,
+      "change": 0,
+      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.39, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "PURR",
       "token": "HYPE",
@@ -49,38 +81,6 @@
       "tokens": 3000000,
       "change": 0,
       "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-08-12",
-      "tokens": 2400000,
-      "change": 0,
-      "summary": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-08-12",
-      "tokens": 43000,
-      "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $221.00, mNAV: 0.83x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-08-12",
-      "tokens": 20167,
-      "change": 0,
-      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.39, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "HYPD",
-      "token": "HYPE",
-      "date": "2026-08-12",
-      "tokens": 31000000,
-      "change": 29000000,
-      "summary": "EX-99.1 2 tm2622908d1_ex99-1.htm EXHIBIT 99.1 &nbsp; Exhibit 99.1 &nbsp; Hyperion DeFi Reports 2Q 2026 Financial Results with Another Record Quarterly Net Income and Strong Operating Momentum &nbsp; C"
     }
   ],
   "tokenConfig": {
@@ -415,7 +415,7 @@
         "analytics": {
           "totalBtc": 840447.0,
           "sharePrice": 94.83,
-          "mNAV": 0.753004008739416,
+          "mNAV": 0.7515936287014283,
           "btcYieldYtd": 1.6939764597276714,
           "marketCap": 37382270490.0
         },
@@ -512,7 +512,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-13",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $224.00, mNAV: 0.84x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $223.00, mNAV: 0.84x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -618,10 +618,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 224.0,
-          "mNAV": 0.8399732750164429,
+          "sharePrice": 223.0,
+          "mNAV": 0.8350560694620938,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 1801486005.376279
+          "marketCap": 1794300835.8824482
         },
         "alertSource": "dashboard"
       },
@@ -752,7 +752,7 @@
         "analytics": {
           "totalBtc": 20167.0,
           "sharePrice": 12.39,
-          "mNAV": 0.858087526685337,
+          "mNAV": 0.8564803247256699,
           "btcYieldYtd": 33.44681850199577,
           "marketCap": 1058601265.47
         },
