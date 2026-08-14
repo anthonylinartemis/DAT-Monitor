@@ -1,11 +1,11 @@
 {
-  "lastUpdated": "2026-08-13T16:41:20.059514-04:00",
-  "lastUpdatedDisplay": "Aug 13, 2026 04:41 PM ET",
+  "lastUpdated": "2026-08-13T21:29:50.489855-04:00",
+  "lastUpdatedDisplay": "Aug 13, 2026 09:29 PM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
       "token": "HYPE",
-      "date": "2026-08-13",
+      "date": "2026-08-14",
       "tokens": 3000000,
       "change": 0,
       "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
@@ -13,7 +13,7 @@
     {
       "ticker": "UPXI",
       "token": "SOL",
-      "date": "2026-08-13",
+      "date": "2026-08-14",
       "tokens": 2400000,
       "change": 0,
       "summary": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/"
@@ -21,15 +21,15 @@
     {
       "ticker": "MTPLF",
       "token": "BTC",
-      "date": "2026-08-13",
+      "date": "2026-08-14",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $223.00, mNAV: 0.84x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $225.00, mNAV: 0.84x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
       "token": "BTC",
-      "date": "2026-08-13",
+      "date": "2026-08-14",
       "tokens": 20167,
       "change": 0,
       "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.58, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
@@ -64,7 +64,7 @@
       "date": "2026-08-13",
       "tokens": 20167,
       "change": 0,
-      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.35, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.58, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "PURR",
@@ -415,7 +415,7 @@
         "analytics": {
           "totalBtc": 840447.0,
           "sharePrice": 97.1,
-          "mNAV": 0.7725201017477602,
+          "mNAV": 0.7716336421620227,
           "btcYieldYtd": 1.6939764597276714,
           "marketCap": 38277111300.0
         },
@@ -498,7 +498,7 @@
         "name": "Metaplanet",
         "notes": "Japan TSE - No SEC",
         "tokens": 43000,
-        "lastUpdate": "2026-08-13",
+        "lastUpdate": "2026-08-14",
         "change": 0,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
@@ -511,8 +511,8 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-08-13",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $223.00, mNAV: 0.84x. Source: https://treasury.",
+        "alertDate": "2026-08-14",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $225.00, mNAV: 0.84x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -618,10 +618,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 223.00000000000003,
-          "mNAV": 0.8366484739865957,
+          "sharePrice": 225.0,
+          "mNAV": 0.8439192425062282,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 1790892121.7419949
+          "marketCap": 1808530874.3132818
         },
         "alertSource": "dashboard"
       },
@@ -629,7 +629,7 @@
         "ticker": "ASST",
         "name": "Strive",
         "tokens": 20167,
-        "lastUpdate": "2026-08-13",
+        "lastUpdate": "2026-08-14",
         "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
@@ -644,7 +644,7 @@
         "lastErrorTime": "2026-01-20T18:11:08.617945",
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-08-13",
+        "alertDate": "2026-08-14",
         "alertNote": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.58, mNAV: 0.87x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
@@ -752,7 +752,7 @@
         "analytics": {
           "totalBtc": 20167.0,
           "sharePrice": 12.58,
-          "mNAV": 0.8729310573424901,
+          "mNAV": 0.8719293771250841,
           "btcYieldYtd": 33.44681850199577,
           "marketCap": 1074834860.34
         },
@@ -1640,13 +1640,13 @@
         "name": "Upexi",
         "notes": "High-yield strategy 2026",
         "tokens": 2400000,
-        "lastUpdate": "2026-08-13",
+        "lastUpdate": "2026-08-14",
         "change": 0,
         "cik": "0001839175",
         "irUrl": "https://ir.upexi.com/",
         "dashboardUrl": "https://www.upexi.com/",
         "alertUrl": "https://www.upexi.com/",
-        "alertDate": "2026-08-13",
+        "alertDate": "2026-08-14",
         "alertNote": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/",
         "scrape_config": {
           "method": "html_static",
@@ -1743,7 +1743,7 @@
         "name": "Hyperliquid Strategies",
         "notes": "fka Sonnet Bio",
         "tokens": 3000000,
-        "lastUpdate": "2026-08-13",
+        "lastUpdate": "2026-08-14",
         "change": 0,
         "cik": "0002078856",
         "irUrl": "https://www.sonnetbio.com/investors/news-events",
@@ -1775,7 +1775,7 @@
           }
         ],
         "alertUrl": "https://www.hypestrat.xyz/dashboard",
-        "alertDate": "2026-08-13",
+        "alertDate": "2026-08-14",
         "alertNote": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard",
         "alertSource": "dashboard",
         "lastSecUpdate": "2026-03-01"
@@ -3118,19 +3118,6 @@
       "accession": "0001628280-26-051027",
       "status": "reported",
       "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000162828026051027/mstr-20260730x8kxex991.htm"
-    },
-    {
-      "ticker": "BMNR",
-      "name": "BitMine Immersion",
-      "token": "ETH",
-      "type": "10-Q",
-      "items": "",
-      "date": "2026-07-14",
-      "quarter": "Q2 FY2026",
-      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/bmnr-20260531.htm",
-      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000162828026048157/",
-      "accession": "0001628280-26-048157",
-      "status": "reported"
     }
   ]
 }
