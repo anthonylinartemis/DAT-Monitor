@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-14T05:07:45.619883-04:00",
-  "lastUpdatedDisplay": "Aug 14, 2026 05:07 AM ET",
+  "lastUpdated": "2026-08-14T08:58:28.677093-04:00",
+  "lastUpdatedDisplay": "Aug 14, 2026 08:58 AM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -56,7 +56,7 @@
       "date": "2026-08-14",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $222.00, mNAV: 0.84x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $221.00, mNAV: 0.84x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -64,7 +64,7 @@
       "date": "2026-08-14",
       "tokens": 20167,
       "change": 0,
-      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.58, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.58, mNAV: 0.88x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "PURR",
@@ -415,7 +415,7 @@
         "analytics": {
           "totalBtc": 840447.0,
           "sharePrice": 97.1,
-          "mNAV": 0.7808723782474785,
+          "mNAV": 0.7803861816036369,
           "btcYieldYtd": 1.6939764597276714,
           "marketCap": 38277111300.0
         },
@@ -618,10 +618,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 220.99999999999997,
-          "mNAV": 0.8404119677327323,
+          "sharePrice": 221.0,
+          "mNAV": 0.8413105457814642,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 1779706387.5761123
+          "marketCap": 1782719249.1409311
         },
         "alertSource": "dashboard"
       },
@@ -752,7 +752,7 @@
         "analytics": {
           "totalBtc": 20167.0,
           "sharePrice": 12.58,
-          "mNAV": 0.8823689496893958,
+          "mNAV": 0.8818195579655755,
           "btcYieldYtd": 33.44681850199577,
           "marketCap": 1074834860.34
         },
@@ -905,10 +905,10 @@
         "change": 4,
         "cik": "0001829311",
         "irUrl": "https://www.bitminetech.io/investor-relations",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226036757/ex99-1.htm",
-        "alertDate": "2026-08-13",
-        "alertNote": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announ",
-        "lastSecUpdate": "2026-08-13",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226038012/form8-k.htm",
+        "alertDate": "2026-08-14",
+        "alertNote": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
+        "lastSecUpdate": "2026-08-14",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -919,6 +919,14 @@
         "lastErrorTime": "2026-01-20T18:11:09.191496",
         "lastChecked": "2026-01-27T19:33:02.567127",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226038012/form8-k.htm",
+            "date": "2026-08-14",
+            "note": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
+            "type": "sec_filing",
+            "items": "7.01,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226036757/ex99-1.htm",
             "date": "2026-08-10",
@@ -1067,14 +1075,6 @@
             "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226012078/ex99-1.htm",
             "date": "2026-03-23",
             "note": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announ",
-            "type": "sec_filing",
-            "items": "7.01,9.01",
-            "form": "8-K"
-          },
-          {
-            "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226008462/form8-k.htm",
-            "date": "2026-03-18",
-            "note": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
             "type": "sec_filing",
             "items": "7.01,9.01",
             "form": "8-K"
