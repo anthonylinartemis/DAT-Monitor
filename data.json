@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-15T04:25:33.102631-04:00",
-  "lastUpdatedDisplay": "Aug 15, 2026 04:25 AM ET",
+  "lastUpdated": "2026-08-15T08:31:06.645981-04:00",
+  "lastUpdatedDisplay": "Aug 15, 2026 08:31 AM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -415,7 +415,7 @@
         "analytics": {
           "totalBtc": 840447.0,
           "sharePrice": 93.04,
-          "mNAV": 0.7448420174810209,
+          "mNAV": 0.7455932304281566,
           "btcYieldYtd": 1.6939764597276714,
           "marketCap": 36676647120.0
         },
@@ -619,7 +619,7 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 221.0,
-          "mNAV": 0.8352736546509751,
+          "mNAV": 0.8361160727329964,
           "btcYieldYtd": 9.608985024958402,
           "marketCap": 1776852097.6726
         },
@@ -752,7 +752,7 @@
         "analytics": {
           "totalBtc": 20167.0,
           "sharePrice": 12.315,
-          "mNAV": 0.8598795632417255,
+          "mNAV": 0.8607467976964482,
           "btcYieldYtd": 33.44681850199577,
           "marketCap": 1052193267.495
         },
