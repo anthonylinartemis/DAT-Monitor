@@ -1,7 +1,47 @@
 {
-  "lastUpdated": "2026-08-14T16:30:20.912185-04:00",
-  "lastUpdatedDisplay": "Aug 14, 2026 04:30 PM ET",
+  "lastUpdated": "2026-08-14T21:00:29.318226-04:00",
+  "lastUpdatedDisplay": "Aug 14, 2026 09:00 PM ET",
   "recentChanges": [
+    {
+      "ticker": "PURR",
+      "token": "HYPE",
+      "date": "2026-08-15",
+      "tokens": 3000000,
+      "change": 0,
+      "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
+    },
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-08-15",
+      "tokens": 2400000,
+      "change": 0,
+      "summary": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-08-15",
+      "tokens": 43000,
+      "change": 0,
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $221.00, mNAV: 0.84x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-08-15",
+      "tokens": 20167,
+      "change": 0,
+      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.31, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "NAKA",
+      "token": "BTC",
+      "date": "2026-08-15",
+      "tokens": 9679,
+      "change": 3,
+      "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Nakamoto Reports Second Quarter 2026 Financial and Operating Results &nbsp; First Full Quarter as an Integrated Bitcoin Company Highlights Early"
+    },
     {
       "ticker": "PURR",
       "token": "HYPE",
@@ -41,46 +81,6 @@
       "tokens": 3000000,
       "change": 0,
       "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-08-14",
-      "tokens": 2400000,
-      "change": 0,
-      "summary": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-08-14",
-      "tokens": 43000,
-      "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $221.00, mNAV: 0.83x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-08-14",
-      "tokens": 20167,
-      "change": 0,
-      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.38, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "PURR",
-      "token": "HYPE",
-      "date": "2026-08-14",
-      "tokens": 3000000,
-      "change": 0,
-      "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-08-14",
-      "tokens": 2400000,
-      "change": 0,
-      "summary": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/"
     }
   ],
   "tokenConfig": {
@@ -415,7 +415,7 @@
         "analytics": {
           "totalBtc": 840447.0,
           "sharePrice": 93.04,
-          "mNAV": 0.7453745868748943,
+          "mNAV": 0.7453767182081054,
           "btcYieldYtd": 1.6939764597276714,
           "marketCap": 36676647120.0
         },
@@ -498,7 +498,7 @@
         "name": "Metaplanet",
         "notes": "Japan TSE - No SEC",
         "tokens": 43000,
-        "lastUpdate": "2026-08-14",
+        "lastUpdate": "2026-08-15",
         "change": 0,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
@@ -511,7 +511,7 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-08-14",
+        "alertDate": "2026-08-15",
         "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $221.00, mNAV: 0.84x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
@@ -619,9 +619,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 221.0,
-          "mNAV": 0.8359414830110722,
+          "mNAV": 0.8358732736573878,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 1777002174.423479
+          "marketCap": 1776852097.6726
         },
         "alertSource": "dashboard"
       },
@@ -629,7 +629,7 @@
         "ticker": "ASST",
         "name": "Strive",
         "tokens": 20167,
-        "lastUpdate": "2026-08-14",
+        "lastUpdate": "2026-08-15",
         "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
@@ -644,7 +644,7 @@
         "lastErrorTime": "2026-01-20T18:11:08.617945",
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-08-14",
+        "alertDate": "2026-08-15",
         "alertNote": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.31, mNAV: 0.86x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
@@ -752,7 +752,7 @@
         "analytics": {
           "totalBtc": 20167.0,
           "sharePrice": 12.315,
-          "mNAV": 0.8604943856162051,
+          "mNAV": 0.8604968461243769,
           "btcYieldYtd": 33.44681850199577,
           "marketCap": 1052193267.495
         },
@@ -762,9 +762,9 @@
         "ticker": "NAKA",
         "name": "Nakamoto Holdings",
         "notes": "Nasdaq warning",
-        "tokens": 9676,
-        "lastUpdate": "2026-03-31",
-        "change": 9577,
+        "tokens": 9679,
+        "lastUpdate": "2026-08-15",
+        "change": 3,
         "cik": "0001946573",
         "irUrl": "https://nakamoto.com/dashboard",
         "scrape_config": {
@@ -775,6 +775,14 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:01.966027",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1946573/000149315226038468/ex99-1.htm",
+            "date": "2026-08-15",
+            "note": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Nakamoto Reports Second Quarter 2026 Financi",
+            "type": "sec_filing",
+            "items": "2.02,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1946573/000149315226036012/form8-k.htm",
             "date": "2026-08-04",
@@ -840,11 +848,11 @@
             "form": "8-K"
           }
         ],
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1946573/000149315226036012/form8-k.htm",
-        "alertDate": "2026-08-04",
-        "alertNote": "8-K: Item 5.02 - Departure/Election of Officers; Item 9.01 - Financial Statements and Exhibits",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1946573/000149315226038468/ex99-1.htm",
+        "alertDate": "2026-08-15",
+        "alertNote": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Nakamoto Reports Second Quarter 2026 Financi",
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-08-04"
+        "lastSecUpdate": "2026-08-15"
       },
       {
         "ticker": "ABTC",
@@ -1640,13 +1648,13 @@
         "name": "Upexi",
         "notes": "High-yield strategy 2026",
         "tokens": 2400000,
-        "lastUpdate": "2026-08-14",
+        "lastUpdate": "2026-08-15",
         "change": 0,
         "cik": "0001839175",
         "irUrl": "https://ir.upexi.com/",
         "dashboardUrl": "https://www.upexi.com/",
         "alertUrl": "https://www.upexi.com/",
-        "alertDate": "2026-08-14",
+        "alertDate": "2026-08-15",
         "alertNote": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/",
         "scrape_config": {
           "method": "html_static",
@@ -1743,7 +1751,7 @@
         "name": "Hyperliquid Strategies",
         "notes": "fka Sonnet Bio",
         "tokens": 3000000,
-        "lastUpdate": "2026-08-14",
+        "lastUpdate": "2026-08-15",
         "change": 0,
         "cik": "0002078856",
         "irUrl": "https://www.sonnetbio.com/investors/news-events",
@@ -1775,7 +1783,7 @@
           }
         ],
         "alertUrl": "https://www.hypestrat.xyz/dashboard",
-        "alertDate": "2026-08-14",
+        "alertDate": "2026-08-15",
         "alertNote": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard",
         "alertSource": "dashboard",
         "lastSecUpdate": "2026-03-01"
@@ -2038,7 +2046,7 @@
     ]
   },
   "totals": {
-    "BTC": 891837,
+    "BTC": 891840,
     "ETH": 1638735,
     "SOL": 13680066,
     "HYPE": 34000000,
@@ -2894,6 +2902,20 @@
   ],
   "earnings": [
     {
+      "ticker": "NAKA",
+      "name": "Nakamoto Holdings",
+      "token": "BTC",
+      "type": "8-K",
+      "items": "2.02,9.01",
+      "date": "2026-08-14",
+      "quarter": "Q2 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1946573/000149315226038468/form8-k.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1946573/000149315226038468/",
+      "accession": "0001493152-26-038468",
+      "status": "reported",
+      "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/1946573/000149315226038468/ex99-1.htm"
+    },
+    {
       "ticker": "ETHZ",
       "name": "Ethzilla",
       "token": "ETH",
@@ -2905,6 +2927,33 @@
       "indexUrl": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026090100/",
       "accession": "0001213900-26-090100",
       "status": "reported"
+    },
+    {
+      "ticker": "HSDT",
+      "name": "Solana Company",
+      "token": "SOL",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-08-14",
+      "quarter": "Q2 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1610853/000161085326000007/hsdt-20260630.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1610853/000161085326000007/",
+      "accession": "0001610853-26-000007",
+      "status": "reported"
+    },
+    {
+      "ticker": "HSDT",
+      "name": "Solana Company",
+      "token": "SOL",
+      "type": "8-K",
+      "items": "2.02,9.01",
+      "date": "2026-08-14",
+      "quarter": "Q2 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1610853/000161085326000005/hsdt-20260814.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1610853/000161085326000005/",
+      "accession": "0001610853-26-000005",
+      "status": "reported",
+      "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/1610853/000161085326000005/pressreleaseexhibit991.htm"
     },
     {
       "ticker": "NAKA",
