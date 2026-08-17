@@ -1,7 +1,39 @@
 {
-  "lastUpdated": "2026-08-17T00:40:35.816706-04:00",
-  "lastUpdatedDisplay": "Aug 17, 2026 12:40 AM ET",
+  "lastUpdated": "2026-08-17T04:41:14.346228-04:00",
+  "lastUpdatedDisplay": "Aug 17, 2026 04:41 AM ET",
   "recentChanges": [
+    {
+      "ticker": "PURR",
+      "token": "HYPE",
+      "date": "2026-08-17",
+      "tokens": 3000000,
+      "change": 0,
+      "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
+    },
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-08-17",
+      "tokens": 2400000,
+      "change": 0,
+      "summary": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-08-17",
+      "tokens": 43000,
+      "change": 0,
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $217.00, mNAV: 0.82x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-08-17",
+      "tokens": 20167,
+      "change": 0,
+      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.31, mNAV: 0.85x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "PURR",
       "token": "HYPE",
@@ -46,38 +78,6 @@
       "ticker": "UPXI",
       "token": "SOL",
       "date": "2026-08-17",
-      "tokens": 2400000,
-      "change": 0,
-      "summary": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-08-17",
-      "tokens": 43000,
-      "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $210.60, mNAV: 0.80x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-08-17",
-      "tokens": 20167,
-      "change": 0,
-      "summary": "ASST holds 20,167 Bitcoin in treasury. Share price: $12.31, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "PURR",
-      "token": "HYPE",
-      "date": "2026-08-16",
-      "tokens": 3000000,
-      "change": 0,
-      "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-08-16",
       "tokens": 2400000,
       "change": 0,
       "summary": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/"
@@ -415,7 +415,7 @@
         "analytics": {
           "totalBtc": 840447.0,
           "sharePrice": 93.04,
-          "mNAV": 0.7397712615906924,
+          "mNAV": 0.7406027423417443,
           "btcYieldYtd": 1.6939764597276714,
           "marketCap": 36676647120.0
         },
@@ -512,7 +512,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-17",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $220.00, mNAV: 0.83x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $217.00, mNAV: 0.82x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -618,10 +618,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 220.0,
-          "mNAV": 0.8273323648485547,
+          "sharePrice": 217.0,
+          "mNAV": 0.8176293674977784,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 1771808452.8150866
+          "marketCap": 1749273953.955004
         },
         "alertSource": "dashboard"
       },
@@ -752,7 +752,7 @@
         "analytics": {
           "totalBtc": 20167.0,
           "sharePrice": 12.315,
-          "mNAV": 0.8541288036869756,
+          "mNAV": 0.854985550861019,
           "btcYieldYtd": 33.44681850199577,
           "marketCap": 1052193267.495
         },
