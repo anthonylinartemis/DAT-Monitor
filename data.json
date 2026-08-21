@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-21T12:30:52.414216-04:00",
-  "lastUpdatedDisplay": "Aug 21, 2026 12:30 PM ET",
+  "lastUpdated": "2026-08-21T16:24:28.602687-04:00",
+  "lastUpdatedDisplay": "Aug 21, 2026 04:24 PM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -32,7 +32,7 @@
       "date": "2026-08-21",
       "tokens": 20246,
       "change": 0,
-      "summary": "ASST holds 20,246 Bitcoin in treasury. Share price: $18.72, mNAV: 1.07x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 20,246 Bitcoin in treasury. Share price: $18.04, mNAV: 1.04x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -80,7 +80,7 @@
       "date": "2026-08-21",
       "tokens": 20246,
       "change": 0,
-      "summary": "ASST holds 20,246 Bitcoin in treasury. Share price: $16.13, mNAV: 0.93x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 20,246 Bitcoin in treasury. Share price: $18.72, mNAV: 1.07x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -414,10 +414,10 @@
         ],
         "analytics": {
           "totalBtc": 840447.0,
-          "sharePrice": 120.32,
-          "mNAV": 0.7889336727157747,
+          "sharePrice": 119.0,
+          "mNAV": 0.7808459986918828,
           "btcYieldYtd": 1.6939764597276714,
-          "marketCap": 47430504960.0
+          "marketCap": 46910157000.0
         },
         "alertSource": "sec_edgar"
       },
@@ -619,9 +619,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 306.0,
-          "mNAV": 0.9496097621717828,
+          "mNAV": 0.9501161357452694,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 2466377006.859016
+          "marketCap": 2465898678.0565042
         },
         "alertSource": "dashboard"
       },
@@ -645,7 +645,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-21",
-        "alertNote": "ASST holds 20,246 Bitcoin in treasury. Share price: $18.72, mNAV: 1.07x. Source: https://treasury.st",
+        "alertNote": "ASST holds 20,246 Bitcoin in treasury. Share price: $18.04, mNAV: 1.04x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -751,10 +751,10 @@
         ],
         "analytics": {
           "totalBtc": 20246.0,
-          "sharePrice": 18.7201,
-          "mNAV": 1.0735825251964644,
+          "sharePrice": 18.04,
+          "mNAV": 1.0353318179521978,
           "btcYieldYtd": 33.077013383423335,
-          "marketCap": 1610623546.2722998
+          "marketCap": 1552109698.9199998
         },
         "alertSource": "dashboard"
       },
@@ -1327,12 +1327,20 @@
         },
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:04.367768",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026091693/ea0302772-8k_forum.htm",
-        "alertDate": "2026-08-20",
-        "alertNote": "8-K: Item 5.07 - Submission of Matters to Shareholder Vote; Item 9.01 - Financial Statements and Exh",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026092591/ea0303021-8k_forum.htm",
+        "alertDate": "2026-08-21",
+        "alertNote": "8-K: Item 5.02 - Departure/Election of Officers",
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-08-20",
+        "lastSecUpdate": "2026-08-21",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026092591/ea0303021-8k_forum.htm",
+            "date": "2026-08-21",
+            "note": "8-K: Item 5.02 - Departure/Election of Officers",
+            "type": "sec_filing",
+            "items": "5.02",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026091693/ea0302772-8k_forum.htm",
             "date": "2026-08-20",
