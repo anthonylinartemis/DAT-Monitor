@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-21T08:40:32.636635-04:00",
-  "lastUpdatedDisplay": "Aug 21, 2026 08:40 AM ET",
+  "lastUpdated": "2026-08-21T12:30:52.414216-04:00",
+  "lastUpdatedDisplay": "Aug 21, 2026 12:30 PM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -32,7 +32,7 @@
       "date": "2026-08-21",
       "tokens": 20246,
       "change": 0,
-      "summary": "ASST holds 20,246 Bitcoin in treasury. Share price: $16.13, mNAV: 0.93x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 20,246 Bitcoin in treasury. Share price: $18.72, mNAV: 1.07x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -414,10 +414,10 @@
         ],
         "analytics": {
           "totalBtc": 840447.0,
-          "sharePrice": 112.39,
-          "mNAV": 0.7394790373981146,
+          "sharePrice": 120.32,
+          "mNAV": 0.7889336727157747,
           "btcYieldYtd": 1.6939764597276714,
-          "marketCap": 44304475170.0
+          "marketCap": 47430504960.0
         },
         "alertSource": "sec_edgar"
       },
@@ -619,9 +619,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 306.0,
-          "mNAV": 0.9544895994394028,
+          "mNAV": 0.9496097621717828,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 2470529057.6939325
+          "marketCap": 2466377006.859016
         },
         "alertSource": "dashboard"
       },
@@ -645,7 +645,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-21",
-        "alertNote": "ASST holds 20,246 Bitcoin in treasury. Share price: $16.13, mNAV: 0.93x. Source: https://treasury.st",
+        "alertNote": "ASST holds 20,246 Bitcoin in treasury. Share price: $18.72, mNAV: 1.07x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -751,10 +751,10 @@
         ],
         "analytics": {
           "totalBtc": 20246.0,
-          "sharePrice": 16.13,
-          "mNAV": 0.9282333404140907,
+          "sharePrice": 18.7201,
+          "mNAV": 1.0735825251964644,
           "btcYieldYtd": 33.077013383423335,
-          "marketCap": 1387778793.99
+          "marketCap": 1610623546.2722998
         },
         "alertSource": "dashboard"
       },
