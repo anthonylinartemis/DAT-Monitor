@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-23T12:23:19.264056-04:00",
-  "lastUpdatedDisplay": "Aug 23, 2026 12:23 PM ET",
+  "lastUpdated": "2026-08-23T16:21:17.347046-04:00",
+  "lastUpdatedDisplay": "Aug 23, 2026 04:21 PM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -24,7 +24,7 @@
       "date": "2026-08-23",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $305.92, mNAV: 0.95x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $305.92, mNAV: 0.94x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -415,7 +415,7 @@
         "analytics": {
           "totalBtc": 840447.0,
           "sharePrice": 119.25,
-          "mNAV": 0.7794890442089616,
+          "mNAV": 0.7779867674386437,
           "btcYieldYtd": 1.6939764597276714,
           "marketCap": 47008707750.0
         },
@@ -512,7 +512,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-23",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $305.92, mNAV: 0.95x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $305.92, mNAV: 0.94x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -619,7 +619,7 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 305.91829209368564,
-          "mNAV": 0.9465684248497604,
+          "mNAV": 0.9447441429477471,
           "btcYieldYtd": 9.608985024958402,
           "marketCap": 2466137842.45776
         },
@@ -752,7 +752,7 @@
         "analytics": {
           "totalBtc": 20246.0,
           "sharePrice": 18.22,
-          "mNAV": 1.0416566732701975,
+          "mNAV": 1.0396491317472907,
           "btcYieldYtd": 33.077013383423335,
           "marketCap": 1567596381.06
         },
