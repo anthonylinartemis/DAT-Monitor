@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-24T00:44:05.212186-04:00",
-  "lastUpdatedDisplay": "Aug 24, 2026 12:44 AM ET",
+  "lastUpdated": "2026-08-24T04:46:05.740182-04:00",
+  "lastUpdatedDisplay": "Aug 24, 2026 04:46 AM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -24,7 +24,7 @@
       "date": "2026-08-24",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $293.00, mNAV: 0.91x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $305.00, mNAV: 0.94x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -72,7 +72,7 @@
       "date": "2026-08-24",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $299.52, mNAV: 0.92x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $293.00, mNAV: 0.91x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -418,7 +418,7 @@
         "analytics": {
           "totalBtc": 840447.0,
           "sharePrice": 119.25,
-          "mNAV": 0.780886800746635,
+          "mNAV": 0.7818983062285882,
           "btcYieldYtd": 1.6939764597276714,
           "marketCap": 47008707750.0
         },
@@ -515,7 +515,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-24",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $293.00, mNAV: 0.91x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $305.00, mNAV: 0.94x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -621,10 +621,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 293.0,
-          "mNAV": 0.9063165988686407,
+          "sharePrice": 305.0,
+          "mNAV": 0.9447120479724939,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 2361851567.2946434
+          "marketCap": 2453717335.2634287
         },
         "alertSource": "dashboard"
       },
@@ -755,7 +755,7 @@
         "analytics": {
           "totalBtc": 20246.0,
           "sharePrice": 18.22,
-          "mNAV": 1.0413992678233073,
+          "mNAV": 1.0448762488101555,
           "btcYieldYtd": 33.077013383423335,
           "marketCap": 1567596381.06
         },
