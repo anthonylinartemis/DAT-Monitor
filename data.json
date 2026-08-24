@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-24T08:42:50.177320-04:00",
-  "lastUpdatedDisplay": "Aug 24, 2026 08:42 AM ET",
+  "lastUpdated": "2026-08-24T12:35:23.186839-04:00",
+  "lastUpdatedDisplay": "Aug 24, 2026 12:35 PM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -24,15 +24,15 @@
       "date": "2026-08-24",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $305.00, mNAV: 0.93x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $305.00, mNAV: 0.92x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
       "token": "BTC",
       "date": "2026-08-24",
       "tokens": 21356,
-      "change": 1110,
-      "summary": "ASST holds 21,356 Bitcoin in treasury. Share price: $18.22, mNAV: 1.01x. Source: https://treasury.strive.com/?tab=home"
+      "change": 0,
+      "summary": "ASST holds 21,356 Bitcoin in treasury. Share price: $20.10, mNAV: 1.10x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -72,15 +72,15 @@
       "date": "2026-08-24",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $305.00, mNAV: 0.94x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $305.00, mNAV: 0.93x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
       "token": "BTC",
       "date": "2026-08-24",
-      "tokens": 20246,
-      "change": 0,
-      "summary": "ASST holds 20,246 Bitcoin in treasury. Share price: $18.22, mNAV: 1.04x. Source: https://treasury.strive.com/?tab=home"
+      "tokens": 21356,
+      "change": 1110,
+      "summary": "ASST holds 21,356 Bitcoin in treasury. Share price: $18.22, mNAV: 1.01x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -417,10 +417,10 @@
         ],
         "analytics": {
           "totalBtc": 840447.0,
-          "sharePrice": 119.25,
-          "mNAV": 0.7666981770309832,
+          "sharePrice": 125.215,
+          "mNAV": 0.7959884117372826,
           "btcYieldYtd": 1.6939764597276714,
-          "marketCap": 47008707750.0
+          "marketCap": 49360128645.0
         },
         "alertSource": "sec_edgar"
       },
@@ -515,7 +515,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-24",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $305.00, mNAV: 0.93x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $305.00, mNAV: 0.92x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -622,9 +622,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 305.0,
-          "mNAV": 0.9283060750928281,
+          "mNAV": 0.9167902841195725,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 2458907046.4540787
+          "marketCap": 2456046452.635136
         },
         "alertSource": "dashboard"
       },
@@ -633,7 +633,7 @@
         "name": "Strive",
         "tokens": 21356,
         "lastUpdate": "2026-08-24",
-        "change": 1110,
+        "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
         "dashboardUrl": "https://treasury.strive.com/",
@@ -648,7 +648,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-24",
-        "alertNote": "ASST holds 21,356 Bitcoin in treasury. Share price: $18.22, mNAV: 1.01x. Source: https://treasury.st",
+        "alertNote": "ASST holds 21,356 Bitcoin in treasury. Share price: $20.10, mNAV: 1.10x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -754,10 +754,10 @@
         ],
         "analytics": {
           "totalBtc": 21356.0,
-          "sharePrice": 18.22,
-          "mNAV": 1.010970364447636,
+          "sharePrice": 20.1,
+          "mNAV": 1.1027332101445153,
           "btcYieldYtd": 34.86146982859826,
-          "marketCap": 1634031967.06
+          "marketCap": 1802636802.3000002
         },
         "alertSource": "dashboard"
       },
@@ -916,9 +916,9 @@
         "change": -1,
         "cik": "0001829311",
         "irUrl": "https://www.bitminetech.io/investor-relations",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226036757/ex99-1.htm",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226034720/form8-k.htm",
         "alertDate": "2026-08-24",
-        "alertNote": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announ",
+        "alertNote": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
         "lastSecUpdate": "2026-08-24",
         "scrape_config": {
           "method": "sec_edgar",
@@ -930,6 +930,22 @@
         "lastErrorTime": "2026-01-20T18:11:09.191496",
         "lastChecked": "2026-01-27T19:33:02.567127",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226034720/form8-k.htm",
+            "date": "2026-08-24",
+            "note": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
+            "type": "sec_filing",
+            "items": "7.01,9.01",
+            "form": "8-K"
+          },
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226039789/form8-k.htm",
+            "date": "2026-08-24",
+            "note": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
+            "type": "sec_filing",
+            "items": "7.01,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226038652/ex99-1.htm",
             "date": "2026-08-17",
@@ -1072,22 +1088,6 @@
             "note": "8-K: Item 1.01 - Entry into Material Agreement; Item 9.01 - Financial Statements and Exhibits",
             "type": "sec_filing",
             "items": "1.01,9.01",
-            "form": "8-K"
-          },
-          {
-            "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226015247/ex99-1.htm",
-            "date": "2026-04-06",
-            "note": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announ",
-            "type": "sec_filing",
-            "items": "7.01,8.01,9.01",
-            "form": "8-K"
-          },
-          {
-            "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226013487/ex99-1.htm",
-            "date": "2026-03-30",
-            "note": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announ",
-            "type": "sec_filing",
-            "items": "7.01,9.01",
             "form": "8-K"
           }
         ],
@@ -1510,6 +1510,14 @@
         "lastChecked": "2026-01-27T19:33:04.503339",
         "filings": [
           {
+            "url": "https://www.sec.gov/Archives/edgar/data/38264/000168316826006277/forward_8k.htm",
+            "date": "2026-08-24",
+            "note": "8-K: Item 2.02 - Results of Operations (Earnings); Item 7.01 - Regulation FD Disclosure; Item 9.01 -",
+            "type": "sec_filing",
+            "items": "2.02,7.01,9.01",
+            "form": "8-K"
+          },
+          {
             "url": "https://www.sec.gov/Archives/edgar/data/38264/000168316826002749/forward_8k.htm",
             "date": "2026-04-08",
             "note": "8-K: Item 5.02 - Departure/Election of Officers",
@@ -1526,11 +1534,11 @@
             "form": "8-K"
           }
         ],
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/38264/000168316826002749/forward_8k.htm",
-        "alertDate": "2026-04-08",
-        "alertNote": "8-K: Item 5.02 - Departure/Election of Officers",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/38264/000168316826006277/forward_8k.htm",
+        "alertDate": "2026-08-24",
+        "alertNote": "8-K: Item 2.02 - Results of Operations (Earnings); Item 7.01 - Regulation FD Disclosure; Item 9.01 -",
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-04-08"
+        "lastSecUpdate": "2026-08-24"
       },
       {
         "ticker": "HSDT",
@@ -1816,9 +1824,9 @@
         "change": 29000000,
         "cik": "0001682639",
         "irUrl": "https://ir.hyperiondefi.com/",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926094849/tm2622908d1_ex99-1.htm",
-        "alertDate": "2026-08-12",
-        "alertNote": "EX-99.1 2 tm2622908d1_ex99-1.htm EXHIBIT 99.1 &nbsp; Exhibit 99.1 &nbsp; Hyperion DeFi Reports 2Q 20",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926094849/tm2622908d1_8k.htm",
+        "alertDate": "2026-08-24",
+        "alertNote": "8-K: Item 2.02 - Results of Operations (Earnings); Item 7.01 - Regulation FD Disclosure; Item 9.01 -",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -1827,8 +1835,16 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:07.873676",
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-08-12",
+        "lastSecUpdate": "2026-08-24",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926094849/tm2622908d1_8k.htm",
+            "date": "2026-08-24",
+            "note": "8-K: Item 2.02 - Results of Operations (Earnings); Item 7.01 - Regulation FD Disclosure; Item 9.01 -",
+            "type": "sec_filing",
+            "items": "2.02,7.01,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926094849/tm2622908d1_ex99-1.htm",
             "date": "2026-08-12",
