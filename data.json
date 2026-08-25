@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-25T12:34:49.788853-04:00",
-  "lastUpdatedDisplay": "Aug 25, 2026 12:34 PM ET",
+  "lastUpdated": "2026-08-25T16:26:49.830639-04:00",
+  "lastUpdatedDisplay": "Aug 25, 2026 04:26 PM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -24,7 +24,7 @@
       "date": "2026-08-25",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $330.00, mNAV: 0.99x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $330.00, mNAV: 1.00x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -32,7 +32,7 @@
       "date": "2026-08-25",
       "tokens": 21356,
       "change": 0,
-      "summary": "ASST holds 21,356 Bitcoin in treasury. Share price: $22.06, mNAV: 1.21x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 21,356 Bitcoin in treasury. Share price: $21.39, mNAV: 1.18x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -72,7 +72,7 @@
       "date": "2026-08-25",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $330.00, mNAV: 1.00x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $330.00, mNAV: 0.99x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -80,7 +80,7 @@
       "date": "2026-08-25",
       "tokens": 21356,
       "change": 0,
-      "summary": "ASST holds 21,356 Bitcoin in treasury. Share price: $19.73, mNAV: 1.09x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 21,356 Bitcoin in treasury. Share price: $22.06, mNAV: 1.21x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -417,10 +417,10 @@
         ],
         "analytics": {
           "totalBtc": 840447.0,
-          "sharePrice": 127.56,
-          "mNAV": 0.8107938456159253,
+          "sharePrice": 126.83,
+          "mNAV": 0.811020293593916,
           "btcYieldYtd": 1.6939764597276714,
-          "marketCap": 50284534680.0
+          "marketCap": 49996766490.0
         },
         "alertSource": "sec_edgar"
       },
@@ -515,7 +515,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-25",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $330.00, mNAV: 0.99x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $330.00, mNAV: 1.00x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -622,9 +622,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 330.0,
-          "mNAV": 0.991066213973511,
+          "mNAV": 0.9976490470543502,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 2655361780.0293145
+          "marketCap": 2656960053.221892
         },
         "alertSource": "dashboard"
       },
@@ -648,7 +648,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-25",
-        "alertNote": "ASST holds 21,356 Bitcoin in treasury. Share price: $22.06, mNAV: 1.21x. Source: https://treasury.st",
+        "alertNote": "ASST holds 21,356 Bitcoin in treasury. Share price: $21.39, mNAV: 1.18x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -754,10 +754,10 @@
         ],
         "analytics": {
           "totalBtc": 21356.0,
-          "sharePrice": 22.06,
-          "mNAV": 1.2101116732373913,
+          "sharePrice": 21.39,
+          "mNAV": 1.1804416455007147,
           "btcYieldYtd": 34.86146982859826,
-          "marketCap": 1978416311.3799999
+          "marketCap": 1918328417.97
         },
         "alertSource": "dashboard"
       },
