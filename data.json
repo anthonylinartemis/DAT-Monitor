@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-08-26T08:45:02.522482-04:00",
-  "lastUpdatedDisplay": "Aug 26, 2026 08:45 AM ET",
+  "lastUpdated": "2026-08-26T12:49:13.203843-04:00",
+  "lastUpdatedDisplay": "Aug 26, 2026 12:49 PM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -24,7 +24,7 @@
       "date": "2026-08-26",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $310.00, mNAV: 0.94x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $310.00, mNAV: 0.95x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -32,15 +32,7 @@
       "date": "2026-08-26",
       "tokens": 21356,
       "change": 0,
-      "summary": "ASST holds 21,356 Bitcoin in treasury. Share price: $21.39, mNAV: 1.18x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "BMNR",
-      "token": "ETH",
-      "date": "2026-08-26",
-      "tokens": 81,
-      "change": -1,
-      "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 5.81 Million Tokens, and Total Crypto and Total Cash Holdings of $11.6 Billio"
+      "summary": "ASST holds 21,356 Bitcoin in treasury. Share price: $21.08, mNAV: 1.18x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -81,6 +73,14 @@
       "tokens": 21356,
       "change": 0,
       "summary": "ASST holds 21,356 Bitcoin in treasury. Share price: $21.39, mNAV: 1.18x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "BMNR",
+      "token": "ETH",
+      "date": "2026-08-26",
+      "tokens": 81,
+      "change": -1,
+      "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 5.81 Million Tokens, and Total Crypto and Total Cash Holdings of $11.6 Billio"
     }
   ],
   "tokenConfig": {
@@ -417,10 +417,10 @@
         ],
         "analytics": {
           "totalBtc": 840447.0,
-          "sharePrice": 126.83,
-          "mNAV": 0.8129100577036523,
+          "sharePrice": 122.475,
+          "mNAV": 0.7914475480615879,
           "btcYieldYtd": 1.6939764597276714,
-          "marketCap": 49996766490.0
+          "marketCap": 48280012425.0
         },
         "alertSource": "sec_edgar"
       },
@@ -515,7 +515,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-26",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $310.00, mNAV: 0.94x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $310.00, mNAV: 0.95x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -622,9 +622,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 310.0,
-          "mNAV": 0.9405935294240062,
+          "mNAV": 0.9458585195018951,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 2499185222.2014174
+          "marketCap": 2492691036.1531734
         },
         "alertSource": "dashboard"
       },
@@ -648,7 +648,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-08-26",
-        "alertNote": "ASST holds 21,356 Bitcoin in treasury. Share price: $21.39, mNAV: 1.18x. Source: https://treasury.st",
+        "alertNote": "ASST holds 21,356 Bitcoin in treasury. Share price: $21.08, mNAV: 1.18x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -754,10 +754,10 @@
         ],
         "analytics": {
           "totalBtc": 21356.0,
-          "sharePrice": 21.39,
-          "mNAV": 1.1831922009096554,
+          "sharePrice": 21.08,
+          "mNAV": 1.175626334013603,
           "btcYieldYtd": 34.86146982859826,
-          "marketCap": 1918328417.97
+          "marketCap": 1890526556.84
         },
         "alertSource": "dashboard"
       },
@@ -911,12 +911,12 @@
         "ticker": "BMNR",
         "name": "BitMine Immersion",
         "notes": "Largest ETH treasury. 3.48% of supply",
-        "tokens": 81,
+        "tokens": 82,
         "lastUpdate": "2026-08-26",
-        "change": -1,
+        "change": 1,
         "cik": "0001829311",
         "irUrl": "https://www.bitminetech.io/investor-relations",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226036757/ex99-1.htm",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226038652/ex99-1.htm",
         "alertDate": "2026-08-26",
         "alertNote": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announ",
         "lastSecUpdate": "2026-08-26",
@@ -2082,7 +2082,7 @@
   },
   "totals": {
     "BTC": 893029,
-    "ETH": 1638735,
+    "ETH": 1638736,
     "SOL": 13680066,
     "HYPE": 34000000,
     "BNB": 99
