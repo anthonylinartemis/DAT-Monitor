@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-01T05:10:43.160730-04:00",
-  "lastUpdatedDisplay": "Sep 01, 2026 05:10 AM ET",
+  "lastUpdated": "2026-09-01T12:02:20.354876-04:00",
+  "lastUpdatedDisplay": "Sep 01, 2026 12:02 PM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -24,7 +24,7 @@
       "date": "2026-09-01",
       "tokens": 23156,
       "change": 0,
-      "summary": "ASST holds 23,156 Bitcoin in treasury. Share price: $24.22, mNAV: 1.30x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 23,156 Bitcoin in treasury. Share price: $24.37, mNAV: 1.30x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -72,7 +72,7 @@
       "date": "2026-09-01",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $312.00, mNAV: 0.94x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $326.00, mNAV: 0.99x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -80,7 +80,7 @@
       "date": "2026-09-01",
       "tokens": 23156,
       "change": 0,
-      "summary": "ASST holds 23,156 Bitcoin in treasury. Share price: $24.22, mNAV: 1.29x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 23,156 Bitcoin in treasury. Share price: $24.22, mNAV: 1.30x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -173,10 +173,10 @@
         "cik": "0001050446",
         "irUrl": "https://www.strategy.com/investor-relations",
         "dashboardUrl": "https://www.strategy.com/purchases",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000105044626000036/mstr-20260730.htm",
-        "alertDate": "2026-08-24",
-        "alertNote": "8-K/A: Item 9.01 - Financial Statements and Exhibits",
-        "lastSecUpdate": "2026-08-24",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526377583/mstr-20260831.htm",
+        "alertDate": "2026-09-01",
+        "alertNote": "8-K: Item 7.01 - Regulation FD Disclosure; Item 8.01 - Other Events",
+        "lastSecUpdate": "2026-09-01",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -275,6 +275,14 @@
           }
         ],
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526377583/mstr-20260831.htm",
+            "date": "2026-09-01",
+            "note": "8-K: Item 7.01 - Regulation FD Disclosure; Item 8.01 - Other Events",
+            "type": "sec_filing",
+            "items": "7.01,8.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1050446/000105044626000036/mstr-20260730.htm",
             "date": "2026-08-24",
@@ -408,19 +416,14 @@
             "url": "https://treasury.strive.com/?tab=home",
             "date": "2026-02-17",
             "note": "MSTR holds 714,644 Bitcoin in treasury. Share price: $133.88, mNAV: 0.99x. Source: https://treasury."
-          },
-          {
-            "url": "https://treasury.strive.com/?tab=home",
-            "date": "2026-02-16",
-            "note": "MSTR holds 714,644 Bitcoin in treasury. Share price: $133.88, mNAV: 1.01x. Source: https://treasury."
           }
         ],
         "analytics": {
           "totalBtc": 845050.0,
-          "sharePrice": 132.94,
-          "mNAV": 0.9089777195499819,
+          "sharePrice": 127.72,
+          "mNAV": 0.8734495475048848,
           "btcYieldYtd": -3.7100289765879424,
-          "marketCap": 55899010020.0
+          "marketCap": 53704088760.0
         },
         "alertSource": "sec_edgar"
       },
@@ -622,9 +625,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 326.0,
-          "mNAV": 0.9927868272843797,
+          "mNAV": 0.992048559197519,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 2742333233.458982
+          "marketCap": 2739780691.7862544
         },
         "alertSource": "dashboard"
       },
@@ -648,7 +651,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-01",
-        "alertNote": "ASST holds 23,156 Bitcoin in treasury. Share price: $24.22, mNAV: 1.30x. Source: https://treasury.st",
+        "alertNote": "ASST holds 23,156 Bitcoin in treasury. Share price: $24.37, mNAV: 1.30x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -754,10 +757,10 @@
         ],
         "analytics": {
           "totalBtc": 23156.0,
-          "sharePrice": 24.22,
-          "mNAV": 1.296055485666719,
+          "sharePrice": 24.37,
+          "mNAV": 1.3043265530507715,
           "btcYieldYtd": 40.819441183376384,
-          "marketCap": 2258819445.4
+          "marketCap": 2272808830.9
         },
         "alertSource": "dashboard"
       },
@@ -1567,9 +1570,9 @@
         "cik": "0001805526",
         "irUrl": "https://defidevcorp.com/investor",
         "dashboardUrl": "https://defidevcorp.com/?tab=history-purchases",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000052/dfdv-20260812.htm",
-        "alertDate": "2026-08-13",
-        "alertNote": "8-K: Item 2.02 - Results of Operations (Earnings); Item 9.01 - Financial Statements and Exhibits",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000083/dfdv-20260831.htm",
+        "alertDate": "2026-09-01",
+        "alertNote": "8-K: Item 8.01 - Other Events; Item 9.01 - Financial Statements and Exhibits",
         "scrape_config": {
           "method": "playwright_js",
           "source_url": "https://defidevcorp.com/?tab=history-purchases",
@@ -1578,6 +1581,14 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:04.932552",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000083/dfdv-20260831.htm",
+            "date": "2026-09-01",
+            "note": "8-K: Item 8.01 - Other Events; Item 9.01 - Financial Statements and Exhibits",
+            "type": "sec_filing",
+            "items": "8.01,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000052/dfdv-20260812.htm",
             "date": "2026-08-13",
@@ -1668,7 +1679,7 @@
           }
         ],
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-08-13"
+        "lastSecUpdate": "2026-09-01"
       },
       {
         "ticker": "UPXI",
