@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-02T22:40:19.508604-04:00",
-  "lastUpdatedDisplay": "Sep 02, 2026 10:40 PM ET",
+  "lastUpdated": "2026-09-03T04:33:52.556448-04:00",
+  "lastUpdatedDisplay": "Sep 03, 2026 04:33 AM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -16,7 +16,7 @@
       "date": "2026-09-03",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $282.00, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $279.00, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -24,7 +24,7 @@
       "date": "2026-09-03",
       "tokens": 23156,
       "change": 0,
-      "summary": "ASST holds 23,156 Bitcoin in treasury. Share price: $24.32, mNAV: 1.31x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 23,156 Bitcoin in treasury. Share price: $24.32, mNAV: 1.30x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -61,7 +61,7 @@
     {
       "ticker": "UPXI",
       "token": "SOL",
-      "date": "2026-09-02",
+      "date": "2026-09-03",
       "tokens": 2400000,
       "change": 0,
       "summary": "UPXI holds 2,400,000 SOL in treasury holdings. Source: https://www.upexi.com/"
@@ -69,15 +69,15 @@
     {
       "ticker": "MTPLF",
       "token": "BTC",
-      "date": "2026-09-02",
+      "date": "2026-09-03",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $300.00, mNAV: 0.93x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $282.00, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
       "token": "BTC",
-      "date": "2026-09-02",
+      "date": "2026-09-03",
       "tokens": 23156,
       "change": 0,
       "summary": "ASST holds 23,156 Bitcoin in treasury. Share price: $24.32, mNAV: 1.31x. Source: https://treasury.strive.com/?tab=home"
@@ -421,7 +421,7 @@
         "analytics": {
           "totalBtc": 845050.0,
           "sharePrice": 123.19,
-          "mNAV": 0.8492488255212048,
+          "mNAV": 0.8422935699724629,
           "btcYieldYtd": -3.7100289765879424,
           "marketCap": 51799300770.0
         },
@@ -518,7 +518,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-03",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $282.00, mNAV: 0.87x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $279.00, mNAV: 0.87x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -624,10 +624,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 282.0,
-          "mNAV": 0.8742815801417038,
+          "sharePrice": 279.0,
+          "mNAV": 0.8658389313492096,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 2395265245.9356475
+          "marketCap": 2391722910.2590303
         },
         "alertSource": "dashboard"
       },
@@ -651,7 +651,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-03",
-        "alertNote": "ASST holds 23,156 Bitcoin in treasury. Share price: $24.32, mNAV: 1.31x. Source: https://treasury.st",
+        "alertNote": "ASST holds 23,156 Bitcoin in treasury. Share price: $24.32, mNAV: 1.30x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -758,7 +758,7 @@
         "analytics": {
           "totalBtc": 23156.0,
           "sharePrice": 24.32,
-          "mNAV": 1.3121242513221278,
+          "mNAV": 1.3013780963609525,
           "btcYieldYtd": 40.819441183376384,
           "marketCap": 2268145702.4
         },
