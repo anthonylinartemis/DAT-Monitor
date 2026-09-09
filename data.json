@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-09T04:38:45.288276-04:00",
-  "lastUpdatedDisplay": "Sep 09, 2026 04:38 AM ET",
+  "lastUpdated": "2026-09-09T11:52:03.719847-04:00",
+  "lastUpdatedDisplay": "Sep 09, 2026 11:52 AM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -16,7 +16,7 @@
       "date": "2026-09-09",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $251.00, mNAV: 0.78x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $251.00, mNAV: 0.79x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -24,7 +24,7 @@
       "date": "2026-09-09",
       "tokens": 24531,
       "change": 0,
-      "summary": "ASST holds 24,531 Bitcoin in treasury. Share price: $27.16, mNAV: 1.37x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 24,531 Bitcoin in treasury. Share price: $26.96, mNAV: 1.38x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -72,7 +72,7 @@
       "date": "2026-09-09",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $250.00, mNAV: 0.78x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $251.00, mNAV: 0.78x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -80,7 +80,7 @@
       "date": "2026-09-09",
       "tokens": 24531,
       "change": 0,
-      "summary": "ASST holds 24,531 Bitcoin in treasury. Share price: $27.16, mNAV: 1.38x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 24,531 Bitcoin in treasury. Share price: $27.16, mNAV: 1.37x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -420,10 +420,10 @@
         ],
         "analytics": {
           "totalBtc": 845050.0,
-          "sharePrice": 136.52,
-          "mNAV": 0.9151916854706508,
+          "sharePrice": 133.9888,
+          "mNAV": 0.9108389141526277,
           "btcYieldYtd": -3.7100289765879424,
-          "marketCap": 57404339160.00001
+          "marketCap": 56340012590.4
         },
         "alertSource": "sec_edgar"
       },
@@ -436,9 +436,9 @@
         "change": -43014,
         "cik": "0002070457",
         "irUrl": "https://xxi.money/",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/2070457/000121390026079805/ea029862901ex99-1.htm",
-        "alertDate": "2026-07-21",
-        "alertNote": "EX-99.1 4 ea029862901ex99-1.htm PRESS RELEASE ISSUED BY TWENTY ONE CAPITAL, INC. ON JULY 21, 2026 Ex",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/2070457/000121390026098200/ea0304719-8k_twenty.htm",
+        "alertDate": "2026-09-09",
+        "alertNote": "8-K: Item 5.02 - Departure/Election of Officers; Item 9.01 - Financial Statements and Exhibits",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -447,6 +447,14 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:32:52.265279",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/2070457/000121390026098200/ea0304719-8k_twenty.htm",
+            "date": "2026-09-09",
+            "note": "8-K: Item 5.02 - Departure/Election of Officers; Item 9.01 - Financial Statements and Exhibits",
+            "type": "sec_filing",
+            "items": "5.02,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/2070457/000121390026079805/ea029862901ex99-1.htm",
             "date": "2026-07-21",
@@ -497,7 +505,7 @@
           }
         ],
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-07-21"
+        "lastSecUpdate": "2026-09-09"
       },
       {
         "ticker": "MTPLF",
@@ -518,7 +526,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-09",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $251.00, mNAV: 0.78x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $251.00, mNAV: 0.79x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -625,9 +633,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 251.0,
-          "mNAV": 0.7817383475321815,
+          "mNAV": 0.7914576171443954,
           "btcYieldYtd": 9.608985024958402,
-          "marketCap": 2202456879.9356813
+          "marketCap": 2198955133.1856904
         },
         "alertSource": "dashboard"
       },
@@ -651,7 +659,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-09",
-        "alertNote": "ASST holds 24,531 Bitcoin in treasury. Share price: $27.16, mNAV: 1.37x. Source: https://treasury.st",
+        "alertNote": "ASST holds 24,531 Bitcoin in treasury. Share price: $26.96, mNAV: 1.38x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -757,10 +765,10 @@
         ],
         "analytics": {
           "totalBtc": 24531.0,
-          "sharePrice": 27.16,
-          "mNAV": 1.367720114231069,
+          "sharePrice": 26.96,
+          "mNAV": 1.3767169172873537,
           "btcYieldYtd": 46.70697346795023,
-          "marketCap": 2578422595.28
+          "marketCap": 2559435683.6800003
         },
         "alertSource": "dashboard"
       },
