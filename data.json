@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-11T15:01:27.567734-04:00",
-  "lastUpdatedDisplay": "Sep 11, 2026 03:01 PM ET",
+  "lastUpdated": "2026-09-11T18:14:40.721142-04:00",
+  "lastUpdatedDisplay": "Sep 11, 2026 06:14 PM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -24,7 +24,7 @@
       "date": "2026-09-11",
       "tokens": 24531,
       "change": 0,
-      "summary": "ASST holds 24,531 Bitcoin in treasury. Share price: $27.45, mNAV: 1.42x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 24,531 Bitcoin in treasury. Share price: $27.62, mNAV: 1.43x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -64,7 +64,7 @@
       "date": "2026-09-11",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $249.00, mNAV: 0.72x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $249.00, mNAV: 0.73x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -72,7 +72,7 @@
       "date": "2026-09-11",
       "tokens": 24531,
       "change": 0,
-      "summary": "ASST holds 24,531 Bitcoin in treasury. Share price: $28.17, mNAV: 1.43x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 24,531 Bitcoin in treasury. Share price: $27.45, mNAV: 1.42x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -420,10 +420,10 @@
         ],
         "analytics": {
           "totalBtc": 845050.0,
-          "sharePrice": 131.54,
-          "mNAV": 0.907344870685881,
+          "sharePrice": 130.97,
+          "mNAV": 0.9049198602585413,
           "btcYieldYtd": -3.7100289765879424,
-          "marketCap": 55310333820.0
+          "marketCap": 55070658510.0
         },
         "alertSource": "sec_edgar"
       },
@@ -632,10 +632,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 248.99999999999997,
-          "mNAV": 0.7318238562172925,
+          "sharePrice": 249.0,
+          "mNAV": 0.7332562919797583,
           "btcYieldYtd": 19.217970049916804,
-          "marketCap": 2209830723.575685
+          "marketCap": 2210469371.557632
         },
         "alertSource": "dashboard"
       },
@@ -659,7 +659,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-11",
-        "alertNote": "ASST holds 24,531 Bitcoin in treasury. Share price: $27.45, mNAV: 1.42x. Source: https://treasury.st",
+        "alertNote": "ASST holds 24,531 Bitcoin in treasury. Share price: $27.62, mNAV: 1.43x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -765,10 +765,10 @@
         ],
         "analytics": {
           "totalBtc": 24531.0,
-          "sharePrice": 27.45,
-          "mNAV": 1.4223568927468735,
+          "sharePrice": 27.62,
+          "mNAV": 1.4335526519596418,
           "btcYieldYtd": 46.70697346795023,
-          "marketCap": 2605953617.1
+          "marketCap": 2622092491.96
         },
         "alertSource": "dashboard"
       },
@@ -1925,11 +1925,19 @@
         },
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:08.261745",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1482541/000148254126000045/bnc-20260904.htm",
-        "alertDate": "2026-09-04",
-        "alertNote": "8-K: Item 5.03; Item 8.01 - Other Events; Item 9.01 - Financial Statements and Exhibits",
-        "lastSecUpdate": "2026-09-04",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1482541/000148254126000053/bnc-20260911.htm",
+        "alertDate": "2026-09-11",
+        "alertNote": "8-K: Item 2.02 - Results of Operations (Earnings); Item 9.01 - Financial Statements and Exhibits",
+        "lastSecUpdate": "2026-09-11",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1482541/000148254126000053/bnc-20260911.htm",
+            "date": "2026-09-11",
+            "note": "8-K: Item 2.02 - Results of Operations (Earnings); Item 9.01 - Financial Statements and Exhibits",
+            "type": "sec_filing",
+            "items": "2.02,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1482541/000148254126000045/bnc-20260904.htm",
             "date": "2026-09-04",
@@ -2078,14 +2086,6 @@
             "url": "https://www.sec.gov/Archives/edgar/data/1482541/000149315226005810/form8-k.htm",
             "date": "2026-02-21",
             "note": "8-K: Item 5.02 - Departure/Election of Officers; Item 7.01 - Regulation FD Disclosure; Item 9.01 - F",
-            "type": "sec_filing",
-            "items": "5.02,7.01,9.01",
-            "form": "8-K"
-          },
-          {
-            "url": "https://www.sec.gov/Archives/edgar/data/1482541/000149315226005810/ex99-1.htm",
-            "date": "2026-02-20",
-            "note": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; CEA Industries Appoints Accounting and Compl",
             "type": "sec_filing",
             "items": "5.02,7.01,9.01",
             "form": "8-K"
@@ -2955,6 +2955,32 @@
     }
   ],
   "earnings": [
+    {
+      "ticker": "BNC",
+      "name": "CEA Industries",
+      "token": "BNB",
+      "type": "8-K",
+      "items": "2.02,9.01",
+      "date": "2026-09-11",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1482541/000148254126000053/bnc-20260911.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1482541/000148254126000053/",
+      "accession": "0001482541-26-000053",
+      "status": "reported"
+    },
+    {
+      "ticker": "BNC",
+      "name": "CEA Industries",
+      "token": "BNB",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-09-11",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1482541/000148254126000051/bncww-20260731.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1482541/000148254126000051/",
+      "accession": "0001482541-26-000051",
+      "status": "reported"
+    },
     {
       "ticker": "PURR",
       "name": "Hyperliquid Strategies",
