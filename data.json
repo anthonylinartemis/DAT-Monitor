@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-15T05:13:13.152980-04:00",
-  "lastUpdatedDisplay": "Sep 15, 2026 05:13 AM ET",
+  "lastUpdated": "2026-09-15T12:09:44.198709-04:00",
+  "lastUpdatedDisplay": "Sep 15, 2026 12:09 PM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -24,7 +24,7 @@
       "date": "2026-09-15",
       "tokens": 25000,
       "change": 0,
-      "summary": "ASST holds 25,000 Bitcoin in treasury. Share price: $29.03, mNAV: 1.48x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 25,000 Bitcoin in treasury. Share price: $27.80, mNAV: 1.43x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -72,7 +72,7 @@
       "date": "2026-09-15",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $255.00, mNAV: 0.74x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $251.00, mNAV: 0.74x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -80,7 +80,7 @@
       "date": "2026-09-15",
       "tokens": 25000,
       "change": 0,
-      "summary": "ASST holds 25,000 Bitcoin in treasury. Share price: $29.03, mNAV: 1.46x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 25,000 Bitcoin in treasury. Share price: $29.03, mNAV: 1.48x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -420,10 +420,10 @@
         ],
         "analytics": {
           "totalBtc": 845050.0,
-          "sharePrice": 136.94,
-          "mNAV": 0.9493577537827086,
+          "sharePrice": 132.79,
+          "mNAV": 0.9262317222560071,
           "btcYieldYtd": -3.7100289765879424,
-          "marketCap": 57580942020.0
+          "marketCap": 55835937570.0
         },
         "alertSource": "sec_edgar"
       },
@@ -633,9 +633,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 251.0,
-          "mNAV": 0.7353958338129905,
+          "mNAV": 0.7394702229622192,
           "btcYieldYtd": 19.217970049916804,
-          "marketCap": 2209472408.3873177
+          "marketCap": 2208174579.969933
         },
         "alertSource": "dashboard"
       },
@@ -659,7 +659,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-15",
-        "alertNote": "ASST holds 25,000 Bitcoin in treasury. Share price: $29.03, mNAV: 1.48x. Source: https://treasury.st",
+        "alertNote": "ASST holds 25,000 Bitcoin in treasury. Share price: $27.80, mNAV: 1.43x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -765,10 +765,10 @@
         ],
         "analytics": {
           "totalBtc": 25000.0,
-          "sharePrice": 29.03,
-          "mNAV": 1.483309159768323,
+          "sharePrice": 27.805,
+          "mNAV": 1.429427865166097,
           "btcYieldYtd": 49.530406198638175,
-          "marketCap": 2756943218.92
+          "marketCap": 2640606483.02
         },
         "alertSource": "dashboard"
       },
