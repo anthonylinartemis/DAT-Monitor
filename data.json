@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-16T05:05:04.446519-04:00",
-  "lastUpdatedDisplay": "Sep 16, 2026 05:05 AM ET",
+  "lastUpdated": "2026-09-16T12:03:01.289498-04:00",
+  "lastUpdatedDisplay": "Sep 16, 2026 12:03 PM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -24,7 +24,7 @@
       "date": "2026-09-16",
       "tokens": 25000,
       "change": 0,
-      "summary": "ASST holds 25,000 Bitcoin in treasury. Share price: $27.57, mNAV: 1.43x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 25,000 Bitcoin in treasury. Share price: $27.27, mNAV: 1.42x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -72,7 +72,7 @@
       "date": "2026-09-16",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $234.00, mNAV: 0.69x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $235.00, mNAV: 0.70x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -80,7 +80,7 @@
       "date": "2026-09-16",
       "tokens": 25000,
       "change": 0,
-      "summary": "ASST holds 25,000 Bitcoin in treasury. Share price: $27.57, mNAV: 1.42x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 25,000 Bitcoin in treasury. Share price: $27.57, mNAV: 1.43x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -420,10 +420,10 @@
         ],
         "analytics": {
           "totalBtc": 845050.0,
-          "sharePrice": 129.6,
-          "mNAV": 0.9145700947524562,
+          "sharePrice": 126.463,
+          "mNAV": 0.8912583338997068,
           "btcYieldYtd": -3.7100289765879424,
-          "marketCap": 54494596800.0
+          "marketCap": 53175541629.0
         },
         "alertSource": "sec_edgar"
       },
@@ -633,9 +633,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 235.0,
-          "mNAV": 0.7007043700837942,
+          "mNAV": 0.6994894093724118,
           "btcYieldYtd": 19.217970049916804,
-          "marketCap": 2068187108.8463104
+          "marketCap": 2067321471.5213823
         },
         "alertSource": "dashboard"
       },
@@ -659,7 +659,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-16",
-        "alertNote": "ASST holds 25,000 Bitcoin in treasury. Share price: $27.57, mNAV: 1.43x. Source: https://treasury.st",
+        "alertNote": "ASST holds 25,000 Bitcoin in treasury. Share price: $27.27, mNAV: 1.42x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -765,10 +765,10 @@
         ],
         "analytics": {
           "totalBtc": 25000.0,
-          "sharePrice": 27.57,
-          "mNAV": 1.4339493963695684,
+          "sharePrice": 27.265,
+          "mNAV": 1.416219892493222,
           "btcYieldYtd": 49.530406198638175,
-          "marketCap": 2618288823.48
+          "marketCap": 2589323350.46
         },
         "alertSource": "dashboard"
       },
@@ -1245,11 +1245,19 @@
         },
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:03.695870",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226031451/form8-k.htm",
-        "alertDate": "2026-07-01",
-        "alertNote": "8-K: Item 5.02 - Departure/Election of Officers; Item 7.01 - Regulation FD Disclosure; Item 9.01 - F",
-        "lastSecUpdate": "2026-07-01",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226042810/form8-k.htm",
+        "alertDate": "2026-09-16",
+        "alertNote": "8-K: Item 7.01 - Regulation FD Disclosure; Item 8.01 - Other Events; Item 9.01 - Financial Statement",
+        "lastSecUpdate": "2026-09-16",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226042810/form8-k.htm",
+            "date": "2026-09-16",
+            "note": "8-K: Item 7.01 - Regulation FD Disclosure; Item 8.01 - Other Events; Item 9.01 - Financial Statement",
+            "type": "sec_filing",
+            "items": "7.01,8.01,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226031451/form8-k.htm",
             "date": "2026-07-01",
@@ -1578,9 +1586,9 @@
         "cik": "0001805526",
         "irUrl": "https://defidevcorp.com/investor",
         "dashboardUrl": "https://defidevcorp.com/?tab=history-purchases",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000083/dfdv-20260831.htm",
-        "alertDate": "2026-09-01",
-        "alertNote": "8-K: Item 8.01 - Other Events; Item 9.01 - Financial Statements and Exhibits",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1805526/000121390026100373/ea0305671-8k_defi.htm",
+        "alertDate": "2026-09-16",
+        "alertNote": "8-K: Item 8.01 - Other Events",
         "scrape_config": {
           "method": "playwright_js",
           "source_url": "https://defidevcorp.com/?tab=history-purchases",
@@ -1589,6 +1597,14 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:04.932552",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1805526/000121390026100373/ea0305671-8k_defi.htm",
+            "date": "2026-09-16",
+            "note": "8-K: Item 8.01 - Other Events",
+            "type": "sec_filing",
+            "items": "8.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000083/dfdv-20260831.htm",
             "date": "2026-09-01",
@@ -1687,7 +1703,7 @@
           }
         ],
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-09-01"
+        "lastSecUpdate": "2026-09-16"
       },
       {
         "ticker": "UPXI",
@@ -2107,6 +2123,15 @@
     "BNB": 99
   },
   "discoveredPressReleases": [
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Board of Directors Approves Affordable Housing Real Estate Acquisition Strategy and $10 Million Investment in FG Communities",
+      "url": "https://fgnexus.io/fg-nexus-board-of-directors-approves-affordable-housing-real-estate-acquisition-strategy-and-10-million-investment-in-fg-communities/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-09-16T16:00:24.241170"
+    },
     {
       "ticker": "FGNX",
       "token": "ETH",
