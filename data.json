@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-23T12:02:27.105729-04:00",
-  "lastUpdatedDisplay": "Sep 23, 2026 12:02 PM ET",
+  "lastUpdated": "2026-09-23T15:32:40.160530-04:00",
+  "lastUpdatedDisplay": "Sep 23, 2026 03:32 PM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -16,7 +16,7 @@
       "date": "2026-09-23",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $243.00, mNAV: 0.63x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $243.00, mNAV: 0.64x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -24,7 +24,7 @@
       "date": "2026-09-23",
       "tokens": 26355,
       "change": 0,
-      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $28.94, mNAV: 1.30x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $28.98, mNAV: 1.31x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -72,7 +72,7 @@
       "date": "2026-09-23",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $243.00, mNAV: 0.62x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $243.00, mNAV: 0.63x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -80,7 +80,7 @@
       "date": "2026-09-23",
       "tokens": 26355,
       "change": 0,
-      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.35, mNAV: 1.29x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $28.94, mNAV: 1.30x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -420,10 +420,10 @@
         ],
         "analytics": {
           "totalBtc": 846000.0,
-          "sharePrice": 165.83,
-          "mNAV": 1.0440296673236422,
+          "sharePrice": 162.86,
+          "mNAV": 1.0274884768033477,
           "btcYieldYtd": -3.605918403979793,
-          "marketCap": 69732649774.69
+          "marketCap": 68483744450.98
         },
         "alertSource": "sec_edgar"
       },
@@ -526,7 +526,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-23",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $243.00, mNAV: 0.63x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $243.00, mNAV: 0.64x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -633,9 +633,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 243.0,
-          "mNAV": 0.6334904894114056,
+          "mNAV": 0.6351812170081671,
           "btcYieldYtd": 19.217970049916804,
-          "marketCap": 2093566340.0731854
+          "marketCap": 2094746553.685555
         },
         "alertSource": "dashboard"
       },
@@ -659,7 +659,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-23",
-        "alertNote": "ASST holds 26,355 Bitcoin in treasury. Share price: $28.94, mNAV: 1.30x. Source: https://treasury.st",
+        "alertNote": "ASST holds 26,355 Bitcoin in treasury. Share price: $28.98, mNAV: 1.31x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -765,10 +765,10 @@
         ],
         "analytics": {
           "totalBtc": 26355.0,
-          "sharePrice": 28.94,
-          "mNAV": 1.3012685759806366,
+          "sharePrice": 28.9833,
+          "mNAV": 1.305957482570958,
           "btcYieldYtd": 54.472880957971356,
-          "marketCap": 2807256662.06
+          "marketCap": 2811456876.7617
         },
         "alertSource": "dashboard"
       },
