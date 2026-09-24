@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-24T05:01:42.881781-04:00",
-  "lastUpdatedDisplay": "Sep 24, 2026 05:01 AM ET",
+  "lastUpdated": "2026-09-24T12:25:38.419982-04:00",
+  "lastUpdatedDisplay": "Sep 24, 2026 12:25 PM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -16,7 +16,7 @@
       "date": "2026-09-24",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $288.00, mNAV: 0.76x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $288.00, mNAV: 0.75x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -24,7 +24,7 @@
       "date": "2026-09-24",
       "tokens": 26355,
       "change": 0,
-      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $28.99, mNAV: 1.31x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $30.29, mNAV: 1.36x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -64,7 +64,7 @@
       "date": "2026-09-24",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $290.55, mNAV: 0.76x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $288.00, mNAV: 0.76x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -420,10 +420,10 @@
         ],
         "analytics": {
           "totalBtc": 846000.0,
-          "sharePrice": 162.2,
-          "mNAV": 1.0292086683662032,
+          "sharePrice": 162.35,
+          "mNAV": 1.0233472782718036,
           "btcYieldYtd": -3.605918403979793,
-          "marketCap": 68206209934.6
+          "marketCap": 68269285961.049995
         },
         "alertSource": "sec_edgar"
       },
@@ -526,7 +526,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-24",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $288.00, mNAV: 0.76x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $288.00, mNAV: 0.75x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -633,9 +633,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 288.0,
-          "mNAV": 0.7567861427368417,
+          "mNAV": 0.7490277185101444,
           "btcYieldYtd": 19.217970049916804,
-          "marketCap": 2481515275.030364
+          "marketCap": 2472427188.187546
         },
         "alertSource": "dashboard"
       },
@@ -659,7 +659,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-24",
-        "alertNote": "ASST holds 26,355 Bitcoin in treasury. Share price: $28.99, mNAV: 1.31x. Source: https://treasury.st",
+        "alertNote": "ASST holds 26,355 Bitcoin in treasury. Share price: $30.29, mNAV: 1.36x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -765,10 +765,10 @@
         ],
         "analytics": {
           "totalBtc": 26355.0,
-          "sharePrice": 28.99,
-          "mNAV": 1.3137704134535007,
+          "sharePrice": 30.29,
+          "mNAV": 1.3636053471584784,
           "btcYieldYtd": 54.472880957971356,
-          "marketCap": 2812106794.5099998
+          "marketCap": 2938210238.21
         },
         "alertSource": "dashboard"
       },
@@ -1783,9 +1783,9 @@
         "change": 0,
         "cik": "0001737995",
         "irUrl": "https://www.sharpstechnology.com/investors/news",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1737995/000149315226033796/form8-k.htm",
-        "alertDate": "2026-07-18",
-        "alertNote": "8-K: Item 8.01 - Other Events",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1737995/000149315226044081/form8-k.htm",
+        "alertDate": "2026-09-24",
+        "alertNote": "8-K: Item 5.07 - Submission of Matters to Shareholder Vote",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -1793,8 +1793,16 @@
         },
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:07.588477",
-        "lastSecUpdate": "2026-07-18",
+        "lastSecUpdate": "2026-09-24",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1737995/000149315226044081/form8-k.htm",
+            "date": "2026-09-24",
+            "note": "8-K: Item 5.07 - Submission of Matters to Shareholder Vote",
+            "type": "sec_filing",
+            "items": "5.07",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1737995/000149315226033796/form8-k.htm",
             "date": "2026-07-18",
