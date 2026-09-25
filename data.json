@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-25T05:22:28.152535-04:00",
-  "lastUpdatedDisplay": "Sep 25, 2026 05:22 AM ET",
+  "lastUpdated": "2026-09-25T12:26:06.340332-04:00",
+  "lastUpdatedDisplay": "Sep 25, 2026 12:26 PM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -24,7 +24,7 @@
       "date": "2026-09-25",
       "tokens": 26355,
       "change": 0,
-      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.94, mNAV: 1.35x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.77, mNAV: 1.35x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -64,7 +64,7 @@
       "date": "2026-09-25",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $295.00, mNAV: 0.77x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $293.00, mNAV: 0.77x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -72,7 +72,7 @@
       "date": "2026-09-25",
       "tokens": 26355,
       "change": 0,
-      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.94, mNAV: 1.34x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.94, mNAV: 1.35x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -173,10 +173,10 @@
         "cik": "0001050446",
         "irUrl": "https://www.strategy.com/investor-relations",
         "dashboardUrl": "https://www.strategy.com/purchases",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526377583/mstr-20260831.htm",
-        "alertDate": "2026-09-01",
-        "alertNote": "8-K: Item 7.01 - Regulation FD Disclosure; Item 8.01 - Other Events",
-        "lastSecUpdate": "2026-09-01",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526401636/mstr-20260924.htm",
+        "alertDate": "2026-09-25",
+        "alertNote": "8-K: Item 8.01 - Other Events",
+        "lastSecUpdate": "2026-09-25",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -275,6 +275,14 @@
           }
         ],
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526401636/mstr-20260924.htm",
+            "date": "2026-09-25",
+            "note": "8-K: Item 8.01 - Other Events",
+            "type": "sec_filing",
+            "items": "8.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1050446/000119312526377583/mstr-20260831.htm",
             "date": "2026-09-01",
@@ -411,19 +419,14 @@
             "url": "https://treasury.strive.com/?tab=home",
             "date": "2026-02-17",
             "note": "MSTR holds 714,644 Bitcoin in treasury. Share price: $133.88, mNAV: 1.00x. Source: https://treasury."
-          },
-          {
-            "url": "https://treasury.strive.com/?tab=home",
-            "date": "2026-02-17",
-            "note": "MSTR holds 714,644 Bitcoin in treasury. Share price: $133.88, mNAV: 0.99x. Source: https://treasury."
           }
         ],
         "analytics": {
           "totalBtc": 846000.0,
-          "sharePrice": 161.61,
-          "mNAV": 1.018528228918327,
+          "sharePrice": 158.66,
+          "mNAV": 1.005371108595303,
           "btcYieldYtd": -3.605918403979793,
-          "marketCap": 67958110897.23
+          "marketCap": 66717615710.38
         },
         "alertSource": "sec_edgar"
       },
@@ -633,9 +636,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 293.0,
-          "mNAV": 0.7657470812806321,
+          "mNAV": 0.774982034960908,
           "btcYieldYtd": 19.217970049916804,
-          "marketCap": 2527998880.6672463
+          "marketCap": 2544655830.1512756
         },
         "alertSource": "dashboard"
       },
@@ -659,7 +662,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-25",
-        "alertNote": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.94, mNAV: 1.35x. Source: https://treasury.st",
+        "alertNote": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.77, mNAV: 1.35x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -765,10 +768,10 @@
         ],
         "analytics": {
           "totalBtc": 26355.0,
-          "sharePrice": 29.94,
-          "mNAV": 1.347644403982293,
+          "sharePrice": 29.7699,
+          "mNAV": 1.347271127994354,
           "btcYieldYtd": 54.472880957971356,
-          "marketCap": 2904259311.06
+          "marketCap": 2887759160.4651
         },
         "alertSource": "dashboard"
       },
@@ -1245,11 +1248,19 @@
         },
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:03.695870",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226043961/form8-k.htm",
-        "alertDate": "2026-09-23",
-        "alertNote": "8-K: Item 1.01 - Entry into Material Agreement",
-        "lastSecUpdate": "2026-09-23",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226044257/form8-k.htm",
+        "alertDate": "2026-09-25",
+        "alertNote": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
+        "lastSecUpdate": "2026-09-25",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226044257/form8-k.htm",
+            "date": "2026-09-25",
+            "note": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
+            "type": "sec_filing",
+            "items": "7.01,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226043961/form8-k.htm",
             "date": "2026-09-23",
