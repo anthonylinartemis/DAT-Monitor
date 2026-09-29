@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-29T13:34:36.969153-04:00",
-  "lastUpdatedDisplay": "Sep 29, 2026 01:34 PM ET",
+  "lastUpdated": "2026-09-29T19:27:34.713344-04:00",
+  "lastUpdatedDisplay": "Sep 29, 2026 07:27 PM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -16,7 +16,7 @@
       "date": "2026-09-29",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $281.00, mNAV: 0.75x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $281.00, mNAV: 0.74x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -24,7 +24,7 @@
       "date": "2026-09-29",
       "tokens": 26355,
       "change": 0,
-      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.11, mNAV: 1.33x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.31, mNAV: 1.33x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -64,7 +64,7 @@
       "date": "2026-09-29",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $281.00, mNAV: 0.74x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $281.00, mNAV: 0.75x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -72,7 +72,7 @@
       "date": "2026-09-29",
       "tokens": 26355,
       "change": 0,
-      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.00, mNAV: 1.31x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.11, mNAV: 1.33x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -423,10 +423,10 @@
         ],
         "analytics": {
           "totalBtc": 847666.0,
-          "sharePrice": 153.5,
-          "mNAV": 0.9838122940633944,
+          "sharePrice": 154.67,
+          "mNAV": 0.9837486259857312,
           "btcYieldYtd": -3.7300305151678335,
-          "marketCap": 64773608878.0
+          "marketCap": 65267323030.35999
         },
         "alertSource": "sec_edgar"
       },
@@ -529,7 +529,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-29",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $281.00, mNAV: 0.75x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $281.00, mNAV: 0.74x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -636,9 +636,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 281.0,
-          "mNAV": 0.7489576566686629,
+          "mNAV": 0.7436876486735184,
           "btcYieldYtd": 19.217970049916804,
-          "marketCap": 2434503378.2329907
+          "marketCap": 2435956325.5847244
         },
         "alertSource": "dashboard"
       },
@@ -662,7 +662,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-29",
-        "alertNote": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.11, mNAV: 1.33x. Source: https://treasury.st",
+        "alertNote": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.31, mNAV: 1.33x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -768,10 +768,10 @@
         ],
         "analytics": {
           "totalBtc": 26355.0,
-          "sharePrice": 29.1098,
-          "mNAV": 1.3307643209030273,
+          "sharePrice": 29.31,
+          "mNAV": 1.3296946856613934,
           "btcYieldYtd": 54.472880957971356,
-          "marketCap": 2823727711.8602
+          "marketCap": 2843147642.19
         },
         "alertSource": "dashboard"
       },
