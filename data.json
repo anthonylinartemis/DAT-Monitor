@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-09-30T13:33:13.576890-04:00",
-  "lastUpdatedDisplay": "Sep 30, 2026 01:33 PM ET",
+  "lastUpdated": "2026-09-30T19:28:58.448180-04:00",
+  "lastUpdatedDisplay": "Sep 30, 2026 07:28 PM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -16,7 +16,7 @@
       "date": "2026-09-30",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $286.00, mNAV: 0.75x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $286.00, mNAV: 0.76x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -24,7 +24,7 @@
       "date": "2026-09-30",
       "tokens": 26355,
       "change": 0,
-      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.59, mNAV: 1.33x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.41, mNAV: 1.34x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -64,7 +64,7 @@
       "date": "2026-09-30",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $286.00, mNAV: 0.76x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $286.00, mNAV: 0.75x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -72,7 +72,7 @@
       "date": "2026-09-30",
       "tokens": 26355,
       "change": 0,
-      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.31, mNAV: 1.33x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.59, mNAV: 1.33x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -423,10 +423,10 @@
         ],
         "analytics": {
           "totalBtc": 847666.0,
-          "sharePrice": 154.52,
-          "mNAV": 0.9767759005022134,
+          "sharePrice": 153.09,
+          "mNAV": 0.9754798337276929,
           "btcYieldYtd": -3.7300305151678335,
-          "marketCap": 65204026344.16
+          "marketCap": 64600597935.72
         },
         "alertSource": "sec_edgar"
       },
@@ -529,7 +529,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-30",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $286.00, mNAV: 0.75x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $286.00, mNAV: 0.76x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -636,9 +636,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 286.0,
-          "mNAV": 0.752878254326447,
+          "mNAV": 0.7581936327566984,
           "btcYieldYtd": 19.217970049916804,
-          "marketCap": 2481255570.190059
+          "marketCap": 2478937872.2971034
         },
         "alertSource": "dashboard"
       },
@@ -662,7 +662,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-09-30",
-        "alertNote": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.59, mNAV: 1.33x. Source: https://treasury.st",
+        "alertNote": "ASST holds 26,355 Bitcoin in treasury. Share price: $29.41, mNAV: 1.34x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -768,10 +768,10 @@
         ],
         "analytics": {
           "totalBtc": 26355.0,
-          "sharePrice": 29.59,
-          "mNAV": 1.3341764268455487,
+          "sharePrice": 29.41,
+          "mNAV": 1.3366711001318659,
           "btcYieldYtd": 54.472880957971356,
-          "marketCap": 2870308383.91
+          "marketCap": 2852847907.09
         },
         "alertSource": "dashboard"
       },
@@ -2158,6 +2158,15 @@
     "BNB": 99
   },
   "discoveredPressReleases": [
+    {
+      "ticker": "FWDI",
+      "token": "SOL",
+      "title": "SOL Treasury",
+      "url": "https://www.forwardindustries.com/sol-treasury",
+      "date": null,
+      "sourcePage": "https://www.forwardindustries.com/media",
+      "discoveredAt": "2026-09-30T23:26:50.940572"
+    },
     {
       "ticker": "FGNX",
       "token": "ETH",
