@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-10-02T06:20:17.373242-04:00",
-  "lastUpdatedDisplay": "Oct 02, 2026 06:20 AM ET",
+  "lastUpdated": "2026-10-02T13:22:29.501961-04:00",
+  "lastUpdatedDisplay": "Oct 02, 2026 01:22 PM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -16,7 +16,7 @@
       "date": "2026-10-02",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $291.00, mNAV: 0.75x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $291.00, mNAV: 0.76x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -24,7 +24,7 @@
       "date": "2026-10-02",
       "tokens": 26355,
       "change": 0,
-      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $30.11, mNAV: 1.32x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $30.31, mNAV: 1.35x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -56,7 +56,7 @@
       "date": "2026-10-02",
       "tokens": 43000,
       "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $297.00, mNAV: 0.77x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $291.00, mNAV: 0.75x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -64,7 +64,7 @@
       "date": "2026-10-02",
       "tokens": 26355,
       "change": 0,
-      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $30.11, mNAV: 1.34x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 26,355 Bitcoin in treasury. Share price: $30.11, mNAV: 1.32x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -426,10 +426,10 @@
         ],
         "analytics": {
           "totalBtc": 847666.0,
-          "sharePrice": 160.5,
-          "mNAV": 0.989945518021451,
+          "sharePrice": 159.43,
+          "mNAV": 0.9974528812564004,
           "btcYieldYtd": -3.7300305151678335,
-          "marketCap": 67727454234.0
+          "marketCap": 67275937872.44
         },
         "alertSource": "sec_edgar"
       },
@@ -532,7 +532,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-02",
-        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $291.00, mNAV: 0.75x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $291.00, mNAV: 0.76x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -639,9 +639,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 291.0,
-          "mNAV": 0.7459861088827754,
+          "mNAV": 0.7552835094020749,
           "btcYieldYtd": 19.217970049916804,
-          "marketCap": 2519715256.7164955
+          "marketCap": 2515038523.167076
         },
         "alertSource": "dashboard"
       },
@@ -665,7 +665,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-02",
-        "alertNote": "ASST holds 26,355 Bitcoin in treasury. Share price: $30.11, mNAV: 1.32x. Source: https://treasury.st",
+        "alertNote": "ASST holds 26,355 Bitcoin in treasury. Share price: $30.31, mNAV: 1.35x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -771,10 +771,10 @@
         ],
         "analytics": {
           "totalBtc": 26355.0,
-          "sharePrice": 30.11,
-          "mNAV": 1.3246619870381782,
+          "sharePrice": 30.3077,
+          "mNAV": 1.3524878868390353,
           "btcYieldYtd": 54.472880957971356,
-          "marketCap": 2920749761.39
+          "marketCap": 2939927185.0973
         },
         "alertSource": "dashboard"
       },
@@ -3045,6 +3045,20 @@
     }
   ],
   "earnings": [
+    {
+      "ticker": "HYPD",
+      "name": "Hyperion DeFi",
+      "token": "HYPE",
+      "type": "8-K",
+      "items": "1.02,2.02,7.01,8.01,9.01",
+      "date": "2026-10-02",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926113050/tm2626852d1_8k.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926113050/",
+      "accession": "0001104659-26-113050",
+      "status": "reported",
+      "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926113050/tm2626852d1_ex99-1.htm"
+    },
     {
       "ticker": "BNC",
       "name": "CEA Industries",
