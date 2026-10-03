@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-10-03T15:02:29.346543-04:00",
-  "lastUpdatedDisplay": "Oct 03, 2026 03:02 PM ET",
+  "lastUpdated": "2026-10-03T18:42:39.037685-04:00",
+  "lastUpdatedDisplay": "Oct 03, 2026 06:42 PM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -427,7 +427,7 @@
         "analytics": {
           "totalBtc": 847666.0,
           "sharePrice": 160.01,
-          "mNAV": 1.0035820690812625,
+          "mNAV": 1.0056468462720247,
           "btcYieldYtd": -3.7300305151678335,
           "marketCap": 67520685059.079994
         },
@@ -639,7 +639,7 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 291.0,
-          "mNAV": 0.7568102909922768,
+          "mNAV": 0.7583673580969188,
           "btcYieldYtd": 19.217970049916804,
           "marketCap": 2513843534.373888
         },
@@ -772,7 +772,7 @@
         "analytics": {
           "totalBtc": 27462.0,
           "sharePrice": 30.03,
-          "mNAV": 1.2974258165596533,
+          "mNAV": 1.3000951500554092,
           "btcYieldYtd": 59.955388588870626,
           "marketCap": 2932481181.63
         },
