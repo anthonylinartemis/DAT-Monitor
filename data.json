@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-10-04T12:24:27.434270-04:00",
-  "lastUpdatedDisplay": "Oct 04, 2026 12:24 PM ET",
+  "lastUpdated": "2026-10-04T18:46:03.160932-04:00",
+  "lastUpdatedDisplay": "Oct 04, 2026 06:46 PM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -24,7 +24,7 @@
       "date": "2026-10-04",
       "tokens": 27462,
       "change": 0,
-      "summary": "ASST holds 27,462 Bitcoin in treasury. Share price: $30.03, mNAV: 1.29x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 27,462 Bitcoin in treasury. Share price: $30.03, mNAV: 1.28x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -427,7 +427,7 @@
         "analytics": {
           "totalBtc": 847666.0,
           "sharePrice": 160.01,
-          "mNAV": 0.9992024484249573,
+          "mNAV": 0.9882568662423821,
           "btcYieldYtd": -3.7300305151678335,
           "marketCap": 67520685059.079994
         },
@@ -639,9 +639,9 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 291.0,
-          "mNAV": 0.7535075795494862,
+          "mNAV": 0.7460796458123437,
           "btcYieldYtd": 19.217970049916804,
-          "marketCap": 2513843534.373888
+          "marketCap": 2516630518.2038474
         },
         "alertSource": "dashboard"
       },
@@ -665,7 +665,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-04",
-        "alertNote": "ASST holds 27,462 Bitcoin in treasury. Share price: $30.03, mNAV: 1.29x. Source: https://treasury.st",
+        "alertNote": "ASST holds 27,462 Bitcoin in treasury. Share price: $30.03, mNAV: 1.28x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -772,7 +772,7 @@
         "analytics": {
           "totalBtc": 27462.0,
           "sharePrice": 30.03,
-          "mNAV": 1.2917638651544932,
+          "mNAV": 1.2776134719395673,
           "btcYieldYtd": 59.955388588870626,
           "marketCap": 2932481181.63
         },
