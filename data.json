@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-10-05T07:11:20.872677-04:00",
-  "lastUpdatedDisplay": "Oct 05, 2026 07:11 AM ET",
+  "lastUpdated": "2026-10-05T16:15:44.867935-04:00",
+  "lastUpdatedDisplay": "Oct 05, 2026 04:15 PM ET",
   "recentChanges": [
     {
       "ticker": "UPXI",
@@ -15,16 +15,16 @@
       "token": "BTC",
       "date": "2026-10-05",
       "tokens": 44000,
-      "change": 1000,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $297.00, mNAV: 0.74x. Source: https://treasury.strive.com/?tab=home"
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $297.00, mNAV: 0.75x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
       "token": "BTC",
       "date": "2026-10-05",
-      "tokens": 27462,
-      "change": 0,
-      "summary": "ASST holds 27,462 Bitcoin in treasury. Share price: $30.03, mNAV: 1.28x. Source: https://treasury.strive.com/?tab=home"
+      "tokens": 29462,
+      "change": 2000,
+      "summary": "ASST holds 29,462 Bitcoin in treasury. Share price: $30.34, mNAV: 1.25x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -54,9 +54,9 @@
       "ticker": "MTPLF",
       "token": "BTC",
       "date": "2026-10-05",
-      "tokens": 43000,
-      "change": 0,
-      "summary": "MTPLF holds 43,000 Bitcoin in treasury. Share price: $299.06, mNAV: 0.76x. Source: https://treasury.strive.com/?tab=home"
+      "tokens": 44000,
+      "change": 1000,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $297.00, mNAV: 0.74x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -64,7 +64,7 @@
       "date": "2026-10-05",
       "tokens": 27462,
       "change": 0,
-      "summary": "ASST holds 27,462 Bitcoin in treasury. Share price: $30.03, mNAV: 1.27x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 27,462 Bitcoin in treasury. Share price: $30.03, mNAV: 1.28x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -425,11 +425,11 @@
           }
         ],
         "analytics": {
-          "totalBtc": 847666.0,
-          "sharePrice": 160.01,
-          "mNAV": 0.9901677507464467,
-          "btcYieldYtd": -3.7300305151678335,
-          "marketCap": 67520685059.079994
+          "totalBtc": 848000.0,
+          "sharePrice": 165.01,
+          "mNAV": 1.025084829687939,
+          "btcYieldYtd": -3.6920788778623996,
+          "marketCap": 69630574599.08
         },
         "alertSource": "sec_edgar"
       },
@@ -519,7 +519,7 @@
         "notes": "Japan TSE - No SEC",
         "tokens": 44000,
         "lastUpdate": "2026-10-05",
-        "change": 1000,
+        "change": 0,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
         "dashboardUrl": "https://metaplanet.jp/en/analytics",
@@ -532,7 +532,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-05",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $297.00, mNAV: 0.74x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $297.00, mNAV: 0.75x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -639,18 +639,18 @@
         "analytics": {
           "totalBtc": 44000.0,
           "sharePrice": 297.0,
-          "mNAV": 0.7448546487606262,
+          "mNAV": 0.7478610568121158,
           "btcYieldYtd": 22.004991680532445,
-          "marketCap": 2565967098.021212
+          "marketCap": 2565318790.9182873
         },
         "alertSource": "dashboard"
       },
       {
         "ticker": "ASST",
         "name": "Strive",
-        "tokens": 27462,
+        "tokens": 29462,
         "lastUpdate": "2026-10-05",
-        "change": 0,
+        "change": 2000,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
         "dashboardUrl": "https://treasury.strive.com/",
@@ -665,7 +665,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-05",
-        "alertNote": "ASST holds 27,462 Bitcoin in treasury. Share price: $30.03, mNAV: 1.28x. Source: https://treasury.st",
+        "alertNote": "ASST holds 29,462 Bitcoin in treasury. Share price: $30.34, mNAV: 1.25x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -770,11 +770,11 @@
           }
         ],
         "analytics": {
-          "totalBtc": 27462.0,
-          "sharePrice": 30.03,
-          "mNAV": 1.2800838537493051,
-          "btcYieldYtd": 59.955388588870626,
-          "marketCap": 2932481181.63
+          "totalBtc": 29462.0,
+          "sharePrice": 30.345,
+          "mNAV": 1.2461759593087012,
+          "btcYieldYtd": 66.74101901854895,
+          "marketCap": 3062993530.17
         },
         "alertSource": "dashboard"
       },
@@ -1379,12 +1379,20 @@
         },
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:04.367768",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026092591/ea0303021-8k_forum.htm",
-        "alertDate": "2026-08-21",
-        "alertNote": "8-K: Item 5.02 - Departure/Election of Officers",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026106655/ea0306080-8k_forum.htm",
+        "alertDate": "2026-10-05",
+        "alertNote": "8-K: Item 1.01 - Entry into Material Agreement; Item 2.03; Item 3.02; Item 7.01 - Regulation FD Disc",
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-08-21",
+        "lastSecUpdate": "2026-10-05",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026106655/ea0306080-8k_forum.htm",
+            "date": "2026-10-05",
+            "note": "8-K: Item 1.01 - Entry into Material Agreement; Item 2.03; Item 3.02; Item 7.01 - Regulation FD Disc",
+            "type": "sec_filing",
+            "items": "1.01,2.03,3.02,7.01,8.01,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026092591/ea0303021-8k_forum.htm",
             "date": "2026-08-21",
@@ -2154,7 +2162,7 @@
     ]
   },
   "totals": {
-    "BTC": 900135,
+    "BTC": 902135,
     "ETH": 1638750,
     "SOL": 13620216,
     "HYPE": 34000000,
@@ -3045,6 +3053,19 @@
     }
   ],
   "earnings": [
+    {
+      "ticker": "DFDV",
+      "name": "DeFi Development",
+      "token": "SOL",
+      "type": "8-K",
+      "items": "2.02,8.01,9.01",
+      "date": "2026-10-05",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000125/dfdv-20261005.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000125/",
+      "accession": "0001805526-26-000125",
+      "status": "reported"
+    },
     {
       "ticker": "HYPD",
       "name": "Hyperion DeFi",
