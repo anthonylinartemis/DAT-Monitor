@@ -1,7 +1,47 @@
 {
-  "lastUpdated": "2026-10-08T16:58:49.947530-04:00",
-  "lastUpdatedDisplay": "Oct 08, 2026 04:58 PM ET",
+  "lastUpdated": "2026-10-09T00:15:35.174382-04:00",
+  "lastUpdatedDisplay": "Oct 09, 2026 12:15 AM ET",
   "recentChanges": [
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-10-09",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-10-09",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $259.00, mNAV: 0.68x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-10-09",
+      "tokens": 29462,
+      "change": 0,
+      "summary": "ASST holds 29,462 Bitcoin in treasury. Share price: $28.23, mNAV: 1.21x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "BMNR",
+      "token": "ETH",
+      "date": "2026-10-09",
+      "tokens": 96,
+      "change": -2,
+      "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 5.96 Million Tokens, and Total Crypto and Total Cash Holdings of $15.8 Billio"
+    },
+    {
+      "ticker": "BMNR",
+      "token": "ETH",
+      "date": "2026-10-09",
+      "tokens": 98,
+      "change": 2,
+      "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 5.98 Million Tokens, and Total Crypto and Total Cash Holdings of $17.1 Billio"
+    },
     {
       "ticker": "UPXI",
       "token": "SOL",
@@ -25,46 +65,6 @@
       "tokens": 29462,
       "change": 0,
       "summary": "ASST holds 29,462 Bitcoin in treasury. Share price: $28.23, mNAV: 1.22x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "BMNR",
-      "token": "ETH",
-      "date": "2026-10-08",
-      "tokens": 96,
-      "change": -2,
-      "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 5.96 Million Tokens, and Total Crypto and Total Cash Holdings of $15.8 Billio"
-    },
-    {
-      "ticker": "BMNR",
-      "token": "ETH",
-      "date": "2026-10-08",
-      "tokens": 98,
-      "change": 2,
-      "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 5.98 Million Tokens, and Total Crypto and Total Cash Holdings of $17.1 Billio"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-10-08",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-10-08",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $258.00, mNAV: 0.67x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-10-08",
-      "tokens": 29462,
-      "change": 0,
-      "summary": "ASST holds 29,462 Bitcoin in treasury. Share price: $28.15, mNAV: 1.20x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "BMNR",
@@ -427,7 +427,7 @@
         "analytics": {
           "totalBtc": 848000.0,
           "sharePrice": 151.47,
-          "mNAV": 0.9867067742285281,
+          "mNAV": 0.9793166784155952,
           "btcYieldYtd": -3.6920788778623996,
           "marketCap": 63916993724.76
         },
@@ -518,7 +518,7 @@
         "name": "Metaplanet",
         "notes": "Japan TSE - No SEC",
         "tokens": 44000,
-        "lastUpdate": "2026-10-08",
+        "lastUpdate": "2026-10-09",
         "change": 0,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
@@ -531,8 +531,8 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-10-08",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $258.00, mNAV: 0.68x. Source: https://treasury.",
+        "alertDate": "2026-10-09",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $259.00, mNAV: 0.68x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -638,10 +638,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 258.0,
-          "mNAV": 0.681517756604947,
+          "sharePrice": 259.0,
+          "mNAV": 0.6783308172627556,
           "btcYieldYtd": 22.004991680532445,
-          "marketCap": 2229387987.84725
+          "marketCap": 2235707522.318359
         },
         "alertSource": "dashboard"
       },
@@ -649,7 +649,7 @@
         "ticker": "ASST",
         "name": "Strive",
         "tokens": 29462,
-        "lastUpdate": "2026-10-08",
+        "lastUpdate": "2026-10-09",
         "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
@@ -664,8 +664,8 @@
         "lastErrorTime": "2026-01-20T18:11:08.617945",
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-10-08",
-        "alertNote": "ASST holds 29,462 Bitcoin in treasury. Share price: $28.23, mNAV: 1.22x. Source: https://treasury.st",
+        "alertDate": "2026-10-09",
+        "alertNote": "ASST holds 29,462 Bitcoin in treasury. Share price: $28.23, mNAV: 1.21x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -772,7 +772,7 @@
         "analytics": {
           "totalBtc": 29462.0,
           "sharePrice": 28.23,
-          "mNAV": 1.2156681749563274,
+          "mNAV": 1.2065632366663428,
           "btcYieldYtd": 66.74101901854895,
           "marketCap": 2849507574.78
         },
@@ -937,14 +937,14 @@
         "name": "BitMine Immersion",
         "notes": "Largest ETH treasury. 3.48% of supply",
         "tokens": 96,
-        "lastUpdate": "2026-10-08",
+        "lastUpdate": "2026-10-09",
         "change": -2,
         "cik": "0001829311",
         "irUrl": "https://www.bitminetech.io/investor-relations",
         "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226042492/ex99-1.htm",
-        "alertDate": "2026-10-08",
+        "alertDate": "2026-10-09",
         "alertNote": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announ",
-        "lastSecUpdate": "2026-10-08",
+        "lastSecUpdate": "2026-10-09",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -1756,13 +1756,13 @@
         "name": "Upexi",
         "notes": "High-yield strategy 2026",
         "tokens": 2340150,
-        "lastUpdate": "2026-10-08",
+        "lastUpdate": "2026-10-09",
         "change": 0,
         "cik": "0001839175",
         "irUrl": "https://ir.upexi.com/",
         "dashboardUrl": "https://www.upexi.com/",
         "alertUrl": "https://www.upexi.com/",
-        "alertDate": "2026-10-08",
+        "alertDate": "2026-10-09",
         "alertNote": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/",
         "scrape_config": {
           "method": "html_static",
@@ -2177,6 +2177,294 @@
     "BNB": 99
   },
   "discoveredPressReleases": [
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "Investor Relations",
+      "url": "https://ir.fgcommunities.com/investor-relations/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Inc. Announces Name Change to FG Communities Holdings Inc.",
+      "url": "https://ir.fgcommunities.com/fg-nexus-inc-announces-name-change-to-fg-communities-holdings-inc/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Board of Directors Approves Affordable Housing Real Estate Acquisition Strategy and $10 Million Investment in FG Communities",
+      "url": "https://ir.fgcommunities.com/fg-nexus-board-of-directors-approves-affordable-housing-real-estate-acquisition-strategy-and-10-million-investment-in-fg-communities/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Reports Continued Progress Under Common and Preferred Stock Repurchase Programs",
+      "url": "https://ir.fgcommunities.com/fg-nexus-reports-continued-progress-under-common-and-preferred-stock-repurchase-programs/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Announces Plans to Establish New Real Estate Division and Exit the Digital Asset Business",
+      "url": "https://ir.fgcommunities.com/fg-nexus-announces-plans-to-establish-new-real-estate-division-and-exit-the-digital-asset-business/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Announces Formation of Special Committee to Evaluate Strategic Alternatives including a Potential Business Combination to Build a Leading Platform in Affordable Housing",
+      "url": "https://ir.fgcommunities.com/fg-nexus-announces-formation-of-special-committee-to-evaluate-strategic-alternatives-including-a-potential-business-combination-to-build-a-leading-platform-in-affordable-housing/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus CEO of Digital Assets Maja Vujinovic to Serve as Speaker and Co-Chair at FII Priority Miami 2026",
+      "url": "https://ir.fgcommunities.com/fg-nexus-ceo-of-digital-assets-maja-vujinovic-to-serve-as-speaker-and-co-chair-at-fii-priority-miami-2026/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Announces 1-for-5 Reverse Stock Split",
+      "url": "https://ir.fgcommunities.com/fg-nexus-announces-1-for-5-reverse-stock-split/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Provides Update on Common and Preferred Share Buyback Programs and ETH Holdings",
+      "url": "https://ir.fgcommunities.com/fg-nexus-provides-update-on-common-and-preferred-share-buyback-programs-and-eth-holdings/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Provides Update on Common Share Buyback Program, ETH Holdings and NAV per Share",
+      "url": "https://ir.fgcommunities.com/fg-nexus-provides-update-on-common-share-buyback-program-eth-holdings-and-nav-per-share/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Announces Preferred Share Repurchase Program",
+      "url": "https://ir.fgcommunities.com/fg-nexus-announces-preferred-share-repurchase-program/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Announces Third Quarter Highlights and Shareholder Update",
+      "url": "https://ir.fgcommunities.com/fg-nexus-announces-third-quarter-highlights-and-shareholder-update/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "CEO of Digital Assets Maja Vujinovic on the drivers on the crypto pullback.",
+      "url": "https://ir.fgcommunities.com/ceo-of-digital-assets-maja-vujinovic-on-the-drivers-on-the-crypto-pullback/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus to Present at the 2025 Cantor Crypto &amp; AI/Energy Infrastructure Conference",
+      "url": "https://ir.fgcommunities.com/fg-nexus-to-present-at-the-2025-cantor-crypto-ai-energy-infrastructure-conference/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "CEO of Digital Assets Maja Vujinovic joins CNBC to discuss the rising demand for stablecoins.",
+      "url": "https://ir.fgcommunities.com/ceo-of-digital-assets-maja-vujinovic-joins-cnbc-to-discuss-the-rising-demand-for-stablecoins/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Announces Listing on Deutsche B\u00f6rse in Germany U.S. NASDAQ Ticker is FGNX and German Borse Ticker is LU51",
+      "url": "https://ir.fgcommunities.com/fg-nexus-announces-listing-on-deutsche-borse-in-germany-u-s-nasdaq-ticker-is-fgnx-and-german-borse-ticker-is-lu51/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Announces Commencement of Options Trading on NYSE",
+      "url": "https://ir.fgcommunities.com/fg-nexus-announces-commencement-of-options-trading-on-nyse/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Announces Agreement to Sell FG Reinsurance Division to Devondale Holdings, Led by Tom Heise",
+      "url": "https://ir.fgcommunities.com/fg-nexus-announces-agreement-to-sell-fg-reinsurance-division-to-devondale-holdings-led-by-tom-heise/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Announces Acceptance of Historic 1 Trillion Share Authorization by the State of Nevada",
+      "url": "https://ir.fgcommunities.com/fg-nexus-announces-acceptance-of-historic-1-trillion-share-authorization-by-the-state-of-nevada/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus and Securitize Enter into Agreement to Natively Tokenize FG Nexus Public Shares on Ethereum",
+      "url": "https://ir.fgcommunities.com/fg-nexus-and-securitize-enter-into-agreement-to-natively-tokenize-fg-nexus-public-shares-on-ethereum/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Increases Total ETH Holdings to 50,770",
+      "url": "https://ir.fgcommunities.com/fg-nexus-increases-total-eth-holdings-to-50770/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Reaches 50,000 ETH Holding Milestone",
+      "url": "https://ir.fgcommunities.com/fg-nexus-reaches-50000-eth-holding-milestone/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Accelerates Total ETH Holdings to 49,715",
+      "url": "https://ir.fgcommunities.com/fg-nexus-accelerates-total-eth-holdings-to-49715/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Announces Shareholder Approval of Historic 1 Trillion Share Authorization",
+      "url": "https://ir.fgcommunities.com/fg-nexus-announces-shareholder-approval-of-historic-1-trillion-share-authorization/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Nexus Announces $200 Million Share Repurchase Program",
+      "url": "https://ir.fgcommunities.com/fg-nexus-announces-200-million-share-repurchase-program/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "Fundamental Global Inc. Accelerates Total ETH Holdings to 48,545",
+      "url": "https://ir.fgcommunities.com/fundamental-global-inc-accelerates-total-eth-holdings-to-48545/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "Fundamental Global Inc. Announces 47,331 ETH Purchase",
+      "url": "https://ir.fgcommunities.com/fundamental-global-inc-announces-47331-eth-purchase/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "Fundamental Global Inc. Files $5 Billion Shelf Registration to Fuel Ethereum Accumulation Strategy",
+      "url": "https://ir.fgcommunities.com/fundamental-global-inc-files-5-billion-shelf-registration-to-fuel-ethereum-accumulation-strategy/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "Joe Moglia on Crypto, college sports and the Fed: Whats investor must know now",
+      "url": "https://ir.fgcommunities.com/joe-moglia-on-crypto-college-sports-and-the-fed-whats-investor-must-know-now/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "Fundamental Global Inc. Successfully Closes $200 Million Private Placement to Accelerate Ethereum Treasury Strategy",
+      "url": "https://ir.fgcommunities.com/fundamental-global-inc-successfully-closes-200-million-private-placement-to-accelerate-ethereum-treasury-strategy/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "Fundamental Global Inc. Announces Formation of FG CVR Trust and $10.00 Per Share Special Distribution.",
+      "url": "https://ir.fgcommunities.com/fundamental-global-inc-announces-formation-of-fg-cvr-trust-and-10-00-per-share-special-distribution/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "Fundamental Global Inc. Announces $200 Million Private Placement and Launches Ethereum Treasury Strategy on Ethereum\u2019s 10th Birthday",
+      "url": "https://ir.fgcommunities.com/fundamental-global-inc-announces-200-million-private-placement-and-launches-ethereum-treasury-strategy-on-ethereums-10th-birthday/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-10-09T04:12:55.299144"
+    },
     {
       "ticker": "FWDI",
       "token": "SOL",
