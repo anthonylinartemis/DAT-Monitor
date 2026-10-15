@@ -1,7 +1,31 @@
 {
-  "lastUpdated": "2026-10-14T22:49:59.724055-04:00",
-  "lastUpdatedDisplay": "Oct 14, 2026 10:49 PM ET",
+  "lastUpdated": "2026-10-15T04:46:30.635242-04:00",
+  "lastUpdatedDisplay": "Oct 15, 2026 04:46 AM ET",
   "recentChanges": [
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-10-15",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-10-15",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $265.00, mNAV: 0.71x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-10-15",
+      "tokens": 32773,
+      "change": 0,
+      "summary": "ASST holds 32,773 Bitcoin in treasury. Share price: $24.68, mNAV: 1.05x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "UPXI",
       "token": "SOL",
@@ -57,30 +81,6 @@
       "tokens": 32773,
       "change": 0,
       "summary": "ASST holds 32,773 Bitcoin in treasury. Share price: $24.68, mNAV: 1.05x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "BMNR",
-      "token": "ETH",
-      "date": "2026-10-14",
-      "tokens": 96,
-      "change": -2,
-      "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 5.96 Million Tokens, and Total Crypto and Total Cash Holdings of $15.8 Billio"
-    },
-    {
-      "ticker": "BMNR",
-      "token": "ETH",
-      "date": "2026-10-14",
-      "tokens": 98,
-      "change": 2,
-      "summary": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announces ETH Holdings Reach 5.98 Million Tokens, and Total Crypto and Total Cash Holdings of $17.1 Billio"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-10-14",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
     }
   ],
   "tokenConfig": {
@@ -430,7 +430,7 @@
         "analytics": {
           "totalBtc": 848250.0,
           "sharePrice": 143.24,
-          "mNAV": 0.9350729595167663,
+          "mNAV": 0.9399410921071403,
           "btcYieldYtd": -3.7105418365515295,
           "marketCap": 60475746801.4
         },
@@ -535,7 +535,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-15",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $265.00, mNAV: 0.70x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $265.00, mNAV: 0.71x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -642,9 +642,9 @@
         "analytics": {
           "totalBtc": 44000.0,
           "sharePrice": 265.0,
-          "mNAV": 0.701715459727904,
+          "mNAV": 0.7056982455418994,
           "btcYieldYtd": 22.004991680532445,
-          "marketCap": 2292315619.3790336
+          "marketCap": 2292113159.8376317
         },
         "alertSource": "dashboard"
       },
@@ -668,7 +668,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-15",
-        "alertNote": "ASST holds 32,773 Bitcoin in treasury. Share price: $24.68, mNAV: 1.04x. Source: https://treasury.st",
+        "alertNote": "ASST holds 32,773 Bitcoin in treasury. Share price: $24.68, mNAV: 1.05x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -775,7 +775,7 @@
         "analytics": {
           "totalBtc": 32773.0,
           "sharePrice": 24.68,
-          "mNAV": 1.0434562930483862,
+          "mNAV": 1.0494714165627699,
           "btcYieldYtd": 70.06339516318386,
           "marketCap": 2724356194.72
         },
