@@ -1,7 +1,39 @@
 {
-  "lastUpdated": "2026-10-15T18:51:32.736661-04:00",
-  "lastUpdatedDisplay": "Oct 15, 2026 06:51 PM ET",
+  "lastUpdated": "2026-10-15T22:46:49.850844-04:00",
+  "lastUpdatedDisplay": "Oct 15, 2026 10:46 PM ET",
   "recentChanges": [
+    {
+      "ticker": "PURR",
+      "token": "HYPE",
+      "date": "2026-10-16",
+      "tokens": 3000000,
+      "change": 0,
+      "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
+    },
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-10-16",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-10-16",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $276.00, mNAV: 0.73x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-10-16",
+      "tokens": 32773,
+      "change": 0,
+      "summary": "ASST holds 32,773 Bitcoin in treasury. Share price: $25.65, mNAV: 1.08x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "UPXI",
       "token": "SOL",
@@ -49,38 +81,6 @@
       "tokens": 32773,
       "change": 0,
       "summary": "ASST holds 32,773 Bitcoin in treasury. Share price: $25.04, mNAV: 1.05x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-10-15",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-10-15",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $265.00, mNAV: 0.71x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-10-15",
-      "tokens": 32773,
-      "change": 0,
-      "summary": "ASST holds 32,773 Bitcoin in treasury. Share price: $24.68, mNAV: 1.05x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-10-15",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
     }
   ],
   "tokenConfig": {
@@ -430,7 +430,7 @@
         "analytics": {
           "totalBtc": 848250.0,
           "sharePrice": 151.29,
-          "mNAV": 0.978071527086421,
+          "mNAV": 0.9825562000725007,
           "btcYieldYtd": -3.7105418365515295,
           "marketCap": 63874446618.149994
         },
@@ -521,7 +521,7 @@
         "name": "Metaplanet",
         "notes": "Japan TSE - No SEC",
         "tokens": 44000,
-        "lastUpdate": "2026-10-15",
+        "lastUpdate": "2026-10-16",
         "change": 0,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
@@ -534,8 +534,8 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-10-15",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $265.00, mNAV: 0.69x. Source: https://treasury.",
+        "alertDate": "2026-10-16",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $276.00, mNAV: 0.73x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -641,10 +641,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 265.0,
-          "mNAV": 0.6936303752557922,
+          "sharePrice": 276.0,
+          "mNAV": 0.7260241856214102,
           "btcYieldYtd": 22.004991680532445,
-          "marketCap": 2286762443.386304
+          "marketCap": 2382633543.8680778
         },
         "alertSource": "dashboard"
       },
@@ -652,7 +652,7 @@
         "ticker": "ASST",
         "name": "Strive",
         "tokens": 32773,
-        "lastUpdate": "2026-10-15",
+        "lastUpdate": "2026-10-16",
         "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
@@ -667,8 +667,8 @@
         "lastErrorTime": "2026-01-20T18:11:08.617945",
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-10-15",
-        "alertNote": "ASST holds 32,773 Bitcoin in treasury. Share price: $25.65, mNAV: 1.07x. Source: https://treasury.st",
+        "alertDate": "2026-10-16",
+        "alertNote": "ASST holds 32,773 Bitcoin in treasury. Share price: $25.65, mNAV: 1.08x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -775,7 +775,7 @@
         "analytics": {
           "totalBtc": 32773.0,
           "sharePrice": 25.65,
-          "mNAV": 1.0745754095317983,
+          "mNAV": 1.0795025740357977,
           "btcYieldYtd": 70.06339516318386,
           "marketCap": 2831431782.6
         },
@@ -1775,13 +1775,13 @@
         "name": "Upexi",
         "notes": "High-yield strategy 2026",
         "tokens": 2340150,
-        "lastUpdate": "2026-10-15",
+        "lastUpdate": "2026-10-16",
         "change": 0,
         "cik": "0001839175",
         "irUrl": "https://ir.upexi.com/",
         "dashboardUrl": "https://www.upexi.com/",
         "alertUrl": "https://www.upexi.com/",
-        "alertDate": "2026-10-15",
+        "alertDate": "2026-10-16",
         "alertNote": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/",
         "scrape_config": {
           "method": "html_static",
@@ -1886,7 +1886,7 @@
         "name": "Hyperliquid Strategies",
         "notes": "fka Sonnet Bio",
         "tokens": 3000000,
-        "lastUpdate": "2026-08-27",
+        "lastUpdate": "2026-10-16",
         "change": 0,
         "cik": "0002078856",
         "irUrl": "https://www.sonnetbio.com/investors/news-events",
@@ -1918,7 +1918,7 @@
           }
         ],
         "alertUrl": "https://www.hypestrat.xyz/dashboard",
-        "alertDate": "2026-08-27",
+        "alertDate": "2026-10-16",
         "alertNote": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard",
         "alertSource": "dashboard",
         "lastSecUpdate": "2026-03-01"
