@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-10-17T10:49:52.632588-04:00",
-  "lastUpdatedDisplay": "Oct 17, 2026 10:49 AM ET",
+  "lastUpdated": "2026-10-17T14:06:31.026669-04:00",
+  "lastUpdatedDisplay": "Oct 17, 2026 02:06 PM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -24,7 +24,7 @@
       "date": "2026-10-17",
       "tokens": 44000,
       "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $277.00, mNAV: 0.73x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $277.00, mNAV: 0.74x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -433,7 +433,7 @@
         "analytics": {
           "totalBtc": 848250.0,
           "sharePrice": 136.83,
-          "mNAV": 0.8952686630878535,
+          "mNAV": 0.8967236150052214,
           "btcYieldYtd": -3.7105418365515295,
           "marketCap": 57769452910.05
         },
@@ -538,7 +538,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-17",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $277.00, mNAV: 0.73x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $277.00, mNAV: 0.74x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -645,7 +645,7 @@
         "analytics": {
           "totalBtc": 44000.0,
           "sharePrice": 277.0,
-          "mNAV": 0.7345878458425887,
+          "mNAV": 0.7357816662440508,
           "btcYieldYtd": 22.004991680532445,
           "marketCap": 2392902608.321536
         },
@@ -778,7 +778,7 @@
         "analytics": {
           "totalBtc": 32773.0,
           "sharePrice": 24.09,
-          "mNAV": 1.0214050281961016,
+          "mNAV": 1.0230649714795599,
           "btcYieldYtd": 70.06339516318386,
           "marketCap": 2659227744.36
         },
