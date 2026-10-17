@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-10-17T04:12:12.538748-04:00",
-  "lastUpdatedDisplay": "Oct 17, 2026 04:12 AM ET",
+  "lastUpdated": "2026-10-17T10:49:52.632588-04:00",
+  "lastUpdatedDisplay": "Oct 17, 2026 10:49 AM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -56,7 +56,7 @@
       "date": "2026-10-17",
       "tokens": 44000,
       "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $277.00, mNAV: 0.74x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $277.00, mNAV: 0.73x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -69,7 +69,7 @@
     {
       "ticker": "PURR",
       "token": "HYPE",
-      "date": "2026-10-16",
+      "date": "2026-10-17",
       "tokens": 3000000,
       "change": 0,
       "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
@@ -77,7 +77,7 @@
     {
       "ticker": "UPXI",
       "token": "SOL",
-      "date": "2026-10-16",
+      "date": "2026-10-17",
       "tokens": 2340150,
       "change": 0,
       "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
@@ -433,7 +433,7 @@
         "analytics": {
           "totalBtc": 848250.0,
           "sharePrice": 136.83,
-          "mNAV": 0.8930667210075218,
+          "mNAV": 0.8952686630878535,
           "btcYieldYtd": -3.7105418365515295,
           "marketCap": 57769452910.05
         },
@@ -645,7 +645,7 @@
         "analytics": {
           "totalBtc": 44000.0,
           "sharePrice": 277.0,
-          "mNAV": 0.7327811034018537,
+          "mNAV": 0.7345878458425887,
           "btcYieldYtd": 22.004991680532445,
           "marketCap": 2392902608.321536
         },
@@ -778,7 +778,7 @@
         "analytics": {
           "totalBtc": 32773.0,
           "sharePrice": 24.09,
-          "mNAV": 1.0188928496676026,
+          "mNAV": 1.0214050281961016,
           "btcYieldYtd": 70.06339516318386,
           "marketCap": 2659227744.36
         },
