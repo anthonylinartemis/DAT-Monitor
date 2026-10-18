@@ -1,7 +1,39 @@
 {
-  "lastUpdated": "2026-10-18T11:14:41.071657-04:00",
-  "lastUpdatedDisplay": "Oct 18, 2026 11:14 AM ET",
+  "lastUpdated": "2026-10-18T14:24:59.843657-04:00",
+  "lastUpdatedDisplay": "Oct 18, 2026 02:24 PM ET",
   "recentChanges": [
+    {
+      "ticker": "PURR",
+      "token": "HYPE",
+      "date": "2026-10-18",
+      "tokens": 3000000,
+      "change": 0,
+      "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
+    },
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-10-18",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-10-18",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $277.10, mNAV: 0.74x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-10-18",
+      "tokens": 35595,
+      "change": 2822,
+      "summary": "ASST holds 35,595 Bitcoin in treasury. Share price: $24.09, mNAV: 1.06x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "PURR",
       "token": "HYPE",
@@ -33,38 +65,6 @@
       "tokens": 32773,
       "change": 0,
       "summary": "ASST holds 32,773 Bitcoin in treasury. Share price: $24.09, mNAV: 1.03x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "PURR",
-      "token": "HYPE",
-      "date": "2026-10-18",
-      "tokens": 3000000,
-      "change": 0,
-      "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-10-18",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-10-18",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $277.10, mNAV: 0.73x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-10-18",
-      "tokens": 32773,
-      "change": 0,
-      "summary": "ASST holds 32,773 Bitcoin in treasury. Share price: $24.09, mNAV: 1.02x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "PURR",
@@ -433,7 +433,7 @@
         "analytics": {
           "totalBtc": 848250.0,
           "sharePrice": 136.83,
-          "mNAV": 0.8995831219226886,
+          "mNAV": 0.8984209188282882,
           "btcYieldYtd": -3.7105418365515295,
           "marketCap": 57769452910.05
         },
@@ -645,7 +645,7 @@
         "analytics": {
           "totalBtc": 44000.0,
           "sharePrice": 277.10371696291884,
-          "mNAV": 0.738127955255697,
+          "mNAV": 0.737174341773234,
           "btcYieldYtd": 22.004991680532445,
           "marketCap": 2392902608.321536
         },
@@ -654,9 +654,9 @@
       {
         "ticker": "ASST",
         "name": "Strive",
-        "tokens": 32773,
+        "tokens": 35595,
         "lastUpdate": "2026-10-18",
-        "change": 0,
+        "change": 2822,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
         "dashboardUrl": "https://treasury.strive.com/",
@@ -671,7 +671,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-18",
-        "alertNote": "ASST holds 32,773 Bitcoin in treasury. Share price: $24.09, mNAV: 1.03x. Source: https://treasury.st",
+        "alertNote": "ASST holds 35,595 Bitcoin in treasury. Share price: $24.09, mNAV: 1.06x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -776,11 +776,11 @@
           }
         ],
         "analytics": {
-          "totalBtc": 32773.0,
+          "totalBtc": 35595.0,
           "sharePrice": 24.09,
-          "mNAV": 1.0263273605970218,
-          "btcYieldYtd": 70.06339516318386,
-          "marketCap": 2659227744.36
+          "mNAV": 1.0578278444235156,
+          "btcYieldYtd": 64.78633482038038,
+          "marketCap": 2988651339.63
         },
         "alertSource": "dashboard"
       },
@@ -2192,7 +2192,7 @@
     ]
   },
   "totals": {
-    "BTC": 87362,
+    "BTC": 90184,
     "ETH": 1638752,
     "SOL": 13620216,
     "HYPE": 34000000,
