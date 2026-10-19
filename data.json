@@ -1,7 +1,39 @@
 {
-  "lastUpdated": "2026-10-18T22:53:05.849151-04:00",
-  "lastUpdatedDisplay": "Oct 18, 2026 10:53 PM ET",
+  "lastUpdated": "2026-10-19T05:31:17.003485-04:00",
+  "lastUpdatedDisplay": "Oct 19, 2026 05:31 AM ET",
   "recentChanges": [
+    {
+      "ticker": "PURR",
+      "token": "HYPE",
+      "date": "2026-10-19",
+      "tokens": 3000000,
+      "change": 0,
+      "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
+    },
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-10-19",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-10-19",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $267.00, mNAV: 0.70x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-10-19",
+      "tokens": 35595,
+      "change": 0,
+      "summary": "ASST holds 35,595 Bitcoin in treasury. Share price: $24.09, mNAV: 1.04x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "PURR",
       "token": "HYPE",
@@ -33,38 +65,6 @@
       "tokens": 35595,
       "change": 0,
       "summary": "ASST holds 35,595 Bitcoin in treasury. Share price: $24.09, mNAV: 1.04x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "PURR",
-      "token": "HYPE",
-      "date": "2026-10-18",
-      "tokens": 3000000,
-      "change": 0,
-      "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-10-18",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-10-18",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $277.00, mNAV: 0.74x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-10-18",
-      "tokens": 35595,
-      "change": 0,
-      "summary": "ASST holds 35,595 Bitcoin in treasury. Share price: $24.09, mNAV: 1.06x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "PURR",
@@ -433,7 +433,7 @@
         "analytics": {
           "totalBtc": 848250.0,
           "sharePrice": 136.83,
-          "mNAV": 0.8850111140206489,
+          "mNAV": 0.8813757007050986,
           "btcYieldYtd": -3.7105418365515295,
           "marketCap": 57769452910.05
         },
@@ -538,7 +538,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-19",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $266.02, mNAV: 0.70x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $267.00, mNAV: 0.70x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -644,10 +644,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 266.0218463929445,
-          "mNAV": 0.6973341713526211,
+          "sharePrice": 267.0,
+          "mNAV": 0.6960093169432262,
           "btcYieldYtd": 22.004991680532445,
-          "marketCap": 2297877594.994688
+          "marketCap": 2302971949.09814
         },
         "alertSource": "dashboard"
       },
@@ -778,7 +778,7 @@
         "analytics": {
           "totalBtc": 35595.0,
           "sharePrice": 24.09,
-          "mNAV": 1.0420387364268926,
+          "mNAV": 1.0377582913141579,
           "btcYieldYtd": 64.78633482038038,
           "marketCap": 2988651339.63
         },
