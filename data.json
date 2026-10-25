@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-10-25T11:25:29.694184-04:00",
-  "lastUpdatedDisplay": "Oct 25, 2026 11:25 AM ET",
+  "lastUpdated": "2026-10-25T14:40:38.908153-04:00",
+  "lastUpdatedDisplay": "Oct 25, 2026 02:40 PM ET",
   "recentChanges": [
     {
       "ticker": "PURR",
@@ -56,7 +56,7 @@
       "date": "2026-10-25",
       "tokens": 44000,
       "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $264.79, mNAV: 0.72x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $264.79, mNAV: 0.71x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -433,7 +433,7 @@
         "analytics": {
           "totalBtc": 848517.0,
           "sharePrice": 146.01,
-          "mNAV": 0.9649831292328556,
+          "mNAV": 0.9653865856299055,
           "btcYieldYtd": -3.7095161166243553,
           "marketCap": 61667799054.57
         },
@@ -645,7 +645,7 @@
         "analytics": {
           "totalBtc": 44000.0,
           "sharePrice": 264.7930525107496,
-          "mNAV": 0.7143564879502323,
+          "mNAV": 0.7146551581405254,
           "btcYieldYtd": 22.004991680532445,
           "marketCap": 2303700353.23392
         },
@@ -778,7 +778,7 @@
         "analytics": {
           "totalBtc": 36818.0,
           "sharePrice": 28.97,
-          "mNAV": 1.2379315608575072,
+          "mNAV": 1.2384491361313203,
           "btcYieldYtd": 70.45081004930735,
           "marketCap": 3594137730.22
         },
