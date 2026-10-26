@@ -1,7 +1,31 @@
 {
-  "lastUpdated": "2026-10-26T14:06:03.387521-04:00",
-  "lastUpdatedDisplay": "Oct 26, 2026 02:06 PM ET",
+  "lastUpdated": "2026-10-26T19:31:25.587620-04:00",
+  "lastUpdatedDisplay": "Oct 26, 2026 07:31 PM ET",
   "recentChanges": [
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-10-26",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-10-26",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $263.00, mNAV: 0.71x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-10-26",
+      "tokens": 43000,
+      "change": 0,
+      "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $26.32, mNAV: 1.00x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "UPXI",
       "token": "SOL",
@@ -57,30 +81,6 @@
       "tokens": 36818,
       "change": 0,
       "summary": "ASST holds 36,818 Bitcoin in treasury. Share price: $28.97, mNAV: 1.24x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "PURR",
-      "token": "HYPE",
-      "date": "2026-10-26",
-      "tokens": 3000000,
-      "change": 0,
-      "summary": "PURR holds 3,000,000 HYPE in treasury. Source: https://www.hypestrat.xyz/dashboard"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-10-26",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-10-26",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $260.65, mNAV: 0.71x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -432,10 +432,10 @@
         ],
         "analytics": {
           "totalBtc": 848517.0,
-          "sharePrice": 141.5069,
-          "mNAV": 0.9394268385522687,
+          "sharePrice": 139.82,
+          "mNAV": 0.9340262010071454,
           "btcYieldYtd": -3.7095161166243553,
-          "marketCap": 59765900102.9733
+          "marketCap": 59053432393.74
         },
         "alertSource": "sec_edgar"
       },
@@ -645,9 +645,9 @@
         "analytics": {
           "totalBtc": 44000.0,
           "sharePrice": 263.0,
-          "mNAV": 0.709988922057639,
+          "mNAV": 0.7141326467347484,
           "btcYieldYtd": 22.004991680532445,
-          "marketCap": 2279367444.9226956
+          "marketCap": 2278438136.5277057
         },
         "alertSource": "dashboard"
       },
@@ -656,7 +656,7 @@
         "name": "Strive",
         "tokens": 43000,
         "lastUpdate": "2026-10-26",
-        "change": 6182,
+        "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
         "dashboardUrl": "https://treasury.strive.com/",
@@ -671,7 +671,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-26",
-        "alertNote": "ASST holds 43,000 Bitcoin in treasury. Share price: $27.30, mNAV: 1.03x. Source: https://treasury.st",
+        "alertNote": "ASST holds 43,000 Bitcoin in treasury. Share price: $26.32, mNAV: 1.00x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -777,10 +777,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 27.3,
-          "mNAV": 1.0291017225483499,
+          "sharePrice": 26.32,
+          "mNAV": 0.9983572081213387,
           "btcYieldYtd": 94.08898802535806,
-          "marketCap": 3476063845.8
+          "marketCap": 3351282066.7200003
         },
         "alertSource": "dashboard"
       },
