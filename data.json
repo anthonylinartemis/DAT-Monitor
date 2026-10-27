@@ -1,7 +1,31 @@
 {
-  "lastUpdated": "2026-10-27T13:16:33.162069-04:00",
-  "lastUpdatedDisplay": "Oct 27, 2026 01:16 PM ET",
+  "lastUpdated": "2026-10-27T19:26:03.653808-04:00",
+  "lastUpdatedDisplay": "Oct 27, 2026 07:26 PM ET",
   "recentChanges": [
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-10-27",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-10-27",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $258.00, mNAV: 0.69x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-10-27",
+      "tokens": 43000,
+      "change": 0,
+      "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $27.14, mNAV: 1.02x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "UPXI",
       "token": "SOL",
@@ -54,30 +78,6 @@
       "ticker": "UPXI",
       "token": "SOL",
       "date": "2026-10-27",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-10-27",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $260.00, mNAV: 0.71x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-10-27",
-      "tokens": 43000,
-      "change": 0,
-      "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $26.32, mNAV: 1.00x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-10-26",
       "tokens": 2340150,
       "change": 0,
       "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
@@ -432,10 +432,10 @@
         ],
         "analytics": {
           "totalBtc": 848517.0,
-          "sharePrice": 140.3708,
-          "mNAV": 0.9282709219398492,
+          "sharePrice": 141.4,
+          "mNAV": 0.9319301287442459,
           "btcYieldYtd": -3.7095161166243553,
-          "marketCap": 59286064567.6956
+          "marketCap": 59720750539.8
         },
         "alertSource": "sec_edgar"
       },
@@ -645,9 +645,9 @@
         "analytics": {
           "totalBtc": 44000.0,
           "sharePrice": 258.0,
-          "mNAV": 0.691671460058121,
+          "mNAV": 0.6890563749719879,
           "btcYieldYtd": 22.004991680532445,
-          "marketCap": 2229204955.6904144
+          "marketCap": 2228275715.509555
         },
         "alertSource": "dashboard"
       },
@@ -671,7 +671,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-27",
-        "alertNote": "ASST holds 43,000 Bitcoin in treasury. Share price: $26.14, mNAV: 0.98x. Source: https://treasury.st",
+        "alertNote": "ASST holds 43,000 Bitcoin in treasury. Share price: $27.14, mNAV: 1.02x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -777,10 +777,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 26.14,
-          "mNAV": 0.981553251955126,
+          "sharePrice": 27.135,
+          "mNAV": 1.0154863277164587,
           "btcYieldYtd": 94.08898802535806,
-          "marketCap": 3328362964.44
+          "marketCap": 3455054668.71
         },
         "alertSource": "dashboard"
       },
