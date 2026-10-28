@@ -1,7 +1,31 @@
 {
-  "lastUpdated": "2026-10-28T13:47:39.082777-04:00",
-  "lastUpdatedDisplay": "Oct 28, 2026 01:47 PM ET",
+  "lastUpdated": "2026-10-28T19:49:24.812915-04:00",
+  "lastUpdatedDisplay": "Oct 28, 2026 07:49 PM ET",
   "recentChanges": [
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-10-28",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-10-28",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $272.00, mNAV: 0.72x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-10-28",
+      "tokens": 43000,
+      "change": 0,
+      "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $27.53, mNAV: 1.02x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "UPXI",
       "token": "SOL",
@@ -54,30 +78,6 @@
       "ticker": "UPXI",
       "token": "SOL",
       "date": "2026-10-28",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-10-28",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $268.00, mNAV: 0.71x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-10-28",
-      "tokens": 43000,
-      "change": 0,
-      "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $27.14, mNAV: 1.01x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-10-27",
       "tokens": 2340150,
       "change": 0,
       "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
@@ -435,10 +435,10 @@
         ],
         "analytics": {
           "totalBtc": 848517.0,
-          "sharePrice": 139.34,
-          "mNAV": 0.9223265238742603,
+          "sharePrice": 145.16,
+          "mNAV": 0.951453406658513,
           "btcYieldYtd": -3.7095161166243553,
-          "marketCap": 58850702830.380005
+          "marketCap": 61308798786.119995
         },
         "alertSource": "sec_edgar"
       },
@@ -541,7 +541,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-28",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $272.00, mNAV: 0.73x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $272.00, mNAV: 0.72x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -648,9 +648,9 @@
         "analytics": {
           "totalBtc": 44000.0,
           "sharePrice": 272.0,
-          "mNAV": 0.7284041454789243,
+          "mNAV": 0.7234063950610546,
           "btcYieldYtd": 22.004991680532445,
-          "marketCap": 2345371438.271816
+          "marketCap": 2352284749.4693685
         },
         "alertSource": "dashboard"
       },
@@ -674,7 +674,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-28",
-        "alertNote": "ASST holds 43,000 Bitcoin in treasury. Share price: $26.84, mNAV: 1.01x. Source: https://treasury.st",
+        "alertNote": "ASST holds 43,000 Bitcoin in treasury. Share price: $27.53, mNAV: 1.02x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -780,10 +780,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 26.845,
-          "mNAV": 1.0089801256317577,
+          "sharePrice": 27.53,
+          "mNAV": 1.0246064581765346,
           "btcYieldYtd": 94.08898802535806,
-          "marketCap": 3418129448.37
+          "marketCap": 3505349365.38
         },
         "alertSource": "dashboard"
       },
