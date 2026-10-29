@@ -1,7 +1,31 @@
 {
-  "lastUpdated": "2026-10-29T06:45:15.668552-04:00",
-  "lastUpdatedDisplay": "Oct 29, 2026 06:45 AM ET",
+  "lastUpdated": "2026-10-29T13:55:19.533756-04:00",
+  "lastUpdatedDisplay": "Oct 29, 2026 01:55 PM ET",
   "recentChanges": [
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-10-29",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-10-29",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $264.00, mNAV: 0.70x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-10-29",
+      "tokens": 43000,
+      "change": 0,
+      "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $26.04, mNAV: 0.97x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "UPXI",
       "token": "SOL",
@@ -49,30 +73,6 @@
       "tokens": 43000,
       "change": 0,
       "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $27.53, mNAV: 1.04x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-10-28",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-10-28",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $272.00, mNAV: 0.72x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-10-28",
-      "tokens": 43000,
-      "change": 0,
-      "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $27.53, mNAV: 1.02x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "UPXI",
@@ -435,10 +435,10 @@
         ],
         "analytics": {
           "totalBtc": 848517.0,
-          "sharePrice": 145.16,
-          "mNAV": 0.9660351154342304,
+          "sharePrice": 142.7,
+          "mNAV": 0.9381459609523252,
           "btcYieldYtd": -3.7095161166243553,
-          "marketCap": 61308798786.119995
+          "marketCap": 60269809773.899994
         },
         "alertSource": "sec_edgar"
       },
@@ -541,7 +541,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-29",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $264.00, mNAV: 0.71x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $264.00, mNAV: 0.70x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -648,9 +648,9 @@
         "analytics": {
           "totalBtc": 44000.0,
           "sharePrice": 264.0,
-          "mNAV": 0.7119029632606919,
+          "mNAV": 0.7034908928393276,
           "btcYieldYtd": 22.004991680532445,
-          "marketCap": 2279937605.916918
+          "marketCap": 2280657947.14239
         },
         "alertSource": "dashboard"
       },
@@ -674,7 +674,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-29",
-        "alertNote": "ASST holds 43,000 Bitcoin in treasury. Share price: $27.53, mNAV: 1.04x. Source: https://treasury.st",
+        "alertNote": "ASST holds 43,000 Bitcoin in treasury. Share price: $26.04, mNAV: 0.97x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -780,10 +780,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 27.53,
-          "mNAV": 1.0403092901578928,
+          "sharePrice": 26.0386,
+          "mNAV": 0.9720181665241454,
           "btcYieldYtd": 94.08898802535806,
-          "marketCap": 3505349365.38
+          "marketCap": 3315451870.1556
         },
         "alertSource": "dashboard"
       },
@@ -1162,6 +1162,14 @@
         "lastChecked": "2026-01-27T19:33:02.978205",
         "filings": [
           {
+            "url": "https://www.sec.gov/Archives/edgar/data/2028699/000121390026113686/ea0310052-8k_dynamix.htm",
+            "date": "2026-10-29",
+            "note": "8-K: Item 8.01 - Other Events; Item 9.01 - Financial Statements and Exhibits",
+            "type": "sec_filing",
+            "items": "8.01,9.01",
+            "form": "8-K"
+          },
+          {
             "url": "https://www.sec.gov/Archives/edgar/data/2028699/000121390026049859/ea0288485-8k_dynamix.htm",
             "date": "2026-04-30",
             "note": "8-K: Item 7.01 - Regulation FD Disclosure",
@@ -1170,11 +1178,11 @@
             "form": "8-K"
           }
         ],
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/2028699/000121390026049859/ea0288485-8k_dynamix.htm",
-        "alertDate": "2026-04-30",
-        "alertNote": "8-K: Item 7.01 - Regulation FD Disclosure",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/2028699/000121390026113686/ea0310052-8k_dynamix.htm",
+        "alertDate": "2026-10-29",
+        "alertNote": "8-K: Item 8.01 - Other Events; Item 9.01 - Financial Statements and Exhibits",
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-04-30"
+        "lastSecUpdate": "2026-10-29"
       },
       {
         "ticker": "BTBT",
