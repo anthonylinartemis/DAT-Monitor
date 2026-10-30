@@ -1,7 +1,31 @@
 {
-  "lastUpdated": "2026-10-30T06:46:29.572416-04:00",
-  "lastUpdatedDisplay": "Oct 30, 2026 06:46 AM ET",
+  "lastUpdated": "2026-10-30T13:37:51.832655-04:00",
+  "lastUpdatedDisplay": "Oct 30, 2026 01:37 PM ET",
   "recentChanges": [
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-10-30",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-10-30",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $244.00, mNAV: 0.68x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-10-30",
+      "tokens": 43000,
+      "change": 0,
+      "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $22.20, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "UPXI",
       "token": "SOL",
@@ -49,30 +73,6 @@
       "tokens": 43000,
       "change": 0,
       "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $24.91, mNAV: 0.97x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-10-29",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-10-29",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $264.00, mNAV: 0.73x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-10-29",
-      "tokens": 43000,
-      "change": 0,
-      "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $24.91, mNAV: 0.96x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "UPXI",
@@ -438,10 +438,10 @@
         ],
         "analytics": {
           "totalBtc": 848517.0,
-          "sharePrice": 141.62,
-          "mNAV": 0.975318506509296,
+          "sharePrice": 129.69,
+          "mNAV": 0.8953041697205432,
           "btcYieldYtd": -3.7095161166243553,
-          "marketCap": 59813668256.340004
+          "marketCap": 54774993900.33
         },
         "alertSource": "sec_edgar"
       },
@@ -650,10 +650,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 244.0,
-          "mNAV": 0.6839816735087277,
+          "sharePrice": 243.99999999999997,
+          "mNAV": 0.6845975484444535,
           "btcYieldYtd": 22.004991680532445,
-          "marketCap": 2116755542.9750578
+          "marketCap": 2113583149.303818
         },
         "alertSource": "dashboard"
       },
@@ -677,7 +677,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-10-30",
-        "alertNote": "ASST holds 43,000 Bitcoin in treasury. Share price: $24.91, mNAV: 0.97x. Source: https://treasury.st",
+        "alertNote": "ASST holds 43,000 Bitcoin in treasury. Share price: $22.20, mNAV: 0.87x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -783,10 +783,10 @@
         ],
         "analytics": {
           "totalBtc": 43000.0,
-          "sharePrice": 24.91,
-          "mNAV": 0.9741053174613532,
+          "sharePrice": 22.2,
+          "mNAV": 0.8702166790919599,
           "btcYieldYtd": 94.08898802535806,
-          "marketCap": 3171749098.86
+          "marketCap": 2826689281.2
         },
         "alertSource": "dashboard"
       },
@@ -2221,6 +2221,33 @@
     "BNB": 99
   },
   "discoveredPressReleases": [
+    {
+      "ticker": "STSS",
+      "token": "SOL",
+      "title": "Tender Offer Mtls",
+      "url": "https://www.sharpstechnology.com/investors/tender-offer-materials",
+      "date": null,
+      "sourcePage": "https://www.sharpstechnology.com/investors/news",
+      "discoveredAt": "2026-10-30T17:37:47.433663"
+    },
+    {
+      "ticker": "STSS",
+      "token": "SOL",
+      "title": "Tender Offer FAQs",
+      "url": "https://www.sharpstechnology.com/investors/tender-offer-faqs",
+      "date": null,
+      "sourcePage": "https://www.sharpstechnology.com/investors/news",
+      "discoveredAt": "2026-10-30T17:37:47.433663"
+    },
+    {
+      "ticker": "STSS",
+      "token": "SOL",
+      "title": "Governance",
+      "url": "https://www.sharpstechnology.com/investors/governance-documents",
+      "date": null,
+      "sourcePage": "https://www.sharpstechnology.com/investors/news",
+      "discoveredAt": "2026-10-30T17:37:47.433663"
+    },
     {
       "ticker": "BNC",
       "token": "BNB",
