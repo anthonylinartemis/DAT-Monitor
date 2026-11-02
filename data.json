@@ -1,7 +1,31 @@
 {
-  "lastUpdated": "2026-11-01T18:18:15.765011-05:00",
-  "lastUpdatedDisplay": "Nov 01, 2026 06:18 PM ET",
+  "lastUpdated": "2026-11-01T22:56:52.253105-05:00",
+  "lastUpdatedDisplay": "Nov 01, 2026 10:56 PM ET",
   "recentChanges": [
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-11-02",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-11-02",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $252.57, mNAV: 0.69x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-11-02",
+      "tokens": 43000,
+      "change": 0,
+      "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $22.20, mNAV: 0.85x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "UPXI",
       "token": "SOL",
@@ -17,30 +41,6 @@
       "tokens": 44000,
       "change": 0,
       "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $244.00, mNAV: 0.68x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-11-01",
-      "tokens": 43000,
-      "change": 0,
-      "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $22.20, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-11-01",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-11-01",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $244.35, mNAV: 0.68x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -439,7 +439,7 @@
         "analytics": {
           "totalBtc": 848517.0,
           "sharePrice": 130.51,
-          "mNAV": 0.8949163090148448,
+          "mNAV": 0.8842851580914847,
           "btcYieldYtd": -3.7095161166243553,
           "marketCap": 55121323571.07
         },
@@ -530,7 +530,7 @@
         "name": "Metaplanet",
         "notes": "Japan TSE - No SEC",
         "tokens": 44000,
-        "lastUpdate": "2026-11-01",
+        "lastUpdate": "2026-11-02",
         "change": 0,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
@@ -543,8 +543,8 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-11-01",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $244.00, mNAV: 0.68x. Source: https://treasury.",
+        "alertDate": "2026-11-02",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $252.57, mNAV: 0.69x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -650,10 +650,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 244.0,
-          "mNAV": 0.6801524859814709,
+          "sharePrice": 252.57312527639144,
+          "mNAV": 0.6935940955543101,
           "btcYieldYtd": 22.004991680532445,
-          "marketCap": 2114052517.097779
+          "marketCap": 2181749858.039808
         },
         "alertSource": "dashboard"
       },
@@ -661,7 +661,7 @@
         "ticker": "ASST",
         "name": "Strive",
         "tokens": 43000,
-        "lastUpdate": "2026-11-01",
+        "lastUpdate": "2026-11-02",
         "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
@@ -676,8 +676,8 @@
         "lastErrorTime": "2026-01-20T18:11:08.617945",
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-11-01",
-        "alertNote": "ASST holds 43,000 Bitcoin in treasury. Share price: $22.20, mNAV: 0.86x. Source: https://treasury.st",
+        "alertDate": "2026-11-02",
+        "alertNote": "ASST holds 43,000 Bitcoin in treasury. Share price: $22.20, mNAV: 0.85x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -784,7 +784,7 @@
         "analytics": {
           "totalBtc": 43000.0,
           "sharePrice": 22.195,
-          "mNAV": 0.8641797672347934,
+          "mNAV": 0.8539137508063958,
           "btcYieldYtd": 94.08898802535806,
           "marketCap": 2826052639.4700003
         },
@@ -1800,13 +1800,13 @@
         "name": "Upexi",
         "notes": "High-yield strategy 2026",
         "tokens": 2340150,
-        "lastUpdate": "2026-11-01",
+        "lastUpdate": "2026-11-02",
         "change": 0,
         "cik": "0001839175",
         "irUrl": "https://ir.upexi.com/",
         "dashboardUrl": "https://www.upexi.com/",
         "alertUrl": "https://www.upexi.com/",
-        "alertDate": "2026-11-01",
+        "alertDate": "2026-11-02",
         "alertNote": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/",
         "scrape_config": {
           "method": "html_static",
@@ -3608,20 +3608,6 @@
       "indexUrl": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000125/",
       "accession": "0001805526-26-000125",
       "status": "reported"
-    },
-    {
-      "ticker": "HYPD",
-      "name": "Hyperion DeFi",
-      "token": "HYPE",
-      "type": "8-K",
-      "items": "1.02,2.02,7.01,8.01,9.01",
-      "date": "2026-10-02",
-      "quarter": "Q3 FY2026",
-      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926113050/tm2626852d1_8k.htm",
-      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926113050/",
-      "accession": "0001104659-26-113050",
-      "status": "reported",
-      "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926113050/tm2626852d1_ex99-1.htm"
     }
   ]
 }
