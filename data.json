@@ -1,7 +1,31 @@
 {
-  "lastUpdated": "2026-11-02T16:33:25.574536-05:00",
-  "lastUpdatedDisplay": "Nov 02, 2026 04:33 PM ET",
+  "lastUpdated": "2026-11-02T23:58:37.163731-05:00",
+  "lastUpdatedDisplay": "Nov 02, 2026 11:58 PM ET",
   "recentChanges": [
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-11-03",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-11-03",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $250.00, mNAV: 0.73x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-11-03",
+      "tokens": 43124,
+      "change": 0,
+      "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $20.80, mNAV: 0.82x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "UPXI",
       "token": "SOL",
@@ -54,30 +78,6 @@
       "ticker": "UPXI",
       "token": "SOL",
       "date": "2026-11-02",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-11-02",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $252.57, mNAV: 0.69x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-11-02",
-      "tokens": 43000,
-      "change": 0,
-      "summary": "ASST holds 43,000 Bitcoin in treasury. Share price: $22.20, mNAV: 0.85x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-11-01",
       "tokens": 2340150,
       "change": 0,
       "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
@@ -438,10 +438,10 @@
         ],
         "analytics": {
           "totalBtc": 849327.0,
-          "sharePrice": 130.175,
-          "mNAV": 0.906246797737106,
+          "sharePrice": 130.76,
+          "mNAV": 0.9069950214602547,
           "btcYieldYtd": -3.8679898453727213,
-          "marketCap": 55133428972.825005
+          "marketCap": 55381195870.84
         },
         "alertSource": "sec_edgar"
       },
@@ -530,7 +530,7 @@
         "name": "Metaplanet",
         "notes": "Japan TSE - No SEC",
         "tokens": 44000,
-        "lastUpdate": "2026-11-02",
+        "lastUpdate": "2026-11-03",
         "change": 0,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
@@ -543,7 +543,7 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-11-02",
+        "alertDate": "2026-11-03",
         "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $250.00, mNAV: 0.73x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
@@ -651,9 +651,9 @@
         "analytics": {
           "totalBtc": 44000.0,
           "sharePrice": 250.0,
-          "mNAV": 0.7310794368097364,
+          "mNAV": 0.7284510086935804,
           "btcYieldYtd": 17.512479201331114,
-          "marketCap": 2007181259.4084299
+          "marketCap": 2007295362.1461601
         },
         "alertSource": "dashboard"
       },
@@ -661,8 +661,8 @@
         "ticker": "ASST",
         "name": "Strive",
         "tokens": 43124,
-        "lastUpdate": "2026-11-02",
-        "change": 124,
+        "lastUpdate": "2026-11-03",
+        "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
         "dashboardUrl": "https://treasury.strive.com/",
@@ -676,8 +676,8 @@
         "lastErrorTime": "2026-01-20T18:11:08.617945",
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-11-02",
-        "alertNote": "ASST holds 43,124 Bitcoin in treasury. Share price: $20.82, mNAV: 0.82x. Source: https://treasury.st",
+        "alertDate": "2026-11-03",
+        "alertNote": "ASST holds 43,124 Bitcoin in treasury. Share price: $20.80, mNAV: 0.82x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -783,10 +783,10 @@
         ],
         "analytics": {
           "totalBtc": 43124.0,
-          "sharePrice": 20.8165,
-          "mNAV": 0.8191613192812779,
+          "sharePrice": 20.8,
+          "mNAV": 0.815522886773722,
           "btcYieldYtd": 94.64663066447523,
-          "marketCap": 2650588030.4985003
+          "marketCap": 2648487067.2000003
         },
         "alertSource": "dashboard"
       },
@@ -1800,13 +1800,13 @@
         "name": "Upexi",
         "notes": "High-yield strategy 2026",
         "tokens": 2340150,
-        "lastUpdate": "2026-11-02",
+        "lastUpdate": "2026-11-03",
         "change": 0,
         "cik": "0001839175",
         "irUrl": "https://ir.upexi.com/",
         "dashboardUrl": "https://www.upexi.com/",
         "alertUrl": "https://www.upexi.com/",
-        "alertDate": "2026-11-02",
+        "alertDate": "2026-11-03",
         "alertNote": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/",
         "scrape_config": {
           "method": "html_static",
@@ -3582,6 +3582,19 @@
     }
   ],
   "earnings": [
+    {
+      "ticker": "MSTR",
+      "name": "Strategy",
+      "token": "BTC",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-11-02",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000105044626000060/mstr-20260930.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1050446/000105044626000060/",
+      "accession": "0001050446-26-000060",
+      "status": "reported"
+    },
     {
       "ticker": "MSTR",
       "name": "Strategy",
