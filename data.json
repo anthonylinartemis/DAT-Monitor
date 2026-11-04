@@ -1,7 +1,31 @@
 {
-  "lastUpdated": "2026-11-04T10:55:18.099294-05:00",
-  "lastUpdatedDisplay": "Nov 04, 2026 10:55 AM ET",
+  "lastUpdated": "2026-11-04T16:41:08.718124-05:00",
+  "lastUpdatedDisplay": "Nov 04, 2026 04:41 PM ET",
   "recentChanges": [
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-11-04",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-11-04",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $242.00, mNAV: 0.68x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-11-04",
+      "tokens": 43124,
+      "change": 0,
+      "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $22.92, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "UPXI",
       "token": "SOL",
@@ -49,30 +73,6 @@
       "tokens": 43124,
       "change": 0,
       "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $20.66, mNAV: 0.81x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-11-03",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-11-03",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $250.00, mNAV: 0.72x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-11-03",
-      "tokens": 43124,
-      "change": 0,
-      "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $20.66, mNAV: 0.80x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "UPXI",
@@ -438,10 +438,10 @@
         ],
         "analytics": {
           "totalBtc": 849327.0,
-          "sharePrice": 143.4469,
-          "mNAV": 0.9496328993703259,
+          "sharePrice": 142.54,
+          "mNAV": 0.9502450111102263,
           "btcYieldYtd": -3.8679898453727213,
-          "marketCap": 60754518705.7571
+          "marketCap": 60370416483.85999
         },
         "alertSource": "sec_edgar"
       },
@@ -544,7 +544,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-04",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $242.00, mNAV: 0.67x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $242.00, mNAV: 0.68x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -650,10 +650,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 241.99999999999997,
-          "mNAV": 0.669967236108815,
+          "sharePrice": 242.0,
+          "mNAV": 0.6754231505573178,
           "btcYieldYtd": 17.512479201331114,
-          "marketCap": 1934327041.710284
+          "marketCap": 1936502321.6585329
         },
         "alertSource": "dashboard"
       },
@@ -677,7 +677,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-04",
-        "alertNote": "ASST holds 43,124 Bitcoin in treasury. Share price: $23.04, mNAV: 0.86x. Source: https://treasury.st",
+        "alertNote": "ASST holds 43,124 Bitcoin in treasury. Share price: $22.92, mNAV: 0.86x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -783,10 +783,10 @@
         ],
         "analytics": {
           "totalBtc": 43124.0,
-          "sharePrice": 23.04,
-          "mNAV": 0.8621640041469022,
+          "sharePrice": 22.92,
+          "mNAV": 0.8636868042404817,
           "btcYieldYtd": 94.64663066447523,
-          "marketCap": 2933708751.3599997
+          "marketCap": 2918429018.28
         },
         "alertSource": "dashboard"
       },
@@ -910,12 +910,20 @@
         },
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:02.139018",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1755953/000119312526329509/abtc-20260803.htm",
-        "alertDate": "2026-08-03",
-        "alertNote": "8-K 0001755953 false 0001755953 2026-08-03 2026-08-03 0001755953 dei:FormerAddressMember 2026-08-03 ",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1755953/000119312526447441/abtc-20261104.htm",
+        "alertDate": "2026-11-04",
+        "alertNote": "8-K false 0001755953 0001755953 2026-11-04 2026-11-04 &#160; UNITED STATES SECURITIES AND EXCHANGE C",
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-08-03",
+        "lastSecUpdate": "2026-11-04",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1755953/000119312526447441/abtc-20261104.htm",
+            "date": "2026-11-04",
+            "note": "8-K false 0001755953 0001755953 2026-11-04 2026-11-04 &#160; UNITED STATES SECURITIES AND EXCHANGE C",
+            "type": "sec_filing",
+            "items": "2.02,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1755953/000119312526329509/abtc-20260803.htm",
             "date": "2026-08-03",
@@ -3585,6 +3593,33 @@
     }
   ],
   "earnings": [
+    {
+      "ticker": "ABTC",
+      "name": "American Bitcoin",
+      "token": "BTC",
+      "type": "8-K",
+      "items": "2.02,9.01",
+      "date": "2026-11-04",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1755953/000119312526447441/abtc-20261104.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1755953/000119312526447441/",
+      "accession": "0001193125-26-447441",
+      "status": "reported",
+      "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/1755953/000119312526447441/abtc-ex99_1.htm"
+    },
+    {
+      "ticker": "ABTC",
+      "name": "American Bitcoin",
+      "token": "BTC",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-11-04",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1755953/000119312526447413/abtc-20260930.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1755953/000119312526447413/",
+      "accession": "0001193125-26-447413",
+      "status": "reported"
+    },
     {
       "ticker": "MSTR",
       "name": "Strategy",
