@@ -1,7 +1,31 @@
 {
-  "lastUpdated": "2026-11-05T16:52:54.225598-05:00",
-  "lastUpdatedDisplay": "Nov 05, 2026 04:52 PM ET",
+  "lastUpdated": "2026-11-05T23:45:02.984727-05:00",
+  "lastUpdatedDisplay": "Nov 05, 2026 11:45 PM ET",
   "recentChanges": [
+    {
+      "ticker": "UPXI",
+      "token": "SOL",
+      "date": "2026-11-06",
+      "tokens": 2340150,
+      "change": 0,
+      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
+    },
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-11-06",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $238.00, mNAV: 0.71x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-11-06",
+      "tokens": 43124,
+      "change": 0,
+      "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $20.59, mNAV: 0.82x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "UPXI",
       "token": "SOL",
@@ -46,30 +70,6 @@
       "ticker": "ASST",
       "token": "BTC",
       "date": "2026-11-05",
-      "tokens": 43124,
-      "change": 0,
-      "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $22.92, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-11-04",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-11-04",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $242.00, mNAV: 0.68x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-11-04",
       "tokens": 43124,
       "change": 0,
       "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $22.92, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
@@ -439,7 +439,7 @@
         "analytics": {
           "totalBtc": 849327.0,
           "sharePrice": 129.3,
-          "mNAV": 0.9090145414526473,
+          "mNAV": 0.9129550704466899,
           "btcYieldYtd": -3.8679898453727213,
           "marketCap": 54762837458.700005
         },
@@ -530,7 +530,7 @@
         "name": "Metaplanet",
         "notes": "Japan TSE - No SEC",
         "tokens": 44000,
-        "lastUpdate": "2026-11-05",
+        "lastUpdate": "2026-11-06",
         "change": 0,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
@@ -543,8 +543,8 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-11-05",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $259.00, mNAV: 0.77x. Source: https://treasury.",
+        "alertDate": "2026-11-06",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $238.00, mNAV: 0.71x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -650,10 +650,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 259.0,
-          "mNAV": 0.7658707226943217,
+          "sharePrice": 237.99999999999997,
+          "mNAV": 0.7062420650225929,
           "btcYieldYtd": 17.512479201331114,
-          "marketCap": 2082207879.1302176
+          "marketCap": 1911805139.0631692
         },
         "alertSource": "dashboard"
       },
@@ -661,7 +661,7 @@
         "ticker": "ASST",
         "name": "Strive",
         "tokens": 43124,
-        "lastUpdate": "2026-11-05",
+        "lastUpdate": "2026-11-06",
         "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
@@ -676,7 +676,7 @@
         "lastErrorTime": "2026-01-20T18:11:08.617945",
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-11-05",
+        "alertDate": "2026-11-06",
         "alertNote": "ASST holds 43,124 Bitcoin in treasury. Share price: $20.59, mNAV: 0.82x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
@@ -784,7 +784,7 @@
         "analytics": {
           "totalBtc": 43124.0,
           "sharePrice": 20.59,
-          "mNAV": 0.8182226165563476,
+          "mNAV": 0.8217695674543708,
           "btcYieldYtd": 94.64663066447523,
           "marketCap": 2621747534.31
         },
@@ -1811,13 +1811,13 @@
         "name": "Upexi",
         "notes": "High-yield strategy 2026",
         "tokens": 2340150,
-        "lastUpdate": "2026-11-05",
+        "lastUpdate": "2026-11-06",
         "change": 0,
         "cik": "0001839175",
         "irUrl": "https://ir.upexi.com/",
         "dashboardUrl": "https://www.upexi.com/",
         "alertUrl": "https://www.upexi.com/",
-        "alertDate": "2026-11-05",
+        "alertDate": "2026-11-06",
         "alertNote": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/",
         "scrape_config": {
           "method": "html_static",
@@ -3593,6 +3593,33 @@
     }
   ],
   "earnings": [
+    {
+      "ticker": "PURR",
+      "name": "Hyperliquid Strategies",
+      "token": "HYPE",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-11-05",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/2078856/000119312526450174/purr-20260930.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/2078856/000119312526450174/",
+      "accession": "0001193125-26-450174",
+      "status": "reported"
+    },
+    {
+      "ticker": "PURR",
+      "name": "Hyperliquid Strategies",
+      "token": "HYPE",
+      "type": "8-K",
+      "items": "2.02,5.07,7.01,9.01",
+      "date": "2026-11-05",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/2078856/000119312526450063/purr-20261104.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/2078856/000119312526450063/",
+      "accession": "0001193125-26-450063",
+      "status": "reported",
+      "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/2078856/000119312526450063/purr-ex99_1.htm"
+    },
     {
       "ticker": "ABTC",
       "name": "American Bitcoin",
