@@ -1,7 +1,23 @@
 {
-  "lastUpdated": "2026-11-05T23:45:02.984727-05:00",
-  "lastUpdatedDisplay": "Nov 05, 2026 11:45 PM ET",
+  "lastUpdated": "2026-11-06T10:34:28.182358-05:00",
+  "lastUpdatedDisplay": "Nov 06, 2026 10:34 AM ET",
   "recentChanges": [
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-11-06",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $237.00, mNAV: 0.70x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-11-06",
+      "tokens": 43124,
+      "change": 0,
+      "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $21.07, mNAV: 0.84x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "UPXI",
       "token": "SOL",
@@ -65,22 +81,6 @@
       "tokens": 44000,
       "change": 0,
       "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $263.00, mNAV: 0.73x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-11-05",
-      "tokens": 43124,
-      "change": 0,
-      "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $22.92, mNAV: 0.86x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "UPXI",
-      "token": "SOL",
-      "date": "2026-11-04",
-      "tokens": 2340150,
-      "change": 0,
-      "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
     }
   ],
   "tokenConfig": {
@@ -438,10 +438,10 @@
         ],
         "analytics": {
           "totalBtc": 849327.0,
-          "sharePrice": 129.3,
-          "mNAV": 0.9129550704466899,
+          "sharePrice": 129.1605,
+          "mNAV": 0.9132717496121613,
           "btcYieldYtd": -3.8679898453727213,
-          "marketCap": 54762837458.700005
+          "marketCap": 54703754583.01951
         },
         "alertSource": "sec_edgar"
       },
@@ -544,7 +544,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-06",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $238.00, mNAV: 0.71x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $237.00, mNAV: 0.70x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -650,10 +650,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 237.99999999999997,
-          "mNAV": 0.7062420650225929,
+          "sharePrice": 237.00000000000003,
+          "mNAV": 0.7020942373000504,
           "btcYieldYtd": 17.512479201331114,
-          "marketCap": 1911805139.0631692
+          "marketCap": 1897868098.1973846
         },
         "alertSource": "dashboard"
       },
@@ -677,7 +677,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-06",
-        "alertNote": "ASST holds 43,124 Bitcoin in treasury. Share price: $20.59, mNAV: 0.82x. Source: https://treasury.st",
+        "alertNote": "ASST holds 43,124 Bitcoin in treasury. Share price: $21.07, mNAV: 0.84x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -783,10 +783,10 @@
         ],
         "analytics": {
           "totalBtc": 43124.0,
-          "sharePrice": 20.59,
-          "mNAV": 0.8217695674543708,
+          "sharePrice": 21.07,
+          "mNAV": 0.8421271498986925,
           "btcYieldYtd": 94.64663066447523,
-          "marketCap": 2621747534.31
+          "marketCap": 2682866466.63
         },
         "alertSource": "dashboard"
       },
@@ -2232,6 +2232,42 @@
     "BNB": 99
   },
   "discoveredPressReleases": [
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "Press Releases",
+      "url": "https://ir.fgcommunities.com/press-releases/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-11-06T15:34:19.253989"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Communities Holdings Inc. Completes Manufactured Housing Community Acquisition in Mars Hill, NC",
+      "url": "https://ir.fgcommunities.com/fg-communities-holdings-inc-completes-manufactured-housing-community-acquisition-in-mars-hill-nc/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-11-06T15:34:19.253989"
+    },
+    {
+      "ticker": "FGNX",
+      "token": "ETH",
+      "title": "FG Communities Holdings Inc. Completes Manufactured Housing Acquisition in Garner, NC",
+      "url": "https://ir.fgcommunities.com/fg-communities-holdings-inc-completes-manufactured-housing-acquisition-in-garner-nc/",
+      "date": null,
+      "sourcePage": "https://fgnexus.io/news/",
+      "discoveredAt": "2026-11-06T15:34:19.253989"
+    },
+    {
+      "ticker": "BMNR",
+      "token": "ETH",
+      "title": "Retail Voting Program",
+      "url": "https://www.bitminetech.io/investor-relations/retail-voting-program",
+      "date": null,
+      "sourcePage": "https://www.bitminetech.io/investor-relations",
+      "discoveredAt": "2026-11-06T15:34:17.385814"
+    },
     {
       "ticker": "STSS",
       "token": "SOL",
