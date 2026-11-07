@@ -1,7 +1,23 @@
 {
-  "lastUpdated": "2026-11-06T16:14:30.796324-05:00",
-  "lastUpdatedDisplay": "Nov 06, 2026 04:14 PM ET",
+  "lastUpdated": "2026-11-06T23:12:46.063047-05:00",
+  "lastUpdatedDisplay": "Nov 06, 2026 11:12 PM ET",
   "recentChanges": [
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-11-07",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $237.00, mNAV: 0.70x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-11-07",
+      "tokens": 43124,
+      "change": 0,
+      "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $21.45, mNAV: 0.85x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "MTPLF",
       "token": "BTC",
@@ -65,22 +81,6 @@
       "tokens": 2340150,
       "change": 0,
       "summary": "UPXI holds 2,340,150 SOL in treasury holdings. Source: https://www.upexi.com/"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-11-05",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $259.00, mNAV: 0.77x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-11-05",
-      "tokens": 43124,
-      "change": 0,
-      "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $20.59, mNAV: 0.82x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -438,10 +438,10 @@
         ],
         "analytics": {
           "totalBtc": 849327.0,
-          "sharePrice": 129.1,
-          "mNAV": 0.9092741244394471,
+          "sharePrice": 128.93,
+          "mNAV": 0.9075628938611642,
           "btcYieldYtd": -3.8679898453727213,
-          "marketCap": 54678130826.899994
+          "marketCap": 54606130189.87
         },
         "alertSource": "sec_edgar"
       },
@@ -530,7 +530,7 @@
         "name": "Metaplanet",
         "notes": "Japan TSE - No SEC",
         "tokens": 44000,
-        "lastUpdate": "2026-11-06",
+        "lastUpdate": "2026-11-07",
         "change": 0,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
@@ -543,7 +543,7 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-11-06",
+        "alertDate": "2026-11-07",
         "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $237.00, mNAV: 0.70x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
@@ -651,9 +651,9 @@
         "analytics": {
           "totalBtc": 44000.0,
           "sharePrice": 237.0,
-          "mNAV": 0.6985945626002931,
+          "mNAV": 0.698490251493485,
           "btcYieldYtd": 17.512479201331114,
-          "marketCap": 1895821893.8016725
+          "marketCap": 1896612131.3289444
         },
         "alertSource": "dashboard"
       },
@@ -661,7 +661,7 @@
         "ticker": "ASST",
         "name": "Strive",
         "tokens": 43124,
-        "lastUpdate": "2026-11-06",
+        "lastUpdate": "2026-11-07",
         "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
@@ -676,8 +676,8 @@
         "lastErrorTime": "2026-01-20T18:11:08.617945",
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-11-06",
-        "alertNote": "ASST holds 43,124 Bitcoin in treasury. Share price: $21.23, mNAV: 0.85x. Source: https://treasury.st",
+        "alertDate": "2026-11-07",
+        "alertNote": "ASST holds 43,124 Bitcoin in treasury. Share price: $21.45, mNAV: 0.85x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -783,10 +783,10 @@
         ],
         "analytics": {
           "totalBtc": 43124.0,
-          "sharePrice": 21.23,
-          "mNAV": 0.8452037428275311,
+          "sharePrice": 21.45,
+          "mNAV": 0.8534790642707174,
           "btcYieldYtd": 94.64663066447523,
-          "marketCap": 2703239444.07
+          "marketCap": 2731252288.0499997
         },
         "alertSource": "dashboard"
       },
@@ -3629,6 +3629,32 @@
     }
   ],
   "earnings": [
+    {
+      "ticker": "FGNX",
+      "name": "FG Nexus",
+      "token": "ETH",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-11-06",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226050524/form10-q.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226050524/",
+      "accession": "0001493152-26-050524",
+      "status": "reported"
+    },
+    {
+      "ticker": "STSS",
+      "name": "Sharps Technology",
+      "token": "SOL",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-11-06",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1737995/000149315226050470/form10-q.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1737995/000149315226050470/",
+      "accession": "0001493152-26-050470",
+      "status": "reported"
+    },
     {
       "ticker": "PURR",
       "name": "Hyperliquid Strategies",
