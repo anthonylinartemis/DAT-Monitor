@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2026-11-08T12:29:46.131602-05:00",
-  "lastUpdatedDisplay": "Nov 08, 2026 12:29 PM ET",
+  "lastUpdated": "2026-11-08T18:23:22.293144-05:00",
+  "lastUpdatedDisplay": "Nov 08, 2026 06:23 PM ET",
   "recentChanges": [
     {
       "ticker": "MTPLF",
@@ -8,7 +8,7 @@
       "date": "2026-11-08",
       "tokens": 44000,
       "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $237.00, mNAV: 0.70x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $237.00, mNAV: 0.71x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -16,7 +16,7 @@
       "date": "2026-11-08",
       "tokens": 43124,
       "change": 0,
-      "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $21.45, mNAV: 0.85x. Source: https://treasury.strive.com/?tab=home"
+      "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $21.45, mNAV: 0.87x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "MTPLF",
@@ -53,7 +53,7 @@
     {
       "ticker": "MTPLF",
       "token": "BTC",
-      "date": "2026-11-07",
+      "date": "2026-11-08",
       "tokens": 44000,
       "change": 0,
       "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $237.00, mNAV: 0.70x. Source: https://treasury.strive.com/?tab=home"
@@ -61,7 +61,7 @@
     {
       "ticker": "ASST",
       "token": "BTC",
-      "date": "2026-11-07",
+      "date": "2026-11-08",
       "tokens": 43124,
       "change": 0,
       "summary": "ASST holds 43,124 Bitcoin in treasury. Share price: $21.45, mNAV: 0.85x. Source: https://treasury.strive.com/?tab=home"
@@ -439,7 +439,7 @@
         "analytics": {
           "totalBtc": 849327.0,
           "sharePrice": 128.93,
-          "mNAV": 0.908933442030157,
+          "mNAV": 0.9201507024041041,
           "btcYieldYtd": -3.8679898453727213,
           "marketCap": 54606130189.87
         },
@@ -544,7 +544,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-08",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $237.00, mNAV: 0.70x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $237.00, mNAV: 0.71x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -651,9 +651,9 @@
         "analytics": {
           "totalBtc": 44000.0,
           "sharePrice": 237.0,
-          "mNAV": 0.6989754281848334,
+          "mNAV": 0.7078876629409426,
           "btcYieldYtd": 17.512479201331114,
-          "marketCap": 1895067712.739523
+          "marketCap": 1895833912.6233797
         },
         "alertSource": "dashboard"
       },
@@ -677,7 +677,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-08",
-        "alertNote": "ASST holds 43,124 Bitcoin in treasury. Share price: $21.45, mNAV: 0.85x. Source: https://treasury.st",
+        "alertNote": "ASST holds 43,124 Bitcoin in treasury. Share price: $21.45, mNAV: 0.87x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -784,7 +784,7 @@
         "analytics": {
           "totalBtc": 43124.0,
           "sharePrice": 21.45,
-          "mNAV": 0.8547679382173301,
+          "mNAV": 0.8653167353887379,
           "btcYieldYtd": 94.64663066447523,
           "marketCap": 2731252288.0499997
         },
@@ -2232,6 +2232,78 @@
     "BNB": 99
   },
   "discoveredPressReleases": [
+    {
+      "ticker": "XXI",
+      "token": "BTC",
+      "title": "Twenty One Capital to Host Third Quarter 2026 Earnings Call on Friday, November 13th",
+      "url": "https://investors.xxi.money/news/news-details/2026/Twenty-One-Capital-to-Host-Third-Quarter-2026-Earnings-Call-on-Friday-November-13th/default.aspx",
+      "date": "2026-11-05",
+      "sourcePage": "https://xxi.money/",
+      "discoveredAt": "2026-11-08T23:23:07.225690"
+    },
+    {
+      "ticker": "XXI",
+      "token": "BTC",
+      "title": "Twenty One Capital CEO, Raphael Zagury, to Participate in Panel Discussion at the 4th Annual Cantor Convergence Conference on November 10th",
+      "url": "https://investors.xxi.money/news/news-details/2026/Twenty-One-Capital-CEO-Raphael-Zagury-to-Participate-in-Panel-Discussion-at-the-4th-Annual-Cantor-Convergence-Conference-on-November-10th/default.aspx",
+      "date": "2026-11-04",
+      "sourcePage": "https://xxi.money/",
+      "discoveredAt": "2026-11-08T23:23:07.225690"
+    },
+    {
+      "ticker": "XXI",
+      "token": "BTC",
+      "title": "Keynote at Plan B Forum: Building the Bitcoin Operating Company",
+      "url": "https://xxi.money/letters.html#talks",
+      "date": "2026-10-24",
+      "sourcePage": "https://xxi.money/",
+      "discoveredAt": "2026-11-08T23:23:07.225690"
+    },
+    {
+      "ticker": "XXI",
+      "token": "BTC",
+      "title": "Investor information",
+      "url": "https://xxi.money/investors.html",
+      "date": null,
+      "sourcePage": "https://xxi.money/",
+      "discoveredAt": "2026-11-08T23:23:07.225690"
+    },
+    {
+      "ticker": "XXI",
+      "token": "BTC",
+      "title": "View disclosed Bitcoin addresses",
+      "url": "https://xxi.money/reserves.html",
+      "date": null,
+      "sourcePage": "https://xxi.money/",
+      "discoveredAt": "2026-11-08T23:23:07.225690"
+    },
+    {
+      "ticker": "XXI",
+      "token": "BTC",
+      "title": "Capital details and share rights",
+      "url": "https://xxi.money/investors.html#capital",
+      "date": null,
+      "sourcePage": "https://xxi.money/",
+      "discoveredAt": "2026-11-08T23:23:07.225690"
+    },
+    {
+      "ticker": "XXI",
+      "token": "BTC",
+      "title": "All announcements",
+      "url": "https://xxi.money/investors.html#news",
+      "date": null,
+      "sourcePage": "https://xxi.money/",
+      "discoveredAt": "2026-11-08T23:23:07.225690"
+    },
+    {
+      "ticker": "XXI",
+      "token": "BTC",
+      "title": "Media inquiries",
+      "url": "https://xxi.money/investors.html#media",
+      "date": null,
+      "sourcePage": "https://xxi.money/",
+      "discoveredAt": "2026-11-08T23:23:07.225690"
+    },
     {
       "ticker": "FGNX",
       "token": "ETH",
