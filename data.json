@@ -1,7 +1,23 @@
 {
-  "lastUpdated": "2026-11-11T20:46:21.948271-05:00",
-  "lastUpdatedDisplay": "Nov 11, 2026 08:46 PM ET",
+  "lastUpdated": "2026-11-12T07:04:30.436724-05:00",
+  "lastUpdatedDisplay": "Nov 12, 2026 07:04 AM ET",
   "recentChanges": [
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-11-12",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $229.00, mNAV: 0.69x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-11-12",
+      "tokens": 43153,
+      "change": 0,
+      "summary": "ASST holds 43,153 Bitcoin in treasury. Share price: $23.20, mNAV: 0.96x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "MTPLF",
       "token": "BTC",
@@ -65,22 +81,6 @@
       "tokens": 43153,
       "change": 0,
       "summary": "ASST holds 43,153 Bitcoin in treasury. Share price: $21.55, mNAV: 0.88x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-11-10",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $237.00, mNAV: 0.72x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-11-10",
-      "tokens": 43153,
-      "change": 0,
-      "summary": "ASST holds 43,153 Bitcoin in treasury. Share price: $21.30, mNAV: 0.88x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -439,7 +439,7 @@
         "analytics": {
           "totalBtc": 850364.0,
           "sharePrice": 122.35,
-          "mNAV": 0.8903104415185384,
+          "mNAV": 0.894646037484108,
           "btcYieldYtd": -4.184424442905865,
           "marketCap": 52071096656.149994
         },
@@ -544,7 +544,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-12",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $230.00, mNAV: 0.69x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $229.00, mNAV: 0.69x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -650,10 +650,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 230.0,
-          "mNAV": 0.6931182455072779,
+          "sharePrice": 229.0,
+          "mNAV": 0.6932483502311977,
           "btcYieldYtd": 17.512479201331114,
-          "marketCap": 1826594533.0469303
+          "marketCap": 1818083774.6547153
         },
         "alertSource": "dashboard"
       },
@@ -677,7 +677,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-12",
-        "alertNote": "ASST holds 43,153 Bitcoin in treasury. Share price: $23.20, mNAV: 0.95x. Source: https://treasury.st",
+        "alertNote": "ASST holds 43,153 Bitcoin in treasury. Share price: $23.20, mNAV: 0.96x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -784,7 +784,7 @@
         "analytics": {
           "totalBtc": 43153.0,
           "sharePrice": 23.2,
-          "mNAV": 0.9504843216350148,
+          "mNAV": 0.9551129498056439,
           "btcYieldYtd": 94.78163888236675,
           "marketCap": 2954081728.7999997
         },
@@ -3701,6 +3701,47 @@
     }
   ],
   "earnings": [
+    {
+      "ticker": "BTBT",
+      "name": "Bit Digital",
+      "token": "ETH",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-11-12",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1710350/000121390026118350/ea0310144-10q_bitdigital.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1710350/000121390026118350/",
+      "accession": "0001213900-26-118350",
+      "status": "reported"
+    },
+    {
+      "ticker": "BTBT",
+      "name": "Bit Digital",
+      "token": "ETH",
+      "type": "8-K",
+      "items": "2.02,7.01,9.01",
+      "date": "2026-11-12",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1710350/000121390026118267/ea0311882-8k_bitdigital.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1710350/000121390026118267/",
+      "accession": "0001213900-26-118267",
+      "status": "reported",
+      "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/1710350/000121390026118267/ea031188201ex99-1.htm"
+    },
+    {
+      "ticker": "HYPD",
+      "name": "Hyperion DeFi",
+      "token": "HYPE",
+      "type": "8-K",
+      "items": "2.02,7.01,9.01",
+      "date": "2026-11-12",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926125794/tm2624461d2_8k.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926125794/",
+      "accession": "0001104659-26-125794",
+      "status": "reported",
+      "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926125794/tm2624461d2_ex99-1.htm"
+    },
     {
       "ticker": "BMNR",
       "name": "BitMine Immersion",
