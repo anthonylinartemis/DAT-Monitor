@@ -1,7 +1,23 @@
 {
-  "lastUpdated": "2026-11-12T07:04:30.436724-05:00",
-  "lastUpdatedDisplay": "Nov 12, 2026 07:04 AM ET",
+  "lastUpdated": "2026-11-12T17:01:17.920897-05:00",
+  "lastUpdatedDisplay": "Nov 12, 2026 05:01 PM ET",
   "recentChanges": [
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-11-12",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $229.00, mNAV: 0.71x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-11-12",
+      "tokens": 43153,
+      "change": 0,
+      "summary": "ASST holds 43,153 Bitcoin in treasury. Share price: $22.25, mNAV: 0.94x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "MTPLF",
       "token": "BTC",
@@ -57,22 +73,6 @@
       "tokens": 44000,
       "change": 0,
       "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $231.00, mNAV: 0.69x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-11-11",
-      "tokens": 43153,
-      "change": 0,
-      "summary": "ASST holds 43,153 Bitcoin in treasury. Share price: $21.55, mNAV: 0.88x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-11-11",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $237.00, mNAV: 0.72x. Source: https://treasury.strive.com/?tab=home"
     },
     {
       "ticker": "ASST",
@@ -438,10 +438,10 @@
         ],
         "analytics": {
           "totalBtc": 850364.0,
-          "sharePrice": 122.35,
-          "mNAV": 0.894646037484108,
+          "sharePrice": 114.41,
+          "mNAV": 0.856465533456005,
           "btcYieldYtd": -4.184424442905865,
-          "marketCap": 52071096656.149994
+          "marketCap": 48691901662.689995
         },
         "alertSource": "sec_edgar"
       },
@@ -544,7 +544,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-12",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $229.00, mNAV: 0.69x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $229.00, mNAV: 0.71x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -650,10 +650,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 229.0,
-          "mNAV": 0.6932483502311977,
+          "sharePrice": 229.00000000000003,
+          "mNAV": 0.7089262378426388,
           "btcYieldYtd": 17.512479201331114,
-          "marketCap": 1818083774.6547153
+          "marketCap": 1816048574.8341532
         },
         "alertSource": "dashboard"
       },
@@ -677,7 +677,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-12",
-        "alertNote": "ASST holds 43,153 Bitcoin in treasury. Share price: $23.20, mNAV: 0.96x. Source: https://treasury.st",
+        "alertNote": "ASST holds 43,153 Bitcoin in treasury. Share price: $22.25, mNAV: 0.94x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -783,10 +783,10 @@
         ],
         "analytics": {
           "totalBtc": 43153.0,
-          "sharePrice": 23.2,
-          "mNAV": 0.9551129498056439,
+          "sharePrice": 22.25,
+          "mNAV": 0.9377679799254689,
           "btcYieldYtd": 94.78163888236675,
-          "marketCap": 2954081728.7999997
+          "marketCap": 2833117175.25
         },
         "alertSource": "dashboard"
       },
@@ -1423,12 +1423,20 @@
         },
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:04.367768",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026112303/ea0309578-8k_forum.htm",
-        "alertDate": "2026-10-26",
-        "alertNote": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026118449/ea0311915-8k_forum.htm",
+        "alertDate": "2026-11-12",
+        "alertNote": "8-K: Item 2.02 - Results of Operations (Earnings); Item 9.01 - Financial Statements and Exhibits",
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-10-26",
+        "lastSecUpdate": "2026-11-12",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026118449/ea0311915-8k_forum.htm",
+            "date": "2026-11-12",
+            "note": "8-K: Item 2.02 - Results of Operations (Earnings); Item 9.01 - Financial Statements and Exhibits",
+            "type": "sec_filing",
+            "items": "2.02,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026112303/ea0309578-8k_forum.htm",
             "date": "2026-10-26",
@@ -1580,14 +1588,6 @@
             "type": "sec_filing",
             "items": "5.03,7.01,8.01,9.01",
             "form": "8-K"
-          },
-          {
-            "url": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026006924/ea0273808-8k_ethzilla.htm",
-            "date": "2026-02-20",
-            "note": "8-K: Item 2.01; Item 9.01 - Financial Statements and Exhibits",
-            "type": "sec_filing",
-            "items": "2.01,9.01",
-            "form": "8-K"
           }
         ]
       }
@@ -1668,9 +1668,9 @@
         "cik": "0001805526",
         "irUrl": "https://defidevcorp.com/investor",
         "dashboardUrl": "https://defidevcorp.com/?tab=history-purchases",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000140/dfdv-20261021.htm",
-        "alertDate": "2026-10-21",
-        "alertNote": "8-K: Item 5.02 - Departure/Election of Officers; Item 9.01 - Financial Statements and Exhibits",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000163/dfdv-20261109.htm",
+        "alertDate": "2026-11-12",
+        "alertNote": "8-K: Item 5.02 - Departure/Election of Officers; Item 7.01 - Regulation FD Disclosure; Item 9.01 - F",
         "scrape_config": {
           "method": "playwright_js",
           "source_url": "https://defidevcorp.com/?tab=history-purchases",
@@ -1679,6 +1679,22 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:04.932552",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000163/dfdv-20261109.htm",
+            "date": "2026-11-12",
+            "note": "8-K: Item 5.02 - Departure/Election of Officers; Item 7.01 - Regulation FD Disclosure; Item 9.01 - F",
+            "type": "sec_filing",
+            "items": "5.02,7.01,9.01",
+            "form": "8-K"
+          },
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000166/dfdv-20261112.htm",
+            "date": "2026-11-12",
+            "note": "8-K: Item 2.02 - Results of Operations (Earnings); Item 9.01 - Financial Statements and Exhibits",
+            "type": "sec_filing",
+            "items": "2.02,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000140/dfdv-20261021.htm",
             "date": "2026-10-21",
@@ -1801,7 +1817,7 @@
           }
         ],
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-10-21",
+        "lastSecUpdate": "2026-11-12",
         "analytics": {
           "totalSol": 2609829
         }
@@ -2258,6 +2274,33 @@
       "date": "2026-10-24",
       "sourcePage": "https://xxi.money/",
       "discoveredAt": "2026-11-08T23:23:07.225690"
+    },
+    {
+      "ticker": "BTCS",
+      "token": "ETH",
+      "title": "News &amp; Media",
+      "url": "https://www.btcs.com/news-media",
+      "date": null,
+      "sourcePage": "https://www.btcs.com/news-media/",
+      "discoveredAt": "2026-11-12T22:01:05.530395"
+    },
+    {
+      "ticker": "BTCS",
+      "token": "ETH",
+      "title": "Investor Presentation",
+      "url": "https://www.btcs.com/investors/investor-presentation",
+      "date": null,
+      "sourcePage": "https://www.btcs.com/news-media/",
+      "discoveredAt": "2026-11-12T22:01:05.530395"
+    },
+    {
+      "ticker": "BTCS",
+      "token": "ETH",
+      "title": "SEC Filings",
+      "url": "https://www.btcs.com/investors/sec-filings",
+      "date": null,
+      "sourcePage": "https://www.btcs.com/news-media/",
+      "discoveredAt": "2026-11-12T22:01:05.530395"
     },
     {
       "ticker": "XXI",
@@ -3702,6 +3745,19 @@
   ],
   "earnings": [
     {
+      "ticker": "NAKA",
+      "name": "Nakamoto Holdings",
+      "token": "BTC",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-11-12",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1946573/000162828026073455/naka-20260930.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1946573/000162828026073455/",
+      "accession": "0001628280-26-073455",
+      "status": "reported"
+    },
+    {
       "ticker": "BTBT",
       "name": "Bit Digital",
       "token": "ETH",
@@ -3727,6 +3783,73 @@
       "accession": "0001213900-26-118267",
       "status": "reported",
       "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/1710350/000121390026118267/ea031188201ex99-1.htm"
+    },
+    {
+      "ticker": "ETHZ",
+      "name": "Ethzilla",
+      "token": "ETH",
+      "type": "8-K",
+      "items": "2.02,9.01",
+      "date": "2026-11-12",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026118449/ea0311915-8k_forum.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026118449/",
+      "accession": "0001213900-26-118449",
+      "status": "reported",
+      "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/1690080/000121390026118449/ea031191501ex99-1.htm"
+    },
+    {
+      "ticker": "HSDT",
+      "name": "Solana Company",
+      "token": "SOL",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-11-12",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1610853/000161085326000017/hsdt-20260930.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1610853/000161085326000017/",
+      "accession": "0001610853-26-000017",
+      "status": "reported"
+    },
+    {
+      "ticker": "HSDT",
+      "name": "Solana Company",
+      "token": "SOL",
+      "type": "8-K",
+      "items": "2.02,9.01",
+      "date": "2026-11-12",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1610853/000161085326000016/hsdt-20261111.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1610853/000161085326000016/",
+      "accession": "0001610853-26-000016",
+      "status": "reported",
+      "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/1610853/000161085326000016/q32026pressreleaseex991.htm"
+    },
+    {
+      "ticker": "DFDV",
+      "name": "DeFi Development",
+      "token": "SOL",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-11-12",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000168/dfdv-20260930.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000168/",
+      "accession": "0001805526-26-000168",
+      "status": "reported"
+    },
+    {
+      "ticker": "DFDV",
+      "name": "DeFi Development",
+      "token": "SOL",
+      "type": "8-K",
+      "items": "2.02,9.01",
+      "date": "2026-11-12",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000166/dfdv-20261112.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1805526/000180552626000166/",
+      "accession": "0001805526-26-000166",
+      "status": "reported"
     },
     {
       "ticker": "HYPD",
