@@ -1,7 +1,23 @@
 {
-  "lastUpdated": "2026-11-12T23:41:18.725671-05:00",
-  "lastUpdatedDisplay": "Nov 12, 2026 11:41 PM ET",
+  "lastUpdated": "2026-11-13T10:52:19.073885-05:00",
+  "lastUpdatedDisplay": "Nov 13, 2026 10:52 AM ET",
   "recentChanges": [
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-11-13",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $219.00, mNAV: 0.71x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-11-13",
+      "tokens": 43153,
+      "change": 0,
+      "summary": "ASST holds 43,153 Bitcoin in treasury. Share price: $20.37, mNAV: 0.90x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "MTPLF",
       "token": "BTC",
@@ -65,22 +81,6 @@
       "tokens": 43153,
       "change": 0,
       "summary": "ASST holds 43,153 Bitcoin in treasury. Share price: $23.20, mNAV: 0.95x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-11-11",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $231.00, mNAV: 0.69x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-11-11",
-      "tokens": 43153,
-      "change": 0,
-      "summary": "ASST holds 43,153 Bitcoin in treasury. Share price: $23.01, mNAV: 0.93x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -438,10 +438,10 @@
         ],
         "analytics": {
           "totalBtc": 850364.0,
-          "sharePrice": 114.41,
-          "mNAV": 0.89045094346581,
+          "sharePrice": 109.5,
+          "mNAV": 0.8608190704308922,
           "btcYieldYtd": -4.184424442905865,
-          "marketCap": 48691901662.689995
+          "marketCap": 46602248335.5
         },
         "alertSource": "sec_edgar"
       },
@@ -454,9 +454,9 @@
         "change": -43014,
         "cik": "0002070457",
         "irUrl": "https://xxi.money/",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/2070457/000121390026098200/ea0304719-8k_twenty.htm",
-        "alertDate": "2026-09-09",
-        "alertNote": "8-K: Item 5.02 - Departure/Election of Officers; Item 9.01 - Financial Statements and Exhibits",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/2070457/000162828026073571/xxi-20261113.htm",
+        "alertDate": "2026-11-13",
+        "alertNote": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -465,6 +465,14 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:32:52.265279",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/2070457/000162828026073571/xxi-20261113.htm",
+            "date": "2026-11-13",
+            "note": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
+            "type": "sec_filing",
+            "items": "7.01,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/2070457/000121390026098200/ea0304719-8k_twenty.htm",
             "date": "2026-09-09",
@@ -523,7 +531,7 @@
           }
         ],
         "alertSource": "sec_edgar",
-        "lastSecUpdate": "2026-09-09"
+        "lastSecUpdate": "2026-11-13"
       },
       {
         "ticker": "MTPLF",
@@ -544,7 +552,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-13",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $218.00, mNAV: 0.70x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $219.00, mNAV: 0.71x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -650,10 +658,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 218.0,
-          "mNAV": 0.701494487119178,
+          "sharePrice": 219.0,
+          "mNAV": 0.7121655167896399,
           "btcYieldYtd": 17.512479201331114,
-          "marketCap": 1728425101.6135476
+          "marketCap": 1737222701.610334
         },
         "alertSource": "dashboard"
       },
@@ -677,7 +685,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-13",
-        "alertNote": "ASST holds 43,153 Bitcoin in treasury. Share price: $22.25, mNAV: 0.97x. Source: https://treasury.st",
+        "alertNote": "ASST holds 43,153 Bitcoin in treasury. Share price: $20.37, mNAV: 0.90x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -783,10 +791,10 @@
         ],
         "analytics": {
           "totalBtc": 43153.0,
-          "sharePrice": 22.25,
-          "mNAV": 0.9749795524253341,
+          "sharePrice": 20.37,
+          "mNAV": 0.9015883038688985,
           "btcYieldYtd": 94.78163888236675,
-          "marketCap": 2833117175.25
+          "marketCap": 2593734690.33
         },
         "alertSource": "dashboard"
       },
@@ -1287,11 +1295,19 @@
         },
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:03.695870",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226047286/form8-k.htm",
-        "alertDate": "2026-10-15",
-        "alertNote": "8-K: Item 7.01 - Regulation FD Disclosure; Item 8.01 - Other Events; Item 9.01 - Financial Statement",
-        "lastSecUpdate": "2026-10-15",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226051561/form8-k.htm",
+        "alertDate": "2026-11-13",
+        "alertNote": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
+        "lastSecUpdate": "2026-11-13",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226051561/form8-k.htm",
+            "date": "2026-11-13",
+            "note": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
+            "type": "sec_filing",
+            "items": "7.01,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1591890/000149315226047286/form8-k.htm",
             "date": "2026-10-15",
@@ -2248,6 +2264,24 @@
     "BNB": 99
   },
   "discoveredPressReleases": [
+    {
+      "ticker": "XXI",
+      "token": "BTC",
+      "title": "Quarterly letter to shareholders",
+      "url": "https://xxi.money/letters/letter-02.html",
+      "date": "2026-11-13",
+      "sourcePage": "https://xxi.money/",
+      "discoveredAt": "2026-11-13T15:51:54.163029"
+    },
+    {
+      "ticker": "XXI",
+      "token": "BTC",
+      "title": "SEC filings",
+      "url": "https://xxi.money/investors.html#filings",
+      "date": "2026-11-13",
+      "sourcePage": "https://xxi.money/",
+      "discoveredAt": "2026-11-13T15:51:54.163029"
+    },
     {
       "ticker": "XXI",
       "token": "BTC",
@@ -3744,6 +3778,46 @@
     }
   ],
   "earnings": [
+    {
+      "ticker": "XXI",
+      "name": "Twenty One Capital",
+      "token": "BTC",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-11-13",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/2070457/000162828026073570/xxi-20260930.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/2070457/000162828026073570/",
+      "accession": "0001628280-26-073570",
+      "status": "reported"
+    },
+    {
+      "ticker": "NAKA",
+      "name": "Nakamoto Holdings",
+      "token": "BTC",
+      "type": "8-K",
+      "items": "2.02,9.01",
+      "date": "2026-11-13",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1946573/000149315226051510/form8-k.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1946573/000149315226051510/",
+      "accession": "0001493152-26-051510",
+      "status": "reported",
+      "pressReleaseUrl": "https://www.sec.gov/Archives/edgar/data/1946573/000149315226051510/ex99-1.htm"
+    },
+    {
+      "ticker": "HYPD",
+      "name": "Hyperion DeFi",
+      "token": "HYPE",
+      "type": "10-Q",
+      "items": "",
+      "date": "2026-11-13",
+      "quarter": "Q3 FY2026",
+      "filingUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926126428/hypd-20260930x10q.htm",
+      "indexUrl": "https://www.sec.gov/Archives/edgar/data/1682639/000110465926126428/",
+      "accession": "0001104659-26-126428",
+      "status": "reported"
+    },
     {
       "ticker": "NAKA",
       "name": "Nakamoto Holdings",
