@@ -1,7 +1,23 @@
 {
-  "lastUpdated": "2026-11-24T22:17:48.307453-05:00",
-  "lastUpdatedDisplay": "Nov 24, 2026 10:17 PM ET",
+  "lastUpdated": "2026-11-25T08:48:38.852062-05:00",
+  "lastUpdatedDisplay": "Nov 25, 2026 08:48 AM ET",
   "recentChanges": [
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-11-25",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $167.00, mNAV: 0.63x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-11-25",
+      "tokens": 43403,
+      "change": 0,
+      "summary": "ASST holds 43,403 Bitcoin in treasury. Share price: $14.19, mNAV: 0.73x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "MTPLF",
       "token": "BTC",
@@ -65,22 +81,6 @@
       "tokens": 43403,
       "change": 0,
       "summary": "ASST holds 43,403 Bitcoin in treasury. Share price: $15.82, mNAV: 0.77x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-11-23",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $177.00, mNAV: 0.64x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-11-23",
-      "tokens": 43403,
-      "change": 0,
-      "summary": "ASST holds 43,403 Bitcoin in treasury. Share price: $14.51, mNAV: 0.71x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -439,7 +439,7 @@
         "analytics": {
           "totalBtc": 851305.0,
           "sharePrice": 77.55,
-          "mNAV": 0.7000697024059945,
+          "mNAV": 0.7145922143945155,
           "btcYieldYtd": -4.920378490653127,
           "marketCap": 33317105680.649998
         },
@@ -552,7 +552,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-25",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $168.00, mNAV: 0.62x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $167.00, mNAV: 0.63x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -658,10 +658,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 168.0,
-          "mNAV": 0.6203361834374833,
+          "sharePrice": 166.99999999999997,
+          "mNAV": 0.6286964154640297,
           "btcYieldYtd": 18.469217970049918,
-          "marketCap": 1325562480.3501577
+          "marketCap": 1316124809.876708
         },
         "alertSource": "dashboard"
       },
@@ -685,7 +685,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-25",
-        "alertNote": "ASST holds 43,403 Bitcoin in treasury. Share price: $14.19, mNAV: 0.71x. Source: https://treasury.st",
+        "alertNote": "ASST holds 43,403 Bitcoin in treasury. Share price: $14.19, mNAV: 0.73x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -792,7 +792,7 @@
         "analytics": {
           "totalBtc": 43403.0,
           "sharePrice": 14.19,
-          "mNAV": 0.7115502668879015,
+          "mNAV": 0.7263109360695568,
           "btcYieldYtd": 95.90866400563513,
           "marketCap": 1806828436.71
         },
@@ -969,10 +969,10 @@
         "change": 2,
         "cik": "0001829311",
         "irUrl": "https://www.bitminetech.io/investor-relations",
-        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226043486/ex99-1.htm",
-        "alertDate": "2026-10-15",
-        "alertNote": "EX-99.1 2 ex99-1.htm EX-99.1 &nbsp; Exhibit 99.1 &nbsp; Bitmine Immersion Technologies (BMNR) Announ",
-        "lastSecUpdate": "2026-10-15",
+        "alertUrl": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226054131/form8-k.htm",
+        "alertDate": "2026-11-25",
+        "alertNote": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
+        "lastSecUpdate": "2026-11-25",
         "scrape_config": {
           "method": "sec_edgar",
           "source_url": null,
@@ -983,6 +983,14 @@
         "lastErrorTime": "2026-01-20T18:11:09.191496",
         "lastChecked": "2026-01-27T19:33:02.567127",
         "filings": [
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226054131/form8-k.htm",
+            "date": "2026-11-25",
+            "note": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
+            "type": "sec_filing",
+            "items": "7.01,9.01",
+            "form": "8-K"
+          },
           {
             "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226045035/form8-k.htm",
             "date": "2026-09-30",
@@ -1133,14 +1141,6 @@
             "note": "8-K: Item 7.01 - Regulation FD Disclosure; Item 9.01 - Financial Statements and Exhibits",
             "type": "sec_filing",
             "items": "7.01,9.01",
-            "form": "8-K"
-          },
-          {
-            "url": "https://www.sec.gov/Archives/edgar/data/1829311/000149315226028140/form8-k.htm",
-            "date": "2026-06-10",
-            "note": "8-K: Item 3.03; Item 5.03; Item 9.01 - Financial Statements and Exhibits",
-            "type": "sec_filing",
-            "items": "3.03,5.03,9.01",
             "form": "8-K"
           }
         ],
