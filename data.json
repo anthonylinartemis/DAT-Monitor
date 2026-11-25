@@ -1,7 +1,23 @@
 {
-  "lastUpdated": "2026-11-25T08:48:38.852062-05:00",
-  "lastUpdatedDisplay": "Nov 25, 2026 08:48 AM ET",
+  "lastUpdated": "2026-11-25T18:57:37.709041-05:00",
+  "lastUpdatedDisplay": "Nov 25, 2026 06:57 PM ET",
   "recentChanges": [
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-11-25",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $167.00, mNAV: 0.61x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-11-25",
+      "tokens": 43403,
+      "change": 0,
+      "summary": "ASST holds 43,403 Bitcoin in treasury. Share price: $14.95, mNAV: 0.75x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "MTPLF",
       "token": "BTC",
@@ -65,22 +81,6 @@
       "tokens": 43403,
       "change": 0,
       "summary": "ASST holds 43,403 Bitcoin in treasury. Share price: $15.47, mNAV: 0.76x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-11-23",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $177.00, mNAV: 0.64x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-11-23",
-      "tokens": 43403,
-      "change": 0,
-      "summary": "ASST holds 43,403 Bitcoin in treasury. Share price: $15.82, mNAV: 0.77x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -438,10 +438,10 @@
         ],
         "analytics": {
           "totalBtc": 851305.0,
-          "sharePrice": 77.55,
-          "mNAV": 0.7145922143945155,
+          "sharePrice": 79.96,
+          "mNAV": 0.7176071211295766,
           "btcYieldYtd": -4.920378490653127,
-          "marketCap": 33317105680.649998
+          "marketCap": 34352492201.479996
         },
         "alertSource": "sec_edgar"
       },
@@ -552,7 +552,7 @@
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-25",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $167.00, mNAV: 0.63x. Source: https://treasury.",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $167.00, mNAV: 0.61x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -658,10 +658,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 166.99999999999997,
-          "mNAV": 0.6286964154640297,
+          "sharePrice": 167.0,
+          "mNAV": 0.6130087333857827,
           "btcYieldYtd": 18.469217970049918,
-          "marketCap": 1316124809.876708
+          "marketCap": 1317605130.792211
         },
         "alertSource": "dashboard"
       },
@@ -685,7 +685,7 @@
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
         "alertDate": "2026-11-25",
-        "alertNote": "ASST holds 43,403 Bitcoin in treasury. Share price: $14.19, mNAV: 0.73x. Source: https://treasury.st",
+        "alertNote": "ASST holds 43,403 Bitcoin in treasury. Share price: $14.95, mNAV: 0.75x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -791,10 +791,10 @@
         ],
         "analytics": {
           "totalBtc": 43403.0,
-          "sharePrice": 14.19,
-          "mNAV": 0.7263109360695568,
+          "sharePrice": 14.95,
+          "mNAV": 0.7452789532162327,
           "btcYieldYtd": 95.90866400563513,
-          "marketCap": 1806828436.71
+          "marketCap": 1903600079.55
         },
         "alertSource": "dashboard"
       },
@@ -1851,7 +1851,8 @@
         "alertSource": "sec_edgar",
         "lastSecUpdate": "2026-11-17",
         "analytics": {
-          "totalSol": 2624491
+          "totalSol": 2624491,
+          "sharesOutstanding": 39742137
         }
       },
       {
