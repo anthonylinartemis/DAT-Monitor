@@ -1,7 +1,23 @@
 {
-  "lastUpdated": "2026-11-25T18:57:37.709041-05:00",
-  "lastUpdatedDisplay": "Nov 25, 2026 06:57 PM ET",
+  "lastUpdated": "2026-11-26T01:57:43.180688-05:00",
+  "lastUpdatedDisplay": "Nov 26, 2026 01:57 AM ET",
   "recentChanges": [
+    {
+      "ticker": "MTPLF",
+      "token": "BTC",
+      "date": "2026-11-26",
+      "tokens": 44000,
+      "change": 0,
+      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $177.00, mNAV: 0.65x. Source: https://treasury.strive.com/?tab=home"
+    },
+    {
+      "ticker": "ASST",
+      "token": "BTC",
+      "date": "2026-11-26",
+      "tokens": 43403,
+      "change": 0,
+      "summary": "ASST holds 43,403 Bitcoin in treasury. Share price: $14.95, mNAV: 0.74x. Source: https://treasury.strive.com/?tab=home"
+    },
     {
       "ticker": "MTPLF",
       "token": "BTC",
@@ -65,22 +81,6 @@
       "tokens": 43403,
       "change": 0,
       "summary": "ASST holds 43,403 Bitcoin in treasury. Share price: $14.42, mNAV: 0.72x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "MTPLF",
-      "token": "BTC",
-      "date": "2026-11-24",
-      "tokens": 44000,
-      "change": 0,
-      "summary": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $179.44, mNAV: 0.65x. Source: https://treasury.strive.com/?tab=home"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "date": "2026-11-24",
-      "tokens": 43403,
-      "change": 0,
-      "summary": "ASST holds 43,403 Bitcoin in treasury. Share price: $15.47, mNAV: 0.76x. Source: https://treasury.strive.com/?tab=home"
     }
   ],
   "tokenConfig": {
@@ -439,7 +439,7 @@
         "analytics": {
           "totalBtc": 851305.0,
           "sharePrice": 79.96,
-          "mNAV": 0.7176071211295766,
+          "mNAV": 0.7141061482534997,
           "btcYieldYtd": -4.920378490653127,
           "marketCap": 34352492201.479996
         },
@@ -538,7 +538,7 @@
         "name": "Metaplanet",
         "notes": "Japan TSE - No SEC",
         "tokens": 44000,
-        "lastUpdate": "2026-11-25",
+        "lastUpdate": "2026-11-26",
         "change": 0,
         "cik": "",
         "irUrl": "https://metaplanet.jp/en/shareholders/disclosures",
@@ -551,8 +551,8 @@
         "status": "ok",
         "lastChecked": "2026-01-27T19:33:00.751072",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-11-25",
-        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $167.00, mNAV: 0.61x. Source: https://treasury.",
+        "alertDate": "2026-11-26",
+        "alertNote": "MTPLF holds 44,000 Bitcoin in treasury. Share price: $177.00, mNAV: 0.65x. Source: https://treasury.",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -658,10 +658,10 @@
         ],
         "analytics": {
           "totalBtc": 44000.0,
-          "sharePrice": 167.0,
-          "mNAV": 0.6130087333857827,
+          "sharePrice": 177.0,
+          "mNAV": 0.6463187070378431,
           "btcYieldYtd": 18.469217970049918,
-          "marketCap": 1317605130.792211
+          "marketCap": 1396012507.3434255
         },
         "alertSource": "dashboard"
       },
@@ -669,7 +669,7 @@
         "ticker": "ASST",
         "name": "Strive",
         "tokens": 43403,
-        "lastUpdate": "2026-11-25",
+        "lastUpdate": "2026-11-26",
         "change": 0,
         "cik": "0001855631",
         "irUrl": "https://investors.strive.com/overview/default.aspx",
@@ -684,8 +684,8 @@
         "lastErrorTime": "2026-01-20T18:11:08.617945",
         "lastChecked": "2026-01-27T19:33:00.993937",
         "alertUrl": "https://treasury.strive.com/?tab=home",
-        "alertDate": "2026-11-25",
-        "alertNote": "ASST holds 43,403 Bitcoin in treasury. Share price: $14.95, mNAV: 0.75x. Source: https://treasury.st",
+        "alertDate": "2026-11-26",
+        "alertNote": "ASST holds 43,403 Bitcoin in treasury. Share price: $14.95, mNAV: 0.74x. Source: https://treasury.st",
         "lastSecUpdate": "2026-02-19",
         "filings": [
           {
@@ -792,7 +792,7 @@
         "analytics": {
           "totalBtc": 43403.0,
           "sharePrice": 14.95,
-          "mNAV": 0.7452789532162327,
+          "mNAV": 0.7416429784279477,
           "btcYieldYtd": 95.90866400563513,
           "marketCap": 1903600079.55
         },
@@ -1851,8 +1851,7 @@
         "alertSource": "sec_edgar",
         "lastSecUpdate": "2026-11-17",
         "analytics": {
-          "totalSol": 2624491,
-          "sharesOutstanding": 39742137
+          "totalSol": 2624491
         }
       },
       {
@@ -2378,24 +2377,6 @@
       "date": "2026-11-04",
       "sourcePage": "https://xxi.money/",
       "discoveredAt": "2026-11-08T23:23:07.225690"
-    },
-    {
-      "ticker": "BTCS",
-      "token": "ETH",
-      "title": "BTCS Inc. Commences Modified Dutch Auction Cash Tender Offer for Its Series V Preferred Stock at $0.04 to $1.00 per Share",
-      "url": "https://www.globenewswire.com/news-release/2026/10/26/3388029/0/en/btcs-inc-commences-modified-dutch-auction-cash-tender-offer-for-its-series-v-preferred-stock-at-0-04-to-1-00-per-share.html",
-      "date": "2026-10-26",
-      "sourcePage": "https://www.globenewswire.com/search/tag/BTCS",
-      "discoveredAt": "2026-11-15T20:44:05.459625"
-    },
-    {
-      "ticker": "ASST",
-      "token": "BTC",
-      "title": "Strive Announces $1.0 Billion SATS At-The-Market Program",
-      "url": "https://www.globenewswire.com/news-release/2026/10/26/3388066/0/en/strive-announces-1-0-billion-sats-at-the-market-program.html",
-      "date": "2026-10-26",
-      "sourcePage": "https://www.globenewswire.com/search/tag/ASST",
-      "discoveredAt": "2026-11-15T20:43:59.046775"
     },
     {
       "ticker": "BTCS",
